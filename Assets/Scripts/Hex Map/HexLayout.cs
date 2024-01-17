@@ -96,39 +96,72 @@ public class HexLayout : MonoBehaviour {
         Hex center = new Hex(-1, -1, -1);
 
         //All Tiles
-        List<Hex> map = new List<Hex>();
-        for(int q = -7; q <= 4; q++) {
-            for(int r = -3; r <= 3; r++) {
-                Hex h = new Hex(q , r , -q - r);
-                map.Add(h);
+        //    List<Hex> map = new List<Hex>();
+        //    for(int q = -7; q <= 4; q++) {
+        //        for(int r = -3; r <= 3; r++) {
+        //            Hex h = new Hex(q , r , -q - r);
+        //            map.Add(h);
 
-                GameObject obj = Instantiate(Testagon);
-                obj.name = q + " " + r + " " + (-q - r);
+        //            GameObject obj = Instantiate(Testagon);
+        //            obj.name = q + " " + r + " " + (-q - r);
 
-                Vector2 pos = new Vector2(spacing.x * q , spacing.y * r) * 0.5f;
-                Vector2 offset = new Vector2(r *  spacing.x * 0.25f, 0);
-                obj.transform.position = pos + offset;
-                //Debug.Log((Mathf.Sqrt(3) * size.x * q) + "     " + q);
+        //            Vector2 pos = new Vector2(spacing.x * q , spacing.y * r) * 0.5f;
+        //            Vector2 offset = new Vector2(r *  spacing.x * 0.25f, 0);
+        //            obj.transform.position = pos + offset;
+        //            //Debug.Log((Mathf.Sqrt(3) * size.x * q) + "     " + q);
 
-                obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "-1";
+        //            obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "-1";
 
-                h.attachedObj = obj;
+        //            h.attachedObj = obj;
 
 
-                if(q == 0 && r == 0) 
-                    center = h;
-            }
+        //            if(q == 0 && r == 0) 
+        //                center = h;
+        //        }
+        //    }
+
+        //    Debug.Log(center.attachedObj);
+
+        int q = 0, r = 0;
+        Hex h = new Hex(q , r , -q - r);
+
+        GameObject obj = Instantiate(Testagon);
+        obj.name = q + " " + r + " " + (-q - r);
+        Vector2 pos = new Vector2(spacing.x * q , spacing.y * r) * 0.5f;
+        Vector2 offset = new Vector2(r * spacing.x * 0.25f , 0);
+        obj.transform.position = pos + offset;
+
+        obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "X";
+
+        h.attachedObj = obj;
+        //Instantiate(Testagon);
+
+
+
+
+
+        for(int i = 0; i < 6; i++) {
+            Hex h2 = h.hex_neighbor(h , i);
+
+            GameObject obj2 = Instantiate(Testagon);
+            obj2.name = h2.q + " " + h2.r + " " + (-h2.q - h2.r);
+            Vector2 pos2 = new Vector2(spacing.x * h2.q , spacing.y * h2.r) * 0.5f;
+            Vector2 offset2 = new Vector2(h2.r * spacing.x * 0.25f , 0);
+            obj2.transform.position = pos2 + offset2;
+
+            obj2.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = i.ToString();
+
+            h2.attachedObj = obj2;
+            //Instantiate(Testagon);
         }
 
-        Debug.Log(center.attachedObj);
 
 
-
-    //Find All neighnors
-        for(int i = 0; i < map.Count; i++) {
-            string s = map[i].hex_length(map[i]).ToString();
-            map[i].attachedObj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = s;
-        }
+        ////Find All neighnors
+        //    for(int i = 0; i < map.Count; i++) {
+        //        string s = map[i].hex_length(map[i]).ToString();
+        //        map[i].attachedObj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = s;
+        //    }
     }
 
     public void adjNeighbor(Hex hex) {
