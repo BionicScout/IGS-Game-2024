@@ -10,6 +10,8 @@ public class RangeAttack : MonoBehaviour
     public GameObject arrowPrefab;
     private GameObject enemy;
 
+    bool shootMode = false;
+
     public void Start()
     {
         enemy = GameObject.FindGameObjectWithTag("Enemy");
@@ -25,5 +27,10 @@ public class RangeAttack : MonoBehaviour
     public void Shoot()
     {
         Instantiate(arrowPrefab, shootingPoint.position, Quaternion.identity);
+    }
+
+    public void ReadyToShoot(){
+        shootMode = true;
+
     }
 }
