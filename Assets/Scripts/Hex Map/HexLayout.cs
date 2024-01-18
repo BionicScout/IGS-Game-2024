@@ -89,6 +89,8 @@ public class HexLayout : MonoBehaviour {
     public GameObject Testagon;
     public Vector2Int size;
 
+    public Vector3Int offset2 = new Vector3Int(0, 0, 0);
+
     public Sprite clickSprite;
 
     private void Start() {
@@ -96,92 +98,52 @@ public class HexLayout : MonoBehaviour {
         Hex center = new Hex(-1, -1, -1);
 
         //All Tiles
-        //    List<Hex> map = new List<Hex>();
-        //    for(int q = -7; q <= 4; q++) {
-        //        for(int r = -3; r <= 3; r++) {
-        //            Hex h = new Hex(q , r , -q - r);
-        //            map.Add(h);
+        for(int q = -7; q <= 7; q++) {
+            for(int r = -7; r <= 7; r++) {
+                Hex h = new Hex(q , r , -q - r);
+                GlobalVars.availableHexes.Add(new Vector3Int(h.q, h.r, h.s));
 
-        //            GameObject obj = Instantiate(Testagon);
-        //            obj.name = q + " " + r + " " + (-q - r);
+                GameObject obj = Instantiate(Testagon);
+                obj.name = q + " " + r + " " + (-q - r);
 
-        //            Vector2 pos = new Vector2(spacing.x * q , spacing.y * r) * 0.5f;
-        //            Vector2 offset = new Vector2(r *  spacing.x * 0.25f, 0);
-        //            obj.transform.position = pos + offset;
-        //            //Debug.Log((Mathf.Sqrt(3) * size.x * q) + "     " + q);
+                Vector2 pos = new Vector2(spacing.x * q , spacing.y * r) * 0.5f;
+                Vector2 offset = new Vector2(r * spacing.x * 0.25f , 0);
+                obj.transform.position = pos + offset;
 
-        //            obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "-1";
+                obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "-1";
 
-        //            h.attachedObj = obj;
+                GlobalVars.hexagonTile.Add(new Vector3Int(h.q , h.r , h.s), obj);
 
-
-        //            if(q == 0 && r == 0) 
-        //                center = h;
-        //        }
-        //    }
-
-        //    Debug.Log(center.attachedObj);
-
-        int q = 0, r = 0;
-        Hex h = new Hex(q , r , -q - r);
-
-        GameObject obj = Instantiate(Testagon);
-        obj.name = q + " " + r + " " + (-q - r);
-        Vector2 pos = new Vector2(spacing.x * q , spacing.y * r) * 0.5f;
-        Vector2 offset = new Vector2(r * spacing.x * 0.25f , 0);
-        obj.transform.position = pos + offset;
-
-        obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "X";
-
-        h.attachedObj = obj;
-        //Instantiate(Testagon);
-
-
-
-
-
-        for(int i = 0; i < 6; i++) {
-            Hex h2 = h.hex_neighbor(h , i);
-
-            GameObject obj2 = Instantiate(Testagon);
-            obj2.name = h2.q + " " + h2.r + " " + (-h2.q - h2.r);
-            Vector2 pos2 = new Vector2(spacing.x * h2.q , spacing.y * h2.r) * 0.5f;
-            Vector2 offset2 = new Vector2(h2.r * spacing.x * 0.25f , 0);
-            obj2.transform.position = pos2 + offset2;
-
-            obj2.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = i.ToString();
-
-            h2.attachedObj = obj2;
-            //Instantiate(Testagon);
+                if(q == 0 && r == 0)
+                    center = h;
+            }
         }
 
+        
+        center += offset2;
 
 
-        ////Find All neighnors
-        //    for(int i = 0; i < map.Count; i++) {
-        //        string s = map[i].hex_length(map[i]).ToString();
-        //        map[i].attachedObj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = s;
-        //    }
-    }
+        //Find All neighnors
+        for(int i = 0; i < GlobalVars.availableHexes.Count; i++) {
+            Vector3Int pos = GlobalVars.availableHexes[i];
+            Hex h = new Hex(pos);
+            GameObject obj = GlobalVars.hexagonTile[pos];
 
-    public void adjNeighbor(Hex hex) {
-        for(int i = 0; i < 6;  i++) {
-            Hex neighboor = hex.hex_neighbor(hex, i);
-
-            if(neighboor.attachedObj == null)
-                return;
-            
-
+            string s = h.distance(center).ToString();
+            obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = s;
         }
     }
 
-    public void Update() {
-        //if(Input.GetMouseButtonDown(0)) {
-        //    mousePosition = Input.mousePosition;
+    //public void adjNeighbor(Hex hex) {
+    //    for(int i = 0; i < 6;  i++) {
+    //        Hex neighboor = hex.neighbor(i);
 
-        //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //    RaycastHit2D hit = Physics2D.Raycast(ray.origin , ray.direction);
-        //}
-    }
+    //        if(neighboor.attachedObj == null)
+    //            return;
+
+
+    //    }
+    //}
+
 
 }
