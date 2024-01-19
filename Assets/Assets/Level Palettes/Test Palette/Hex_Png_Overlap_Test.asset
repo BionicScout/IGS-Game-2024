@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: hexa_64x64_96
+  m_Name: Hex_Png_Overlap_Test
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 091f2440a46fd3742afbeaf2f1e6be8c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 89d5ea46ffd31db49862fb7f8ebc507a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

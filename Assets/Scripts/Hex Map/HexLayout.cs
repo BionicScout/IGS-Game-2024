@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class HexLayout : MonoBehaviour {
 
@@ -91,17 +92,100 @@ public class HexLayout : MonoBehaviour {
 
     public Vector3Int offset2 = new Vector3Int(0, 0, 0);
 
-    public Sprite clickSprite;
+    public GameObject tilemapObj;
+
+    public List<TileScriptableObjects> tileTemplates = new List<TileScriptableObjects>();
+
+    Vector2 spacing;
 
     private void Start() {
-        Vector2 spacing = new Vector2(Mathf.Sqrt(3) * size.x, 1.5f * size.y);
-        Hex center = new Hex(-1, -1, -1);
+        spacing = new Vector2(Mathf.Sqrt(3) * size.x , 1.5f * size.y);
+
+        //TestGeneration();
+        ImportTest();
+    }
+
+    public void ImportTest() {
+        Tilemap tilemap = tilemapObj.transform.GetChild(0).GetComponent<Tilemap>();
+        tilemap.CompressBounds();
+        TilemapRenderer tilemapRenderer = tilemapObj.transform.GetChild(0).GetComponent<TilemapRenderer>();
+
+
+        BoundsInt bounds = tilemap.cellBounds;
+        TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
+
+        for(int x = 0; x < bounds.size.x; x++) {
+            for(int y = 0; y < bounds.size.y; y++) {
+                TileBase tile = allTiles[x + y * bounds.size.x];
+                if(tile != null) {
+                    Debug.Log("x:" + x + " y:" + y + " tile:" + tile.name);
+                    CreateHexTile(x , y , tile.name);
+                }
+                else {
+                    //Debug.Log("x:" + x + " y:" + y + " tile: (null)");
+                }
+            }
+        }
+    }
+
+    private Vector3Int UnityCoords_To_CubicCoords(int y, int x) {
+        //if(y%2 == 0) {
+        //    x++;
+        //}
+
+        var q = y - (x + (x & 1)) / 2;
+        var r = x;
+        return new Vector3Int(q , r , -q - r);
+    }
+
+    public void CreateHexTile(int x, int y, string spriteName) {
+
+
+        Hex h = new Hex(UnityCoords_To_CubicCoords(x, y));
+        GlobalVars.availableHexes.Add(new Vector3Int(h.q , h.r , h.s));
+
+        GameObject obj = Instantiate(Testagon);
+        obj.name = h.q + " " + h.r + " " + h.s;
+        //obj.name = "(" + x.ToString() + ", " + y.ToString() + ")";
+
+        Vector2 pos = new Vector2(spacing.x * h.q , spacing.y * h.r) * 0.5f;
+        Vector2 offset = new Vector2(h.r * spacing.x * 0.25f , 0);
+        obj.transform.position = pos + offset;
+
+        obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + x.ToString() + ", " + y.ToString() + ")";
+        obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "";
+        //obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = spriteName;
+
+        GlobalVars.hexagonTile.Add(new Vector3Int(h.q , h.r , h.s) , obj);
+
+        TileScriptableObjects tileTemplate = getTileTemplate(spriteName);
+        if(tileTemplate == null)
+            return;
+
+
+        obj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = tileTemplate.sprite;
+    }
+
+    public TileScriptableObjects getTileTemplate(string spriteName) {
+        for(int i = 0; i < tileTemplates.Count; i++) {
+            if(tileTemplates[i].sprite.name == spriteName) {
+                return tileTemplates[i];
+            }
+        }
+
+        Debug.LogWarning("Tile Sprite Doesn't Exist - " + spriteName);
+        return null;
+    }
+
+    public void TestGeneration() {
+        Vector2 spacing = new Vector2(Mathf.Sqrt(3) * size.x , 1.5f * size.y);
+        Hex center = new Hex(-1 , -1 , -1);
 
         //All Tiles
-        for(int q = -7; q <= 7; q++) {
-            for(int r = -7; r <= 7; r++) {
+        for(int q = -12; q <= 12; q++) {
+            for(int r = -12; r <= 12; r++) {
                 Hex h = new Hex(q , r , -q - r);
-                GlobalVars.availableHexes.Add(new Vector3Int(h.q, h.r, h.s));
+                GlobalVars.availableHexes.Add(new Vector3Int(h.q , h.r , h.s));
 
                 GameObject obj = Instantiate(Testagon);
                 obj.name = q + " " + r + " " + (-q - r);
@@ -112,14 +196,14 @@ public class HexLayout : MonoBehaviour {
 
                 obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "-1";
 
-                GlobalVars.hexagonTile.Add(new Vector3Int(h.q , h.r , h.s), obj);
+                GlobalVars.hexagonTile.Add(new Vector3Int(h.q , h.r , h.s) , obj);
 
                 if(q == 0 && r == 0)
                     center = h;
             }
         }
 
-        
+
         center += offset2;
 
 
@@ -133,17 +217,6 @@ public class HexLayout : MonoBehaviour {
             obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = s;
         }
     }
-
-    //public void adjNeighbor(Hex hex) {
-    //    for(int i = 0; i < 6;  i++) {
-    //        Hex neighboor = hex.neighbor(i);
-
-    //        if(neighboor.attachedObj == null)
-    //            return;
-
-
-    //    }
-    //}
 
 
 }
