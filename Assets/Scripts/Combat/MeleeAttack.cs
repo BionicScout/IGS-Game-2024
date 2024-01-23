@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MeleeAttack : MonoBehaviour
 {
+    public BoxCollider2D range;
+    public Transform enemy;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +20,10 @@ public class MeleeAttack : MonoBehaviour
 
     public void Attack()
     {
+        if(Vector2.Distance(enemy.position, transform.position) <= range.edgeRadius = 2) 
+        {
+            Debug.Log("Enemy was attacked");
+        }
         //animation and effecting enemy health
 
     }
