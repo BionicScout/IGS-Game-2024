@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -114,17 +115,41 @@ public class HexLayout : MonoBehaviour {
         BoundsInt bounds = tilemap.cellBounds;
         TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
 
+        GameObject header = new GameObject();
+        header.name = "header";
+
+        //Create Tiles
         for(int x = 0; x < bounds.size.x; x++) {
             for(int y = 0; y < bounds.size.y; y++) {
                 TileBase tile = allTiles[x + y * bounds.size.x];
                 if(tile != null) {
                     Debug.Log("x:" + x + " y:" + y + " tile:" + tile.name);
-                    CreateHexTile(x , y , tile.name);
+                    GameObject tileObj = CreateHexTile(x , y , tile.name);
+                    tileObj.transform.parent = header.transform;
                 }
                 else {
                     //Debug.Log("x:" + x + " y:" + y + " tile: (null)");
                 }
             }
+        }
+
+        Destroy(tilemapObj);
+
+        //Adjust Center Postiton
+        Vector3Int aaa = new Vector3Int();
+        foreach(var t in GlobalVars.hexagonTile) {
+            aaa += t.Key;
+        }
+
+        //Vector3Int centerTile = UnityCoords_To_CubicCoords(bounds.size.y / 2 , bounds.size.x / 2);
+        int size = GlobalVars.hexagonTile.Count;
+        Vector3Int centerTile = new Vector3Int(aaa.x / size, aaa.y / size, aaa.z / size);
+        Vector3 centerPos = GlobalVars.hexagonTile[centerTile].transform.position;
+        Debug.Log("Ceneter Tile: " + centerTile);
+        Debug.Log("Offset: " + centerPos);
+
+        foreach(var t in GlobalVars.hexagonTile) {
+            t.Value.transform.position -= centerPos;
         }
     }
 
@@ -133,14 +158,12 @@ public class HexLayout : MonoBehaviour {
         //    x++;
         //}
 
-        var q = y - (x + (x & 1)) / 2;
+        var q = y - (x + (x & 0)) / 2;
         var r = x;
         return new Vector3Int(q , r , -q - r);
     }
 
-    public void CreateHexTile(int x, int y, string spriteName) {
-
-
+    public GameObject CreateHexTile(int x, int y, string spriteName) {
         Hex h = new Hex(UnityCoords_To_CubicCoords(x, y));
         GlobalVars.availableHexes.Add(new Vector3Int(h.q , h.r , h.s));
 
@@ -160,10 +183,11 @@ public class HexLayout : MonoBehaviour {
 
         TileScriptableObjects tileTemplate = getTileTemplate(spriteName);
         if(tileTemplate == null)
-            return;
+            return obj;
 
 
         obj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = tileTemplate.sprite;
+        return obj;
     }
 
     public TileScriptableObjects getTileTemplate(string spriteName) {
