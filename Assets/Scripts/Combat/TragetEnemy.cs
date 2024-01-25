@@ -22,7 +22,10 @@ public class TragetEnemy : MonoBehaviour
 
             if(Physics.Raycast(ray, out RaycastHit hitInfo))
             {
-                Debug.Log(hitInfo.collider.gameObject.name);
+                if (hitInfo.collider != null)
+                {
+                    Debug.Log(hitInfo.collider.gameObject.name);
+                }
             }
         }
     }
