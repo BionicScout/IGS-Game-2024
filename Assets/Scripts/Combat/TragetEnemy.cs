@@ -3,22 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TragetEnemy : MonoBehaviour
-{
-    public GameObject enemy;
+{ 
+    public Camera camera;
+    private Rigidbody2D rb;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-    public void OnMouseDown()
-    {
-         enemy.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-    }
+        if(Input.GetMouseButtonDown(0)) 
+        {
+            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 
+            if(Physics.Raycast(ray, out RaycastHit hitInfo))
+            {
+                if (hitInfo.collider.gameObject.GetComponent<EnemyHighlighted>() != null)
+                {
+                    Vector3 distanceToTarget = hitInfo.point - transform.position;
+                    Vector3 forceDirection = distanceToTarget.normalized;
+                }
+            }
+        }
+    }
 }

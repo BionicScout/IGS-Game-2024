@@ -12,12 +12,17 @@ public class EnemyStats : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        curHealth = maxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+    public void Damage(int dmg)
+    {
+        dmg -= defense;
+        curHealth -= dmg;
     }
 }

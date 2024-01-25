@@ -9,8 +9,9 @@ public class PlayerStats : MonoBehaviour
     public bool isShown;
     //all stats for a player
     public int move;
-    public int health = 10;
-    public bool dodge;
+    public int currHealth = 10;
+    public int maxHealth = 10;
+    public bool didDodge;
     public float dodgeChance;
     public int defense;
     public int power;
@@ -23,6 +24,7 @@ public class PlayerStats : MonoBehaviour
         //setting the characters menu to false
         CharMenu.SetActive(false);
         isShown = false;
+        currHealth = maxHealth;
 
     }
 
@@ -30,6 +32,11 @@ public class PlayerStats : MonoBehaviour
     void Update()
     {
         
+    }
+    public void Damage(int dmg)
+    {
+        dmg -= defense;
+        currHealth -= dmg;
     }
 
     public void OnMouseDown()
