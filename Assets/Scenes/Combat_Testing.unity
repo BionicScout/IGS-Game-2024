@@ -1022,7 +1022,6 @@ GameObject:
   - component: {fileID: 1335119437}
   - component: {fileID: 1335119435}
   - component: {fileID: 1335119438}
-  - component: {fileID: 1335119439}
   m_Layer: 0
   m_Name: RangePlayer
   m_TagString: Untagged
@@ -1178,19 +1177,6 @@ MonoBehaviour:
   dodgeChance: 0
   defense: 0
   power: 0
---- !u!114 &1335119439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1335119432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15f4fa4afc963eb49bcfe7424c72b8a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camera: {fileID: 158494693}
 --- !u!1 &1378189247
 GameObject:
   m_ObjectHideFlags: 0
@@ -1271,6 +1257,7 @@ GameObject:
   - component: {fileID: 1611766776}
   - component: {fileID: 1611766778}
   - component: {fileID: 1611766779}
+  - component: {fileID: 1611766780}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -1320,7 +1307,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.9547169, g: 0.28641498, b: 0.28641498, a: 1}
+  m_Color: {r: 1, g: 0.36037737, b: 0.36037737, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1402,6 +1389,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f5d04583f282ac4dac50a37bf210684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1611766780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611766775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f4fa4afc963eb49bcfe7424c72b8a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 158494693}
 --- !u!1 &1677471562
 GameObject:
   m_ObjectHideFlags: 0
@@ -2008,7 +2008,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1335119435}
         m_TargetAssemblyTypeName: RangeAttack, Assembly-CSharp
-        m_MethodName: Shoot
+        m_MethodName: ReadyToShoot
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
