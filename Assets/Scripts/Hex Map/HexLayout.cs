@@ -106,13 +106,33 @@ public class HexLayout : MonoBehaviour {
         ImportTest();
     }
 
+    int GetBottomRowY(Tilemap tilemap) {
+        BoundsInt bounds = tilemap.cellBounds;
+        TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
+
+        int minRowY = int.MaxValue;
+
+        foreach(Vector3Int pos in bounds.allPositionsWithin) {
+            if(tilemap.HasTile(pos)) {
+                minRowY = Mathf.Min(minRowY , pos.y);
+            }
+        }
+
+        return minRowY;
+    }
+
     public void ImportTest() {
         Tilemap tilemap = tilemapObj.transform.GetChild(0).GetComponent<Tilemap>();
+        BoundsInt bounds = tilemap.cellBounds;
         tilemap.CompressBounds();
+
+        int bottomRowY = GetBottomRowY(tilemap);
+        Debug.Log("Y coordinate of bottom row: " + bottomRowY);
+
         TilemapRenderer tilemapRenderer = tilemapObj.transform.GetChild(0).GetComponent<TilemapRenderer>();
 
 
-        BoundsInt bounds = tilemap.cellBounds;
+        //BoundsInt bounds = tilemap.cellBounds;
         TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
 
         GameObject header = new GameObject();
@@ -124,7 +144,7 @@ public class HexLayout : MonoBehaviour {
                 TileBase tile = allTiles[x + y * bounds.size.x];
                 if(tile != null) {
                     Debug.Log("x:" + x + " y:" + y + " tile:" + tile.name);
-                    GameObject tileObj = CreateHexTile(x , y , tile.name);
+                    GameObject tileObj = CreateHexTile(x , y , tile.name, bottomRowY % 2);
                     tileObj.transform.parent = header.transform;
                 }
                 else {
@@ -135,36 +155,42 @@ public class HexLayout : MonoBehaviour {
 
         Destroy(tilemapObj);
 
+        /*
         //Adjust Center Postiton
-        Vector3Int aaa = new Vector3Int();
+        Vector3Int max = new Vector3Int();
+        Vector3Int min = new Vector3Int();
         foreach(var t in GlobalVars.hexagonTile) {
-            aaa += t.Key;
+            if(max.x > t.Key.x)
+                max.x = t.Key.x;
+            else if(min.x < t.Key.x)
+                min.x = t.Key.x;
+
+            if(max.y > t.Key.y)
+                max.y = t.Key.y;
+            else if(min.y < t.Key.y)
+                min.y = t.Key.y;
         }
 
-        //Vector3Int centerTile = UnityCoords_To_CubicCoords(bounds.size.y / 2 , bounds.size.x / 2);
-        int size = GlobalVars.hexagonTile.Count;
-        Vector3Int centerTile = new Vector3Int(aaa.x / size, aaa.y / size, aaa.z / size);
+        Vector3Int centerTile = UnityCoords_To_CubicCoords(bounds.size.y / 2 , bounds.size.x / 2, bottomRowY % 2);
+        //Vector3Int centerTile = (max + min) / 2;
+        //centerTile.z = -centerTile.x - centerTile.y;
         Vector3 centerPos = GlobalVars.hexagonTile[centerTile].transform.position;
         Debug.Log("Ceneter Tile: " + centerTile);
         Debug.Log("Offset: " + centerPos);
 
         foreach(var t in GlobalVars.hexagonTile) {
             t.Value.transform.position -= centerPos;
-        }
+        }*/
     }
 
-    private Vector3Int UnityCoords_To_CubicCoords(int y, int x) {
-        //if(y%2 == 0) {
-        //    x++;
-        //}
-
-        var q = y - (x + (x & 0)) / 2;
+    private Vector3Int UnityCoords_To_CubicCoords(int y , int x, int evenGrid) {
+        var q = y - (x + 1) / 2; //var q = y - (x + (evenGrid & 1)) / 2;
         var r = x;
         return new Vector3Int(q , r , -q - r);
     }
 
-    public GameObject CreateHexTile(int x, int y, string spriteName) {
-        Hex h = new Hex(UnityCoords_To_CubicCoords(x, y));
+    public GameObject CreateHexTile(int x, int y, string spriteName, int evenGrid) {
+        Hex h = new Hex(UnityCoords_To_CubicCoords(x, y, evenGrid));
         GlobalVars.availableHexes.Add(new Vector3Int(h.q , h.r , h.s));
 
         GameObject obj = Instantiate(Testagon);
