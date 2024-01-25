@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TragetEnemy : MonoBehaviour
-{
-    private Renderer renderer; 
+{ 
     public Camera camera;
 
     // Start is called before the first frame update
     void Start()
     {
-        renderer = GetComponent<Renderer>();
+
     }
 
     // Update is called once per frame
@@ -22,20 +21,12 @@ public class TragetEnemy : MonoBehaviour
 
             if(Physics.Raycast(ray, out RaycastHit hitInfo))
             {
-                if (hitInfo.collider != null)
+                if (hitInfo.collider.gameObject.GetComponent<EnemyHighlighted>() != null)
                 {
-                    Debug.Log(hitInfo.collider.gameObject.name);
+                    Vector3 distanceToTarget = hitInfo.point - transform.position;
+                    Vector3 forceDirection = distanceToTarget.normalized;
                 }
             }
         }
-    }
-
-    private void OnMouseEnter() 
-    {
-        renderer.material.color = Color.white;
-    }
-    private void OnMouseExit() 
-    {
-        renderer.material.color = Color.red;
     }
 }

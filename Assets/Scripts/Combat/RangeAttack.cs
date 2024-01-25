@@ -10,7 +10,6 @@ public class RangeAttack : MonoBehaviour
     public Transform shootingPoint;
     public GameObject arrowPrefab;
     private GameObject enemy;
-    //public TragetEnemy targetEnemy;
 
     bool shootMode = false;
 

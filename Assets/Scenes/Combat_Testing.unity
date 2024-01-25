@@ -799,7 +799,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: {fileID: 624233155}
-  enemy: {fileID: 0}
 --- !u!1 &1046782947
 GameObject:
   m_ObjectHideFlags: 0
@@ -1020,9 +1019,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1335119434}
   - component: {fileID: 1335119433}
-  - component: {fileID: 1335119435}
   - component: {fileID: 1335119437}
+  - component: {fileID: 1335119435}
   - component: {fileID: 1335119438}
+  - component: {fileID: 1335119439}
   m_Layer: 0
   m_Name: RangePlayer
   m_TagString: Untagged
@@ -1113,7 +1113,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootingPoint: {fileID: 111590932}
   arrowPrefab: {fileID: 8997146372153307300, guid: 09cc00601c4e71440a14b018440d4e55, type: 3}
-  targetEnemy: {fileID: 0}
 --- !u!61 &1335119437
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1179,6 +1178,19 @@ MonoBehaviour:
   dodgeChance: 0
   defense: 0
   power: 0
+--- !u!114 &1335119439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335119432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f4fa4afc963eb49bcfe7424c72b8a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 158494693}
 --- !u!1 &1378189247
 GameObject:
   m_ObjectHideFlags: 0
@@ -1387,10 +1399,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1611766775}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15f4fa4afc963eb49bcfe7424c72b8a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f5d04583f282ac4dac50a37bf210684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 1611766775}
 --- !u!1 &1677471562
 GameObject:
   m_ObjectHideFlags: 0

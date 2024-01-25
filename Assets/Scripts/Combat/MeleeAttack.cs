@@ -20,18 +20,12 @@ public class MeleeAttack : MonoBehaviour
 
     public void Attack()
     {
-<<<<<<< Updated upstream
-        //if(Vector2.Distance(enemy.position, transform.position) <= range.edgeRadius = 2) 
-        //{
-        //    Debug.Log("Enemy was attacked");
-        //}
-=======
         range.edgeRadius = 2;
         if (Vector2.Distance(enemy.position, transform.position) <= range.edgeRadius) 
         {
-            Debug.Log("Enemy was attacked");
+           Debug.Log("Enemy was attacked");
         }
->>>>>>> Stashed changes
+
         //animation and effecting enemy health
 
     }
