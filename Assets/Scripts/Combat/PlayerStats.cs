@@ -10,7 +10,7 @@ public class PlayerStats : MonoBehaviour
     //all stats for a player
     public int move;
     public int health = 10;
-    public bool dodge;
+    public bool didDodge;
     public float dodgeChance;
     public int defense;
     public int power;

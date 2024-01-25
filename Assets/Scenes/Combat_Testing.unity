@@ -599,10 +599,10 @@ GameObject:
   m_Component:
   - component: {fileID: 624233158}
   - component: {fileID: 624233157}
-  - component: {fileID: 624233156}
   - component: {fileID: 624233155}
   - component: {fileID: 624233160}
   - component: {fileID: 624233154}
+  - component: {fileID: 624233161}
   - component: {fileID: 624233159}
   m_Layer: 0
   m_Name: MeleePlayer
@@ -627,7 +627,7 @@ MonoBehaviour:
   isShown: 0
   move: 0
   health: 10
-  dodge: 0
+  didDodge: 0
   dodgeChance: 0
   defense: 0
   power: 0
@@ -676,21 +676,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 2
---- !u!114 &624233156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 624233153}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99356babae58f0a4298d7415d9eadae8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shootingPoint: {fileID: 195898913}
-  arrowPrefab: {fileID: 8997146372153307300, guid: 09cc00601c4e71440a14b018440d4e55, type: 3}
-  targetEnemy: {fileID: 1611766779}
 --- !u!212 &624233157
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -801,6 +786,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &624233161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624233153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fe52be7a76525f44b23c0af9a59c448, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: {fileID: 624233155}
+  enemy: {fileID: 0}
 --- !u!1 &1046782947
 GameObject:
   m_ObjectHideFlags: 0
@@ -1176,7 +1175,7 @@ MonoBehaviour:
   isShown: 0
   move: 0
   health: 10
-  dodge: 0
+  didDodge: 0
   dodgeChance: 0
   defense: 0
   power: 0
@@ -1863,9 +1862,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 624233156}
-        m_TargetAssemblyTypeName: RangeAttack, Assembly-CSharp
-        m_MethodName: Shoot
+      - m_Target: {fileID: 624233161}
+        m_TargetAssemblyTypeName: MeleeAttack, Assembly-CSharp
+        m_MethodName: Attack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

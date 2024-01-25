@@ -4,21 +4,35 @@ using UnityEngine;
 
 public class TragetEnemy : MonoBehaviour
 {
-    public GameObject enemy;
+    private Renderer renderer; 
+    public Camera camera;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        renderer = GetComponent<Renderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
-    public void OnMouseDown()
-    {
-         enemy.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        if(Input.GetMouseButtonDown(0)) 
+        {
+            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+
+            if(Physics.Raycast(ray, out RaycastHit hitInfo))
+            {
+                Debug.Log(hitInfo.collider.gameObject.name);
+            }
+        }
     }
 
+    private void OnMouseEnter() 
+    {
+        renderer.material.color = Color.white;
+    }
+    private void OnMouseExit() 
+    {
+        renderer.material.color = Color.red;
+    }
 }
