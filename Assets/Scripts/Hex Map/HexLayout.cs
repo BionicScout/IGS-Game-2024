@@ -17,29 +17,32 @@ public class HexLayout : MonoBehaviour {
     Vector2 spacing;
 
     private void Start() {
-        spacing = new Vector2(Mathf.Sqrt(3) * size.x , 1.5f * size.y);
+        //Get Spacing Between Hexagons Based of Hexagon Size
+        Bounds b = Testagon.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite.bounds;
+        spacing = new Vector2(b.size.x , 0.75f * b.size.y) * 2;
 
-        //TestGeneration();
-        ImportTest();
+        //Generate Map
+        UnityTileMap_To_HexGrid();
+        Destroy(tilemapObj); //Don't need Unity's tile Map any longer
+        Center();
     }
 
-    public void ImportTest() {
+    public void UnityTileMap_To_HexGrid() {
+        //Compress Bounds and Find Bounds of Tile Map
         Tilemap tilemap = tilemapObj.transform.GetChild(0).GetComponent<Tilemap>();
         tilemap.CompressBounds();
-        BoundsInt bounds = tilemap.cellBounds;
-        TilemapRenderer tilemapRenderer = tilemapObj.transform.GetChild(0).GetComponent<TilemapRenderer>();
+        BoundsInt tileMapBounds = tilemap.cellBounds;
 
-
-        //BoundsInt bounds = tilemap.cellBounds;
-        TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
-
+        //Retrive All Unity Tiles and Convert them To My Hexagon Tiles
+        TileBase[] allTiles = tilemap.GetTilesBlock(tileMapBounds);
         GameObject header = new GameObject();
         header.name = "header";
 
-        //Create Tiles
-        for(int x = 0; x < bounds.size.x; x++) {
-            for(int y = 0; y < bounds.size.y; y++) {
-                TileBase tile = allTiles[x + y * bounds.size.x];
+        for(int x = 0; x < tileMapBounds.size.x; x++) {
+            for(int y = 0; y < tileMapBounds.size.y; y++) {
+
+                //Create each tile (if it is not empty) and then added to the header
+                TileBase tile = allTiles[x + y * tileMapBounds.size.x];
                 if(tile != null) {
                     Debug.Log("x:" + x + " y:" + y + " tile:" + tile.name);
                     GameObject tileObj = CreateHexTile(x , y , tile.name);
@@ -50,38 +53,6 @@ public class HexLayout : MonoBehaviour {
                 }
             }
         }
-
-        Destroy(tilemapObj);
-
-
-        //Adjust Center Postiton
-        Vector3Int max = new Vector3Int();
-        Vector3Int min = new Vector3Int();
-        foreach(var t in GlobalVars.hexagonTile) {
-            if(max.x > t.Key.x)
-                max.x = t.Key.x;
-            else if(min.x < t.Key.x)
-                min.x = t.Key.x;
-
-            if(max.y > t.Key.y)
-                max.y = t.Key.y;
-            else if(min.y < t.Key.y)
-                min.y = t.Key.y;
-        }
-
-        Vector3Int centerTile = UnityCoords_To_CubicCoords(bounds.size.y / 2 , bounds.size.x / 2);
-        //Vector3Int centerTile = (max + min) / 2;
-        //centerTile.z = -centerTile.x - centerTile.y;
-        Vector3 centerPos = GlobalVars.hexagonTile[centerTile].transform.position;
-        Debug.Log("Ceneter Tile: " + centerTile);
-        Debug.Log("Offset: " + centerPos);
-
-        foreach(var t in GlobalVars.hexagonTile) {
-            t.Value.transform.position -= centerPos;
-        }
-
-        //Set Move
-        //GlobalVars.hexagonTile[centerTile].transform.position
     }
 
     private Vector3Int UnityCoords_To_CubicCoords(int y , int x) {
@@ -91,9 +62,10 @@ public class HexLayout : MonoBehaviour {
     }
 
     public GameObject CreateHexTile(int x, int y, string spriteName) {
+        //Get Coordinate of Hexagon in Cubic Coordinates
         Hex h = new Hex(UnityCoords_To_CubicCoords(x, y));
-        GlobalVars.availableHexes.Add(new Vector3Int(h.q , h.r , h.s));
 
+        //Create Object, name it, and postion it. 
         GameObject obj = Instantiate(Testagon);
         obj.name = h.q + " " + h.r + " " + h.s;
         //obj.name = "(" + x.ToString() + ", " + y.ToString() + ")";
@@ -102,13 +74,17 @@ public class HexLayout : MonoBehaviour {
         Vector2 offset = new Vector2(h.r * spacing.x * 0.25f , 0);
         obj.transform.position = pos + offset;
 
+        //Temporay Equations to put text on tiles
         obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + x.ToString() + ", " + y.ToString() + ")";
         //obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "";
         //obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = spriteName;
 
+        //Add Hexagon Info to GlobalVars
+        GlobalVars.availableHexes.Add(new Vector3Int(h.q , h.r , h.s));
         GlobalVars.hexagonTile.Add(new Vector3Int(h.q , h.r , h.s) , obj);
 
-        TileScriptableObjects tileTemplate = getTileTemplate(spriteName);
+        //Add Sprite to object and return obj
+        TileScriptableObjects tileTemplate = GetTileTemplate(spriteName);
         if(tileTemplate == null)
             return obj;
 
@@ -117,57 +93,53 @@ public class HexLayout : MonoBehaviour {
         return obj;
     }
 
-    public TileScriptableObjects getTileTemplate(string spriteName) {
+    public TileScriptableObjects GetTileTemplate(string spriteName) {
+        //Get the TileObject the represents the sprite painted 
         for(int i = 0; i < tileTemplates.Count; i++) {
             if(tileTemplates[i].sprite.name == spriteName) {
                 return tileTemplates[i];
             }
         }
 
-        //Debug.LogWarning("Tile Sprite Doesn't Exist - " + spriteName);
+        //Sprite Name Does not Exist in List of defined tiles
+        Debug.LogWarning("Tile Sprite Doesn't Exist - " + spriteName);
         return null;
     }
 
-    public void TestGeneration() {
-        Vector2 spacing = new Vector2(Mathf.Sqrt(3) * size.x , 1.5f * size.y);
-        Hex center = new Hex(-1 , -1 , -1);
-
-        //All Tiles
-        for(int q = -12; q <= 12; q++) {
-            for(int r = -12; r <= 12; r++) {
-                Hex h = new Hex(q , r , -q - r);
-                GlobalVars.availableHexes.Add(new Vector3Int(h.q , h.r , h.s));
-
-                GameObject obj = Instantiate(Testagon);
-                obj.name = q + " " + r + " " + (-q - r);
-
-                Vector2 pos = new Vector2(spacing.x * q , spacing.y * r) * 0.5f;
-                Vector2 offset = new Vector2(r * spacing.x * 0.25f , 0);
-                obj.transform.position = pos + offset;
-
-                obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "-1";
-
-                GlobalVars.hexagonTile.Add(new Vector3Int(h.q , h.r , h.s) , obj);
-
-                if(q == 0 && r == 0)
-                    center = h;
-            }
-        }
+    public void Center() {
+        BoundsInt tileMapBounds = tilemapObj.transform.GetChild(0).GetComponent<Tilemap>().cellBounds;
 
 
-        center += offset2;
+        //Adjust Center Postiton
+        //Vector3Int max = new Vector3Int();
+        //Vector3Int min = new Vector3Int();
+        //foreach(var t in GlobalVars.hexagonTile) {
+        //    if(max.x > t.Key.x)
+        //        max.x = t.Key.x;
+        //    else if(min.x < t.Key.x)
+        //        min.x = t.Key.x;
 
+        //    if(max.y > t.Key.y)
+        //        max.y = t.Key.y;
+        //    else if(min.y < t.Key.y)
+        //        min.y = t.Key.y;
+        //}
 
-        //Find All neighnors
-        for(int i = 0; i < GlobalVars.availableHexes.Count; i++) {
-            Vector3Int pos = GlobalVars.availableHexes[i];
-            Hex h = new Hex(pos);
-            GameObject obj = GlobalVars.hexagonTile[pos];
+        Vector3Int centerTile = UnityCoords_To_CubicCoords(tileMapBounds.size.y / 2, tileMapBounds.size.x / 2);
+        //Vector3Int centerTile = (max + min) / 2;
+        //centerTile.z = -centerTile.x - centerTile.y;
+        Vector3 centerPos = GlobalVars.hexagonTile[centerTile].transform.position;
+        Debug.Log("Ceneter Tile: " + centerTile);
+        Debug.Log("Offset: " + centerPos);
 
-            string s = h.distance(center).ToString();
-            obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = s;
+        foreach(var t in GlobalVars.hexagonTile) {
+            t.Value.transform.position -= centerPos;
         }
     }
 
+    private void Update() {
+        //if() {
 
+        //}
+    }
 }
