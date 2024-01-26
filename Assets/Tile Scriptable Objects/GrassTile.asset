@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 274a7d029d4eaaf4f9dd1a10ae7bd3ae, type: 3}
   m_Name: GrassTile
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: a350293d15cb141439af0471dbb3dfce, type: 3}
+  sprite: {fileID: 21300000, guid: 823e3f74394a0ce4295ae3358dfe6a5d, type: 3}
   isObstacle: 0

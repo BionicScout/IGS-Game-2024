@@ -6,7 +6,7 @@ public class Hex {
     public int q, r, s;
 
     //Direction of Neighorbor Tiles
-    static List<Vector3Int> hex_directions = new List<Vector3Int> {
+    public static List<Vector3Int> hex_directions = new List<Vector3Int> {
         new Vector3Int(-1, 1, 0), new Vector3Int(0, 1, -1), new Vector3Int(1, 0, -1), 
         new Vector3Int(1, -1, 0), new Vector3Int(0, -1, 1), new Vector3Int(-1, 0, 1)
     };
@@ -40,7 +40,6 @@ public class Hex {
     public Hex(int x , int y) {
         q = x; r = y; s = -x - y;
     }
-
 
 /*********************************
     Operations Overrides
@@ -107,6 +106,10 @@ public class Hex {
 
     public Hex neighbor(int direction) {
         return neighbors[new Vector3Int(q , r , s) + FindDirection(direction)];
+    }
+
+    public Vector3Int getVector() {
+        return new Vector3Int(q, r, s);
     }
 
 /*********************************

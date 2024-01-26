@@ -44,7 +44,7 @@ public class HexLayout : MonoBehaviour {
                 //Create each tile (if it is not empty) and then added to the header
                 TileBase tile = allTiles[x + y * tileMapBounds.size.x];
                 if(tile != null) {
-                    Debug.Log("x:" + x + " y:" + y + " tile:" + tile.name);
+                    //Debug.Log("x:" + x + " y:" + y + " tile:" + tile.name);
                     GameObject tileObj = CreateHexTile(x , y , tile.name);
                     tileObj.transform.parent = header.transform;
                 }
@@ -69,14 +69,15 @@ public class HexLayout : MonoBehaviour {
         GameObject obj = Instantiate(Testagon);
         obj.name = h.q + " " + h.r + " " + h.s;
         //obj.name = "(" + x.ToString() + ", " + y.ToString() + ")";
+        //obj.name = spriteName;
 
         Vector2 pos = new Vector2(spacing.x * h.q , spacing.y * h.r) * 0.5f;
         Vector2 offset = new Vector2(h.r * spacing.x * 0.25f , 0);
         obj.transform.position = pos + offset;
 
         //Temporay Equations to put text on tiles
-        obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + x.ToString() + ", " + y.ToString() + ")";
-        //obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "";
+        //obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + x.ToString() + ", " + y.ToString() + ")";
+        obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "";
         //obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = spriteName;
 
         //Add Hexagon Info to GlobalVars
@@ -96,6 +97,8 @@ public class HexLayout : MonoBehaviour {
     public TileScriptableObjects GetTileTemplate(string spriteName) {
         //Get the TileObject the represents the sprite painted 
         for(int i = 0; i < tileTemplates.Count; i++) {
+            //Debug.Log(tileTemplates[i].sprite.name);
+            //Debug.Log(spriteName);
             if(tileTemplates[i].sprite.name == spriteName) {
                 return tileTemplates[i];
             }
@@ -125,9 +128,45 @@ public class HexLayout : MonoBehaviour {
         //        min.y = t.Key.y;
         //}
 
-        Vector3Int centerTile = UnityCoords_To_CubicCoords(tileMapBounds.size.y / 2, tileMapBounds.size.x / 2);
+        //Vector3Int centerTile = UnityCoords_To_CubicCoords(tileMapBounds.size.y / 2, tileMapBounds.size.x / 2);
         //Vector3Int centerTile = (max + min) / 2;
         //centerTile.z = -centerTile.x - centerTile.y;
+
+        //Start in bottom left and go to the Top Right Corner
+        Hex currentHex = new Hex(0 , 0 , 0);
+        bool noNextHex = false;
+
+        while(!noNextHex) {
+            //Go Up Right
+            if(GlobalVars.availableHexes.Contains(currentHex.getVector() + Hex.hex_directions[1])) {
+                //GlobalVars.hexagonTile[currentHex.getVector()].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = 
+                //    "(" + currentHex.q + ", " + currentHex.r + ", " + currentHex.s  + ")";
+                currentHex = new Hex(currentHex.getVector() + Hex.hex_directions[1]);
+                continue;
+            }
+
+            //Go Right
+            if(GlobalVars.availableHexes.Contains(currentHex.getVector() + Hex.hex_directions[2])) {
+                //GlobalVars.hexagonTile[currentHex.getVector()].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text =
+                //    "(" + currentHex.q + ", " + currentHex.r + ", " + currentHex.s + ")";
+                currentHex = new Hex(currentHex.getVector() + Hex.hex_directions[2]);
+                continue;
+            }
+
+            //GlobalVars.hexagonTile[currentHex.getVector()].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text =
+            //        "(" + currentHex.q + ", " + currentHex.r + ", " + currentHex.s + ")";
+            noNextHex = true;
+        }
+
+        //a
+        //int total = Mathf.Abs(currentHex.q) + Mathf.Abs(currentHex.r) + Mathf.Abs(currentHex.s);
+        Vector3Int centerTile = new Vector3Int(currentHex.q / 2, - (currentHex.q / 2) - (currentHex.s / 2) , currentHex.s / 2);
+
+
+
+
+
+
         Vector3 centerPos = GlobalVars.hexagonTile[centerTile].transform.position;
         Debug.Log("Ceneter Tile: " + centerTile);
         Debug.Log("Offset: " + centerPos);
