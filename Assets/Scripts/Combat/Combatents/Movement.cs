@@ -10,30 +10,41 @@ public class Movement : MonoBehaviour {
 
     public int range = 5;
 
+    public Rigidbody2D rb;
+
+    public GameObject player;
+
     private void Start() {
         currentHex = GlobalVars.centerHex;
         GlobalVars.hexagonTile[currentHex].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = 
             "(" + currentHex.x + ", " + currentHex.y + ", " + currentHex.z + ")";
+        movePlayer();
     }
 
     private void Update() {
         if(Input.GetKeyDown(KeyCode.BackQuote)) {
             moveTile(0);
+            movePlayer();
         }
         else if(Input.GetKeyDown(KeyCode.Alpha1)) {
             moveTile(1);
+            movePlayer();
         }
         else if(Input.GetKeyDown(KeyCode.Alpha2)) {
             moveTile(2);
+            movePlayer();
         }
         else if(Input.GetKeyDown(KeyCode.Alpha3)) {
             moveTile(3);
+            movePlayer();
         }
         else if(Input.GetKeyDown(KeyCode.Alpha4)) {
             moveTile(4);
+            movePlayer();
         }
         else if(Input.GetKeyDown(KeyCode.Alpha5)) {
             moveTile(5);
+            movePlayer();
         }
 
         if(Input.GetKeyDown(KeyCode.Z)) {
@@ -105,5 +116,11 @@ public class Movement : MonoBehaviour {
 
         GlobalVars.hexagonTile[currentHex].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text =
         "(" + currentHex.x + ", " + currentHex.y + ", " + currentHex.z + ")";
+    }
+
+    public void movePlayer() {
+        float z = player.transform.position.z;
+        player.transform.position = (Vector2)GlobalVars.hexagonTile[currentHex].transform.position;
+        player.transform.position = player.transform.position + z * Vector3.forward;
     }
 }
