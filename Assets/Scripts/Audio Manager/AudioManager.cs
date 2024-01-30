@@ -15,6 +15,8 @@ public class AudioManager : MonoBehaviour {
     public int fadeTime = 2;
     float fadeTimer = 0;
 
+    public Sound genericSound;
+
     void Awake() {
 
         if (instance == null)
@@ -94,6 +96,7 @@ public class AudioManager : MonoBehaviour {
         if (s == null)
         {
             print("Audio \"" + name + "\" not found");
+            genericSound.source.Play();
             return;
         }
         
