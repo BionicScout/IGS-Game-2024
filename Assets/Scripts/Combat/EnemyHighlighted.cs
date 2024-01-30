@@ -20,7 +20,7 @@ public class EnemyHighlighted : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        renderer.material.color = Color.red;
+        renderer.material.color = Color.grey;
     }
     private void OnMouseExit()
     {

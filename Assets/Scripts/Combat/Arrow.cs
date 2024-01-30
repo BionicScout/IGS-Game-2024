@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-    private GameObject enemy;
     public float force;
+    private GameObject enemy;
     private Rigidbody2D rb;
     private float life;
+    private EnemyStats enemyStats;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         enemy = GameObject.FindGameObjectWithTag("Enemy");
+        enemyStats = enemy.transform.GetComponent<EnemyStats>();
 
         Vector3 direction = enemy.transform.position - transform.position;
         rb.velocity = new Vector2(direction.x, direction.y).normalized * force;
@@ -37,7 +39,7 @@ public class Arrow : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            //here we would put how it would affect the enemy health
+            enemyStats.TakeDamage(2);
             Destroy(gameObject);
         }
     }
