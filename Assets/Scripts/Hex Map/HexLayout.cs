@@ -16,7 +16,7 @@ public class HexLayout : MonoBehaviour {
 
     Vector2 spacing;
 
-    private void Start() {
+    private void Awake() {
         //Get Spacing Between Hexagons Based of Hexagon Size
         Bounds b = Testagon.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite.bounds;
         spacing = new Vector2(b.size.x , 0.75f * b.size.y) * 2;
@@ -89,6 +89,8 @@ public class HexLayout : MonoBehaviour {
         if(tileTemplate == null)
             return obj;
 
+        GlobalVars.hexagonTileRefrence.Add(new Vector3Int(h.q , h.r , h.s), tileTemplate);
+
 
         obj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = tileTemplate.sprite;
         return obj;
@@ -111,26 +113,6 @@ public class HexLayout : MonoBehaviour {
 
     public void Center() {
         BoundsInt tileMapBounds = tilemapObj.transform.GetChild(0).GetComponent<Tilemap>().cellBounds;
-
-
-        //Adjust Center Postiton
-        //Vector3Int max = new Vector3Int();
-        //Vector3Int min = new Vector3Int();
-        //foreach(var t in GlobalVars.hexagonTile) {
-        //    if(max.x > t.Key.x)
-        //        max.x = t.Key.x;
-        //    else if(min.x < t.Key.x)
-        //        min.x = t.Key.x;
-
-        //    if(max.y > t.Key.y)
-        //        max.y = t.Key.y;
-        //    else if(min.y < t.Key.y)
-        //        min.y = t.Key.y;
-        //}
-
-        //Vector3Int centerTile = UnityCoords_To_CubicCoords(tileMapBounds.size.y / 2, tileMapBounds.size.x / 2);
-        //Vector3Int centerTile = (max + min) / 2;
-        //centerTile.z = -centerTile.x - centerTile.y;
 
         //Start in bottom left and go to the Top Right Corner
         Hex currentHex = new Hex(0 , 0 , 0);
@@ -158,15 +140,7 @@ public class HexLayout : MonoBehaviour {
             noNextHex = true;
         }
 
-        //a
-        //int total = Mathf.Abs(currentHex.q) + Mathf.Abs(currentHex.r) + Mathf.Abs(currentHex.s);
         Vector3Int centerTile = new Vector3Int(currentHex.q / 2, - (currentHex.q / 2) - (currentHex.s / 2) , currentHex.s / 2);
-
-
-
-
-
-
         Vector3 centerPos = GlobalVars.hexagonTile[centerTile].transform.position;
         Debug.Log("Ceneter Tile: " + centerTile);
         Debug.Log("Offset: " + centerPos);
@@ -174,11 +148,7 @@ public class HexLayout : MonoBehaviour {
         foreach(var t in GlobalVars.hexagonTile) {
             t.Value.transform.position -= centerPos;
         }
-    }
 
-    private void Update() {
-        //if() {
-
-        //}
+        GlobalVars.centerHex = centerTile;
     }
 }
