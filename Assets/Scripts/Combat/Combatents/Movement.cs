@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Movement : MonoBehaviour {
@@ -12,39 +13,36 @@ public class Movement : MonoBehaviour {
 
     public Rigidbody2D rb;
 
-    public GameObject player;
+    public Sprite playerSprite;
 
     private void Start() {
         currentHex = GlobalVars.centerHex;
         GlobalVars.hexagonTile[currentHex].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = 
             "(" + currentHex.x + ", " + currentHex.y + ", " + currentHex.z + ")";
-        movePlayer();
+
+        GlobalVars.hexagonTile[currentHex].transform.GetComponent<Unit>().unitName = "Player";
+        GlobalVars.hexagonTile[currentHex].transform.GetComponent<Unit>().unitSprite = playerSprite;
+        GlobalVars.hexagonTile[currentHex].transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = playerSprite;
     }
 
     private void Update() {
         if(Input.GetKeyDown(KeyCode.BackQuote)) {
             moveTile(0);
-            movePlayer();
         }
         else if(Input.GetKeyDown(KeyCode.Alpha1)) {
             moveTile(1);
-            movePlayer();
         }
         else if(Input.GetKeyDown(KeyCode.Alpha2)) {
             moveTile(2);
-            movePlayer();
         }
         else if(Input.GetKeyDown(KeyCode.Alpha3)) {
             moveTile(3);
-            movePlayer();
         }
         else if(Input.GetKeyDown(KeyCode.Alpha4)) {
             moveTile(4);
-            movePlayer();
         }
         else if(Input.GetKeyDown(KeyCode.Alpha5)) {
             moveTile(5);
-            movePlayer();
         }
 
         if(Input.GetKeyDown(KeyCode.Z)) {
@@ -110,17 +108,25 @@ public class Movement : MonoBehaviour {
 
 
         //Adjust Postion
-        GlobalVars.hexagonTile[currentHex].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "";
+        GameObject obj = GlobalVars.hexagonTile[currentHex];
+        obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "";
+        Unit tileUnit = obj.transform.GetComponent<Unit>();
+
+        string unitName = tileUnit.name;
+        Sprite sprite = tileUnit.unitSprite;
+
+        tileUnit.unitSprite = null;
+        tileUnit.unitName = "";
+        obj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
 
         currentHex = newHex;
 
         GlobalVars.hexagonTile[currentHex].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text =
         "(" + currentHex.x + ", " + currentHex.y + ", " + currentHex.z + ")";
-    }
 
-    public void movePlayer() {
-        float z = player.transform.position.z;
-        player.transform.position = (Vector2)GlobalVars.hexagonTile[currentHex].transform.position;
-        player.transform.position = player.transform.position + z * Vector3.forward;
+        Unit newTileUnit = GlobalVars.hexagonTile[currentHex].transform.GetComponent<Unit>();
+        newTileUnit.unitName = unitName;
+        newTileUnit.unitSprite = sprite;
+        GlobalVars.hexagonTile[currentHex].transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = sprite;
     }
 }
