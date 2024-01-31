@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using Unity.VisualScripting;
+using System;
+using System.Collections.Generic;
 
 public class InputManager : MonoBehaviour
 {
@@ -9,7 +11,6 @@ public class InputManager : MonoBehaviour
     private bool wackMode;
     private bool moveMode;
     static Vector3Int clickedCoord;
-    private Vector3Int clickedCord;
     PlayerStats playerStats;
     EnemyStats enemyStats;
     HexObjInfo hexObjInfo;
@@ -29,6 +30,7 @@ public class InputManager : MonoBehaviour
 
         if (shootMode /*&& clicked on this player*/)
         {
+            Shoot(clickedCoord, 2);
             //final thing
             normMode = true;
         }
@@ -84,21 +86,14 @@ public class InputManager : MonoBehaviour
 
     public void Move(Vector3Int hexCoodOfEnemy, int range)
     {
-        Pathfinding.AllPossibleTiles(hexObjInfo.hexCoord, playerStats.move);
+        List<Tuple<Vector3Int, int>> possibles = Pathfinding.AllPossibleTiles(hexObjInfo.hexCoord, playerStats.move);
 
-        //if (GlobalVars.availableHexes.ContainsKey(clickedCoord))
-        {
-            movement.moveTile(range);
-        }
-    }
+        foreach (Tuple<Vector3Int, int> temp in possibles) {
 
-    public void Move(Vector3Int hexCoodOfEnemy, float range)
-    {
-        Pathfinding.AllPossibleTiles(hexObjInfo.hexCoord, playerStats.move);
-
-        //if ()
-        {
-            movement.moveTile(playerStats.move);
+            if (temp.Item1 == clickedCoord)
+            {
+                movement.moveTile(range);
+            }
         }
     }
 
