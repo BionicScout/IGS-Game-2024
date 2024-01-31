@@ -20,8 +20,8 @@ public class Movement : MonoBehaviour {
         GlobalVars.hexagonTile[currentHex].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = 
             "(" + currentHex.x + ", " + currentHex.y + ", " + currentHex.z + ")";
 
-        GlobalVars.hexagonTile[currentHex].transform.GetComponent<Unit>().unitName = "Player";
-        GlobalVars.hexagonTile[currentHex].transform.GetComponent<Unit>().unitSprite = playerSprite;
+        GlobalVars.hexagonTile[currentHex].transform.GetComponent<HexObjInfo>().unitName = "Player";
+        GlobalVars.hexagonTile[currentHex].transform.GetComponent<HexObjInfo>().unitSprite = playerSprite;
         GlobalVars.hexagonTile[currentHex].transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = playerSprite;
     }
 
@@ -110,7 +110,7 @@ public class Movement : MonoBehaviour {
         //Adjust Postion
         GameObject obj = GlobalVars.hexagonTile[currentHex];
         obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "";
-        Unit tileUnit = obj.transform.GetComponent<Unit>();
+        HexObjInfo tileUnit = obj.transform.GetComponent<HexObjInfo>();
 
         string unitName = tileUnit.name;
         Sprite sprite = tileUnit.unitSprite;
@@ -124,7 +124,7 @@ public class Movement : MonoBehaviour {
         GlobalVars.hexagonTile[currentHex].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text =
         "(" + currentHex.x + ", " + currentHex.y + ", " + currentHex.z + ")";
 
-        Unit newTileUnit = GlobalVars.hexagonTile[currentHex].transform.GetComponent<Unit>();
+        HexObjInfo newTileUnit = GlobalVars.hexagonTile[currentHex].transform.GetComponent<HexObjInfo>();
         newTileUnit.unitName = unitName;
         newTileUnit.unitSprite = sprite;
         GlobalVars.hexagonTile[currentHex].transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = sprite;

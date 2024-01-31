@@ -246,7 +246,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9102845004547288316}
   - component: {fileID: 2381539532525892327}
-  - component: {fileID: 3125048455497074328}
+  - component: {fileID: 4376639964453560164}
   m_Layer: 0
   m_Name: Testagon
   m_TagString: Untagged
@@ -323,7 +323,7 @@ PolygonCollider2D:
       - {x: 0.44324484, y: -0.26870972}
       - {x: 0.44172204, y: 0.26427832}
   m_UseDelaunayMesh: 0
---- !u!114 &3125048455497074328
+--- !u!114 &4376639964453560164
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
