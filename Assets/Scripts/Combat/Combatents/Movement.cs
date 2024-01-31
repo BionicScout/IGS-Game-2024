@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Movement : MonoBehaviour {
@@ -45,6 +42,7 @@ public class Movement : MonoBehaviour {
             moveTile(5);
         }
 
+        /*
         if(Input.GetKeyDown(KeyCode.Z)) {
             foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(currentHex , range)) {
                 Vector3Int t = temp.Item1;
@@ -87,7 +85,7 @@ public class Movement : MonoBehaviour {
 
             GlobalVars.hexagonTile[currentHex].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text =
                 "(" + currentHex.x + ", " + currentHex.y + ", " + currentHex.z + ")";
-        }
+        }*/
     }
 
     public void moveTile(int dir) {

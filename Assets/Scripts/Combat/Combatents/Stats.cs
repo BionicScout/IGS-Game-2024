@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "XXXStats" , menuName = "ScriptableObjects/UnitStats" , order = 2)]
 public class Stats : ScriptableObject
 {
     public string charName;
