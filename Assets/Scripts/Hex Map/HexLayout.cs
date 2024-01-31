@@ -80,6 +80,9 @@ public class HexLayout : MonoBehaviour {
         obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "";
         //obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = spriteName;
 
+
+        obj.transform.GetComponent<HexObjInfo>().hexCoord = new Vector3Int(h.q , h.r , h.s);
+
         //Add Hexagon Info to GlobalVars
         GlobalVars.availableHexes.Add(new Vector3Int(h.q , h.r , h.s));
         GlobalVars.hexagonTile.Add(new Vector3Int(h.q , h.r , h.s) , obj);
