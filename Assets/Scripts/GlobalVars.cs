@@ -9,5 +9,5 @@ public static class GlobalVars {
     public static Vector3Int centerHex = new Vector3Int(); //Center of Map
 
     //Combat Info
-    public static Dictionary<string , PlayerStats> unitInfo = new Dictionary<string , PlayerStats>();
+    public static Dictionary<Vector3Int, Stats> unitInfo = new Dictionary<Vector3Int, Stats>();
 }
