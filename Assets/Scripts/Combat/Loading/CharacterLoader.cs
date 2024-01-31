@@ -11,5 +11,6 @@ public class CharacterLoader : MonoBehaviour {
 
     private void Start() {
         GlobalVars.players.Add(GlobalVars.centerHex, players[0]);
+        GlobalVars.enemies.Add(GlobalVars.centerHex , enemies[0]);
     }
 }
