@@ -8,7 +8,7 @@ public class PlayerStats : MonoBehaviour
     public GameObject CharMenu;
     public bool isShown;
     //all stats for a player
-    public int move;
+    public int move = 4;
     public int currHealth = 10;
     public int maxHealth = 10;
     public bool didDodge;
