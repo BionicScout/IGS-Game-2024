@@ -7,10 +7,19 @@ using UnityEngine.Events;
 
 public class InputManager : MonoBehaviour
 {
-    public bool normMode;
-    public bool shootMode;
-    public bool wackMode;
-    public bool moveMode;
+
+    enum modes {
+        normal = 0,
+        shoot = 1,
+        attack = 2,
+        move = 3
+    }
+
+    modes inputMode; 
+
+
+
+
     public int playerMove;
     public int playerPower;
     public bool clickedUI = false;
@@ -21,19 +30,13 @@ public class InputManager : MonoBehaviour
     Movement movement;
 
 
-    void Start()
-    {
-        normMode = true;
-        shootMode = false;
-        wackMode = false;
-        moveMode = false;
+    void Start() {
+        inputMode = modes.normal;
     }
     void Update()
     {
 
         if(clickedUI) {
-
-            Debug.Log("moveMove: " + moveMode);
             clickedUI = false;
             return;
         }
@@ -41,7 +44,6 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("moveMove: " + moveMode);
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
@@ -65,40 +67,37 @@ public class InputManager : MonoBehaviour
 
             }
 
-            if(shootMode /*&& clicked on this player*/) {
+            if(inputMode == modes.shoot /*&& clicked on this player*/) {
                 Shoot(clickedCoord , 2);
                 //final thing
-                normMode = true;
-                shootMode = false;
+                inputMode = modes.normal;
             }
-            if(wackMode) {
+            if(inputMode == modes.attack) {
                 Wack(clickedCoord , 2);
                 //final thing
-                normMode = true;
-                wackMode = false;
+                inputMode = modes.normal;
             }
-            if(moveMode) {
+            if(inputMode == modes.move) {
                 Move(clickedCoord , playerMove);
                 //final thing
-                normMode = true;
-                moveMode = false;
+                inputMode = modes.normal;
             }
         }
     }
     //functions buttons will use
     public void SetShoot()
     {
-        shootMode = true;
+        inputMode = modes.shoot;
         clickedUI = true;
     }
     public void SetWack()
     {
-        wackMode = true;
+        inputMode = modes.attack;
         clickedUI = true;
     }
     public void SetMove()
     {
-        moveMode = true;
+        inputMode = modes.move;
         clickedUI = true;
     }
 
