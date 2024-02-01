@@ -7,27 +7,12 @@ using UnityEngine.Events;
 
 public class InputManager : MonoBehaviour
 {
-    public UnityEvent<Vector3> PointerClick;
-
-    void Update()
-    {
-        DetectMouseClick();
-    }
-
-    private void DetectMouseClick()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector3 mousePos = Input.mousePosition;
-            PointerClick?.Invoke(mousePos);
-        }
-    }
-}
-
-    /*private bool normMode;
-    private bool shootMode;
-    private bool wackMode;
-    private bool moveMode;
+    public bool normMode;
+    public bool shootMode;
+    public bool wackMode;
+    public bool moveMode;
+    public int playerMove;
+    public int playerPower;
     static Vector3Int clickedCoord;
     PlayerStats playerStats;
     EnemyStats enemyStats;
@@ -44,27 +29,6 @@ public class InputManager : MonoBehaviour
     }
     void Update()
     {
-        GetPosition();
-
-        if (shootMode /*&& clicked on this player)
-        {
-            Shoot(clickedCoord, 2);
-            //final thing
-            normMode = true;
-        }
-        if (wackMode)
-        {
-            //final thing
-            normMode = true;
-        }
-        if (moveMode)
-        {
-            //final thing
-            normMode = true;
-        }
-    }
-    public Vector3Int GetPosition()
-    {
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -73,14 +37,57 @@ public class InputManager : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
             if (hit.collider != null)
             {
-                Debug.Log(hit.collider.gameObject.transform.position);
-                clickedCoord = hit.collider.transform.GetComponent<HexObjInfo>().hexCoord;
-                return clickedCoord;
+                if (hit.collider.gameObject.CompareTag("Player")) 
+                {
+                    playerMove = gameObject.GetComponent<PlayerStats>().move;
+                    Debug.Log(playerMove);
+                    playerPower = gameObject.GetComponent<PlayerStats>().power;
+                    Debug.Log(playerPower);
+                }
+                else
+                {
+                    GetPosition();
+                }
+
             }
-            return Vector3Int.zero;
         }
-        return Vector3Int.zero;
+
+        if (shootMode /*&& clicked on this player*/)
+        {
+            Shoot(clickedCoord, 2);
+            //final thing
+            normMode = true;
+        }
+        if (wackMode)
+        {
+            Wack(clickedCoord, 2);
+            //final thing
+            normMode = true;
+        }
+        if (moveMode)
+        {
+            Move(clickedCoord, playerStats.move);
+            //final thing
+            normMode = true;
+        }
     }
+    //functions buttons will use
+    public bool SetShoot()
+    {
+        shootMode = true;
+        return shootMode;
+    }
+    public bool SetWack()
+    {
+        wackMode = true;
+        return wackMode;
+    }
+    public bool SetMove()
+    {
+        moveMode = true;
+        return moveMode;
+    }
+
 
     public void Shoot(Vector3Int hexCoordOfEnemy, float damage)
     {
@@ -110,7 +117,44 @@ public class InputManager : MonoBehaviour
 
             if (temp.Item1 == clickedCoord)
             {
-                movement.moveTile(range);
+                //movement.movePlayer(, hexObjInfo.hexCoord);
             }
         }
-    }*/
+    }
+
+
+    public Vector3Int GetPosition()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+
+            RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
+            if (hit.collider != null)
+            {
+                Debug.Log(hit.collider.gameObject.transform.position);
+                clickedCoord = hit.collider.transform.GetComponent<HexObjInfo>().hexCoord;
+                return clickedCoord;
+            }
+            return Vector3Int.zero;
+        }
+        return Vector3Int.zero;
+    }
+}
+
+    //public UnityEvent<Vector3> PointerClick;
+
+    //void Update()
+    //{
+    //    DetectMouseClick();
+    //}
+
+    //private void DetectMouseClick()
+    //{
+    //    if (Input.GetMouseButtonDown(0))
+    //    {
+    //        Vector3 mousePos = Input.mousePosition;
+    //        PointerClick?.Invoke(mousePos);
+    //    }
+    //}

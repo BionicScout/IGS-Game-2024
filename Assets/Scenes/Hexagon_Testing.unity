@@ -280,9 +280,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: befc4a22fd13560449d677cd04eb1602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PointerClick:
-    m_PersistentCalls:
-      m_Calls: []
+  normMode: 0
+  shootMode: 0
+  wackMode: 0
+  moveMode: 0
+  playerMove: 0
+  playerPower: 0
 --- !u!4 &182730968
 Transform:
   m_ObjectHideFlags: 0
@@ -1052,7 +1055,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c68eed54123608408ea51a74c4998f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  players: []
+  players:
+  - {fileID: 11400000, guid: 3fa4eed6f76fa6447b38e2fe43e84b28, type: 2}
   enemies: []
 --- !u!4 &735684803
 Transform:
@@ -1306,9 +1310,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: befc4a22fd13560449d677cd04eb1602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PointerClick:
-    m_PersistentCalls:
-      m_Calls: []
+  normMode: 0
+  shootMode: 0
+  wackMode: 0
+  moveMode: 0
+  playerMove: 0
+  playerPower: 0
 --- !u!114 &928709387
 MonoBehaviour:
   m_ObjectHideFlags: 0

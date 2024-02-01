@@ -22,7 +22,7 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         //setting the characters menu to false
-        CharMenu.SetActive(false);
+        //CharMenu.SetActive(false);
         isShown = false;
         currHealth = maxHealth;
 
@@ -39,18 +39,18 @@ public class PlayerStats : MonoBehaviour
         currHealth -= dmg;
     }
 
-    public void OnMouseDown()
-    {
-        if (isShown)
-        {
-            CharMenu.SetActive(false);
-            isShown = false;
-        }
-        else
-        {
-            CharMenu.SetActive(true);
-            isShown = true;
-            //allCharMenus.SetActive(false);
-        }
-    }
+    //public void OnMouseDown()
+    //{
+    //    if (isShown)
+    //    {
+    //        CharMenu.SetActive(false);
+    //        isShown = false;
+    //    }
+    //    else
+    //    {
+    //        CharMenu.SetActive(true);
+    //        isShown = true;
+    //        //allCharMenus.SetActive(false);
+    //    }
+    //}
 }
