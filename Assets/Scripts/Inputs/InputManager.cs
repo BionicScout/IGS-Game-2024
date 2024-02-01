@@ -13,10 +13,11 @@ public class InputManager : MonoBehaviour
     public bool moveMode;
     public int playerMove;
     public int playerPower;
-    static Vector3Int clickedCoord;
+    public bool clickedUI = false;
+    static Vector3Int clickedCoord, playerCoord;
     PlayerStats playerStats;
     EnemyStats enemyStats;
-    HexObjInfo hexObjInfo;
+    //HexObjInfo hexObjInfo;
     Movement movement;
 
 
@@ -29,20 +30,32 @@ public class InputManager : MonoBehaviour
     }
     void Update()
     {
+
+        if(clickedUI) {
+
+            Debug.Log("moveMove: " + moveMode);
+            clickedUI = false;
+            return;
+        }
+
+
         if (Input.GetMouseButtonDown(0))
         {
+            Debug.Log("moveMove: " + moveMode);
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
             if (hit.collider != null)
             {
-                Vector3Int hexCoord = hit.collider.gameObject.transform.GetComponent<HexObjInfo>().hexCoord;
-                if (GlobalVars.players.ContainsKey(hexCoord)) 
+                clickedCoord = hit.collider.gameObject.transform.GetComponent<HexObjInfo>().hexCoord;
+                if (GlobalVars.players.ContainsKey(clickedCoord)) 
                 {
-                    playerMove = GlobalVars.players[hexCoord].move;
+                    playerCoord = clickedCoord;
+
+                    playerMove = GlobalVars.players[clickedCoord].move;
                     Debug.Log(playerMove);
-                    playerPower = GlobalVars.players[hexCoord].power;
+                    playerPower = GlobalVars.players[clickedCoord].power;
                     Debug.Log(playerPower);
                 }
                 else
@@ -51,74 +64,90 @@ public class InputManager : MonoBehaviour
                 }
 
             }
-        }
 
-        if (shootMode /*&& clicked on this player*/)
-        {
-            Shoot(clickedCoord, 2);
-            //final thing
-            normMode = true;
-        }
-        if (wackMode)
-        {
-            Wack(clickedCoord, 2);
-            //final thing
-            normMode = true;
-        }
-        if (moveMode)
-        {
-            Move(clickedCoord, playerMove);
-            //final thing
-            normMode = true;
+            if(shootMode /*&& clicked on this player*/) {
+                Shoot(clickedCoord , 2);
+                //final thing
+                normMode = true;
+                shootMode = false;
+            }
+            if(wackMode) {
+                Wack(clickedCoord , 2);
+                //final thing
+                normMode = true;
+                wackMode = false;
+            }
+            if(moveMode) {
+                Move(clickedCoord , playerMove);
+                //final thing
+                normMode = true;
+                moveMode = false;
+            }
         }
     }
     //functions buttons will use
     public void SetShoot()
     {
         shootMode = true;
-        
+        clickedUI = true;
     }
     public void SetWack()
     {
         wackMode = true;
-        
+        clickedUI = true;
     }
     public void SetMove()
     {
         moveMode = true;
-        
+        clickedUI = true;
     }
 
 
     public void Shoot(Vector3Int hexCoordOfEnemy, float damage)
     {
-        Pathfinding.AllPossibleTiles(hexObjInfo.hexCoord, playerStats.move);
+        Pathfinding.AllPossibleTiles(clickedCoord , playerMove);
 
         if (GlobalVars.enemies.ContainsKey(clickedCoord))
         {
-            enemyStats.TakeDamage(playerStats.power);
+            //Get Player and current + future hex objs
+            Stats enemyStats = GlobalVars.enemies[clickedCoord];
+            GameObject enemyTileObj = GlobalVars.hexagonTile[clickedCoord];
+
+            //Update Sprite
+            enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+
+            //Update player coord
+            GlobalVars.players.Remove(clickedCoord);
         }
     }
 
     public void Wack(Vector3Int hexCoordOfEnemy, float damage)
     {
-        Pathfinding.AllPossibleTiles(hexObjInfo.hexCoord, 1);
+        Pathfinding.AllPossibleTiles(clickedCoord , 1);
 
         if (GlobalVars.enemies.ContainsKey(clickedCoord))
         {
-            enemyStats.TakeDamage(playerStats.power);
+            //Get Player and current + future hex objs
+            Stats enemyStats = GlobalVars.enemies[clickedCoord];
+            GameObject enemyTileObj = GlobalVars.hexagonTile[clickedCoord];
+
+            //Update Sprite
+            enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+
+            //Update player coord
+            GlobalVars.players.Remove(clickedCoord);
         }
     }
 
     public void Move(Vector3Int hexCoodOfEnemy, int range)
     {
-        List<Tuple<Vector3Int, int>> possibles = Pathfinding.AllPossibleTiles(hexObjInfo.hexCoord, playerStats.move);
+        List<Tuple<Vector3Int, int>> possibles = Pathfinding.AllPossibleTiles(clickedCoord, playerMove);
 
         foreach (Tuple<Vector3Int, int> temp in possibles) {
 
             if (temp.Item1 == clickedCoord)
             {
-                //movement.movePlayer(, hexObjInfo.hexCoord);
+                Movement.movePlayer(playerCoord, clickedCoord);
             }
         }
     }

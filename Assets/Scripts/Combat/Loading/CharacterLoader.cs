@@ -10,15 +10,29 @@ public class CharacterLoader : MonoBehaviour {
     public List<Stats> enemies;
 
     private void Start() {
+        //Player
         GlobalVars.players.Add(GlobalVars.centerHex, players[0]);
-        GlobalVars.enemies.Add(GlobalVars.centerHex + 2 * Hex.hex_directions[0] , enemies[0]);
-
         GameObject currentTileObj = GlobalVars.hexagonTile[GlobalVars.centerHex];
-        GameObject newTileObj = GlobalVars.hexagonTile[GlobalVars.centerHex + 2 * Hex.hex_directions[0]];
-
-        //Update Sprite
         currentTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = players[0].sprite;
-        newTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = enemies[0].sprite;
+
+        //Random Offsets
+        List<Vector3Int> offsets = new List<Vector3Int>();
+        Vector3Int maxTile = GlobalVars.centerHex * 2;
+
+        for(int i = 0; i < 15; i++) {
+            Hex randHex = new Hex(Random.Range(0, maxTile.x), Random.Range(0 , maxTile.y));
+
+            if(GlobalVars.hexagonTileRefrence[new Vector3Int(randHex.q, randHex.r, randHex.s)].isObstacle == false) {
+                offsets.Add(new Vector3Int(randHex.q , randHex.r , randHex.s));
+            }
+        }
+
+        //Enemey
+        foreach(Vector3Int coord in offsets) {
+            GlobalVars.enemies.Add(coord , enemies[0]);
+            GameObject enemyTileObj = GlobalVars.hexagonTile[coord];
+            enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = enemies[0].sprite;
+        }
 
 
     }
