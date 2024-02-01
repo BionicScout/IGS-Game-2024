@@ -24,10 +24,7 @@ public class InputManager : MonoBehaviour
     public int playerPower;
     public bool clickedUI = false;
     static Vector3Int clickedCoord, playerCoord;
-    PlayerStats playerStats;
-    EnemyStats enemyStats;
     //HexObjInfo hexObjInfo;
-    Movement movement;
 
 
     void Start() {

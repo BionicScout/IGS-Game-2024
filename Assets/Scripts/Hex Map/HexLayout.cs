@@ -143,6 +143,8 @@ public class HexLayout : MonoBehaviour {
             noNextHex = true;
         }
 
+        GlobalVars.topRightHex = currentHex;
+
         Vector3Int centerTile = new Vector3Int(currentHex.q / 2, - (currentHex.q / 2) - (currentHex.s / 2) , currentHex.s / 2);
         Vector3 centerPos = GlobalVars.hexagonTile[centerTile].transform.position;
         Debug.Log("Ceneter Tile: " + centerTile);
