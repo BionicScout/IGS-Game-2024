@@ -128,7 +128,7 @@ public class Movement : MonoBehaviour {
     //    GlobalVars.hexagonTile[currentHex].transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = sprite;
     //}
 
-    public void movePlayer(Vector3Int playerCoord, Vector3Int newTileCoord) {
+    public static void movePlayer(Vector3Int playerCoord, Vector3Int newTileCoord) {
         //Get Player and current + future hex objs
         Stats playerStats = GlobalVars.players[playerCoord];
         GameObject currentTileObj = GlobalVars.hexagonTile[playerCoord];
