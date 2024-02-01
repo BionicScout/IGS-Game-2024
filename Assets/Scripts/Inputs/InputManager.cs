@@ -3,10 +3,28 @@ using System.Collections;
 using Unity.VisualScripting;
 using System;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 public class InputManager : MonoBehaviour
 {
-    private bool normMode;
+    public UnityEvent<Vector3> PointerClick;
+
+    void Update()
+    {
+        DetectMouseClick();
+    }
+
+    private void DetectMouseClick()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector3 mousePos = Input.mousePosition;
+            PointerClick?.Invoke(mousePos);
+        }
+    }
+}
+
+    /*private bool normMode;
     private bool shootMode;
     private bool wackMode;
     private bool moveMode;
@@ -28,7 +46,7 @@ public class InputManager : MonoBehaviour
     {
         GetPosition();
 
-        if (shootMode /*&& clicked on this player*/)
+        if (shootMode /*&& clicked on this player)
         {
             Shoot(clickedCoord, 2);
             //final thing
@@ -95,6 +113,4 @@ public class InputManager : MonoBehaviour
                 movement.moveTile(range);
             }
         }
-    }
-
-}
+    }*/
