@@ -37,11 +37,12 @@ public class InputManager : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
             if (hit.collider != null)
             {
-                if (hit.collider.gameObject.CompareTag("Player")) 
+                Vector3Int hexCoord = hit.collider.gameObject.transform.GetComponent<HexObjInfo>().hexCoord;
+                if (GlobalVars.players.ContainsKey(hexCoord)) 
                 {
-                    playerMove = gameObject.GetComponent<PlayerStats>().move;
+                    playerMove = GlobalVars.players[hexCoord].move;
                     Debug.Log(playerMove);
-                    playerPower = gameObject.GetComponent<PlayerStats>().power;
+                    playerPower = GlobalVars.players[hexCoord].power;
                     Debug.Log(playerPower);
                 }
                 else
@@ -66,7 +67,7 @@ public class InputManager : MonoBehaviour
         }
         if (moveMode)
         {
-            Move(clickedCoord, playerStats.move);
+            Move(clickedCoord, playerMove);
             //final thing
             normMode = true;
         }
