@@ -44,7 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c430588972eef754595aeae4ffd15093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
+  sounds:
+  - name: Background - Temp
+    clip: {fileID: 8300000, guid: 8279ced49b5dfb949b82a7df2ef234ca, type: 3}
+    volume: 0.497
+    pitch: 1
+    loop: 0
+    soundTrack: 1
+    source: {fileID: 0}
   fade: 0
   fadeTime: 2
   genericSound:
