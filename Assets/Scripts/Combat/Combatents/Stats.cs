@@ -6,7 +6,7 @@ using UnityEngine;
 public class Stats : ScriptableObject
 {
     public string charName;
-    public Sprite Sprite;
+    public Sprite sprite;
 
     public float curHealth = 10;
     public int maxHealth = 10;

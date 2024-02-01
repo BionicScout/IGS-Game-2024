@@ -24,22 +24,22 @@ public class Movement : MonoBehaviour {
 
     private void Update() {
         if(Input.GetKeyDown(KeyCode.BackQuote)) {
-            moveTile(0);
+            //moveTile(0);
         }
         else if(Input.GetKeyDown(KeyCode.Alpha1)) {
-            moveTile(1);
+            //moveTile(1);
         }
         else if(Input.GetKeyDown(KeyCode.Alpha2)) {
-            moveTile(2);
+            //moveTile(2);
         }
         else if(Input.GetKeyDown(KeyCode.Alpha3)) {
-            moveTile(3);
+            //moveTile(3);
         }
         else if(Input.GetKeyDown(KeyCode.Alpha4)) {
-            moveTile(4);
+            //oveTile(4);
         }
         else if(Input.GetKeyDown(KeyCode.Alpha5)) {
-            moveTile(5);
+            //moveTile(5);
         }
 
         /*
@@ -88,43 +88,58 @@ public class Movement : MonoBehaviour {
         }*/
     }
 
-    public void moveTile(int dir) {
-        Vector3Int newHex = currentHex + Hex.hex_directions[dir];
+    //public void moveTile(int dir) {
+    //    Vector3Int newHex = currentHex + Hex.hex_directions[dir];
 
-        //Avoid Off Baord
-        if(!GlobalVars.availableHexes.Contains(newHex)) {
-            Debug.Log("Off Baord");
-            return;
-        }
+    //    //Avoid Off Baord
+    //    if(!GlobalVars.availableHexes.Contains(newHex)) {
+    //        Debug.Log("Off Baord");
+    //        return;
+    //    }
 
-        //Avoid Obsticale
-        TileScriptableObjects template = GlobalVars.hexagonTileRefrence[newHex];
-        if(template.isObstacle) {
-            Debug.Log("Obsticale - " + template.name);
-            return;
-        }
+    //    //Avoid Obsticale
+    //    TileScriptableObjects template = GlobalVars.hexagonTileRefrence[newHex];
+    //    if(template.isObstacle) {
+    //        Debug.Log("Obsticale - " + template.name);
+    //        return;
+    //    }
 
 
-        //Adjust Postion
-        GameObject obj = GlobalVars.hexagonTile[currentHex];
-        obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "";
-        HexObjInfo tileUnit = obj.transform.GetComponent<HexObjInfo>();
+    //    //Adjust Postion
+    //    GameObject obj = GlobalVars.hexagonTile[currentHex];
+    //    obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "";
+    //    HexObjInfo tileUnit = obj.transform.GetComponent<HexObjInfo>();
 
-        string unitName = tileUnit.name;
-        Sprite sprite = tileUnit.unitSprite;
+    //    string unitName = tileUnit.name;
+    //    Sprite sprite = tileUnit.unitSprite;
 
-        tileUnit.unitSprite = null;
-        tileUnit.unitName = "";
-        obj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+    //    tileUnit.unitSprite = null;
+    //    tileUnit.unitName = "";
+    //    obj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
 
-        currentHex = newHex;
+    //    currentHex = newHex;
 
-        GlobalVars.hexagonTile[currentHex].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text =
-        "(" + currentHex.x + ", " + currentHex.y + ", " + currentHex.z + ")";
+    //    GlobalVars.hexagonTile[currentHex].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text =
+    //    "(" + currentHex.x + ", " + currentHex.y + ", " + currentHex.z + ")";
 
-        HexObjInfo newTileUnit = GlobalVars.hexagonTile[currentHex].transform.GetComponent<HexObjInfo>();
-        newTileUnit.unitName = unitName;
-        newTileUnit.unitSprite = sprite;
-        GlobalVars.hexagonTile[currentHex].transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = sprite;
+    //    HexObjInfo newTileUnit = GlobalVars.hexagonTile[currentHex].transform.GetComponent<HexObjInfo>();
+    //    newTileUnit.unitName = unitName;
+    //    newTileUnit.unitSprite = sprite;
+    //    GlobalVars.hexagonTile[currentHex].transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = sprite;
+    //}
+
+    public void movePlayer(Vector3Int playerCoord, Vector3Int newTileCoord) {
+        //Get Player and current + future hex objs
+        Stats playerStats = GlobalVars.players[playerCoord];
+        GameObject currentTileObj = GlobalVars.hexagonTile[playerCoord];
+        GameObject newTileObj = GlobalVars.hexagonTile[newTileCoord];
+
+        //Update Sprite
+        currentTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+        newTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = playerStats.sprite;
+
+        //Update player coord
+        GlobalVars.players.Remove(playerCoord);
+        GlobalVars.players.Add(newTileCoord, playerStats);
     }
 }
