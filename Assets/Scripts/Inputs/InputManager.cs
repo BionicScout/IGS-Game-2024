@@ -72,20 +72,20 @@ public class InputManager : MonoBehaviour
         }
     }
     //functions buttons will use
-    public bool SetShoot()
+    public void SetShoot()
     {
         shootMode = true;
-        return shootMode;
+        
     }
-    public bool SetWack()
+    public void SetWack()
     {
         wackMode = true;
-        return wackMode;
+        
     }
-    public bool SetMove()
+    public void SetMove()
     {
         moveMode = true;
-        return moveMode;
+        
     }
 
 
