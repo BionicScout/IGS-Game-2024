@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class SetWorldBounds : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        var bounds = GetComponent<SpriteRenderer>().bounds;
+        GlobalVars.WorldBounds = bounds;
     }
 }
