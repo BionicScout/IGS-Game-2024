@@ -16,6 +16,7 @@ public class EnemyAi : MonoBehaviour {
 
 
     public int attackRangeWeight = 1;
+    public int distanceFromEnemyWeight = 1;
 
     void Start() {
         foreach(KeyValuePair<Vector3Int, Stats> info in GlobalVars.enemies) {
@@ -61,6 +62,29 @@ public class EnemyAi : MonoBehaviour {
                     tilesAndScores[i] = updatedScore;
                 }
             }
+        }
+
+
+        return tilesAndScores;
+    }
+
+    public List<KeyValuePair<Vector3Int , int>> Score_DistanceFromEnemy(List<KeyValuePair<Vector3Int , int>> tilesAndScores , Stats enemyStats) {
+
+        for(int i = 0; i < tilesAndScores.Count; i++) {
+            int cloestEnemy = int.MaxValue; 
+
+            foreach(KeyValuePair<Vector3Int, Stats> playerInfo in GlobalVars.players) {
+                List<Vector3Int> pathToEnemy = Pathfinding.PathBetweenPoints(tilesAndScores[i].Key , playerInfo.Key);
+
+                if(cloestEnemy > pathToEnemy.Count) {
+                    cloestEnemy = pathToEnemy.Count;
+                }
+
+            }
+
+            int adjustScore = distanceFromEnemyWeight; /* NEED EQUATION WHERE TOO CLOSE BAD BUT TOO FAR BAD BUT JUST IN RANGE GOOD*/
+            KeyValuePair<Vector3Int , int> updatedScore = new KeyValuePair<Vector3Int , int>(tilesAndScores[i].Key , tilesAndScores[i].Value + adjustScore);
+            tilesAndScores[i] = updatedScore;
         }
 
 
