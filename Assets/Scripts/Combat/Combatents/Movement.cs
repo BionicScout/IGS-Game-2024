@@ -42,28 +42,32 @@ public class Movement : MonoBehaviour {
             //moveTile(5);
         }
 
-        /*
+        
         if(Input.GetKeyDown(KeyCode.Z)) {
             foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(currentHex , range)) {
                 Vector3Int t = temp.Item1;
-                GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
+                //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
+                GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(true);
             }
         }
         if(Input.GetKeyDown(KeyCode.X)) {
             foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(currentHex , range)) {
                 Vector3Int t = temp.Item1;
-                GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = temp.Item2.ToString();
+                //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = temp.Item2.ToString();
             }
         }
         if(Input.GetKeyDown(KeyCode.C)) {
             foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(currentHex , range)) {
                 Vector3Int t = temp.Item1;
-                GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "";
+                //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "";
+                GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(false);
             }
 
-            GlobalVars.hexagonTile[currentHex].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text =
-                "(" + currentHex.x + ", " + currentHex.y + ", " + currentHex.z + ")";
+            //GlobalVars.hexagonTile[currentHex].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text =
+            //    "(" + currentHex.x + ", " + currentHex.y + ", " + currentHex.z + ")";
         }
+
+        /*
 
         if(Input.GetKeyDown(KeyCode.I)) {
             goalHex = currentHex;

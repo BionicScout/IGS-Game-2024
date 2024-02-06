@@ -11,6 +11,7 @@ public class Stats : ScriptableObject
     public float curHealth = 10;
     public int maxHealth = 10;
     public int move;
+    public int attackRange;
     public int power;
     public int defense;
 }
