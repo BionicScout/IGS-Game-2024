@@ -11,8 +11,6 @@ public static class GlobalVars {
     public static Vector3Int centerHex = new Vector3Int(); //Center of Map
     public static Vector3Int topRightHex;
 
-    public static Bounds WorldBounds;
-
     //Combat Info
     public static Dictionary<Vector3Int , Stats> players = new Dictionary<Vector3Int , Stats>();
     public static Dictionary<Vector3Int , Stats> enemies = new Dictionary<Vector3Int , Stats>();
