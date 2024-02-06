@@ -14,6 +14,9 @@ public class EnemyAi : MonoBehaviour {
     List<Vector3Int> enemyCoords = new List<Vector3Int>();
     int currentEnemyIndex = 0;
 
+
+    public int attackRangeWeight = 1;
+
     void Start() {
         foreach(KeyValuePair<Vector3Int, Stats> info in GlobalVars.enemies) {
             enemyCoords.Add(info.Key);
@@ -26,8 +29,10 @@ public class EnemyAi : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.N)) {
             Debug.Log("Enemy " + currentEnemyIndex + ": " + enemyCoords[currentEnemyIndex].ToString());
 
+            Stats stats = GlobalVars.enemies[enemyCoords[currentEnemyIndex]];
+
             List<KeyValuePair<Vector3Int , int>> tilesAndScore = getTiles();
-            tilesAndScore = Score_AttackRange(tilesAndScore);
+            tilesAndScore = Score_AttackRange(tilesAndScore, stats);
             WriteToFile(tilesAndScore);
 
             currentEnemyIndex = (currentEnemyIndex + 1) % enemyCoords.Count;
@@ -46,12 +51,16 @@ public class EnemyAi : MonoBehaviour {
     }
 
 
-    public List<KeyValuePair<Vector3Int , int>> Score_AttackRange(List<KeyValuePair<Vector3Int , int>> tilesAndScores) {
+    public List<KeyValuePair<Vector3Int , int>> Score_AttackRange(List<KeyValuePair<Vector3Int , int>> tilesAndScores, Stats enemyStats) {
 
-        foreach(KeyValuePair<Vector3Int , int> tile in tilesAndScores) {
-            //tile.Value;
-            //Stats
-            
+        for(int i = 0; i < tilesAndScores.Count; i++) {
+            foreach(Tuple<Vector3Int , int> info in Pathfinding.AllPossibleTiles(tilesAndScores[i].Key, enemyStats.attackRange)) {
+
+                if(GlobalVars.players.ContainsKey(info.Item1)) {
+                    KeyValuePair<Vector3Int , int> updatedScore = new KeyValuePair<Vector3Int , int>(tilesAndScores[i].Key , tilesAndScores[i].Value + attackRangeWeight);
+                    tilesAndScores[i] = updatedScore;
+                }
+            }
         }
 
 

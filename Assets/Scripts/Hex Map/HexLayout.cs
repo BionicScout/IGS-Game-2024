@@ -76,8 +76,8 @@ public class HexLayout : MonoBehaviour {
         obj.transform.position = pos + offset;
 
         //Temporay Equations to put text on tiles
-        //obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + x.ToString() + ", " + y.ToString() + ")";
-        obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "";
+        obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = obj.name;
+        //obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "";
         //obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = spriteName;
 
 
