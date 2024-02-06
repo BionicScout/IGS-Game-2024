@@ -12,7 +12,8 @@ public class InputManager : MonoBehaviour
         normal = 0,
         shoot = 1,
         attack = 2,
-        move = 3
+        move = 3,
+        leveling = 4
     }
 
     modes inputMode; 
@@ -146,6 +147,11 @@ public class InputManager : MonoBehaviour
                 Movement.movePlayer(playerCoord, clickedCoord);
             }
         }
+    }
+
+    public void LevelUp(int amount)
+    {
+
     }
 
 
