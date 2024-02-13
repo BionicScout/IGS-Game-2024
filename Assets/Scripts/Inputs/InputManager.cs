@@ -16,7 +16,7 @@ public class InputManager : MonoBehaviour
         leveling = 4
     }
 
-    modes inputMode; 
+    modes inputMode;
 
 
 
@@ -24,17 +24,18 @@ public class InputManager : MonoBehaviour
     public int playerMove;
     public int playerPower;
     public bool clickedUI = false;
-    static Vector3Int clickedCoord, playerCoord;
+    static Vector3Int clickedCoord, playerCoord, currentHex;
     //HexObjInfo hexObjInfo;
 
 
     void Start() {
         inputMode = modes.normal;
+        currentHex = GlobalVars.centerHex;
     }
     void Update()
     {
 
-        if(clickedUI) {
+        if (clickedUI) {
             clickedUI = false;
             return;
         }
@@ -49,7 +50,7 @@ public class InputManager : MonoBehaviour
             if (hit.collider != null)
             {
                 clickedCoord = hit.collider.gameObject.transform.GetComponent<HexObjInfo>().hexCoord;
-                if (GlobalVars.players.ContainsKey(clickedCoord)) 
+                if (GlobalVars.players.ContainsKey(clickedCoord))
                 {
                     playerCoord = clickedCoord;
 
@@ -57,6 +58,7 @@ public class InputManager : MonoBehaviour
                     Debug.Log(playerMove);
                     playerPower = GlobalVars.players[clickedCoord].power;
                     Debug.Log(playerPower);
+
                 }
                 else
                 {
@@ -65,18 +67,18 @@ public class InputManager : MonoBehaviour
 
             }
 
-            if(inputMode == modes.shoot /*&& clicked on this player*/) {
-                Shoot(clickedCoord , 2);
+            if (inputMode == modes.shoot /*&& clicked on this player*/) {
+                Shoot(clickedCoord, 2);
                 //final thing
                 inputMode = modes.normal;
             }
-            if(inputMode == modes.attack) {
-                Wack(clickedCoord , 2);
+            if (inputMode == modes.attack) {
+                Wack(clickedCoord, 2);
                 //final thing
                 inputMode = modes.normal;
             }
-            if(inputMode == modes.move) {
-                Move(clickedCoord , playerMove);
+            if (inputMode == modes.move) {
+                Move(clickedCoord, playerMove);
                 //final thing
                 inputMode = modes.normal;
             }
@@ -86,19 +88,44 @@ public class InputManager : MonoBehaviour
     public void SetShoot()
     {
         inputMode = modes.shoot;
+        AttackIndicators(true);
         clickedUI = true;
     }
     public void SetWack()
     {
         inputMode = modes.attack;
+        AttackIndicators(true);
         clickedUI = true;
     }
     public void SetMove()
     {
         inputMode = modes.move;
+        MoveIndicators(true);
         clickedUI = true;
     }
 
+    public void MoveIndicators(bool onOff)
+    {
+        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(currentHex, GlobalVars.players[clickedCoord].move))
+        {
+            Vector3Int t = temp.Item1;
+            //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
+            GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(false);
+            GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(onOff);
+
+        }
+    }
+
+    public void AttackIndicators(bool onOff)
+    {
+        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(currentHex, GlobalVars.players[clickedCoord].attackRange))
+        {
+            Vector3Int t = temp.Item1;
+            //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
+            GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(false);
+            GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(onOff);
+        }
+    }
 
     public void Shoot(Vector3Int hexCoordOfEnemy, float damage)
     {
@@ -113,9 +140,11 @@ public class InputManager : MonoBehaviour
             //Update Sprite
             enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
 
+
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
         }
+        AttackIndicators(false);
     }
 
     public void Wack(Vector3Int hexCoordOfEnemy, float damage)
@@ -134,6 +163,7 @@ public class InputManager : MonoBehaviour
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
         }
+         //AttackIndicators(false);
     }
 
     public void Move(Vector3Int hexCoodOfEnemy, int range)
@@ -147,13 +177,8 @@ public class InputManager : MonoBehaviour
                 Movement.movePlayer(playerCoord, clickedCoord);
             }
         }
+       MoveIndicators(false);
     }
-
-    public void LevelUp(int amount)
-    {
-
-    }
-
 
     public Vector3Int GetPosition()
     {
