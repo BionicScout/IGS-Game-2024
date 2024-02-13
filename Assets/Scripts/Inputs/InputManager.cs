@@ -55,31 +55,27 @@ public class InputManager : MonoBehaviour
                     playerCoord = clickedCoord;
 
                     playerMove = GlobalVars.players[clickedCoord].move;
-                    Debug.Log(playerMove);
+                    //Debug.Log(playerMove);
                     playerPower = GlobalVars.players[clickedCoord].power;
-                    Debug.Log(playerPower);
+                    //Debug.Log(playerPower);
 
                 }
                 else
                 {
                     GetPosition();
                 }
-
             }
 
             if (inputMode == modes.shoot /*&& clicked on this player*/) {
                 Shoot(clickedCoord, 2);
-                //final thing
                 inputMode = modes.normal;
             }
             if (inputMode == modes.attack) {
                 Wack(clickedCoord, 2);
-                //final thing
                 inputMode = modes.normal;
             }
             if (inputMode == modes.move) {
                 Move(clickedCoord, playerMove);
-                //final thing
                 inputMode = modes.normal;
             }
         }
@@ -87,20 +83,20 @@ public class InputManager : MonoBehaviour
     //functions buttons will use
     public void SetShoot()
     {
+        //AttackIndicators(true);
         inputMode = modes.shoot;
-        AttackIndicators(true);
         clickedUI = true;
     }
     public void SetWack()
     {
+        //AttackIndicators(true);
         inputMode = modes.attack;
-        AttackIndicators(true);
         clickedUI = true;
     }
     public void SetMove()
     {
-        inputMode = modes.move;
         MoveIndicators(true);
+        inputMode = modes.move;
         clickedUI = true;
     }
 
@@ -110,9 +106,8 @@ public class InputManager : MonoBehaviour
         {
             Vector3Int t = temp.Item1;
             //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
-            GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(false);
             GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(onOff);
-
+            GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(false);
         }
     }
 
@@ -122,14 +117,14 @@ public class InputManager : MonoBehaviour
         {
             Vector3Int t = temp.Item1;
             //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
-            GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(false);
             GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(onOff);
+            GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(false);
         }
     }
 
     public void Shoot(Vector3Int hexCoordOfEnemy, float damage)
     {
-        Pathfinding.AllPossibleTiles(clickedCoord , playerMove);
+        Pathfinding.AllPossibleTiles(clickedCoord , GlobalVars.players[clickedCoord].attackRange);
 
         if (GlobalVars.enemies.ContainsKey(clickedCoord))
         {
@@ -139,12 +134,12 @@ public class InputManager : MonoBehaviour
 
             //Update Sprite
             enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
-
+            AttackIndicators(false);
 
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
         }
-        AttackIndicators(false);
+
     }
 
     public void Wack(Vector3Int hexCoordOfEnemy, float damage)
@@ -159,11 +154,12 @@ public class InputManager : MonoBehaviour
 
             //Update Sprite
             enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+            AttackIndicators(false);
 
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
         }
-         //AttackIndicators(false);
+
     }
 
     public void Move(Vector3Int hexCoodOfEnemy, int range)
@@ -177,7 +173,7 @@ public class InputManager : MonoBehaviour
                 Movement.movePlayer(playerCoord, clickedCoord);
             }
         }
-       MoveIndicators(false);
+        MoveIndicators(false);
     }
 
     public Vector3Int GetPosition()
