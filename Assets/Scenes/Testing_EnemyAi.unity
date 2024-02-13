@@ -242,6 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 158494693}
+  spriteRenderer: {fileID: 544611183}
 --- !u!1 &182730966
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,7 +777,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f96cb2b76de747242b6eeb668d4c3954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePath: Assets/EnmeyAiDebug.txt
 --- !u!4 &476982210
 Transform:
   m_ObjectHideFlags: 0
