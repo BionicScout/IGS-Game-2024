@@ -85,13 +85,13 @@ public class InputManager : MonoBehaviour
     //functions buttons will use
     public void SetShoot()
     {
-        AttackIndicators(true);
+        ShootIndicators(true);
         inputMode = modes.shoot;
         clickedUI = true;
     }
     public void SetWack()
     {
-        AttackIndicators(true);
+        WackIndicators(true);
         inputMode = modes.attack;
         clickedUI = true;
     }
@@ -113,7 +113,18 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    public void AttackIndicators(bool onOff)
+    public void WackIndicators(bool onOff)
+    {
+        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, 1))
+        {
+            Vector3Int t = temp.Item1;
+            //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
+            GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(onOff);
+            GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(false);
+        }
+    }
+
+    public void ShootIndicators(bool onOff)
     {
         foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, playerAttRange))
         {
@@ -136,7 +147,7 @@ public class InputManager : MonoBehaviour
 
             //Update Sprite
             enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
-            AttackIndicators(false);
+            ShootIndicators(false);
 
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
@@ -156,7 +167,8 @@ public class InputManager : MonoBehaviour
 
             //Update Sprite
             enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
-            AttackIndicators(false);
+            
+            WackIndicators(false);
 
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
