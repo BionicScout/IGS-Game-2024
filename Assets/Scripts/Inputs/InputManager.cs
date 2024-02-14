@@ -18,9 +18,6 @@ public class InputManager : MonoBehaviour
 
     modes inputMode;
 
-
-
-
     public int playerMove;
     public int playerPower;
     public int playerAttRange;
@@ -184,6 +181,7 @@ public class InputManager : MonoBehaviour
 
             if (temp.Item1 == clickedCoord)
             {
+                Debug.Log("This is Item1 " + temp.Item1);
                 Movement.movePlayer(playerCoord, clickedCoord);
             }
         }
@@ -208,6 +206,7 @@ public class InputManager : MonoBehaviour
         }
         return Vector3Int.zero;
     }
+
 }
 
     //public UnityEvent<Vector3> PointerClick;
