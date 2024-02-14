@@ -19,9 +19,13 @@ public class EnemyAi : MonoBehaviour {
 
     // Predefined Weights
     int inRangeWeight = 5;
-    int playerHitPenaltyWeight = 2;
+    int playerHitPenaltyWeight = 6;
     int farPlayerPenalty = -100;
     int distanceThreshold = 10;
+
+    //Testing Purposes
+    List<Vector3Int> debugMoveTiles = new List<Vector3Int>();
+    Dictionary<Vector3Int, int> playersCanHitList = new Dictionary<Vector3Int, int>();
 
     void Start() {
         foreach(KeyValuePair<Vector3Int, Stats> info in GlobalVars.enemies) {
@@ -35,20 +39,32 @@ public class EnemyAi : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.N)) {
             Debug.Log("Enemy " + currentEnemyIndex + ": " + enemyCoords[currentEnemyIndex].ToString());
 
+            //Clear Debug
+            foreach(Vector3Int t in debugMoveTiles) {
+                GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(false);
+            }
+
+
+            //Get Scores
             Stats stats = GlobalVars.enemies[enemyCoords[currentEnemyIndex]];
 
-            List<KeyValuePair<Vector3Int , float>> tilesAndScore = ScoreTiles();
+            List<KeyValuePair<Vector3Int , float>> tilesAndScore = ScoreTiles(stats);
             WriteToFile(tilesAndScore);
+
+            //Move Ai
+            Move(tilesAndScore);
+
+
 
             currentEnemyIndex = (currentEnemyIndex + 1) % enemyCoords.Count;
         }
     }
 
-    public List<KeyValuePair<Vector3Int , float>> getTiles() {
+    public List<KeyValuePair<Vector3Int , float>> getTiles(Stats enemyStats) {
 
         List<KeyValuePair<Vector3Int, float>> tilesAndScores = new List<KeyValuePair<Vector3Int, float>>(); //Hex Coord, score
 
-        foreach(Tuple<Vector3Int, int> info in Pathfinding.AllPossibleTiles(enemyCoords[currentEnemyIndex] , 3)) {
+        foreach(Tuple<Vector3Int, int> info in Pathfinding.AllPossibleTiles(enemyCoords[currentEnemyIndex] , enemyStats.move)) {
             tilesAndScores.Add(new KeyValuePair<Vector3Int, float>(info.Item1, 0));
         }
 
@@ -59,8 +75,8 @@ public class EnemyAi : MonoBehaviour {
         Scoring
     *********************************/
 
-    public List<KeyValuePair<Vector3Int , float>> ScoreTiles() {
-        List<KeyValuePair<Vector3Int, float>> tilesAndScores = getTiles();
+    List<KeyValuePair<Vector3Int , float>> ScoreTiles(Stats enemyStats) {
+        List<KeyValuePair<Vector3Int, float>> tilesAndScores = getTiles(enemyStats);
 
         //Variables that are reused
         float score;
@@ -68,18 +84,26 @@ public class EnemyAi : MonoBehaviour {
         int closestPerson;
         int playersCanHit;
 
+        playersCanHitList = new Dictionary<Vector3Int , int>();
+
         for(int tileScoreIndex = 0; tileScoreIndex < tilesAndScores.Count; tileScoreIndex++) {
             // Set tile Score
             score = 0;
+
+            if(GlobalVars.players.ContainsKey(tilesAndScores[tileScoreIndex].Key)) {
+                KeyValuePair<Vector3Int , float> t = tilesAndScores[tileScoreIndex];
+                tilesAndScores[tileScoreIndex] = new KeyValuePair<Vector3Int , float>(tilesAndScores[tileScoreIndex].Key , float.MinValue);
+                continue;
+            }
 
             //Find PLayer Distances Info
             distances = new List<int>();
             closestPerson = -1;
             playersCanHit = 0;
 
-            Debug.Log("--------New Tile-------------");
+            Debug.Log("--------" + tilesAndScores[tileScoreIndex].Key + "-------------");
             foreach(KeyValuePair<Vector3Int, Stats> playerInfo in GlobalVars.players){
-                int distance = Pathfinding.PathBetweenPoints(playerInfo.Key , tilesAndScores[tileScoreIndex].Key).Count + 1;
+                int distance = Pathfinding.PathBetweenPoints(playerInfo.Key , tilesAndScores[tileScoreIndex].Key).Count - 1;
                 Debug.Log("Distance: " + distance);
                 distances.Add(distance);
 
@@ -88,9 +112,14 @@ public class EnemyAi : MonoBehaviour {
                 }
 
                 if (distance <= playerInfo.Value.attackRange) {
+                    Debug.Log("Can Hit - " + distance + " <= " + playerInfo.Value.attackRange);
                     playersCanHit++;
                 }
+
+                Debug.Log("Can Hit 2 - " + playersCanHit);
             }
+
+            playersCanHitList.Add(tilesAndScores[tileScoreIndex].Key, playersCanHit);
 
             Debug.Log("ClosestPerson: " + closestPerson);
 
@@ -113,6 +142,43 @@ public class EnemyAi : MonoBehaviour {
         return tilesAndScores;
     }
 
+    /*********************************
+        Actions
+    *********************************/
+    private void Move(List<KeyValuePair<Vector3Int , float>> tilesAndScore) {
+        //Get Max Value
+        float maxValue = float.MinValue;
+
+        foreach(KeyValuePair<Vector3Int , float> pair in tilesAndScore) {
+            if(pair.Value > maxValue) {
+                maxValue = pair.Value;
+            }
+        }
+
+        //Get List maxValue
+        List<Vector3Int> tiles = new List<Vector3Int>();
+
+        foreach(KeyValuePair<Vector3Int , float> pair in tilesAndScore) {
+            if(pair.Value == maxValue) {
+                tiles.Add(pair.Key);
+            }
+        }
+
+        //Pick one of the moves
+        int randomMove = UnityEngine.Random.Range(0, tiles.Count);
+        Vector3Int moveTile = tiles[randomMove];
+
+        Debug.Log(tiles.Count);
+
+        //Debug
+        debugMoveTiles = tiles;
+
+        foreach(Vector3Int t in tiles) {
+            GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(true);
+        }
+        //GlobalVars.hexagonTile[].transform.GetChild(4).gameObject.SetActive(true);
+    }
+
 
     /*********************************
         Debugging
@@ -130,7 +196,10 @@ public class EnemyAi : MonoBehaviour {
             writer.WriteLine("Tile Scores: ");
 
             foreach(KeyValuePair<Vector3Int, float> tile in tilesAndScores) {
-                writer.WriteLine(tile.Key + " - Score: " + tile.Value);
+                if(tile.Value <= float.MinValue + 1)
+                    writer.WriteLine(tile.Key + " - Score: " + tile.Value);
+                else
+                    writer.WriteLine(tile.Key + " - Score: " + tile.Value);
             }
             
 
@@ -143,7 +212,7 @@ public class EnemyAi : MonoBehaviour {
 /*
 
 
-// Predefined Weights
+//Predefined Weights
 inRangeWeight = 5
 playerHitPenaltyWeight = 2
 farPlayerPenalty = -100
