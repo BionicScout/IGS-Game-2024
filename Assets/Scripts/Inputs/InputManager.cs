@@ -23,6 +23,7 @@ public class InputManager : MonoBehaviour
 
     public int playerMove;
     public int playerPower;
+    public int playerAttRange;
     public bool clickedUI = false;
     static Vector3Int clickedCoord, playerCoord, currentHex;
     //HexObjInfo hexObjInfo;
@@ -58,6 +59,7 @@ public class InputManager : MonoBehaviour
                     //Debug.Log(playerMove);
                     playerPower = GlobalVars.players[clickedCoord].power;
                     //Debug.Log(playerPower);
+                    playerAttRange = GlobalVars.players[clickedCoord].attackRange;
 
                 }
                 else
@@ -83,13 +85,13 @@ public class InputManager : MonoBehaviour
     //functions buttons will use
     public void SetShoot()
     {
-        //AttackIndicators(true);
+        AttackIndicators(true);
         inputMode = modes.shoot;
         clickedUI = true;
     }
     public void SetWack()
     {
-        //AttackIndicators(true);
+        AttackIndicators(true);
         inputMode = modes.attack;
         clickedUI = true;
     }
@@ -102,7 +104,7 @@ public class InputManager : MonoBehaviour
 
     public void MoveIndicators(bool onOff)
     {
-        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(currentHex, GlobalVars.players[clickedCoord].move))
+        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, playerMove))
         {
             Vector3Int t = temp.Item1;
             //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
@@ -113,7 +115,7 @@ public class InputManager : MonoBehaviour
 
     public void AttackIndicators(bool onOff)
     {
-        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(currentHex, GlobalVars.players[clickedCoord].attackRange))
+        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, playerAttRange))
         {
             Vector3Int t = temp.Item1;
             //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
@@ -124,7 +126,7 @@ public class InputManager : MonoBehaviour
 
     public void Shoot(Vector3Int hexCoordOfEnemy, float damage)
     {
-        Pathfinding.AllPossibleTiles(clickedCoord , GlobalVars.players[clickedCoord].attackRange);
+        Pathfinding.AllPossibleTiles(clickedCoord , playerAttRange);
 
         if (GlobalVars.enemies.ContainsKey(clickedCoord))
         {

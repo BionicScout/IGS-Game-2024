@@ -16,7 +16,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 9117efeeedbcfe5499a22c01e49941dd, type: 3}
   curHealth: 10
   maxHealth: 10
-  move: 5
+  move: 2
   attackRange: 2
   power: 0
   defense: 0
