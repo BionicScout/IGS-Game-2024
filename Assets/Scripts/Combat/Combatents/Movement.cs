@@ -146,4 +146,19 @@ public class Movement : MonoBehaviour {
         GlobalVars.players.Remove(playerCoord);
         GlobalVars.players.Add(newTileCoord, playerStats);
     }
+
+    public static void moveEnemy(Vector3Int enemyCoord , Vector3Int newTileCoord) {
+        //Get Player and current + future hex objs
+        Stats enemyStats = GlobalVars.enemies[enemyCoord];
+        GameObject currentTileObj = GlobalVars.hexagonTile[enemyCoord];
+        GameObject newTileObj = GlobalVars.hexagonTile[newTileCoord];
+
+        //Update Sprite
+        currentTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+        newTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = enemyStats.sprite;
+
+        //Update player coord
+        GlobalVars.enemies.Add(newTileCoord , enemyStats);
+        GlobalVars.enemies.Remove(enemyCoord);
+    }
 }

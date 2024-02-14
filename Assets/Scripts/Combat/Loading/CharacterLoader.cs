@@ -19,7 +19,7 @@ public class CharacterLoader : MonoBehaviour {
         List<Vector3Int> offsets = new List<Vector3Int>();
         Vector3Int maxTile = GlobalVars.centerHex * 2;
 
-        for(int i = 0; i < 1; i++) {
+        for(int i = 0; i < 10; i++) {
             Hex randHex = new Hex(Random.Range(0, maxTile.x), Random.Range(0 , maxTile.y));
 
             if(GlobalVars.hexagonTileRefrence[new Vector3Int(randHex.q, randHex.r, randHex.s)].isObstacle == false) {

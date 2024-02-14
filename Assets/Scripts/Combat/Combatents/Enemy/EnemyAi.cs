@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ public class EnemyAi : MonoBehaviour {
     int inRangeWeight = 5;
     int playerHitPenaltyWeight = 6;
     int farPlayerPenalty = -100;
-    int distanceThreshold = 10;
+    int distanceThreshold = 25;
 
     //Testing Purposes
     List<Vector3Int> debugMoveTiles = new List<Vector3Int>();
@@ -173,10 +174,13 @@ public class EnemyAi : MonoBehaviour {
         //Debug
         debugMoveTiles = tiles;
 
-        foreach(Vector3Int t in tiles) {
-            GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(true);
-        }
+        //foreach(Vector3Int t in tiles) {
+        //    GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(true);
+        //}
         //GlobalVars.hexagonTile[].transform.GetChild(4).gameObject.SetActive(true);
+
+        Movement.moveEnemy(enemyCoords[currentEnemyIndex], moveTile);
+        enemyCoords[currentEnemyIndex] = moveTile;
     }
 
 
@@ -196,10 +200,7 @@ public class EnemyAi : MonoBehaviour {
             writer.WriteLine("Tile Scores: ");
 
             foreach(KeyValuePair<Vector3Int, float> tile in tilesAndScores) {
-                if(tile.Value <= float.MinValue + 1)
-                    writer.WriteLine(tile.Key + " - Score: " + tile.Value);
-                else
-                    writer.WriteLine(tile.Key + " - Score: " + tile.Value);
+                writer.WriteLine(tile.Key + " - Score: " + tile.Value);
             }
             
 
