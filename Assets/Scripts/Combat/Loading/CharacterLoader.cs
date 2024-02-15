@@ -4,6 +4,7 @@ using System.Drawing;
 using UnityEngine;
 
 public class CharacterLoader : MonoBehaviour {
+    public GameObject healthBar;
     [SerializeField]
     public List<Stats> players;
 
@@ -17,6 +18,7 @@ public class CharacterLoader : MonoBehaviour {
             GlobalVars.players.Add(tile , players[i]);
             GameObject currentTileObj = GlobalVars.hexagonTile[tile];
             currentTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = players[i].sprite;
+            Instantiate(healthBar, tile, Quaternion.identity);
 
             GlobalVars.players[tile].curHealth = GlobalVars.players[tile].maxHealth;
         }

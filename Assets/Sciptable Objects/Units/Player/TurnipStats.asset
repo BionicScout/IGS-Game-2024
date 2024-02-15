@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TurnipStats
   m_EditorClassIdentifier: 
   charName: Turnip
-  sprite: {fileID: 21300000, guid: 9117efeeedbcfe5499a22c01e49941dd, type: 3}
+  sprite: {fileID: 21300000, guid: d3f9c99d13cb6024baaef306f65ef39b, type: 3}
   curHealth: 10
   maxHealth: 10
   move: 2
