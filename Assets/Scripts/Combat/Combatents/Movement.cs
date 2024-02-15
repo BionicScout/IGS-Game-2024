@@ -145,7 +145,10 @@ public class Movement : MonoBehaviour {
         //Update player coord
         GlobalVars.players.Remove(playerCoord);
         GlobalVars.players.Add(newTileCoord, playerStats);
-    }
+
+
+        Vector3 offset = newTileObj.transform.position - currentTileObj.transform.position;
+        playerStats.healthBar.transform.position = playerStats.healthBar.transform.position + offset;
 
     public static void moveEnemy(Vector3Int enemyCoord , Vector3Int newTileCoord) {
         //Get Player and current + future hex objs
