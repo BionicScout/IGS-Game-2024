@@ -149,7 +149,7 @@ public class Movement : MonoBehaviour {
 
 
         Vector3 offset = newTileObj.transform.position - currentTileObj.transform.position;
-        playerStats.healthBar.transform.position = playerStats.healthBar.transform.position + offset;
+        //playerStats.healthBar.transform.position = playerStats.healthBar.transform.position + offset;
     }
 
     public static void moveEnemy(Vector3Int enemyCoord , Vector3Int newTileCoord) {

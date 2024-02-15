@@ -23,7 +23,7 @@ public class TurnManager : MonoBehaviour {
             
         }
         else {
-            FindObjectOfType<InputManager>().gameObject.SetActive(false);
+            //FindObjectOfType<InputManager>().gameObject.SetActive(false);
         }
 
         bool allTurntaken = true;

@@ -145,16 +145,12 @@ public class InputManager : MonoBehaviour
             {
                 enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
             }
+            FindObjectOfType<TurnManager>().playerTookTurn(playerCoord);
             ShootIndicators(false);
 
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
 
-
-
-
-
-            FindObjectOfType<TurnManager>().playerTookTurn(playerCoord);
         }
 
     }
@@ -175,15 +171,12 @@ public class InputManager : MonoBehaviour
             {
                 enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
             }
-
+            FindObjectOfType<TurnManager>().playerTookTurn(playerCoord);
             WackIndicators(false);
 
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
 
-
-
-            FindObjectOfType<TurnManager>().playerTookTurn(playerCoord);
         }
 
     }
