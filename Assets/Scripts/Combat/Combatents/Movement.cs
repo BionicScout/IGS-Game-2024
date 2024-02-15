@@ -132,7 +132,8 @@ public class Movement : MonoBehaviour {
     //    GlobalVars.hexagonTile[currentHex].transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = sprite;
     //}
 
-    public static void movePlayer(Vector3Int playerCoord, Vector3Int newTileCoord) {
+    public static void movePlayer(Vector3Int playerCoord, Vector3Int newTileCoord)
+    {
         //Get Player and current + future hex objs
         Stats playerStats = GlobalVars.players[playerCoord];
         GameObject currentTileObj = GlobalVars.hexagonTile[playerCoord];
@@ -149,6 +150,7 @@ public class Movement : MonoBehaviour {
 
         Vector3 offset = newTileObj.transform.position - currentTileObj.transform.position;
         playerStats.healthBar.transform.position = playerStats.healthBar.transform.position + offset;
+    }
 
     public static void moveEnemy(Vector3Int enemyCoord , Vector3Int newTileCoord) {
         //Get Player and current + future hex objs
@@ -163,5 +165,6 @@ public class Movement : MonoBehaviour {
         //Update player coord
         GlobalVars.enemies.Add(newTileCoord , enemyStats);
         GlobalVars.enemies.Remove(enemyCoord);
+
     }
 }

@@ -19,6 +19,7 @@ public class Stats : ScriptableObject
     public void Start()
     {
         curHealth = maxHealth;
+        Instantiate(healthBar);
     }
 
     public void Damage(int dmg)

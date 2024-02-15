@@ -199,12 +199,12 @@ public class InputManager : MonoBehaviour
                 Debug.Log("Tile distance: " + Vector3Int.Distance(clickedCoord, playerCoord));
                 Debug.Log("This is Item1 " + temp.Item1);
                 Movement.movePlayer(playerCoord, clickedCoord);
+                MoveIndicators(false);
+                ShootIndicators(false);
+                WackIndicators(false);
                 FindObjectOfType<TurnManager>().playerTookTurn(playerCoord);
             }
         }
-        MoveIndicators(false);
-        ShootIndicators(false);
-        WackIndicators(false);
     }
 
 
