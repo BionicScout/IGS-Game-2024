@@ -1116,7 +1116,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c68eed54123608408ea51a74c4998f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBar: {fileID: 4094883835307473522, guid: f6c36e91f800a7446a6ae99b1ee3626a, type: 3}
   players:
   - {fileID: 11400000, guid: 45ea829f446c0d147af92e8f781a95b1, type: 2}
   - {fileID: 11400000, guid: 3fa4eed6f76fa6447b38e2fe43e84b28, type: 2}
