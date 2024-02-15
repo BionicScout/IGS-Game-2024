@@ -11,9 +11,12 @@ public class CharacterLoader : MonoBehaviour {
 
     private void Start() {
         //Player
-        GlobalVars.players.Add(GlobalVars.centerHex, players[0]);
-        GameObject currentTileObj = GlobalVars.hexagonTile[GlobalVars.centerHex];
-        currentTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = players[0].sprite;
+        for(int i = 0; i < players.Count; i++) {
+            Vector3Int tile = GlobalVars.centerHex + (i * Hex.hex_directions[0]);
+            GlobalVars.players.Add(tile , players[i]);
+            GameObject currentTileObj = GlobalVars.hexagonTile[tile];
+            currentTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = players[0].sprite;
+        }
 
         //Random Offsets
         List<Vector3Int> offsets = new List<Vector3Int>();
