@@ -18,8 +18,9 @@ public class InputManager : MonoBehaviour
 
     modes inputMode;
 
-    public int playerMove, playerPower, playerAttRange;
+    public int playerMoveInt, playerPower, playerAttRangeInt;
     public bool clickedUI = false;
+    public float playerMoveFloat, playerAttRangeFloat;
     static Vector3Int clickedCoord, playerCoord, enemyCoord;
     //HexObjInfo hexObjInfo;
 
@@ -49,11 +50,13 @@ public class InputManager : MonoBehaviour
                 {
                     playerCoord = clickedCoord;
 
-                    playerMove = GlobalVars.players[clickedCoord].move;
+                    playerMoveInt = GlobalVars.players[clickedCoord].move;
+                    playerMoveFloat = GlobalVars.players[clickedCoord].move + 1;
                     //Debug.Log(playerMove);
                     playerPower = GlobalVars.players[clickedCoord].power;
                     //Debug.Log(playerPower);
-                    playerAttRange = GlobalVars.players[clickedCoord].attackRange;
+                    playerAttRangeInt = GlobalVars.players[clickedCoord].attackRange;
+                    playerAttRangeFloat = GlobalVars.players[clickedCoord].attackRange + 1;
 
                 }
                 else
@@ -71,7 +74,7 @@ public class InputManager : MonoBehaviour
                 inputMode = modes.normal;
             }
             if (inputMode == modes.move) {
-                Move(clickedCoord, playerMove);
+                Move(clickedCoord, playerMoveInt);
                 inputMode = modes.normal;
             }
         }
@@ -98,7 +101,7 @@ public class InputManager : MonoBehaviour
 
     public void MoveIndicators(bool onOff)
     {
-        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, playerMove))
+        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, playerMoveInt))
         {
             Vector3Int t = temp.Item1;
             //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
@@ -120,7 +123,7 @@ public class InputManager : MonoBehaviour
 
     public void ShootIndicators(bool onOff)
     {
-        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, playerAttRange))
+        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, playerAttRangeInt))
         {
             Vector3Int t = temp.Item1;
             //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
@@ -131,9 +134,9 @@ public class InputManager : MonoBehaviour
 
     public void Shoot(Vector3Int hexCoordOfEnemy, float damage)
     {
-        Pathfinding.AllPossibleTiles(clickedCoord , playerAttRange);
+        Pathfinding.AllPossibleTiles(clickedCoord , playerAttRangeInt);
 
-        if (GlobalVars.enemies.ContainsKey(clickedCoord))
+        if (GlobalVars.enemies.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord, playerCoord) <= playerAttRangeFloat)
         {
             //Get Player and current + future hex objs
             Stats enemyStats = GlobalVars.enemies[clickedCoord];
@@ -157,7 +160,7 @@ public class InputManager : MonoBehaviour
     {
         Pathfinding.AllPossibleTiles(clickedCoord , 1);
 
-        if (GlobalVars.enemies.ContainsKey(clickedCoord))
+        if (GlobalVars.enemies.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord, playerCoord) <= 2)
         {
             //Get Player and current + future hex objs
             Stats enemyStats = GlobalVars.enemies[clickedCoord];
@@ -180,12 +183,13 @@ public class InputManager : MonoBehaviour
 
     public void Move(Vector3Int hexCoodOfEnemy, int range)
     {
-        List<Tuple<Vector3Int, int>> possibles = Pathfinding.AllPossibleTiles(clickedCoord, playerMove);
+        List<Tuple<Vector3Int, int>> possibles = Pathfinding.AllPossibleTiles(clickedCoord, playerMoveInt);
 
         foreach (Tuple<Vector3Int, int> temp in possibles) 
         {
-            if (temp.Item1 == clickedCoord)
+            if (temp.Item1 == clickedCoord && Vector3Int.Distance(clickedCoord, playerCoord) <= playerMoveFloat)
             {
+                Debug.Log("Tile distance: " + Vector3Int.Distance(clickedCoord, playerCoord));
                 Debug.Log("This is Item1 " + temp.Item1);
                 Movement.movePlayer(playerCoord, clickedCoord);
 
