@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 public class CharacterLoader : MonoBehaviour {
@@ -16,6 +17,8 @@ public class CharacterLoader : MonoBehaviour {
             GlobalVars.players.Add(tile , players[i]);
             GameObject currentTileObj = GlobalVars.hexagonTile[tile];
             currentTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = players[0].sprite;
+
+            GlobalVars.players[tile].curHealth = GlobalVars.players[tile].maxHealth;
         }
 
         //Random Offsets
@@ -35,6 +38,8 @@ public class CharacterLoader : MonoBehaviour {
             GlobalVars.enemies.Add(coord , enemies[0]);
             GameObject enemyTileObj = GlobalVars.hexagonTile[coord];
             enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = enemies[0].sprite;
+
+            GlobalVars.enemies[coord].curHealth = GlobalVars.enemies[coord].maxHealth;
         }
 
         Debug.Log("Enemies: " + GlobalVars.enemies);

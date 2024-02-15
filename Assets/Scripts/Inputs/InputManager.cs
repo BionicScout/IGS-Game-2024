@@ -194,6 +194,7 @@ public class InputManager : MonoBehaviour
         MoveIndicators(false);
     }
 
+
     public Vector3Int GetPosition()
     {
         if (Input.GetMouseButtonDown(0))
