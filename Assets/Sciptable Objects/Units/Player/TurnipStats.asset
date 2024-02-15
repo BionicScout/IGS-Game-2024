@@ -17,6 +17,6 @@ MonoBehaviour:
   curHealth: 10
   maxHealth: 10
   move: 2
-  attackRange: 2
-  power: 0
+  attackRange: 5
+  power: 5
   defense: 0
