@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3c9cc9d7b7cad24eae7155a47c8be2b, type: 3}
-  m_Name: TurnipStats
+  m_Name: ParsnipStats
   m_EditorClassIdentifier: 
   charName: Turnip
   sprite: {fileID: 21300000, guid: 9117efeeedbcfe5499a22c01e49941dd, type: 3}

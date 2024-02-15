@@ -18,9 +18,8 @@ public class InputManager : MonoBehaviour
 
     modes inputMode;
 
-    public int playerMoveInt, playerPower, playerAttRangeInt;
+    public int playerMove, playerPower, playerAttRange;
     public bool clickedUI = false;
-    public float playerMoveFloat, playerAttRangeFloat;
     static Vector3Int clickedCoord, playerCoord, enemyCoord;
     //HexObjInfo hexObjInfo;
 
@@ -50,13 +49,11 @@ public class InputManager : MonoBehaviour
                 {
                     playerCoord = clickedCoord;
 
-                    playerMoveInt = GlobalVars.players[clickedCoord].move;
-                    playerMoveFloat = GlobalVars.players[clickedCoord].move + 1;
+                    playerMove = GlobalVars.players[clickedCoord].move;
                     //Debug.Log(playerMove);
                     playerPower = GlobalVars.players[clickedCoord].power;
                     //Debug.Log(playerPower);
-                    playerAttRangeInt = GlobalVars.players[clickedCoord].attackRange;
-                    playerAttRangeFloat = GlobalVars.players[clickedCoord].attackRange + 1;
+                    playerAttRange = GlobalVars.players[clickedCoord].attackRange;
 
                 }
                 else
@@ -74,7 +71,7 @@ public class InputManager : MonoBehaviour
                 inputMode = modes.normal;
             }
             if (inputMode == modes.move) {
-                Move(clickedCoord, playerMoveInt);
+                Move(clickedCoord, playerMove);
                 inputMode = modes.normal;
             }
         }
@@ -101,7 +98,7 @@ public class InputManager : MonoBehaviour
 
     public void MoveIndicators(bool onOff)
     {
-        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, playerMoveInt))
+        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, playerMove))
         {
             Vector3Int t = temp.Item1;
             //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
@@ -123,7 +120,7 @@ public class InputManager : MonoBehaviour
 
     public void ShootIndicators(bool onOff)
     {
-        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, playerAttRangeInt))
+        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, playerAttRange))
         {
             Vector3Int t = temp.Item1;
             //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
@@ -134,9 +131,9 @@ public class InputManager : MonoBehaviour
 
     public void Shoot(Vector3Int hexCoordOfEnemy, float damage)
     {
-        Pathfinding.AllPossibleTiles(clickedCoord , playerAttRangeInt);
+        Pathfinding.AllPossibleTiles(clickedCoord , playerAttRange);
 
-        if (GlobalVars.enemies.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord, playerCoord) <= playerAttRangeFloat)
+        if (GlobalVars.enemies.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord, playerCoord) <= playerAttRange + 1)
         {
             //Get Player and current + future hex objs
             Stats enemyStats = GlobalVars.enemies[clickedCoord];
@@ -183,11 +180,11 @@ public class InputManager : MonoBehaviour
 
     public void Move(Vector3Int hexCoodOfEnemy, int range)
     {
-        List<Tuple<Vector3Int, int>> possibles = Pathfinding.AllPossibleTiles(clickedCoord, playerMoveInt);
+        List<Tuple<Vector3Int, int>> possibles = Pathfinding.AllPossibleTiles(clickedCoord, playerMove);
 
         foreach (Tuple<Vector3Int, int> temp in possibles) 
         {
-            if (temp.Item1 == clickedCoord && Vector3Int.Distance(clickedCoord, playerCoord) <= playerMoveFloat)
+            if (temp.Item1 == clickedCoord && Vector3Int.Distance(clickedCoord, playerCoord) <= playerMove + 1)
             {
                 Debug.Log("Tile distance: " + Vector3Int.Distance(clickedCoord, playerCoord));
                 Debug.Log("This is Item1 " + temp.Item1);
@@ -196,6 +193,8 @@ public class InputManager : MonoBehaviour
             }
         }
         MoveIndicators(false);
+        ShootIndicators(false);
+        WackIndicators(false);
     }
 
 
