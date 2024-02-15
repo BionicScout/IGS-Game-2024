@@ -16,7 +16,7 @@ public class CharacterLoader : MonoBehaviour {
             Vector3Int tile = GlobalVars.centerHex + (i * Hex.hex_directions[0]);
             GlobalVars.players.Add(tile , players[i]);
             GameObject currentTileObj = GlobalVars.hexagonTile[tile];
-            currentTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = players[0].sprite;
+            currentTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = players[i].sprite;
 
             GlobalVars.players[tile].curHealth = GlobalVars.players[tile].maxHealth;
         }
