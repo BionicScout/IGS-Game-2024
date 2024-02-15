@@ -149,6 +149,12 @@ public class InputManager : MonoBehaviour
 
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
+
+
+
+
+
+            FindObjectOfType<TurnManager>().playerTookTurn(playerCoord);
         }
 
     }
@@ -174,6 +180,10 @@ public class InputManager : MonoBehaviour
 
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
+
+
+
+            FindObjectOfType<TurnManager>().playerTookTurn(playerCoord);
         }
 
     }
@@ -189,7 +199,7 @@ public class InputManager : MonoBehaviour
                 Debug.Log("Tile distance: " + Vector3Int.Distance(clickedCoord, playerCoord));
                 Debug.Log("This is Item1 " + temp.Item1);
                 Movement.movePlayer(playerCoord, clickedCoord);
-
+                FindObjectOfType<TurnManager>().playerTookTurn(playerCoord);
             }
         }
         MoveIndicators(false);

@@ -61,6 +61,21 @@ public class EnemyAi : MonoBehaviour {
         }
     }
 
+    public void enemyTurn() {
+        List<Vector3Int> temp = new List<Vector3Int>(enemyCoords);
+
+        foreach(Vector3Int coord in temp) {
+            //Get Scores
+            Stats stats = GlobalVars.enemies[coord];
+            List<KeyValuePair<Vector3Int , float>> tilesAndScore = ScoreTiles(stats);
+
+            //Move Ai
+            Move(tilesAndScore);
+        }
+
+        FindObjectOfType<TurnManager>().EnemyturnTaken();
+    }
+
     public List<KeyValuePair<Vector3Int , float>> getTiles(Stats enemyStats) {
 
         List<KeyValuePair<Vector3Int, float>> tilesAndScores = new List<KeyValuePair<Vector3Int, float>>(); //Hex Coord, score
