@@ -18,17 +18,14 @@ public class InputManager : MonoBehaviour
 
     modes inputMode;
 
-    public int playerMove;
-    public int playerPower;
-    public int playerAttRange;
+    public int playerMove, playerPower, playerAttRange;
     public bool clickedUI = false;
-    static Vector3Int clickedCoord, playerCoord, currentHex;
+    static Vector3Int clickedCoord, playerCoord, enemyCoord;
     //HexObjInfo hexObjInfo;
 
 
     void Start() {
         inputMode = modes.normal;
-        currentHex = GlobalVars.centerHex;
     }
     void Update()
     {
@@ -142,8 +139,12 @@ public class InputManager : MonoBehaviour
             Stats enemyStats = GlobalVars.enemies[clickedCoord];
             GameObject enemyTileObj = GlobalVars.hexagonTile[clickedCoord];
 
-            //Update Sprite
-            enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+            //deals damage
+            enemyStats.Damage(playerPower);
+            if(enemyStats.curHealth <= 0)
+            {
+                enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+            }
             ShootIndicators(false);
 
             //Update player coord
@@ -162,9 +163,13 @@ public class InputManager : MonoBehaviour
             Stats enemyStats = GlobalVars.enemies[clickedCoord];
             GameObject enemyTileObj = GlobalVars.hexagonTile[clickedCoord];
 
-            //Update Sprite
-            enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
-            
+            //Deals damage
+            enemyStats.Damage(playerPower);
+            if (enemyStats.curHealth <= 0)
+            {
+                enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+            }
+
             WackIndicators(false);
 
             //Update player coord
@@ -177,12 +182,13 @@ public class InputManager : MonoBehaviour
     {
         List<Tuple<Vector3Int, int>> possibles = Pathfinding.AllPossibleTiles(clickedCoord, playerMove);
 
-        foreach (Tuple<Vector3Int, int> temp in possibles) {
-
+        foreach (Tuple<Vector3Int, int> temp in possibles) 
+        {
             if (temp.Item1 == clickedCoord)
             {
                 Debug.Log("This is Item1 " + temp.Item1);
                 Movement.movePlayer(playerCoord, clickedCoord);
+
             }
         }
         MoveIndicators(false);

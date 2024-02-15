@@ -14,4 +14,15 @@ public class Stats : ScriptableObject
     public int attackRange;
     public int power;
     public int defense;
+
+    public void Start()
+    {
+        curHealth = maxHealth;
+    }
+
+    public void Damage(int dmg)
+    {
+        dmg -= defense;
+        curHealth -= dmg;
+    }
 }
