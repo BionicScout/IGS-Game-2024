@@ -7,6 +7,7 @@ public class Stats : ScriptableObject
 {
     public string charName;
     public Sprite sprite;
+    public GameObject healthBar;
 
     public float curHealth = 10;
     public int maxHealth = 10;
