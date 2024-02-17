@@ -49,11 +49,15 @@ public class InputManager : MonoBehaviour
                 {
                     playerCoord = clickedCoord;
 
+                    //gets players stats annd stores them
                     playerMove = GlobalVars.players[clickedCoord].move;
-                    //Debug.Log(playerMove);
                     playerPower = GlobalVars.players[clickedCoord].power;
-                    //Debug.Log(playerPower);
                     playerAttRange = GlobalVars.players[clickedCoord].attackRange;
+
+                    //sets all indicators false when players are clicked
+                    MoveIndicators(false);
+                    WackIndicators(false);
+                    ShootIndicators(false);
 
                 }
                 else
@@ -79,23 +83,28 @@ public class InputManager : MonoBehaviour
     //functions buttons will use
     public void SetShoot()
     {
+        MoveIndicators(false);
         ShootIndicators(true);
         inputMode = modes.shoot;
         clickedUI = true;
     }
     public void SetWack()
     {
+        MoveIndicators(false);
         WackIndicators(true);
         inputMode = modes.attack;
         clickedUI = true;
     }
     public void SetMove()
     {
+        ShootIndicators(false);
+        WackIndicators(false);
         MoveIndicators(true);
         inputMode = modes.move;
         clickedUI = true;
     }
 
+    //functions for turning all the indicators on
     public void MoveIndicators(bool onOff)
     {
         foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, playerMove))
@@ -103,7 +112,6 @@ public class InputManager : MonoBehaviour
             Vector3Int t = temp.Item1;
             //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
             GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(onOff);
-            GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(false);
         }
     }
 
@@ -114,7 +122,6 @@ public class InputManager : MonoBehaviour
             Vector3Int t = temp.Item1;
             //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
             GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(onOff);
-            GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(false);
         }
     }
 
@@ -125,12 +132,14 @@ public class InputManager : MonoBehaviour
             Vector3Int t = temp.Item1;
             //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
             GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(onOff);
-            GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(false);
         }
     }
 
     public void Shoot(Vector3Int hexCoordOfEnemy, float damage)
     {
+        WackIndicators(false);
+        MoveIndicators(false);
+
         Pathfinding.AllPossibleTiles(clickedCoord , playerAttRange);
 
         if (GlobalVars.enemies.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord, playerCoord) <= playerAttRange + 1)
@@ -157,6 +166,9 @@ public class InputManager : MonoBehaviour
 
     public void Wack(Vector3Int hexCoordOfEnemy, float damage)
     {
+        MoveIndicators(false);
+        ShootIndicators(false);
+
         Pathfinding.AllPossibleTiles(clickedCoord , 1);
 
         if (GlobalVars.enemies.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord, playerCoord) <= 2)
@@ -183,6 +195,9 @@ public class InputManager : MonoBehaviour
 
     public void Move(Vector3Int hexCoodOfEnemy, int range)
     {
+        ShootIndicators(false);
+        WackIndicators(false);
+
         List<Tuple<Vector3Int, int>> possibles = Pathfinding.AllPossibleTiles(clickedCoord, playerMove);
 
         foreach (Tuple<Vector3Int, int> temp in possibles) 
@@ -193,14 +208,18 @@ public class InputManager : MonoBehaviour
                 Debug.Log("This is Item1 " + temp.Item1);
                 Movement.movePlayer(playerCoord, clickedCoord);
                 MoveIndicators(false);
-                ShootIndicators(false);
-                WackIndicators(false);
+
                 FindObjectOfType<TurnManager>().playerTookTurn(playerCoord);
             }
         }
     }
 
+    public void PlayerTurn(bool isPlayerTurn)
+    {
 
+    }
+
+   
     public Vector3Int GetPosition()
     {
         if (Input.GetMouseButtonDown(0))
@@ -222,18 +241,3 @@ public class InputManager : MonoBehaviour
 
 }
 
-    //public UnityEvent<Vector3> PointerClick;
-
-    //void Update()
-    //{
-    //    DetectMouseClick();
-    //}
-
-    //private void DetectMouseClick()
-    //{
-    //    if (Input.GetMouseButtonDown(0))
-    //    {
-    //        Vector3 mousePos = Input.mousePosition;
-    //        PointerClick?.Invoke(mousePos);
-    //    }
-    //}
