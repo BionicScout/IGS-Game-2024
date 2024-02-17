@@ -50,7 +50,7 @@ public class CameraMove : MonoBehaviour
         if (Input.GetMouseButton(1))
         {
             Vector3 difference = dragOrigin - cam.ScreenToWorldPoint(Input.mousePosition);
-            cam.transform.position += difference;
+            //cam.transform.position += difference;
             cam.transform.position = ClampCam(cam.transform.position + difference);
         }
 
