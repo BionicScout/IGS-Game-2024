@@ -5,9 +5,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine.Events;
 
-public class InputManager : MonoBehaviour
-{
-
+public class InputManager : MonoBehaviour {
     enum modes {
         normal = 0,
         shoot = 1,
@@ -23,30 +21,29 @@ public class InputManager : MonoBehaviour
     static Vector3Int clickedCoord, playerCoord, enemyCoord;
     //HexObjInfo hexObjInfo;
 
+    TurnManager turnManager;
+
 
     void Start() {
         inputMode = modes.normal;
+        turnManager = FindAnyObjectByType<TurnManager>();
     }
-    void Update()
-    {
+    void Update() {
 
-        if (clickedUI) {
+        if(clickedUI) {
             clickedUI = false;
             return;
         }
 
 
-        if (Input.GetMouseButtonDown(0))
-        {
+        if(Input.GetMouseButtonDown(0)) {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+            Vector2 mousePos2D = new Vector2(mousePos.x , mousePos.y);
 
-            RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
-            if (hit.collider != null)
-            {
+            RaycastHit2D hit = Physics2D.Raycast(mousePos2D , Vector2.zero);
+            if(hit.collider != null) {
                 clickedCoord = hit.collider.gameObject.transform.GetComponent<HexObjInfo>().hexCoord;
-                if (GlobalVars.players.ContainsKey(clickedCoord))
-                {
+                if(GlobalVars.players.ContainsKey(clickedCoord)) {
                     playerCoord = clickedCoord;
 
                     //gets players stats annd stores them
@@ -60,43 +57,39 @@ public class InputManager : MonoBehaviour
                     ShootIndicators(false);
 
                 }
-                else
-                {
+                else {
                     GetPosition();
                 }
             }
 
-            if (inputMode == modes.shoot /*&& clicked on this player*/) {
-                Shoot(clickedCoord, 2);
+            if(inputMode == modes.shoot /*&& clicked on this player*/) {
+                Shoot(clickedCoord , 2);
                 inputMode = modes.normal;
             }
-            if (inputMode == modes.attack) {
-                Wack(clickedCoord, 2);
+            if(inputMode == modes.attack) {
+                Wack(clickedCoord , 2);
                 inputMode = modes.normal;
             }
-            if (inputMode == modes.move) {
-                Move(clickedCoord, playerMove);
+            if(inputMode == modes.move) {
+                Move();
                 inputMode = modes.normal;
             }
         }
     }
     //functions buttons will use
-    public void SetShoot()
-    {
+    public void SetShoot() {
         MoveIndicators(false);
         ShootIndicators(true);
         inputMode = modes.shoot;
         clickedUI = true;
     }
-    public void SetWack()
-    {
+    public void SetWack() {
         MoveIndicators(false);
         WackIndicators(true);
         inputMode = modes.attack;
         clickedUI = true;
     }
-    public void SetMove()
-    {
+    public void SetMove() {
         ShootIndicators(false);
         WackIndicators(false);
         MoveIndicators(true);
@@ -105,57 +98,52 @@ public class InputManager : MonoBehaviour
     }
 
     //functions for turning all the indicators on
-    public void MoveIndicators(bool onOff)
-    {
-        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, playerMove))
-        {
+    public void MoveIndicators(bool onOff) {
+        int moveRange = turnManager.getMovementLeft(playerCoord);
+
+        foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , moveRange)) {
             Vector3Int t = temp.Item1;
             //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
             GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(onOff);
         }
     }
 
-    public void WackIndicators(bool onOff)
-    {
-        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, 1))
-        {
+    public void WackIndicators(bool onOff) {
+        foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , 1)) {
             Vector3Int t = temp.Item1;
             //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
             GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(onOff);
         }
     }
 
-    public void ShootIndicators(bool onOff)
-    {
-        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, playerAttRange))
-        {
+    public void ShootIndicators(bool onOff) {
+        foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , playerAttRange)) {
             Vector3Int t = temp.Item1;
             //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
             GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(onOff);
         }
     }
 
-    public void Shoot(Vector3Int hexCoordOfEnemy, float damage)
-    {
+    public void Shoot(Vector3Int hexCoordOfEnemy , float damage) {
         WackIndicators(false);
         MoveIndicators(false);
 
-        Pathfinding.AllPossibleTiles(clickedCoord , playerAttRange);
+        turnManager.Player_HardAction(playerCoord);
 
-        if (GlobalVars.enemies.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord, playerCoord) <= playerAttRange + 1)
-        {
+        if(GlobalVars.enemies.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord , playerCoord) <= playerAttRange + 1) {
             //Get Player and current + future hex objs
             Stats enemyStats = GlobalVars.enemies[clickedCoord];
             GameObject enemyTileObj = GlobalVars.hexagonTile[clickedCoord];
 
             //deals damage
             enemyStats.Damage(playerPower);
-            if(enemyStats.curHealth <= 0)
-            {
+            if(enemyStats.curHealth <= 0) {
                 enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
             }
-            FindObjectOfType<TurnManager>().playerTookTurn(playerCoord);
+
             ShootIndicators(false);
+
+            Pathfinding.AllPossibleTiles(clickedCoord , playerAttRange);
 
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
@@ -164,27 +152,26 @@ public class InputManager : MonoBehaviour
 
     }
 
-    public void Wack(Vector3Int hexCoordOfEnemy, float damage)
-    {
+    public void Wack(Vector3Int hexCoordOfEnemy , float damage) {
         MoveIndicators(false);
         ShootIndicators(false);
 
         Pathfinding.AllPossibleTiles(clickedCoord , 1);
 
-        if (GlobalVars.enemies.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord, playerCoord) <= 2)
-        {
+        if(GlobalVars.enemies.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord , playerCoord) <= 2) {
             //Get Player and current + future hex objs
             Stats enemyStats = GlobalVars.enemies[clickedCoord];
             GameObject enemyTileObj = GlobalVars.hexagonTile[clickedCoord];
 
             //Deals damage
             enemyStats.Damage(playerPower);
-            if (enemyStats.curHealth <= 0)
-            {
+            if(enemyStats.curHealth <= 0) {
                 enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
             }
-            FindObjectOfType<TurnManager>().playerTookTurn(playerCoord);
+
             WackIndicators(false);
+
+            turnManager.Player_SoftAction(playerCoord);
 
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
@@ -193,44 +180,38 @@ public class InputManager : MonoBehaviour
 
     }
 
-    public void Move(Vector3Int hexCoodOfEnemy, int range)
-    {
+    public void Move() {
         ShootIndicators(false);
         WackIndicators(false);
 
-        List<Tuple<Vector3Int, int>> possibles = Pathfinding.AllPossibleTiles(clickedCoord, playerMove);
+        int moveRange = turnManager.getMovementLeft(playerCoord);
+        List<Tuple<Vector3Int , int>> possibles = Pathfinding.AllPossibleTiles(clickedCoord , moveRange);
 
-        foreach (Tuple<Vector3Int, int> temp in possibles) 
-        {
-            if (temp.Item1 == clickedCoord && Vector3Int.Distance(clickedCoord, playerCoord) <= playerMove + 1)
-            {
-                Debug.Log("Tile distance: " + Vector3Int.Distance(clickedCoord, playerCoord));
-                Debug.Log("This is Item1 " + temp.Item1);
-                Movement.movePlayer(playerCoord, clickedCoord);
+        foreach(Tuple<Vector3Int , int> temp in possibles) {
+            if(temp.Item1 == clickedCoord && Vector3Int.Distance(clickedCoord , playerCoord) <= moveRange + 1) {
+                //Debug.Log("Tile distance: " + Vector3Int.Distance(clickedCoord , playerCoord));
+                //Debug.Log("This is Item1 " + temp.Item1);
+                Movement.movePlayer(playerCoord , clickedCoord);
                 MoveIndicators(false);
 
-                FindObjectOfType<TurnManager>().playerTookTurn(playerCoord);
+                turnManager.Player_Move(playerCoord, Pathfinding.PathBetweenPoints(clickedCoord, playerCoord).Count - 1, clickedCoord);
             }
         }
     }
 
-    public void PlayerTurn(bool isPlayerTurn)
-    {
+    public void PlayerTurn(bool isPlayerTurn) {
 
     }
 
-   
-    public Vector3Int GetPosition()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
-            RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
-            if (hit.collider != null)
-            {
-                Debug.Log(hit.collider.gameObject.transform.position);
+    public Vector3Int GetPosition() {
+        if(Input.GetMouseButtonDown(0)) {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mousePos2D = new Vector2(mousePos.x , mousePos.y);
+
+            RaycastHit2D hit = Physics2D.Raycast(mousePos2D , Vector2.zero);
+            if(hit.collider != null) {
+                //Debug.Log(hit.collider.gameObject.transform.position);
                 clickedCoord = hit.collider.transform.GetComponent<HexObjInfo>().hexCoord;
                 return clickedCoord;
             }

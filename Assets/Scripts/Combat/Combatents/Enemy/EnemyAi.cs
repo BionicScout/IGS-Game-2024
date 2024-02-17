@@ -72,7 +72,7 @@ public class EnemyAi : MonoBehaviour {
             Move(tilesAndScore);
         }
 
-        FindObjectOfType<TurnManager>().EnemyturnTaken();
+        //FindObjectOfType<TurnManager>().EnemyturnTaken();
     }
 
     public List<KeyValuePair<Vector3Int , float>> getTiles(Stats enemyStats) {
