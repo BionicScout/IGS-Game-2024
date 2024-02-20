@@ -74,6 +74,20 @@ public class TurnManager : MonoBehaviour {
 
         allPlayerTurnsUsed = true;
         Debug.Log("PLAYER TURN HAS BEEN COMPLETED");
+        ResetVals();
+    }
+
+    public void ResetVals() {
+        List<int> temp = new List<int>();
+        foreach(KeyValuePair<Vector3Int , Stats> playerInfo in GlobalVars.players) {
+            temp.Add(playerInfo.Value.move);
+        }
+
+        for(int i = 0; i < playerCoords.Count; i++) {
+            playerMovement[i] = temp[i];
+            playerAction[i] = (false);
+            playerTurnComplete[i] = (false);
+        }
     }
 
     /*********************************
