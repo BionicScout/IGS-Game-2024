@@ -130,8 +130,7 @@ public class InputManager : MonoBehaviour {
         moveTxt.text = "Movement: " + playerMove.ToString();
         powerTxt.text = "Power: " + playerPower.ToString();
         defenseTxt.text = "Hartyness: " + playerDefense.ToString();
-        //healthTxt.text = "Health: " + playerHealth.ToString();
-
+   
     }
     public void Items()
     {
