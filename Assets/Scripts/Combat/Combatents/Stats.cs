@@ -28,4 +28,13 @@ public class Stats : ScriptableObject
         dmg -= defense;
         curHealth -= dmg;
     }
+    public void Heal(int heal)
+    {
+        if (curHealth + heal >= 10)
+        {
+            curHealth = maxHealth;
+        }
+        curHealth += heal;
+
+    }
 }

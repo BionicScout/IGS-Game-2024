@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine.Events;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour {
     enum modes {
@@ -12,14 +13,15 @@ public class InputManager : MonoBehaviour {
         shoot = 1,
         attack = 2,
         move = 3,
-        leveling = 4
+        AOE = 4,
+        heal = 5
     }
 
     modes inputMode;
 
     public int playerMove, playerPower, playerAttRange, playerDefense;
     public bool clickedUI = false;
-    static Vector3Int clickedCoord, playerCoord, enemyCoord;
+    static Vector3Int clickedCoord, playerCoord, enemyCoord, mouseCoord;
     public GameObject meleeMenu, rangeMenu, magicMenu, statsMenu;
     public TextMeshProUGUI moveTxt, powerTxt, defenseTxt, healthTxt;
 
@@ -83,6 +85,7 @@ public class InputManager : MonoBehaviour {
                     MoveIndicators(false);
                     WackIndicators(false);
                     ShootIndicators(false);
+                    HealIndicators(false);
 
                 }
                 else {
@@ -102,17 +105,34 @@ public class InputManager : MonoBehaviour {
                 Move();
                 inputMode = modes.normal;
             }
+            if (inputMode == modes.AOE)
+            {
+                mouseCoord = hit.collider.gameObject.transform.GetComponent<HexObjInfo>().hexCoord;
+                foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(mouseCoord, playerAttRange))
+                {
+                    Vector3Int t = temp.Item1;
+                    //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
+                    GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(true);
+                }
+            }
+            if (inputMode == modes.heal)
+            {
+                Heal(playerPower);
+                inputMode = modes.normal;
+            }
         }
     }
     //functions buttons will use
     public void SetShoot() {
         MoveIndicators(false);
+        HealIndicators(false);
         ShootIndicators(true);
         inputMode = modes.shoot;
         clickedUI = true;
     }
     public void SetWack() {
         MoveIndicators(false);
+        HealIndicators(false);
         WackIndicators(true);
         inputMode = modes.attack;
         clickedUI = true;
@@ -120,9 +140,23 @@ public class InputManager : MonoBehaviour {
     public void SetMove() {
         ShootIndicators(false);
         WackIndicators(false);
+        HealIndicators(false);
         MoveIndicators(true);
         inputMode = modes.move;
         clickedUI = true;
+    }
+    public void SetAOE()
+    {
+        inputMode = modes.AOE;
+        clickedUI = true;
+    }
+    public void SetHeal()
+    {
+        ShootIndicators(false);
+        WackIndicators(false);
+        HealIndicators(true);
+        inputMode = modes.heal;
+        clickedUI= true;
     }
     public void StatsMenu()
     {
@@ -151,7 +185,6 @@ public class InputManager : MonoBehaviour {
             GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(onOff);
         }
     }
-
     public void WackIndicators(bool onOff) {
         foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , 1)) {
             Vector3Int t = temp.Item1;
@@ -159,7 +192,6 @@ public class InputManager : MonoBehaviour {
             GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(onOff);
         }
     }
-
     public void ShootIndicators(bool onOff) {
         foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , playerAttRange)) {
             Vector3Int t = temp.Item1;
@@ -167,10 +199,37 @@ public class InputManager : MonoBehaviour {
             GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(onOff);
         }
     }
+    public void HealIndicators(bool onOff)
+    {
+        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, 1))
+        {
+            Vector3Int t = temp.Item1;
+            //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
+            GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(onOff);
+        }
+    }
+    //public void AOEIndeicators(bool onOff)
+    //{
+    //    Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //    Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+
+    //    RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
+    //    if(hit.collider != null)
+    //    {
+    //        mouseCoord = hit.collider.gameObject.transform.GetComponent<HexObjInfo>().hexCoord;
+    //        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(mouseCoord, playerAttRange))
+    //        {
+    //            Vector3Int t = temp.Item1;
+    //            //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
+    //            GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(onOff);
+    //        }
+    //    }
+    //}
 
     public void Shoot(Vector3Int hexCoordOfEnemy , float damage) {
         WackIndicators(false);
         MoveIndicators(false);
+        HealIndicators(false);
 
         turnManager.Player_HardAction(playerCoord);
 
@@ -195,10 +254,10 @@ public class InputManager : MonoBehaviour {
         }
 
     }
-
     public void Wack(Vector3Int hexCoordOfEnemy , float damage) {
         MoveIndicators(false);
         ShootIndicators(false);
+        HealIndicators(false);
 
         Pathfinding.AllPossibleTiles(clickedCoord , 1);
 
@@ -221,12 +280,38 @@ public class InputManager : MonoBehaviour {
             GlobalVars.players.Remove(clickedCoord);
 
         }
+    }
+    public void MagicAOE()
+    {
 
+    }
+    public void Heal(int healthBack)
+    {
+        if (GlobalVars.players.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord, playerCoord) <= 2)
+        {
+            //Get Player and current + future hex objs
+            Stats playerStats = GlobalVars.players[clickedCoord];
+            GameObject playerTileObj = GlobalVars.hexagonTile[clickedCoord];
+
+            //heal player
+            playerStats.Heal(healthBack);
+            Debug.Log("Player Healed!!");
+
+            //turns off indicator
+            HealIndicators(false);
+
+            turnManager.Player_SoftAction(playerCoord);
+
+            //Update player coord
+            GlobalVars.players.Remove(clickedCoord);
+
+        }
     }
 
     public void Move() {
         ShootIndicators(false);
         WackIndicators(false);
+        HealIndicators(false);
 
         int moveRange = turnManager.getMovementLeft(playerCoord);
         List<Tuple<Vector3Int , int>> possibles = Pathfinding.AllPossibleTiles(clickedCoord , moveRange);
