@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: OnionStats
   m_EditorClassIdentifier: 
   charName: Onion
+  charType: Magic
   sprite: {fileID: 21300000, guid: fe278f538e6442e4ca4b77077b9b215c, type: 3}
   curHealth: 10
   maxHealth: 10

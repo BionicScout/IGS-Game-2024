@@ -277,7 +277,6 @@ public class InputManager : MonoBehaviour {
 
             turnManager.Player_SoftAction(playerCoord);
 
-            enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
 
