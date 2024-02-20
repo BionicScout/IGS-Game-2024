@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BurAcornStats
   m_EditorClassIdentifier: 
   charName: BurAcorn
+  charType: Magic
   sprite: {fileID: 21300000, guid: e0636a3defce6464cafbf89ff18bda0a, type: 3}
   curHealth: 10
   maxHealth: 10

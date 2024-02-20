@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using System;
 using System.Collections.Generic;
 using UnityEngine.Events;
+using TMPro;
 
 public class InputManager : MonoBehaviour {
     enum modes {
@@ -16,9 +17,12 @@ public class InputManager : MonoBehaviour {
 
     modes inputMode;
 
-    public int playerMove, playerPower, playerAttRange;
+    public int playerMove, playerPower, playerAttRange, playerDefense;
     public bool clickedUI = false;
     static Vector3Int clickedCoord, playerCoord, enemyCoord;
+    public GameObject meleeMenu, rangeMenu, magicMenu, statsMenu;
+    public TextMeshProUGUI moveTxt, powerTxt, defenseTxt, healthTxt;
+
     //HexObjInfo hexObjInfo;
 
     TurnManager turnManager;
@@ -26,6 +30,10 @@ public class InputManager : MonoBehaviour {
 
     void Start() {
         inputMode = modes.normal;
+        meleeMenu.SetActive(false);
+        rangeMenu.SetActive(false);
+        magicMenu.SetActive(false);
+        statsMenu.SetActive(false);
         turnManager = FindAnyObjectByType<TurnManager>();
     }
     void Update() {
@@ -44,12 +52,32 @@ public class InputManager : MonoBehaviour {
             if(hit.collider != null) {
                 clickedCoord = hit.collider.gameObject.transform.GetComponent<HexObjInfo>().hexCoord;
                 if(GlobalVars.players.ContainsKey(clickedCoord)) {
+                    if (GlobalVars.players[clickedCoord].charType == "Melee")
+                    {
+                        meleeMenu.SetActive(true);
+                        rangeMenu.SetActive(false);
+                        magicMenu.SetActive(false);
+                    }
+                    if (GlobalVars.players[clickedCoord].charType == "Range")
+                    {
+                        rangeMenu.SetActive(true);
+                        meleeMenu.SetActive(false);
+                        magicMenu.SetActive(false);
+                    }
+                    if (GlobalVars.players[clickedCoord].charType == "Magic")
+                    {
+                        magicMenu.SetActive(true);
+                        meleeMenu.SetActive(false);
+                        rangeMenu.SetActive(false);
+                    }
                     playerCoord = clickedCoord;
 
                     //gets players stats annd stores them
                     playerMove = GlobalVars.players[clickedCoord].move;
                     playerPower = GlobalVars.players[clickedCoord].power;
                     playerAttRange = GlobalVars.players[clickedCoord].attackRange;
+                    playerDefense = GlobalVars.players[clickedCoord].defense;
+
 
                     //sets all indicators false when players are clicked
                     MoveIndicators(false);
@@ -95,6 +123,22 @@ public class InputManager : MonoBehaviour {
         MoveIndicators(true);
         inputMode = modes.move;
         clickedUI = true;
+    }
+    public void StatsMenu()
+    {
+        statsMenu.SetActive(true);
+        moveTxt.text = "Movement: " + playerMove.ToString();
+        powerTxt.text = "Power: " + playerPower.ToString();
+        defenseTxt.text = "Hartyness: " + playerDefense.ToString();
+   
+    }
+    public void Items()
+    {
+        Debug.Log("Item menu opened");
+    }
+    public void Interact()
+    {
+        Debug.Log("INTERACT");
     }
 
     //functions for turning all the indicators on
