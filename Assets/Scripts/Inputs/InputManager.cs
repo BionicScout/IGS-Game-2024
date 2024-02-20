@@ -177,9 +177,9 @@ public class InputManager : MonoBehaviour {
 
     //functions for turning all the indicators on
     public void MoveIndicators(bool onOff) {
-        int moveRange = turnManager.getMovementLeft(playerCoord);
+        //int moveRange = turnManager.getMovementLeft(playerCoord);
 
-        foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , moveRange)) {
+        foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , playerMove)) {
             Vector3Int t = temp.Item1;
             //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
             GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(onOff);
@@ -268,7 +268,8 @@ public class InputManager : MonoBehaviour {
 
             //Deals damage
             enemyStats.Damage(playerPower);
-            if(enemyStats.curHealth <= 0) {
+            enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.red;
+            if (enemyStats.curHealth <= 0) {
                 enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
             }
 
@@ -276,6 +277,7 @@ public class InputManager : MonoBehaviour {
 
             turnManager.Player_SoftAction(playerCoord);
 
+            enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
 
@@ -287,6 +289,9 @@ public class InputManager : MonoBehaviour {
     }
     public void Heal(int healthBack)
     {
+        ShootIndicators(false);
+        WackIndicators(false);
+
         if (GlobalVars.players.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord, playerCoord) <= 2)
         {
             //Get Player and current + future hex objs
@@ -311,13 +316,12 @@ public class InputManager : MonoBehaviour {
     public void Move() {
         ShootIndicators(false);
         WackIndicators(false);
-        HealIndicators(false);
 
-        int moveRange = turnManager.getMovementLeft(playerCoord);
-        List<Tuple<Vector3Int , int>> possibles = Pathfinding.AllPossibleTiles(clickedCoord , moveRange);
+        //int moveRange = turnManager.getMovementLeft(playerCoord);
+        List<Tuple<Vector3Int , int>> possibles = Pathfinding.AllPossibleTiles(clickedCoord , playerMove);
 
         foreach(Tuple<Vector3Int , int> temp in possibles) {
-            if(temp.Item1 == clickedCoord && Vector3Int.Distance(clickedCoord , playerCoord) <= moveRange + 1) {
+            if(temp.Item1 == clickedCoord && Vector3Int.Distance(clickedCoord , playerCoord) <= playerMove + 1) {
                 //Debug.Log("Tile distance: " + Vector3Int.Distance(clickedCoord , playerCoord));
                 //Debug.Log("This is Item1 " + temp.Item1);
                 Movement.movePlayer(playerCoord , clickedCoord);
