@@ -147,8 +147,8 @@ public class HexLayout : MonoBehaviour {
 
         Vector3Int centerTile = new Vector3Int(currentHex.q / 2, - (currentHex.q / 2) - (currentHex.s / 2) , currentHex.s / 2);
         Vector3 centerPos = GlobalVars.hexagonTile[centerTile].transform.position;
-        Debug.Log("Ceneter Tile: " + centerTile);
-        Debug.Log("Offset: " + centerPos);
+        //Debug.Log("Ceneter Tile: " + centerTile);
+        //Debug.Log("Offset: " + centerPos);
 
         foreach(var t in GlobalVars.hexagonTile) {
             t.Value.transform.position -= centerPos;

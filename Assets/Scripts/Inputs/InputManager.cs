@@ -173,13 +173,15 @@ public class InputManager : MonoBehaviour {
     public void Interact()
     {
         Debug.Log("INTERACT");
+        turnManager.Player_HardAction(playerCoord);
     }
 
     //functions for turning all the indicators on
     public void MoveIndicators(bool onOff) {
         //int moveRange = turnManager.getMovementLeft(playerCoord);
 
-        foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , playerMove)) {
+        int moveRange = turnManager.getMovementLeft(playerCoord);
+        foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , moveRange)) {
             Vector3Int t = temp.Item1;
             //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
             GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(onOff);
@@ -316,17 +318,19 @@ public class InputManager : MonoBehaviour {
         ShootIndicators(false);
         WackIndicators(false);
 
-        //int moveRange = turnManager.getMovementLeft(playerCoord);
-        List<Tuple<Vector3Int , int>> possibles = Pathfinding.AllPossibleTiles(clickedCoord , playerMove);
+        int moveRange = turnManager.getMovementLeft(playerCoord);
+        List<Tuple<Vector3Int , int>> possibles = Pathfinding.AllPossibleTiles(clickedCoord , moveRange);
 
         foreach(Tuple<Vector3Int , int> temp in possibles) {
-            if(temp.Item1 == clickedCoord && Vector3Int.Distance(clickedCoord , playerCoord) <= playerMove + 1) {
+            if(temp.Item1 == clickedCoord && Vector3Int.Distance(clickedCoord , playerCoord) <= moveRange + 1) {
                 //Debug.Log("Tile distance: " + Vector3Int.Distance(clickedCoord , playerCoord));
                 //Debug.Log("This is Item1 " + temp.Item1);
+
                 Movement.movePlayer(playerCoord , clickedCoord);
                 MoveIndicators(false);
 
                 turnManager.Player_Move(playerCoord, Pathfinding.PathBetweenPoints(clickedCoord, playerCoord).Count - 1, clickedCoord);
+                playerCoord = clickedCoord;
             }
         }
     }

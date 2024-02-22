@@ -34,6 +34,7 @@ public class TurnManager : MonoBehaviour {
 
     public void Player_Move(Vector3Int playerPos, int distance, Vector3Int newPos) {
         int playerIndex = playerCoords.FindIndex(a => a == playerPos);
+
         playerCoords[playerIndex] = newPos;
 
         playerMovement[playerIndex] = playerMovement[playerIndex] - distance;

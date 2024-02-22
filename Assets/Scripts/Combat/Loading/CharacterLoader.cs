@@ -42,7 +42,7 @@ public class CharacterLoader : MonoBehaviour {
             GlobalVars.enemies[coord].curHealth = GlobalVars.enemies[coord].maxHealth;
         }
 
-        Debug.Log("Enemies: " + GlobalVars.enemies);
+        //Debug.Log("Enemies: " + GlobalVars.enemies);
 
     }
 }
