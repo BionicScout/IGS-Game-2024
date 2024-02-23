@@ -19,11 +19,12 @@ public class InputManager : MonoBehaviour {
 
     modes inputMode;
 
-    public int playerMove, playerPower, playerAttRange, playerDefense;
+    public int playerMove, playerPower, playerAttRange, playerDefense, playerMaxHealth;
     public bool clickedUI = false;
+    public float stopTime;
     static Vector3Int clickedCoord, playerCoord, enemyCoord, mouseCoord;
     public GameObject meleeMenu, rangeMenu, magicMenu, statsMenu;
-    public TextMeshProUGUI moveTxt, powerTxt, defenseTxt, healthTxt;
+    public TextMeshProUGUI moveTxt, powerTxt, defenseTxt, healthTxt, powerRangeTxt;
 
     //HexObjInfo hexObjInfo;
 
@@ -44,7 +45,7 @@ public class InputManager : MonoBehaviour {
             clickedUI = false;
             return;
         }
-
+        stopTime += Time.deltaTime;
 
         if(Input.GetMouseButtonDown(0)) {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -79,7 +80,7 @@ public class InputManager : MonoBehaviour {
                     playerPower = GlobalVars.players[clickedCoord].power;
                     playerAttRange = GlobalVars.players[clickedCoord].attackRange;
                     playerDefense = GlobalVars.players[clickedCoord].defense;
-
+                    playerMaxHealth = GlobalVars.players[clickedCoord].maxHealth;
 
                     //sets all indicators false when players are clicked
                     MoveIndicators(false);
@@ -158,12 +159,14 @@ public class InputManager : MonoBehaviour {
         inputMode = modes.heal;
         clickedUI= true;
     }
-    public void StatsMenu()
+    public void StatsMenu(bool onOff)
     {
-        statsMenu.SetActive(true);
+        statsMenu.SetActive(onOff);
         moveTxt.text = "Movement: " + playerMove.ToString();
         powerTxt.text = "Power: " + playerPower.ToString();
         defenseTxt.text = "Hartyness: " + playerDefense.ToString();
+        healthTxt.text = "Max Health: " + playerMaxHealth.ToString();
+        powerRangeTxt.text = "Power Range: " + playerAttRange.ToString();
    
     }
     public void Items()
@@ -242,7 +245,14 @@ public class InputManager : MonoBehaviour {
 
             //deals damage
             enemyStats.Damage(playerPower);
-            if(enemyStats.curHealth <= 0) {
+            //should change the character red then back
+            enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.red;
+            if(stopTime >= stopTime + 1)
+            {
+                enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
+                stopTime = 0;
+            }
+            if (enemyStats.curHealth <= 0) {
                 enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
             }
 
@@ -271,10 +281,15 @@ public class InputManager : MonoBehaviour {
             //Deals damage
             enemyStats.Damage(playerPower);
             enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.red;
+            if (stopTime >= stopTime + 2)
+            {
+                enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
+                stopTime = 0;
+            }
             if (enemyStats.curHealth <= 0) {
                 enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
             }
-
+            enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
             WackIndicators(false);
 
             turnManager.Player_SoftAction(playerCoord);

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "XXXStats" , menuName = "ScriptableObjects/UnitStats" , order = 2)]
@@ -8,7 +10,6 @@ public class Stats : ScriptableObject
     public string charName;
     public string charType;
     public Sprite sprite;
-    //public GameObject healthBar;
 
     public float curHealth = 10;
     public int maxHealth = 10;
@@ -20,7 +21,6 @@ public class Stats : ScriptableObject
     public void Start()
     {
         curHealth = maxHealth;
-        //Instantiate(healthBar);
     }
 
     public void Damage(int dmg)

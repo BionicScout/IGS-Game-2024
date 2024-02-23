@@ -20,4 +20,4 @@ MonoBehaviour:
   move: 2
   attackRange: 3
   power: 2
-  defense: 0
+  defense: 5
