@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine.Events;
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.TestTools;
 
 public class InputManager : MonoBehaviour {
     enum modes {
@@ -50,11 +51,11 @@ public class InputManager : MonoBehaviour {
         if(Input.GetMouseButtonDown(0)) {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x , mousePos.y);
-
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D , Vector2.zero);
             if(hit.collider != null) {
-                clickedCoord = hit.collider.gameObject.transform.GetComponent<HexObjInfo>().hexCoord;
-                if(GlobalVars.players.ContainsKey(clickedCoord)) {
+                GlobalVars.hexagonTile[clickedCoord].transform.GetChild(5).gameObject.SetActive(false);
+                if (GlobalVars.players.ContainsKey(clickedCoord)) {
+                    //checks what menu needs to be opened
                     if (GlobalVars.players[clickedCoord].charType == "Melee")
                     {
                         meleeMenu.SetActive(true);
@@ -211,6 +212,15 @@ public class InputManager : MonoBehaviour {
             Vector3Int t = temp.Item1;
             //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
             GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(onOff);
+        }
+    }
+    public void ClickedIndicatorsOff()
+    {
+        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(clickedCoord, 10))
+        {
+            Vector3Int t = temp.Item1;
+            //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
+            GlobalVars.hexagonTile[t].transform.GetChild(5).gameObject.SetActive(false);
         }
     }
     //public void AOEIndeicators(bool onOff)
