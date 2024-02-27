@@ -22,7 +22,7 @@ public class InputManager : MonoBehaviour {
 
     public int playerMove, playerPower, playerAttRange, playerDefense, playerMaxHealth;
     public bool clickedUI = false;
-    public float stopTime;
+    //public float stopTime;
     static Vector3Int clickedCoord, playerCoord, enemyCoord, mouseCoord;
     public GameObject meleeMenu, rangeMenu, magicMenu, statsMenu, hitParticles;
     public TextMeshProUGUI moveTxt, powerTxt, defenseTxt, healthTxt, powerRangeTxt;
@@ -46,7 +46,7 @@ public class InputManager : MonoBehaviour {
             clickedUI = false;
             return;
         }
-        stopTime += Time.deltaTime;
+        //stopTime += Time.deltaTime;
 
         if(Input.GetMouseButtonDown(0)) {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
