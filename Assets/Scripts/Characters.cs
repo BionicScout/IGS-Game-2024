@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-[SerializeField]
+[System.Serializable] // To make the class appear in the inspector
 public class Characters
 {
     public GameObject prefab;
