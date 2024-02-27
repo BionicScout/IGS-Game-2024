@@ -52,6 +52,20 @@ MonoBehaviour:
     loop: 0
     soundTrack: 1
     source: {fileID: 0}
+  - name: Death-Bells
+    clip: {fileID: 8300000, guid: da991b5be2a03c54ea5be5da431be7e6, type: 3}
+    volume: 0.497
+    pitch: 1
+    loop: 0
+    soundTrack: 0
+    source: {fileID: 0}
+  - name: Attack
+    clip: {fileID: 8300000, guid: 8da2ce73991cdc4449f4251328e0b5a9, type: 3}
+    volume: 0.497
+    pitch: 1
+    loop: 0
+    soundTrack: 0
+    source: {fileID: 0}
   fade: 0
   fadeTime: 2
   genericSound:

@@ -123,6 +123,16 @@ public class InputManager : MonoBehaviour {
                 inputMode = modes.normal;
             }
         }
+
+
+
+
+        if(Input.GetKeyDown(KeyCode.G)) {
+            AudioManager.instance.Play("Attack");
+        }
+        if(Input.GetKeyDown(KeyCode.H)) {
+            AudioManager.instance.Play("Death-Bells");
+        }
     }
     //functions buttons will use
     public void SetShoot() {
