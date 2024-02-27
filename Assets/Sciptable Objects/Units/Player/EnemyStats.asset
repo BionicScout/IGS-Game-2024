@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charName: Carrot
   charType: 
-  sprite: {fileID: 21300000, guid: e6f9df157958fca48833dedeff79b449, type: 3}
+  sprite: {fileID: 21300000, guid: 03c11bab65a764342aee7b41339e3fea, type: 3}
   curHealth: 10
   maxHealth: 10
   move: 3

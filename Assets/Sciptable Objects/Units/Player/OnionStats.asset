@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charName: Onion
   charType: Magic
-  sprite: {fileID: 21300000, guid: fdb323cc6cdc87d4e94e98c6957c28aa, type: 3}
+  sprite: {fileID: 21300000, guid: 5ff53be46f3c9d543b967994a11655c3, type: 3}
   curHealth: 10
   maxHealth: 10
   move: 2
