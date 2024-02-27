@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charName: Turnip
   charType: Melee
-  sprite: {fileID: 21300000, guid: d3f9c99d13cb6024baaef306f65ef39b, type: 3}
+  sprite: {fileID: 21300000, guid: 93a8257d8cca1c3408f00d851d3e28dc, type: 3}
   curHealth: 10
   maxHealth: 10
   move: 2

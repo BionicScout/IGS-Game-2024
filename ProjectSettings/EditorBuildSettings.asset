@@ -11,7 +11,4 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/PlayTest_1.unity
     guid: 523b273586d1cf249a5e988b62b8587c
-  - enabled: 1
-    path: Assets/Scenes/Testing_EnemyAi.unity
-    guid: 1ff89bacbcf789d44a167270f558973b
   m_configObjects: {}

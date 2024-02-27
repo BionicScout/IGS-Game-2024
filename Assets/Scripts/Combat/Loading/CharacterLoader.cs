@@ -34,13 +34,13 @@ public class CharacterLoader : MonoBehaviour {
         }
 
         //Enemey
-        //foreach(Vector3Int coord in offsets) {
-        //    GlobalVars.enemies.Add(coord , enemies[0]);
-        //    GameObject enemyTileObj = GlobalVars.hexagonTile[coord];
-        //    enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = enemies[0].sprite;
+        foreach(Vector3Int coord in offsets) {
+            GlobalVars.enemies.Add(coord , enemies[0]);
+            GameObject enemyTileObj = GlobalVars.hexagonTile[coord];
+            enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = enemies[0].sprite;
 
-        //    GlobalVars.enemies[coord].curHealth = GlobalVars.enemies[coord].maxHealth;
-        //}
+            GlobalVars.enemies[coord].curHealth = GlobalVars.enemies[coord].maxHealth;
+        }
 
         //Debug.Log("Enemies: " + GlobalVars.enemies);
 
