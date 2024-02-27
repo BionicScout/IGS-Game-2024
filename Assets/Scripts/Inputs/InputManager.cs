@@ -24,7 +24,7 @@ public class InputManager : MonoBehaviour {
     public bool clickedUI = false;
     public float stopTime;
     static Vector3Int clickedCoord, playerCoord, enemyCoord, mouseCoord;
-    public GameObject meleeMenu, rangeMenu, magicMenu, statsMenu;
+    public GameObject meleeMenu, rangeMenu, magicMenu, statsMenu, hitParticles;
     public TextMeshProUGUI moveTxt, powerTxt, defenseTxt, healthTxt, powerRangeTxt;
 
     //HexObjInfo hexObjInfo;
@@ -255,13 +255,8 @@ public class InputManager : MonoBehaviour {
 
             //deals damage
             enemyStats.Damage(playerPower);
-            //should change the character red then back
-            enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.red;
-            if(stopTime >= stopTime + 1)
-            {
-                enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
-                stopTime = 0;
-            }
+            //hit particles
+            Instantiate(hitParticles, enemyCoord, Quaternion.identity);
             if (enemyStats.curHealth <= 0) {
                 enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
             }
@@ -290,12 +285,8 @@ public class InputManager : MonoBehaviour {
 
             //Deals damage
             enemyStats.Damage(playerPower);
-            enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.red;
-            if (stopTime >= stopTime + 2)
-            {
-                enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
-                stopTime = 0;
-            }
+            //hit particles
+            Instantiate(hitParticles, enemyCoord, Quaternion.identity);
             if (enemyStats.curHealth <= 0) {
                 enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
             }
