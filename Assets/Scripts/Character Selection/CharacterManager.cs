@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.TextCore.Text;
 
 public class CharacterManager : MonoBehaviour
 {
@@ -12,12 +13,17 @@ public class CharacterManager : MonoBehaviour
 
     public TextMeshProUGUI nameTxt;
     public SpriteRenderer spriteIcon;
+    public GameObject confimedMenu;
+    public Button nextBTN, backBTN;
+
 
     private int selectedOption;
 
     // Start is called before the first frame update
     void Start()
     {
+        confimedMenu.SetActive(false);
+        Debug.Log(GlobalVars.choosenPlayers.Count);
         if (PlayerPrefs.HasKey("selectedOption"))
         {
             selectedOption = 0;
@@ -30,21 +36,15 @@ public class CharacterManager : MonoBehaviour
     }
     public void NextOption()
     {
-        selectedOption++;
-        if(selectedOption >= characterData.CharacterCount)
-        {
-            selectedOption = 0;
-        }
+        selectedOption = (selectedOption + 1) % characterData.CharacterCount;
+
         UpdateCharacter(selectedOption);
         Save();
     }
     public void BackOption()
     {
-        selectedOption--;
-        if(selectedOption < 0)
-        {
-            selectedOption = characterData.CharacterCount - 1;
-        }
+        selectedOption = (selectedOption - 1) % characterData.CharacterCount;
+
         UpdateCharacter(selectedOption);
         Save();
     }
@@ -62,8 +62,18 @@ public class CharacterManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("selectedOption", selectedOption);
     }
-    public void ChangeScene(int sceneID)
+    public void ChangeScene(string lvlName)
     {
-        SceneManager.LoadScene(sceneID);
+        SceneManager.LoadScene(lvlName);
+    }
+    public void ConfirmChoice()
+    {
+        Characters character = characterData.GetCharacter(selectedOption);
+        GlobalVars.choosenPlayers.Add(character.charStats);
+        confimedMenu.SetActive(true);
+        nextBTN.interactable = false;
+        backBTN.interactable = false;
+        Debug.Log(GlobalVars.choosenPlayers.Count);
+
     }
 }
