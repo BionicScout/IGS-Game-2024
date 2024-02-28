@@ -10,6 +10,8 @@ public class TurnManager : MonoBehaviour {
     List<bool> playerTurnComplete;
     bool allPlayerTurnsUsed;
 
+    public Queue<Command> commandQueue;
+
     private void Start() {
         playerCoords = new List<Vector3Int>();
         playerMovement = new List<int>(); //Movement speed left
@@ -23,6 +25,14 @@ public class TurnManager : MonoBehaviour {
             playerMovement.Add(playerInfo.Value.move);
             playerAction.Add(false);
             playerTurnComplete.Add(false);
+        }
+
+        commandQueue = new Queue<Command>();
+    }
+
+    void Update() {
+        if(commandQueue.Count != 0) {
+            enemyCommand(commandQueue.Dequeue());
         }
     }
 
@@ -90,6 +100,23 @@ public class TurnManager : MonoBehaviour {
         }
     }
 
+    public void EndTurn() {
+        StartCoroutine(ExecuteEnemyTurn());
+    }
+
+    public void StartEnemyTurn() {
+        StartCoroutine(ExecuteEnemyTurn());
+    }
+
+    IEnumerator ExecuteEnemyTurn() {
+        yield return new WaitForEndOfFrame(); // Wait for the current frame to end
+        EnemyAi ai = new EnemyAi();
+        ai.enemyTurn(this);
+        // Trigger enemy AI's turn
+        // Optionally, you can notify the TurnManager that the enemy turn is completed here
+        // depending on your game logic
+    }
+
     /*********************************
         Get Player Turn Stats
     *********************************/
@@ -102,90 +129,15 @@ public class TurnManager : MonoBehaviour {
         return playerAction[playerCoords.FindIndex(a => a == playerPos)];
     }
 
+    /*********************************
+        Enemy Turn
+    *********************************/
+    public void enemyCommand(Command command) {
+        Movement.moveEnemy(command.startSpace, command.moveSpace);
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //bool playerTurn = true;
-    //List<bool> playerTurnsTaken; //False player has turn still, True PLayer has no turn
-    //List<Vector3Int> playerCoord;
-
-    //private void Start() {
-    //    playerCoord = new List<Vector3Int>();
-    //    playerTurnsTaken = new List<bool>();
-
-    //    foreach(KeyValuePair<Vector3Int , Stats> playerInfo in GlobalVars.players) {
-    //        playerCoord.Add(playerInfo.Key);
-    //        playerTurnsTaken.Add(false);
-    //    }
-    //}
-
-    //void Update() {
-    //    if(playerTurn){
-
-    //    }
-    //    else {
-    //        FindObjectOfType<InputManager>().gameObject.SetActive(false);
-    //    }
-
-    //    bool allTurntaken = true;
-    //    foreach(var turn in playerTurnsTaken) {
-    //        if(!turn) {
-    //            allTurntaken = false;
-    //        }
-    //    }
-
-    //    if(allTurntaken) {
-    //        allTurntaken = false;
-    //        playerTurn = false;
-
-    //        foreach(var turn in playerTurnsTaken) {
-    //            if(!turn) {
-    //                playerTurn = false;
-    //            }
-    //        }
-
-    //        FindAnyObjectByType<EnemyAi>().transform.GetComponent<EnemyAi>().enemyTurn();
-    //    }
-    //}
-
-    //public void EnemyturnTaken() {
-    //    playerTurn = true;
-    //    FindObjectOfType<InputManager>().gameObject.SetActive(true);
-
-    //    playerCoord = new List<Vector3Int>();
-    //    playerTurnsTaken = new List<bool>();
-
-    //    foreach(KeyValuePair<Vector3Int, Stats> playerInfo in GlobalVars.players) {
-    //        playerCoord.Add(playerInfo.Key);
-    //        playerTurnsTaken.Add(false);
-    //    }
-
-    //    Debug.LogWarning("Player Turn");
-    //}
-
-    //public void playerTookTurn(Vector3Int playerPos) {
-    //    int index = playerCoord.IndexOf(playerPos);
-
-    //    if(index == -1) {
-    //        Debug.LogWarning("TurnManager - playerPos not found");
-    //        return;
-    //    }
-
-    //    playerTurnsTaken[index] = true;
-    //}
+    public void startPlayerTurn() {
+        Debug.Log("Start Player Turn");
+        ResetVals();
+    }
 }

@@ -4,13 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyAi : MonoBehaviour {
-
+public class EnemyAi {
     string filePath = "Assets\\/Scripts\\Combat\\Combatents\\Enemy\\EnemyAiDebug.txt"; // Define your file path here
-
 
 
     List<Vector3Int> enemyCoords = new List<Vector3Int>();
@@ -27,59 +26,48 @@ public class EnemyAi : MonoBehaviour {
     List<Vector3Int> debugMoveTiles = new List<Vector3Int>();
     Dictionary<Vector3Int, int> playersCanHitList = new Dictionary<Vector3Int, int>();
 
-    void Start() {
-        foreach(KeyValuePair<Vector3Int, Stats> info in GlobalVars.enemies) {
+    public async Task enemyTurn(TurnManager tm) {
+        foreach(KeyValuePair<Vector3Int , Stats> info in GlobalVars.enemies) {
             enemyCoords.Add(info.Key);
         }
 
         Debug.Log("Enemy Count: " + enemyCoords.Count);
-    }
 
-    private void Update() {
-        if(Input.GetKeyDown(KeyCode.N)) {
-            Debug.Log("Enemy " + currentEnemyIndex + ": " + enemyCoords[currentEnemyIndex].ToString());
-
-            //Clear Debug
-            foreach(Vector3Int t in debugMoveTiles) {
-                GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(false);
-            }
-
-
-            //Get Scores
-            Stats stats = GlobalVars.enemies[enemyCoords[currentEnemyIndex]];
-
-            List<KeyValuePair<Vector3Int , float>> tilesAndScore = ScoreTiles(stats);
-            WriteToFile(tilesAndScore);
-
-            //Move Ai
-            Move(tilesAndScore);
-
-
-
-            currentEnemyIndex = (currentEnemyIndex + 1) % enemyCoords.Count;
-        }
-    }
-
-    public void enemyTurn() {
         List<Vector3Int> temp = new List<Vector3Int>(enemyCoords);
 
+        currentEnemyIndex = 0;
         foreach(Vector3Int coord in temp) {
             //Get Scores
             Stats stats = GlobalVars.enemies[coord];
-            List<KeyValuePair<Vector3Int , float>> tilesAndScore = ScoreTiles(stats);
+            List<KeyValuePair<Vector3Int , float>> tilesAndScore = ScoreTiles(stats, coord);
+            await Task.Yield();
 
             //Move Ai
-            Move(tilesAndScore);
+            Command command = Move(tilesAndScore);
+            tm.commandQueue.Enqueue(command);
+            await Task.Yield();
+            currentEnemyIndex++;
         }
 
+        tm.startPlayerTurn();
         //FindObjectOfType<TurnManager>().EnemyturnTaken();
     }
 
-    public List<KeyValuePair<Vector3Int , float>> getTiles(Stats enemyStats) {
+    public List<KeyValuePair<Vector3Int , float>> getTiles(Stats enemyStats, Vector3Int currentEnemy) {
 
         List<KeyValuePair<Vector3Int, float>> tilesAndScores = new List<KeyValuePair<Vector3Int, float>>(); //Hex Coord, score
 
         foreach(Tuple<Vector3Int, int> info in Pathfinding.AllPossibleTiles(enemyCoords[currentEnemyIndex] , enemyStats.move)) {
+            if(GlobalVars.players.ContainsKey(info.Item1)) {
+                continue;
+            }
+
+            if(enemyCoords.Contains(info.Item1) && info.Item1 != currentEnemy) {
+                continue;
+            }
+
+
+
             tilesAndScores.Add(new KeyValuePair<Vector3Int, float>(info.Item1, 0));
         }
 
@@ -90,8 +78,8 @@ public class EnemyAi : MonoBehaviour {
         Scoring
     *********************************/
 
-    List<KeyValuePair<Vector3Int , float>> ScoreTiles(Stats enemyStats) {
-        List<KeyValuePair<Vector3Int, float>> tilesAndScores = getTiles(enemyStats);
+    List<KeyValuePair<Vector3Int , float>> ScoreTiles(Stats enemyStats, Vector3Int currentEnemy) {
+        List<KeyValuePair<Vector3Int, float>> tilesAndScores = getTiles(enemyStats, currentEnemy);
 
         //Variables that are reused
         float score;
@@ -104,12 +92,6 @@ public class EnemyAi : MonoBehaviour {
         for(int tileScoreIndex = 0; tileScoreIndex < tilesAndScores.Count; tileScoreIndex++) {
             // Set tile Score
             score = 0;
-
-            if(GlobalVars.players.ContainsKey(tilesAndScores[tileScoreIndex].Key)) {
-                KeyValuePair<Vector3Int , float> t = tilesAndScores[tileScoreIndex];
-                tilesAndScores[tileScoreIndex] = new KeyValuePair<Vector3Int , float>(tilesAndScores[tileScoreIndex].Key , float.MinValue);
-                continue;
-            }
 
             //Find PLayer Distances Info
             distances = new List<int>();
@@ -160,7 +142,7 @@ public class EnemyAi : MonoBehaviour {
     /*********************************
         Actions
     *********************************/
-    private void Move(List<KeyValuePair<Vector3Int , float>> tilesAndScore) {
+    private Command Move(List<KeyValuePair<Vector3Int , float>> tilesAndScore) {
         //Get Max Value
         float maxValue = float.MinValue;
 
@@ -193,8 +175,11 @@ public class EnemyAi : MonoBehaviour {
         //}
         //GlobalVars.hexagonTile[].transform.GetChild(4).gameObject.SetActive(true);
 
-        Movement.moveEnemy(enemyCoords[currentEnemyIndex], moveTile);
+
+        Command command = new Command(enemyCoords[currentEnemyIndex] , moveTile);
+        //Movement.moveEnemy(enemyCoords[currentEnemyIndex], moveTile);
         enemyCoords[currentEnemyIndex] = moveTile;
+        return command;
     }
 
 
@@ -223,51 +208,3 @@ public class EnemyAi : MonoBehaviour {
         }
     }
 }
-
-/*
-
-
-//Predefined Weights
-inRangeWeight = 5
-playerHitPenaltyWeight = 2
-farPlayerPenalty = -100
-distanceThreshold = 30
-
-// Set tile Score
-score = 0
-
-//Find PLayer Distances Info
-List<int> distances = new List<int>();
-colsestPerson = -1
-playersCanHit = 0
-foreach player on board{
-    distance = distance between ai and player
-    distances.add(distance);
-
-    if (closestPerson > distance) {
-        closestPerson = distance
-    }
-
-    if (Player can hit tile) {
-        playersCanHit++
-    }
-}
-
-//Scoring
-foreach(distance in distances){
-    score += (Enemy.AttackRange / distance) * inRangeWeight
-}
-
-score -= playersCanHit * (playersCanHit + 1) * playerHitPenaltyWeight
-
-if (closestPerson > distanceThreshold) {
-    score += farPlayerPenalty
-}
-
-
-
-
-
-
-
-*/
