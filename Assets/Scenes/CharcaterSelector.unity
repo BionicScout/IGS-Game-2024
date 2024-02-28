@@ -869,7 +869,7 @@ GameObject:
   - component: {fileID: 704107453}
   - component: {fileID: 704107452}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1352,7 +1352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterData: {fileID: 11400000, guid: e3dab48c136dd5649b5e276e0f77ca67, type: 2}
-  nameTxt: {fileID: 0}
+  nameTxt: {fileID: 704107452}
   spriteIcon: {fileID: 1335076216}
 --- !u!212 &1335076216
 SpriteRenderer:
