@@ -460,7 +460,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1335076215}
+      - m_Target: {fileID: 371589851}
         m_TargetAssemblyTypeName: CharacterManager, Assembly-CSharp
         m_MethodName: BackOption
         m_Mode: 1
@@ -860,7 +860,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1335076215}
+      - m_Target: {fileID: 1634276663}
         m_TargetAssemblyTypeName: CharacterManager, Assembly-CSharp
         m_MethodName: NextOption
         m_Mode: 1
@@ -1341,7 +1341,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1335076215}
+      - m_Target: {fileID: 677150572}
         m_TargetAssemblyTypeName: CharacterManager, Assembly-CSharp
         m_MethodName: BackOption
         m_Mode: 1
@@ -2191,7 +2191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99f6c9958d155f74f9361b8007562e64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterData: {fileID: 11400000, guid: 2d2a5e3409264bc448e1b957a4ef347c, type: 2}
+  characterData: {fileID: 11400000, guid: e3dab48c136dd5649b5e276e0f77ca67, type: 2}
   nameTxt: {fileID: 2060847745}
   spriteIcon: {fileID: 677150573}
 --- !u!212 &677150573
@@ -2478,7 +2478,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1335076215}
+      - m_Target: {fileID: 677150572}
         m_TargetAssemblyTypeName: CharacterManager, Assembly-CSharp
         m_MethodName: NextOption
         m_Mode: 1
@@ -2941,7 +2941,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1335076215}
+      - m_Target: {fileID: 371589851}
         m_TargetAssemblyTypeName: CharacterManager, Assembly-CSharp
         m_MethodName: NextOption
         m_Mode: 1
@@ -3678,7 +3678,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1335076215}
+      - m_Target: {fileID: 1634276663}
         m_TargetAssemblyTypeName: CharacterManager, Assembly-CSharp
         m_MethodName: BackOption
         m_Mode: 1
