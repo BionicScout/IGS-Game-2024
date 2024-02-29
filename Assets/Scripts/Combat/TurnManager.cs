@@ -12,6 +12,8 @@ public class TurnManager : MonoBehaviour {
 
     public Queue<Command> commandQueue;
 
+    public GameObject PlayerMenu;
+
     private void Start() {
         playerCoords = new List<Vector3Int>();
         playerMovement = new List<int>(); //Movement speed left
@@ -101,6 +103,7 @@ public class TurnManager : MonoBehaviour {
     }
 
     public void EndTurn() {
+        UpdateActiveMenu();
         StartCoroutine(ExecuteEnemyTurn());
     }
 
@@ -139,5 +142,10 @@ public class TurnManager : MonoBehaviour {
     public void startPlayerTurn() {
         Debug.Log("Start Player Turn");
         ResetVals();
+        UpdateActiveMenu();
+    }
+
+    public void UpdateActiveMenu() {
+        PlayerMenu.SetActive(!PlayerMenu.activeSelf);
     }
 }
