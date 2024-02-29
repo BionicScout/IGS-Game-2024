@@ -37,14 +37,20 @@ public class CharacterManager : MonoBehaviour
     public void NextOption()
     {
         selectedOption = (selectedOption + 1) % characterData.CharacterCount;
-
+        if(selectedOption >= characterData.CharacterCount)
+        {
+            selectedOption = 0;
+        }
         UpdateCharacter(selectedOption);
         Save();
     }
     public void BackOption()
     {
         selectedOption = (selectedOption - 1) % characterData.CharacterCount;
-
+        if (selectedOption < 0)
+        {
+            selectedOption = characterData.CharacterCount - 1;
+        }
         UpdateCharacter(selectedOption);
         Save();
     }

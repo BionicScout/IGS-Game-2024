@@ -18,6 +18,9 @@ public class InputManager : MonoBehaviour {
 
     modes inputMode;
 
+    [SerializeField]
+    GameObject hitParticles;
+
     public int playerMove, playerPower, playerAttRange, playerDefense, playerMaxHealth;
     public bool clickedUI = false;
     //public float stopTime;
@@ -54,6 +57,7 @@ public class InputManager : MonoBehaviour {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x , mousePos.y);
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D , Vector2.zero);
+            Instantiate(hitParticles, mouseCoord, Quaternion.identity);
 
             if(hit.collider != null) {
                 GlobalVars.hexagonTile[clickedCoord].transform.GetChild(5).gameObject.SetActive(false);
@@ -180,10 +184,16 @@ public class InputManager : MonoBehaviour {
 
             //deals damage
             enemyStats.Damage(playerPower);
+            //attack audio
+            AudioManager.instance.Play("Attack");
             //hit particles
+            Instantiate(hitParticles, mouseCoord, Quaternion.identity);
 
-            if(enemyStats.curHealth <= 0) {
+            //enemy death
+            if (enemyStats.curHealth <= 0) {
                 enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+                //death audio
+                AudioManager.instance.Play("Death-Bells");
             }
 
             ShootIndicators(false);
@@ -210,12 +220,18 @@ public class InputManager : MonoBehaviour {
 
             //Deals damage
             enemyStats.Damage(playerPower);
+            //attack audio
+            AudioManager.instance.Play("Attack");
             //hit particles
+            Instantiate(hitParticles, mouseCoord, Quaternion.identity);
 
-            if(enemyStats.curHealth <= 0) {
+            //enemy death
+            if (enemyStats.curHealth <= 0) {
                 enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+                //death audio
+                AudioManager.instance.Play("Death-Bells");
             }
-            enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
+            //enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
             WackIndicators(false);
 
             turnManager.Player_SoftAction(playerCoord);
