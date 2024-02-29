@@ -23,10 +23,11 @@ public class Stats : ScriptableObject
         curHealth = maxHealth;
     }
 
-    public void Damage(int dmg)
+    public int Damage(int dmg)
     {
         dmg -= defense;
         curHealth -= dmg;
+        return dmg;
     }
     public void Heal(int heal)
     {

@@ -46,6 +46,11 @@ public class EnemyAi {
             Command command = Move(tilesAndScore);
             tm.commandQueue.Enqueue(command);
             await Task.Yield();
+
+            //Attack Player
+            command = Attack(command, stats);
+            await Task.Yield();
+
             currentEnemyIndex++;
         }
 
@@ -182,12 +187,31 @@ public class EnemyAi {
         return command;
     }
 
+    private Command Attack(Command command, Stats enemy) {
+        Vector3Int playerCoord = Vector3Int.one;
+        float lowestHealth = float.MaxValue;
 
-    /*********************************
-        Debugging
-    *********************************/
+        foreach(KeyValuePair<Vector3Int , Stats> playerInfo in GlobalVars.players) {
+            int distance = Pathfinding.PathBetweenPoints(playerInfo.Key , command.moveSpace).Count - 1;
 
-    void WriteToFile(List<KeyValuePair<Vector3Int , float>> tilesAndScores) {
+            if(distance <= enemy.attackRange && playerInfo.Value.curHealth < lowestHealth) {
+                lowestHealth = playerInfo.Value.curHealth;
+                playerCoord = playerInfo.Key;
+            }
+        }
+
+        command.attackTile = playerCoord;
+
+
+        return command;
+    }
+
+
+        /*********************************
+            Debugging
+        *********************************/
+
+        void WriteToFile(List<KeyValuePair<Vector3Int , float>> tilesAndScores) {
         // Check if the file already exists, if not, create it
         if(!File.Exists(filePath)) {
             File.Create(filePath).Close();

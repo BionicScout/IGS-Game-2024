@@ -5301,6 +5301,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerMenu: {fileID: 409865014}
+  WinMenu: {fileID: 1900432886}
+  LoseMenu: {fileID: 1888016010}
 --- !u!4 &1555778018
 Transform:
   m_ObjectHideFlags: 0

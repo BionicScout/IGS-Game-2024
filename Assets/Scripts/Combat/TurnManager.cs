@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TurnManager : MonoBehaviour {
     List<Vector3Int> playerCoords;
@@ -13,6 +14,7 @@ public class TurnManager : MonoBehaviour {
     public Queue<Command> commandQueue;
 
     public GameObject PlayerMenu;
+    public GameObject WinMenu, LoseMenu;
 
     private void Start() {
         playerCoords = new List<Vector3Int>();
@@ -35,6 +37,16 @@ public class TurnManager : MonoBehaviour {
     void Update() {
         if(commandQueue.Count != 0) {
             enemyCommand(commandQueue.Dequeue());
+        }
+
+        if(GlobalVars.enemies.Count == 0) {
+            PlayerMenu.SetActive(false);
+            LoseMenu.SetActive(true);
+        }
+
+        if(GlobalVars.enemies.Count == 0) {
+            PlayerMenu.SetActive(false);
+            WinMenu.SetActive(true);
         }
     }
 
@@ -136,7 +148,31 @@ public class TurnManager : MonoBehaviour {
         Enemy Turn
     *********************************/
     public void enemyCommand(Command command) {
+        //Move
         Movement.moveEnemy(command.startSpace, command.moveSpace);
+
+        //Attack
+        Stats playerstats = GlobalVars.players[command.attackTile];
+        Stats enemystats = GlobalVars.enemies[command.moveSpace];
+
+        //Instantiate(hitParticles, worldSpacePos , Quaternion.identity);
+
+        //enemy death
+        Stats stats = GlobalVars.players[command.attackTile];
+        stats.curHealth += playerstats.Damage(enemystats.power);
+        GlobalVars.players[command.attackTile] = stats;
+
+        PlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
+
+
+
+        if(playerstats.curHealth <= 0) {
+            GameObject playerTileObj = GlobalVars.hexagonTile[command.attackTile];
+            playerTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+            GlobalVars.players.Remove(command.attackTile);
+            //death audio
+            AudioManager.instance.Play("Player-Hurt");
+        }
     }
 
     public void startPlayerTurn() {

@@ -194,6 +194,7 @@ public class InputManager : MonoBehaviour {
             //enemy death
             if (enemyStats.curHealth <= 0) {
                 enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+                RemoveEnmey(hexCoordOfEnemy);
                 //death audio
                 AudioManager.instance.Play("Deah-Sound");
             }
@@ -230,13 +231,14 @@ public class InputManager : MonoBehaviour {
             //enemy death
             if (enemyStats.curHealth <= 0) {
                 enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+                RemoveEnmey(hexCoordOfEnemy);
                 //death audio
                 AudioManager.instance.Play("Deah-Sound");
             }
             //enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
             WackIndicators(false);
 
-            turnManager.Player_SoftAction(playerCoord);
+            turnManager.Player_HardAction(playerCoord);
 
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
@@ -397,8 +399,8 @@ public class InputManager : MonoBehaviour {
     /*********************************
         Other
     *********************************/
-    public void PlayerTurn(bool isPlayerTurn) {
-
+    public void RemoveEnmey(Vector3Int enemyHex) {
+        GlobalVars.enemies.Remove(enemyHex);        
     }
 
 
