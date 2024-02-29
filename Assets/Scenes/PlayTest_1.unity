@@ -2771,6 +2771,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prefab_AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 9126936521528240394, guid: 14c98084ce9ad1c40abc9d764b7355ae, type: 3}
+      propertyPath: sounds.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9126936521528240394, guid: 14c98084ce9ad1c40abc9d764b7355ae, type: 3}
+      propertyPath: sounds.Array.data[3].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: d218fff41e5df514bb27582f9d663976, type: 3}
+    - target: {fileID: 9126936521528240394, guid: 14c98084ce9ad1c40abc9d764b7355ae, type: 3}
+      propertyPath: sounds.Array.data[3].name
+      value: Death SOund
+      objectReference: {fileID: 0}
+    - target: {fileID: 9126936521528240394, guid: 14c98084ce9ad1c40abc9d764b7355ae, type: 3}
+      propertyPath: sounds.Array.data[3].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9126936521528240394, guid: 14c98084ce9ad1c40abc9d764b7355ae, type: 3}
+      propertyPath: sounds.Array.data[3].volume
+      value: 0.497
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
