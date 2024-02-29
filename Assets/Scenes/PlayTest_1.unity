@@ -2781,7 +2781,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: d218fff41e5df514bb27582f9d663976, type: 3}
     - target: {fileID: 9126936521528240394, guid: 14c98084ce9ad1c40abc9d764b7355ae, type: 3}
       propertyPath: sounds.Array.data[3].name
-      value: Death SOund
+      value: Death-Sund
       objectReference: {fileID: 0}
     - target: {fileID: 9126936521528240394, guid: 14c98084ce9ad1c40abc9d764b7355ae, type: 3}
       propertyPath: sounds.Array.data[3].pitch

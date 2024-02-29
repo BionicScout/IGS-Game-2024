@@ -195,7 +195,7 @@ public class InputManager : MonoBehaviour {
             if (enemyStats.curHealth <= 0) {
                 enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
                 //death audio
-                AudioManager.instance.Play("Death-Bells");
+                AudioManager.instance.Play("Deah-Sound");
             }
 
             ShootIndicators(false);
@@ -231,7 +231,7 @@ public class InputManager : MonoBehaviour {
             if (enemyStats.curHealth <= 0) {
                 enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
                 //death audio
-                AudioManager.instance.Play("Death-Bells");
+                AudioManager.instance.Play("Deah-Sound");
             }
             //enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
             WackIndicators(false);
