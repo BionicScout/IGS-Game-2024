@@ -25,6 +25,7 @@ public class InputManager : MonoBehaviour {
     public bool clickedUI = false;
     //public float stopTime;
     static Vector3Int clickedCoord, playerCoord, enemyCoord, mouseCoord;
+    Vector3 worldSpacePos;
     public GameObject selectedPlayerMenu, statsMenu;
     public TextMeshProUGUI moveTxt, powerTxt, defenseTxt, healthTxt, powerRangeTxt;
 
@@ -57,7 +58,8 @@ public class InputManager : MonoBehaviour {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x , mousePos.y);
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D , Vector2.zero);
-            Instantiate(hitParticles, mouseCoord, Quaternion.identity);
+
+            worldSpacePos = mousePos;
 
             if(hit.collider != null) {
                 GlobalVars.hexagonTile[clickedCoord].transform.GetChild(5).gameObject.SetActive(false);
@@ -187,7 +189,7 @@ public class InputManager : MonoBehaviour {
             //attack audio
             AudioManager.instance.Play("Attack");
             //hit particles
-            Instantiate(hitParticles, mouseCoord, Quaternion.identity);
+            Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
 
             //enemy death
             if (enemyStats.curHealth <= 0) {
@@ -223,7 +225,7 @@ public class InputManager : MonoBehaviour {
             //attack audio
             AudioManager.instance.Play("Attack");
             //hit particles
-            Instantiate(hitParticles, mouseCoord, Quaternion.identity);
+            Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
 
             //enemy death
             if (enemyStats.curHealth <= 0) {
