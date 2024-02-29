@@ -9,9 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
+    path: Assets/Scenes/CharcaterSelector.unity
+    guid: 282632c8006ff75499df2054dbb217b5
+  - enabled: 1
     path: Assets/Scenes/PlayTest_1.unity
     guid: 523b273586d1cf249a5e988b62b8587c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Combat_Testing.unity
     guid: 643c8561ed00d314d98c3aed5cb81c27
   m_configObjects: {}
