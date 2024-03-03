@@ -10,11 +10,11 @@ using UnityEngine.TextCore.Text;
 public class CharacterManager : MonoBehaviour
 {
     public CharacterData characterData;
+    Characters character;
 
     public TextMeshProUGUI nameTxt;
     public SpriteRenderer spriteIcon;
-    public GameObject confimedMenu;
-    public Button nextBTN, backBTN;
+    public Button nextBTN, backBTN, continueBTN;
 
 
     private int selectedOption;
@@ -22,7 +22,7 @@ public class CharacterManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        confimedMenu.SetActive(false);
+        continueBTN.interactable = false;
         Debug.Log(GlobalVars.choosenPlayers.Count);
         if (PlayerPrefs.HasKey("selectedOption"))
         {
@@ -56,7 +56,7 @@ public class CharacterManager : MonoBehaviour
     }
     private void UpdateCharacter(int selectedOption)
     {
-        Characters character = characterData.GetCharacter(selectedOption);
+        character = characterData.GetCharacter(selectedOption);
         spriteIcon.sprite = character.charSprite;
         nameTxt.text = character.charName;
     }
@@ -74,12 +74,15 @@ public class CharacterManager : MonoBehaviour
     }
     public void ConfirmChoice()
     {
-        Characters character = characterData.GetCharacter(selectedOption);
-        GlobalVars.choosenPlayers.Add(character.charStats);
-        confimedMenu.SetActive(true);
-        nextBTN.interactable = false;
-        backBTN.interactable = false;
-        Debug.Log(GlobalVars.choosenPlayers.Count);
+        for(int i = 0; i <= selectedOption; i++)
+        {
+            GlobalVars.choosenPlayers.Add(character.charStats);
+            continueBTN.interactable = true;
+            nextBTN.interactable = false;
+            backBTN.interactable = false;
+            Debug.Log(GlobalVars.choosenPlayers.Count);
+        }
+
 
     }
 }
