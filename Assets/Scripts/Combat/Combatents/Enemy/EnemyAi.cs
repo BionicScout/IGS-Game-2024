@@ -44,13 +44,13 @@ public class EnemyAi {
 
             //Move Ai
             Command command = Move(tilesAndScore);
-            tm.commandQueue.Enqueue(command);
             await Task.Yield();
 
             //Attack Player
             command = Attack(command, stats);
             await Task.Yield();
 
+            tm.commandQueue.Enqueue(command);
             currentEnemyIndex++;
         }
 
@@ -103,10 +103,10 @@ public class EnemyAi {
             closestPerson = -1;
             playersCanHit = 0;
 
-            Debug.Log("--------" + tilesAndScores[tileScoreIndex].Key + "-------------");
+            //Debug.Log("--------" + tilesAndScores[tileScoreIndex].Key + "-------------");
             foreach(KeyValuePair<Vector3Int, Stats> playerInfo in GlobalVars.players){
                 int distance = Pathfinding.PathBetweenPoints(playerInfo.Key , tilesAndScores[tileScoreIndex].Key).Count - 1;
-                Debug.Log("Distance: " + distance);
+                //Debug.Log("Distance: " + distance);
                 distances.Add(distance);
 
                 if (closestPerson < distance) {
@@ -114,16 +114,16 @@ public class EnemyAi {
                 }
 
                 if (distance <= playerInfo.Value.attackRange) {
-                    Debug.Log("Can Hit - " + distance + " <= " + playerInfo.Value.attackRange);
+                    //Debug.Log("Can Hit - " + distance + " <= " + playerInfo.Value.attackRange);
                     playersCanHit++;
                 }
 
-                Debug.Log("Can Hit 2 - " + playersCanHit);
+                //Debug.Log("Can Hit 2 - " + playersCanHit);
             }
 
             playersCanHitList.Add(tilesAndScores[tileScoreIndex].Key, playersCanHit);
 
-            Debug.Log("ClosestPerson: " + closestPerson);
+            //Debug.Log("ClosestPerson: " + closestPerson);
 
             //Scoring
             foreach(int distance in distances){
@@ -170,7 +170,7 @@ public class EnemyAi {
         int randomMove = UnityEngine.Random.Range(0, tiles.Count);
         Vector3Int moveTile = tiles[randomMove];
 
-        Debug.Log(tiles.Count);
+        //Debug.Log(tiles.Count);
 
         //Debug
         debugMoveTiles = tiles;
@@ -191,14 +191,21 @@ public class EnemyAi {
         Vector3Int playerCoord = Vector3Int.one;
         float lowestHealth = float.MaxValue;
 
+        //Debug.Log("--- Next Enemy ---");
+
         foreach(KeyValuePair<Vector3Int , Stats> playerInfo in GlobalVars.players) {
             int distance = Pathfinding.PathBetweenPoints(playerInfo.Key , command.moveSpace).Count - 1;
+            //Debug.Log("Distance: " + distance + "\nAttack Range: " + enemy.attackRange);
+            //Debug.Log("Player Health: " + playerInfo.Value.curHealth + "\nLowest Health: " + lowestHealth);
 
             if(distance <= enemy.attackRange && playerInfo.Value.curHealth < lowestHealth) {
                 lowestHealth = playerInfo.Value.curHealth;
                 playerCoord = playerInfo.Key;
             }
         }
+
+        //Debug.Log("--- End ---");
+        Debug.Log("Attack Player at: " + playerCoord + "\nLowest Health: " + lowestHealth);
 
         command.attackTile = playerCoord;
 

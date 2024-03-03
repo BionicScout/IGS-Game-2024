@@ -148,30 +148,37 @@ public class TurnManager : MonoBehaviour {
         Enemy Turn
     *********************************/
     public void enemyCommand(Command command) {
-        //Move
-        Movement.moveEnemy(command.startSpace, command.moveSpace);
+       
 
-        //Attack
-        Stats playerstats = GlobalVars.players[command.attackTile];
-        Stats enemystats = GlobalVars.enemies[command.moveSpace];
+        //Move
+        Stats enemystats = GlobalVars.enemies[command.startSpace];
+        Movement.moveEnemy(command.startSpace, command.moveSpace);
 
         //Instantiate(hitParticles, worldSpacePos , Quaternion.identity);
 
-        //enemy death
-        Stats stats = GlobalVars.players[command.attackTile];
-        stats.curHealth += playerstats.Damage(enemystats.power);
-        GlobalVars.players[command.attackTile] = stats;
+        //Enemy attack
+        if(command.attackTile != Vector3Int.one) {
+            Debug.Log(command.attackTile);
 
-        PlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
+            Debug.Log("PLayer Health After: " + GlobalVars.players[command.attackTile].curHealth);
+
+            Stats stats = GlobalVars.players[command.attackTile];
+            stats.curHealth -= stats.Damage(enemystats.power);
+            GlobalVars.players[command.attackTile] = stats;
+
+            PlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
+
+            Debug.Log("PLayer Health After: " + GlobalVars.players[command.attackTile].curHealth);
 
 
-
-        if(playerstats.curHealth <= 0) {
-            GameObject playerTileObj = GlobalVars.hexagonTile[command.attackTile];
-            playerTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
-            GlobalVars.players.Remove(command.attackTile);
-            //death audio
-            AudioManager.instance.Play("Player-Hurt");
+            //Player Dies
+            if(stats.curHealth <= 0) {
+                GameObject playerTileObj = GlobalVars.hexagonTile[command.attackTile];
+                playerTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+                GlobalVars.players.Remove(command.attackTile);
+                //death audio
+                AudioManager.instance.Play("Player-Hurt");
+            }
         }
     }
 
