@@ -74,15 +74,11 @@ public class CharacterManager : MonoBehaviour
     }
     public void ConfirmChoice()
     {
-        for(int i = 0; i <= selectedOption; i++)
-        {
-            GlobalVars.choosenPlayers.Add(character.charStats);
-            continueBTN.interactable = true;
-            nextBTN.interactable = false;
-            backBTN.interactable = false;
-            Debug.Log(GlobalVars.choosenPlayers.Count);
-        }
-
+        GlobalVars.choosenPlayers.Add(character.charStats);
+        continueBTN.interactable = true;
+        nextBTN.interactable = false;
+        backBTN.interactable = false;
+        Debug.Log(GlobalVars.choosenPlayers.Count);
 
     }
 }
