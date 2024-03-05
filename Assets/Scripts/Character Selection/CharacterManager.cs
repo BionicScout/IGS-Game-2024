@@ -22,7 +22,7 @@ public class CharacterManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        continueBTN.interactable = false;
+        //continueBTN.interactable = false;
         Debug.Log(GlobalVars.choosenPlayers.Count);
         if (PlayerPrefs.HasKey("selectedOption"))
         {
@@ -75,7 +75,7 @@ public class CharacterManager : MonoBehaviour
     public void ConfirmChoice()
     {
         GlobalVars.choosenPlayers.Add(character.charStats);
-        continueBTN.interactable = true;
+        //continueBTN.interactable = true;
         nextBTN.interactable = false;
         backBTN.interactable = false;
         Debug.Log(GlobalVars.choosenPlayers.Count);
