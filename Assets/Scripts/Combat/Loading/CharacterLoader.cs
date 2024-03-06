@@ -19,24 +19,24 @@ public class CharacterLoader : MonoBehaviour {
         for(int i = 0; i < enemySpawns.spawns.Count; i++) {
             Tuple<string , Vector3Int> enemySpawnInfo = enemySpawns.spawns[i];
             Stats enemy = enemyStats.Find(x => x.charName == enemySpawnInfo.Item1);
-            SpawnPlayer(enemySpawnInfo.Item2, enemy.Copy());
+            SpawnEnemy(enemySpawnInfo.Item2, enemy.Copy());
         }
     }
 
     public void SpawnPlayer(Vector3Int spawnLoc, Stats playerStats) {
-        GlobalVars.players.Add(spawnLoc , playerStats);
         GameObject currentTileObj = GlobalVars.hexagonTile[spawnLoc];
         currentTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = playerStats.sprite;
 
-        GlobalVars.players[spawnLoc].curHealth = GlobalVars.players[spawnLoc].maxHealth;
+        playerStats.curHealth = playerStats.maxHealth;
+        GlobalVars.players.Add(spawnLoc , playerStats);
     }
 
     public void SpawnEnemy(Vector3Int spawnLoc , Stats stats) {
-        GlobalVars.enemies.Add(spawnLoc, stats);
         GameObject enemyTileObj = GlobalVars.hexagonTile[spawnLoc];
         enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = stats.sprite;
 
-        GlobalVars.enemies[spawnLoc].curHealth = GlobalVars.enemies[spawnLoc].maxHealth;
+        stats.curHealth = stats.maxHealth;
+        GlobalVars.enemies.Add(spawnLoc , stats);
     }
 
 

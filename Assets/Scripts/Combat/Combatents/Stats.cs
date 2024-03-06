@@ -40,7 +40,7 @@ public class Stats : ScriptableObject
     }
 
     public Stats Copy() {
-        Stats copy = new Stats();
+        Stats copy = CreateInstance<Stats>();
 
         copy.charName = charName;
         copy.charType = charType;
