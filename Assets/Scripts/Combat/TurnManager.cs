@@ -39,15 +39,15 @@ public class TurnManager : MonoBehaviour {
             enemyCommand(commandQueue.Dequeue());
         }
 
-        if(GlobalVars.enemies.Count == 0) {
-            PlayerMenu.SetActive(false);
-            LoseMenu.SetActive(true);
-        }
+        //if(GlobalVars.enemies.Count == 0) {
+        //    PlayerMenu.SetActive(false);
+        //    LoseMenu.SetActive(true);
+        //}
 
-        if(GlobalVars.enemies.Count == 0) {
-            PlayerMenu.SetActive(false);
-            WinMenu.SetActive(true);
-        }
+        //if(GlobalVars.enemies.Count == 0) {
+        //    PlayerMenu.SetActive(false);
+        //    WinMenu.SetActive(true);
+        //}
     }
 
 

@@ -32,7 +32,11 @@ public class SpawnInfoLoader : MonoBehaviour {
 
     void Start() {
         if(spawnDataFile != null) {
-            LoadSpawnData();
+            Queue<SpawnWave> queue = LoadSpawnData();
+
+            CharacterLoader cl = FindAnyObjectByType<CharacterLoader>();
+            cl.playerSpawns = queue.Dequeue();
+            cl.enemySpawns = queue.Dequeue();
         }
         else {
             Debug.LogError("Spawn data file not assigned!");
@@ -82,6 +86,17 @@ public class SpawnInfoLoader : MonoBehaviour {
             waveNumber++;
             spawnQueue.Enqueue(wave);
         }
+
+        //Debug Queue
+        string str = "";
+        for(int i = 0; i < spawnQueue.Count; i++) {
+            SpawnWave wave2 = spawnQueue.Dequeue();
+            str += wave2.ToString() + "\n\n";
+            spawnQueue.Enqueue(wave2);
+        }
+
+        Debug.Log(str);
+
 
         return spawnQueue;
     }
