@@ -40,7 +40,7 @@ public class SpawnInfoLoader : MonoBehaviour {
     }
 
 
-    void LoadSpawnData() {
+    Queue<SpawnWave> LoadSpawnData() {
         //Get Data
         string json = spawnDataFile.text;
         SpawnData data = JsonUtility.FromJson<SpawnData>(json);
@@ -83,13 +83,7 @@ public class SpawnInfoLoader : MonoBehaviour {
             spawnQueue.Enqueue(wave);
         }
 
-        //
-        string str = "";
-        foreach(var wave2 in spawnQueue) {
-            str += wave2.ToString() + "\n\n";
-        }
-
-        Debug.Log(str);
+        return spawnQueue;
     }
 
 
