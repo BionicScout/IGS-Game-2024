@@ -2,8 +2,8 @@
   "PlayerSpawns": [
     {"spawnLocation": {"x": 10, "y": 15, "z": -25}},
     {"spawnLocation": {"x": 10, "y": 16, "z": -26}},
-    {"spawnLocation": {"x": 10, "y": 14, "z": -27}},
-    {"spawnLocation": {"x": 9, "y": 15, "z": -25}}
+    {"spawnLocation": {"x": 10, "y": 14, "z": -24}},
+    {"spawnLocation": {"x": 9, "y": 15, "z": -24}}
   ],
   "EnemySpawnLocations": [
     {"unitName": "BurAcorn", "spawnLocation": {"x": 1, "y": 4, "z": -5}},
