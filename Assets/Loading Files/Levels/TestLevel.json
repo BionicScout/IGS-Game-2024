@@ -20,22 +20,22 @@
     {
       "TurnNumber": 6,
       "EnemySpawns": [
-        {"unitName": "BurAcorn", "spawnLocation": {"x": 1, "y": 7, "z": -7}},
+        {"unitName": "BurAcorn", "spawnLocation": {"x": 0, "y": 7, "z": -7}},
         {"unitName": "BurAcorn", "spawnLocation": {"x": 0, "y": 8, "z": -8}}
       ]
     },
     {
       "TurnNumber": 9,
       "EnemySpawns": [
-        {"unitName": "BurAcorn", "spawnLocation": {"x": 2, "y": 6, "z": -6}},
-        {"unitName": "BurAcorn", "spawnLocation": {"x": 1, "y": 7, "z": -7}},
+        {"unitName": "BurAcorn", "spawnLocation": {"x": 0, "y": 6, "z": -6}},
+        {"unitName": "BurAcorn", "spawnLocation": {"x": 0, "y": 7, "z": -7}},
         {"unitName": "BurAcorn", "spawnLocation": {"x": 0, "y": 8, "z": -8}}
       ]
     },
     {
-      "TurnNumber": 11,
+      "TurnNumber": 12,
       "EnemySpawns": [
-        {"unitName": "BurAcorn", "spawnLocation": {"x": 1, "y": 7, "z": -7}},
+        {"unitName": "BurAcorn", "spawnLocation": {"x": 0, "y": 7, "z": -7}},
         {"unitName": "BurAcorn", "spawnLocation": {"x": 0, "y": 8, "z": -8}}
       ]
     }

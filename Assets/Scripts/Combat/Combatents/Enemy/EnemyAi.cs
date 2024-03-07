@@ -252,7 +252,7 @@ public class EnemyAi {
         }
 
         //Debug.Log("--- End ---");
-        Debug.Log("Attack Player at: " + playerCoord + "\nLowest Health: " + lowestHealth);
+        //Debug.Log("Attack Player at: " + playerCoord + "\nLowest Health: " + lowestHealth);
 
         command.attackTile = playerCoord;
 

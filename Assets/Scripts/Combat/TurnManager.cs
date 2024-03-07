@@ -191,24 +191,41 @@ public class TurnManager : MonoBehaviour {
     }
 
     public void SpawnEnemies() {
+        turn++;
+
+        if(GlobalVars.spawnWaves.Count == 1)
+            GlobalVars.spawnWaves.Enqueue(new SpawnWave());
+
         SpawnWave currentWave = nextWave;
         nextWave = GlobalVars.spawnWaves.Dequeue();
 
-        for(int i = 0; i < currentWave.spawns.Count; i++) {
-            Tuple<string , Vector3Int> enemySpawn = currentWave.spawns[i];
+        Debug.Log("--- Wave " + turn + " ---");
 
-            //If unit is occuping space, spawn next round
-            if(GlobalVars.players.ContainsKey(enemySpawn.Item2) || GlobalVars.enemies.ContainsKey(enemySpawn.Item2)) {
-                nextWave.spawns.Add(enemySpawn);
-                continue;
-            }
+        List<Tuple<string , Vector3Int>> nextWaveSpawns = new List<Tuple<string , Vector3Int>>();
 
+        foreach(var enemySpawn in currentWave.spawns) {
+            Debug.Log("Maybe Spawn");
+            // If unit is occupying space, spawn next round
+            //if(GlobalVars.players.ContainsKey(enemySpawn.Item2) || GlobalVars.enemies.ContainsKey(enemySpawn.Item2)) {
+            //    nextWaveSpawns.Add(enemySpawn);
+            //    Debug.Log("Hold Spawn");
+            //    continue;
+            //}
+
+            Debug.Log("Spawn");
             Stats enemy = GlobalVars.enemyStats.Find(x => x.charName == enemySpawn.Item1);
             CharacterLoader.SpawnEnemy(enemySpawn.Item2 , enemy.Copy());
         }
+
+        Debug.Log("Exit Loop");
+
+        // Add remaining spawns to the next wave
+        nextWave.spawns.AddRange(nextWaveSpawns);
     }
 
+
     public void startPlayerTurn() {
+        SpawnEnemies();
         Debug.Log("Start Player Turn");
         ResetVals();
         UpdateActiveMenu();
