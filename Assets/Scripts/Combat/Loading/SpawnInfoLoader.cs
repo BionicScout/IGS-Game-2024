@@ -37,6 +37,8 @@ public class SpawnInfoLoader : MonoBehaviour {
             CharacterLoader cl = FindAnyObjectByType<CharacterLoader>();
             cl.playerSpawns = queue.Dequeue();
             cl.enemySpawns = queue.Dequeue();
+
+            GlobalVars.spawnWaves = queue;
         }
         else {
             Debug.LogError("Spawn data file not assigned!");

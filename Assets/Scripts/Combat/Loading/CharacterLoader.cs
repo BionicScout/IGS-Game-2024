@@ -21,9 +21,13 @@ public class CharacterLoader : MonoBehaviour {
             Stats enemy = enemyStats.Find(x => x.charName == enemySpawnInfo.Item1);
             SpawnEnemy(enemySpawnInfo.Item2, enemy.Copy());
         }
+
+        foreach(Stats stats in enemyStats) {
+            GlobalVars.enemyStats.Add(stats);
+        }
     }
 
-    public void SpawnPlayer(Vector3Int spawnLoc, Stats playerStats) {
+    public static void SpawnPlayer(Vector3Int spawnLoc, Stats playerStats) {
         GameObject currentTileObj = GlobalVars.hexagonTile[spawnLoc];
         currentTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = playerStats.sprite;
 
@@ -31,7 +35,7 @@ public class CharacterLoader : MonoBehaviour {
         GlobalVars.players.Add(spawnLoc , playerStats);
     }
 
-    public void SpawnEnemy(Vector3Int spawnLoc , Stats stats) {
+    public static void SpawnEnemy(Vector3Int spawnLoc , Stats stats) {
         GameObject enemyTileObj = GlobalVars.hexagonTile[spawnLoc];
         enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = stats.sprite;
 

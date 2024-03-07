@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -16,6 +17,10 @@ public class TurnManager : MonoBehaviour {
     public GameObject PlayerMenu;
     public GameObject WinMenu, LoseMenu;
 
+    int turn = 0;
+    public Queue<SpawnWave> spawnQueue;
+    SpawnWave nextWave;
+
     private void Start() {
         playerCoords = new List<Vector3Int>();
         playerMovement = new List<int>(); //Movement speed left
@@ -32,6 +37,8 @@ public class TurnManager : MonoBehaviour {
         }
 
         commandQueue = new Queue<Command>();
+
+        nextWave = GlobalVars.spawnWaves.Dequeue();
     }
 
     void Update() {
@@ -122,6 +129,7 @@ public class TurnManager : MonoBehaviour {
     }
 
     public void StartEnemyTurn() {
+        turn++;
         StartCoroutine(ExecuteEnemyTurn());
     }
 
@@ -150,8 +158,6 @@ public class TurnManager : MonoBehaviour {
         Enemy Turn
     *********************************/
     public void enemyCommand(Command command) {
-       
-
         //Move
         Stats enemystats = GlobalVars.enemies[command.startSpace];
         Movement.moveEnemy(command.startSpace, command.moveSpace);
@@ -181,6 +187,24 @@ public class TurnManager : MonoBehaviour {
                 //death audio
                 AudioManager.instance.Play("Player-Hurt");
             }
+        }
+    }
+
+    public void SpawnEnemies() {
+        SpawnWave currentWave = nextWave;
+        nextWave = GlobalVars.spawnWaves.Dequeue();
+
+        for(int i = 0; i < currentWave.spawns.Count; i++) {
+            Tuple<string , Vector3Int> enemySpawn = currentWave.spawns[i];
+
+            //If unit is occuping space, spawn next round
+            if(GlobalVars.players.ContainsKey(enemySpawn.Item2) || GlobalVars.enemies.ContainsKey(enemySpawn.Item2)) {
+                nextWave.spawns.Add(enemySpawn);
+                continue;
+            }
+
+            Stats enemy = GlobalVars.enemyStats.Find(x => x.charName == enemySpawn.Item1);
+            CharacterLoader.SpawnEnemy(enemySpawn.Item2 , enemy.Copy());
         }
     }
 

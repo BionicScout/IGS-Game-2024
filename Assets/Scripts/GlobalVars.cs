@@ -11,12 +11,15 @@ public static class GlobalVars {
     public static Vector3Int centerHex = new Vector3Int(); //Center of Map
     public static Vector3Int topRightHex;
 
-    //selected characters
+    //Unit Info
     public static List<Stats> choosenPlayers = new List<Stats>();
+    public static List<Stats> enemyStats = new List<Stats>();
 
     //Combat Info
     public static Dictionary<Vector3Int , Stats> players = new Dictionary<Vector3Int , Stats>();
     public static Dictionary<Vector3Int , Stats> enemies = new Dictionary<Vector3Int , Stats>();
+
+    public static Queue<SpawnWave> spawnWaves = new Queue<SpawnWave>();
 
 
 }
