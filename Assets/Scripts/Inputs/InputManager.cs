@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
-//using System.Diagnostics;
+
 
 public class InputManager : MonoBehaviour {
     enum modes {
@@ -32,6 +32,8 @@ public class InputManager : MonoBehaviour {
     //for items
     public int singleHealAMT, powerBuffAMT, defenseBuffAMT, reviveAMT, healScrollAMT;
     public TextMeshProUGUI singleHealTxt, powerBuffTxt, defenseBuffTxt, reviveTxt, healScrollTxt;
+    public Button singleHealBTN, powerBuffBTN, defenseBuffBTN, reviveBTN, healScrollBTN;
+    public Button shUseBTN, pbUseBTN, dbUseBTN, rUseBTN, hsUSeBTN;
 
 
     //HexObjInfo hexObjInfo;
@@ -48,8 +50,18 @@ public class InputManager : MonoBehaviour {
         selectedPlayerMenu.SetActive(true);
         statsMenu.SetActive(false);
         turnManager = FindAnyObjectByType<TurnManager>();
+        //singleHealAMT = 2;
+        //powerBuffAMT = 3;
+        //defenseBuffAMT = 2;
+        //reviveAMT = 2;
+        //healScrollAMT = 1;
     }
     void Update() {
+        singleHealTxt.text = "x" + singleHealAMT.ToString();
+        powerBuffTxt.text = "x" + powerBuffAMT.ToString();
+        defenseBuffTxt.text = "x" + defenseBuffAMT.ToString();
+        reviveTxt.text = "x" + reviveAMT.ToString();
+        healScrollTxt.text = "x" + healScrollAMT.ToString();
 
         if(clickedUI) {
             clickedUI = false;
@@ -170,6 +182,31 @@ public class InputManager : MonoBehaviour {
         HealIndicators(true);
         inputMode = modes.heal;
         clickedUI = true;
+    }
+    public void SetSingleHeal()
+    {
+        shUseBTN.gameObject.SetActive(true);
+        shUseBTN.interactable = true;
+    }
+    public void SetPowerBuff()
+    {
+        pbUseBTN.gameObject.SetActive(true);
+        pbUseBTN.interactable = true;
+    }
+    public void SetDefenseBuff()
+    {
+        dbUseBTN.gameObject.SetActive(true);
+        dbUseBTN.interactable = true;
+    }
+    public void SetRevive()
+    {
+        rUseBTN.gameObject.SetActive(true);
+        rUseBTN.interactable = true;
+    }
+    public void SetHealScroll()
+    {
+        //hsUseBTN.gameObject.SetActive(true);
+        //hsUseBTN.interactable = true;
     }
 
 
@@ -402,22 +439,37 @@ public class InputManager : MonoBehaviour {
     /*********************************
             Item Functions
     *********************************/
+    public void SingleHeal()
+    {
+        if(singleHealAMT != 0)
+        {
+            Debug.Log("Player was Healed and item was used");
+            //if(GlobalVars.players[playerCoord].curHealth + 7 >= GlobalVars.players[playerCoord].maxHealth)
+            //{
+            //    GlobalVars.players[playerCoord].curHealth = GlobalVars.players[playerCoord].maxHealth;
+            //    UpdateHealth(GlobalVars.players[playerCoord].curHealth);
+            //}
+            //GlobalVars.players[playerCoord].curHealth += 7;
+            //UpdateHealth(GlobalVars.players[playerCoord].curHealth);
+        }
+    }
     public void PowerBuff()
     {
-        if(defenseBuffAMT != 0)
+        if(powerBuffAMT != 0)
         {
-            GlobalVars.players[playerCoord].defense++;
+            Debug.Log("");
+            //GlobalVars.players[playerCoord].power++;
             //end it after a turn?
-            defenseBuffAMT--;
+            powerBuffAMT--;
         }
     }
     public void DefenseBuff()
     {
-        if (powerBuffAMT != 0)
+        if (defenseBuffAMT != 0)
         {
-            GlobalVars.players[playerCoord].power++;
+            GlobalVars.players[playerCoord].defense++;
             //end it after a turn?
-            powerBuffAMT--;
+            defenseBuffAMT--;
         }
     }
     public void Revive()
@@ -442,19 +494,6 @@ public class InputManager : MonoBehaviour {
                 GlobalVars.players[playerCoord].curHealth += 4;
                 UpdateHealth(GlobalVars.players[playerCoord].curHealth);
             }
-        }
-    }
-    public void SingleHeal()
-    {
-        if(singleHealAMT != 0)
-        {
-            if(GlobalVars.players[playerCoord].curHealth + 7 >= GlobalVars.players[playerCoord].maxHealth)
-            {
-                GlobalVars.players[playerCoord].curHealth = GlobalVars.players[playerCoord].maxHealth;
-                UpdateHealth(GlobalVars.players[playerCoord].curHealth);
-            }
-            GlobalVars.players[playerCoord].curHealth += 7;
-            UpdateHealth(GlobalVars.players[playerCoord].curHealth);
         }
     }
 
