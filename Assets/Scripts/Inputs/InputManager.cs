@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
+//using System.Diagnostics;
 
 public class InputManager : MonoBehaviour {
     enum modes {
@@ -28,6 +29,10 @@ public class InputManager : MonoBehaviour {
     Vector3 worldSpacePos;
     public GameObject selectedPlayerMenu, statsMenu;
     public TextMeshProUGUI moveTxt, powerTxt, defenseTxt, healthTxt, powerRangeTxt;
+    //for items
+    public int singleHealAMT, powerBuffAMT, defenseBuffAMT, reviveAMT, healScrollAMT;
+    public TextMeshProUGUI singleHealTxt, powerBuffTxt, defenseBuffTxt, reviveTxt, healScrollTxt;
+
 
     //HexObjInfo hexObjInfo;
 
@@ -386,7 +391,7 @@ public class InputManager : MonoBehaviour {
         powerRangeTxt.text = "Power Range: " + stats.attackRange.ToString();
     }
 
-    public void UpdateHealth(int healthOffset) {
+    public void UpdateHealth(float healthOffset) {
         Stats stats = GlobalVars.players[playerCoord];
         stats.curHealth += healthOffset;
         GlobalVars.players[playerCoord] = stats;
@@ -394,6 +399,64 @@ public class InputManager : MonoBehaviour {
         selectedPlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
     }
 
+    /*********************************
+            Item Functions
+    *********************************/
+    public void PowerBuff()
+    {
+        if(defenseBuffAMT != 0)
+        {
+            GlobalVars.players[playerCoord].defense++;
+            //end it after a turn?
+            defenseBuffAMT--;
+        }
+    }
+    public void DefenseBuff()
+    {
+        if (powerBuffAMT != 0)
+        {
+            GlobalVars.players[playerCoord].power++;
+            //end it after a turn?
+            powerBuffAMT--;
+        }
+    }
+    public void Revive()
+    {
+        if(reviveAMT != 0)
+        {
+
+        }
+    }
+    public void HealScroll()
+    {
+        if(healScrollAMT != 0)
+        {
+            foreach(var health in GlobalVars.players.Values)
+            {
+                //Debug.Log("all Player was healed");
+                if (GlobalVars.players[playerCoord].curHealth + 4 >= GlobalVars.players[playerCoord].maxHealth)
+                {
+                    GlobalVars.players[playerCoord].curHealth = GlobalVars.players[playerCoord].maxHealth;
+                    UpdateHealth(GlobalVars.players[playerCoord].curHealth);
+                }
+                GlobalVars.players[playerCoord].curHealth += 4;
+                UpdateHealth(GlobalVars.players[playerCoord].curHealth);
+            }
+        }
+    }
+    public void SingleHeal()
+    {
+        if(singleHealAMT != 0)
+        {
+            if(GlobalVars.players[playerCoord].curHealth + 7 >= GlobalVars.players[playerCoord].maxHealth)
+            {
+                GlobalVars.players[playerCoord].curHealth = GlobalVars.players[playerCoord].maxHealth;
+                UpdateHealth(GlobalVars.players[playerCoord].curHealth);
+            }
+            GlobalVars.players[playerCoord].curHealth += 7;
+            UpdateHealth(GlobalVars.players[playerCoord].curHealth);
+        }
+    }
 
 
     /*********************************
