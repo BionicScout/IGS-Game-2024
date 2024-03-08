@@ -14,7 +14,8 @@ public class InputManager : MonoBehaviour {
         attack = 2,
         move = 3,
         AOE = 4,
-        heal = 5
+        heal = 5,
+        interact = 6
     }
 
     modes inputMode;
@@ -119,6 +120,16 @@ public class InputManager : MonoBehaviour {
                 Heal(playerPower);
                 inputMode = modes.normal;
             }
+            if(inputMode == modes.interact)
+            {
+                if (GlobalVars.hexagonTile[clickedCoord].GetComponent<TileScriptableObjects>().interactable)
+                {
+                    GlobalVars.hexagonTile[clickedCoord].GetComponent<TileScriptableObjects>().interactable = false;
+                    GlobalVars.hexagonTile[clickedCoord].GetComponent<TileScriptableObjects>().isObstacle = false;
+                    //indicate something happened through tile change, maybe
+                }
+                inputMode = modes.normal;
+            }
         }
 
 
@@ -177,6 +188,12 @@ public class InputManager : MonoBehaviour {
         HealIndicators(true);
         inputMode = modes.heal;
         clickedUI = true;
+    }
+    public void SetInteract()
+    {
+        MoveIndicators(false);
+        HealIndicators(false);
+        InteractIndicators(true);
     }
 
     /*********************************
@@ -303,9 +320,7 @@ public class InputManager : MonoBehaviour {
         }
     }
 
-    public void Items() {
-        Debug.Log("Item menu opened");
-    }
+
     public void Interact() {
         Debug.Log("INTERACT");
         turnManager.Player_HardAction(playerCoord);
@@ -371,7 +386,18 @@ public class InputManager : MonoBehaviour {
         //    }
         //}
     }
-
+    public void InteractIndicators(bool onOff)
+    {
+        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, 1))
+        {
+            Vector3Int t = temp.Item1;
+            if (GlobalVars.hexagonTile[t].GetComponent<TileScriptableObjects>().interactable)
+            {
+                //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
+                GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(onOff);
+            }
+        }
+    }
 
 
     /*********************************
@@ -503,5 +529,6 @@ public class InputManager : MonoBehaviour {
         return Vector3Int.zero;
     }
 
+   
 }
 

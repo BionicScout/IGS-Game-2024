@@ -3663,7 +3663,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 182730969}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: Items
+        m_MethodName: ItemMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3729,7 +3729,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &662175178
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20189,7 +20189,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 182730969}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: Interact
+        m_MethodName: SetInteract
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

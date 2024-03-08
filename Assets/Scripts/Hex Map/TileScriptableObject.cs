@@ -6,5 +6,6 @@ using UnityEngine;
 public class TileScriptableObjects : ScriptableObject {
     public Sprite sprite;
 
-    public bool isObstacle; 
+    public bool isObstacle;
+    public bool interactable;
 }
