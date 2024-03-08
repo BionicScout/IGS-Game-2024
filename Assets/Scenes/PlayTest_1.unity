@@ -1437,6 +1437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: befc4a22fd13560449d677cd04eb1602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  items: {fileID: 0}
   hitParticles: {fileID: 1052758049302362282, guid: e9dbf8a590745754680ef205c90d71df, type: 3}
   playerMove: 0
   playerPower: 0
@@ -1446,31 +1447,12 @@ MonoBehaviour:
   clickedUI: 0
   selectedPlayerMenu: {fileID: 409865014}
   statsMenu: {fileID: 688955342}
+  itemMenu: {fileID: 0}
   moveTxt: {fileID: 724691104}
   powerTxt: {fileID: 1005976020}
   defenseTxt: {fileID: 1209670647}
   healthTxt: {fileID: 1710025193}
   powerRangeTxt: {fileID: 1388997694}
-  singleHealAMT: 0
-  powerBuffAMT: 0
-  defenseBuffAMT: 0
-  reviveAMT: 0
-  healScrollAMT: 0
-  singleHealTxt: {fileID: 956181478}
-  powerBuffTxt: {fileID: 1327455731}
-  defenseBuffTxt: {fileID: 1975030195}
-  reviveTxt: {fileID: 1921027925}
-  healScrollTxt: {fileID: 260524983}
-  singleHealBTN: {fileID: 2046967267}
-  powerBuffBTN: {fileID: 1544963521}
-  defenseBuffBTN: {fileID: 1525728950}
-  reviveBTN: {fileID: 349322389}
-  healScrollBTN: {fileID: 814131310}
-  shUseBTN: {fileID: 1165457286}
-  pbUseBTN: {fileID: 1607209157}
-  dbUseBTN: {fileID: 736434052}
-  rUseBTN: {fileID: 1248292972}
-  hsUSeBTN: {fileID: 31188493}
 --- !u!1 &196413651
 GameObject:
   m_ObjectHideFlags: 0
@@ -3740,6 +3722,7 @@ GameObject:
   - component: {fileID: 662175178}
   - component: {fileID: 662175180}
   - component: {fileID: 662175179}
+  - component: {fileID: 662175181}
   m_Layer: 5
   m_Name: ItemsMenu
   m_TagString: Untagged
@@ -3810,6 +3793,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 662175177}
   m_CullTransparentMesh: 1
+--- !u!114 &662175181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662175177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3c6b6c5e632fde4d86982119d80f6c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  singleHealAMT: 0
+  powerBuffAMT: 0
+  defenseBuffAMT: 0
+  reviveAMT: 0
+  healScrollAMT: 0
+  singleHealTxt: {fileID: 956181478}
+  powerBuffTxt: {fileID: 1327455731}
+  defenseBuffTxt: {fileID: 1975030195}
+  reviveTxt: {fileID: 1921027925}
+  healScrollTxt: {fileID: 260524983}
+  singleHealBTN: {fileID: 2046967267}
+  powerBuffBTN: {fileID: 1544963521}
+  defenseBuffBTN: {fileID: 1525728950}
+  reviveBTN: {fileID: 349322389}
+  healScrollBTN: {fileID: 814131310}
+  shUseBTN: {fileID: 1165457286}
+  pbUseBTN: {fileID: 1607209157}
+  dbUseBTN: {fileID: 736434052}
+  rUseBTN: {fileID: 1248292972}
+  hsUSeBTN: {fileID: 31188493}
 --- !u!1 &686906205
 GameObject:
   m_ObjectHideFlags: 0
