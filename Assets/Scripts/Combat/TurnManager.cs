@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -16,6 +17,10 @@ public class TurnManager : MonoBehaviour {
     public GameObject PlayerMenu;
     public GameObject WinMenu, LoseMenu;
 
+    int turn = 0;
+    public Queue<SpawnWave> spawnQueue;
+    SpawnWave nextWave;
+
     private void Start() {
         playerCoords = new List<Vector3Int>();
         playerMovement = new List<int>(); //Movement speed left
@@ -32,6 +37,8 @@ public class TurnManager : MonoBehaviour {
         }
 
         commandQueue = new Queue<Command>();
+
+        nextWave = GlobalVars.spawnWaves.Dequeue();
     }
 
     void Update() {
@@ -42,6 +49,8 @@ public class TurnManager : MonoBehaviour {
         if(GlobalVars.enemies.Count == 0) {
             PlayerMenu.SetActive(false);
             LoseMenu.SetActive(true);
+
+            
         }
 
         if(GlobalVars.enemies.Count == 0) {
@@ -120,6 +129,7 @@ public class TurnManager : MonoBehaviour {
     }
 
     public void StartEnemyTurn() {
+        turn++;
         StartCoroutine(ExecuteEnemyTurn());
     }
 
@@ -148,8 +158,6 @@ public class TurnManager : MonoBehaviour {
         Enemy Turn
     *********************************/
     public void enemyCommand(Command command) {
-       
-
         //Move
         Stats enemystats = GlobalVars.enemies[command.startSpace];
         Movement.moveEnemy(command.startSpace, command.moveSpace);
@@ -182,7 +190,42 @@ public class TurnManager : MonoBehaviour {
         }
     }
 
+    public void SpawnEnemies() {
+        turn++;
+
+        if(GlobalVars.spawnWaves.Count == 1)
+            GlobalVars.spawnWaves.Enqueue(new SpawnWave());
+
+        SpawnWave currentWave = nextWave;
+        nextWave = GlobalVars.spawnWaves.Dequeue();
+
+        Debug.Log("--- Wave " + turn + " ---");
+
+        List<Tuple<string , Vector3Int>> nextWaveSpawns = new List<Tuple<string , Vector3Int>>();
+
+        foreach(var enemySpawn in currentWave.spawns) {
+            Debug.Log("Maybe Spawn");
+            // If unit is occupying space, spawn next round
+            //if(GlobalVars.players.ContainsKey(enemySpawn.Item2) || GlobalVars.enemies.ContainsKey(enemySpawn.Item2)) {
+            //    nextWaveSpawns.Add(enemySpawn);
+            //    Debug.Log("Hold Spawn");
+            //    continue;
+            //}
+
+            Debug.Log("Spawn");
+            Stats enemy = GlobalVars.enemyStats.Find(x => x.charName == enemySpawn.Item1);
+            CharacterLoader.SpawnEnemy(enemySpawn.Item2 , enemy.Copy());
+        }
+
+        Debug.Log("Exit Loop");
+
+        // Add remaining spawns to the next wave
+        nextWave.spawns.AddRange(nextWaveSpawns);
+    }
+
+
     public void startPlayerTurn() {
+        SpawnEnemies();
         Debug.Log("Start Player Turn");
         ResetVals();
         UpdateActiveMenu();

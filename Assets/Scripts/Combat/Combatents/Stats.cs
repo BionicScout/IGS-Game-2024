@@ -38,4 +38,21 @@ public class Stats : ScriptableObject
         curHealth += heal;
 
     }
+
+    public Stats Copy() {
+        Stats copy = CreateInstance<Stats>();
+
+        copy.charName = charName;
+        copy.charType = charType;
+        copy.sprite = sprite;
+
+        copy.curHealth = curHealth;
+        copy.maxHealth = maxHealth;
+        copy.move = move;
+        copy.attackRange = attackRange;
+        copy.power = power;
+        copy.defense = defense;
+
+        return copy;
+    }
 }

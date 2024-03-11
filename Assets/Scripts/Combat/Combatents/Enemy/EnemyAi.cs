@@ -20,7 +20,7 @@ public class EnemyAi {
     int inRangeWeight = 5;
     int playerHitPenaltyWeight = 6;
     int farPlayerPenalty = -100;
-    int distanceThreshold = 25;
+    int distanceThreshold = 10;
 
     //Testing Purposes
     List<Vector3Int> debugMoveTiles = new List<Vector3Int>();
@@ -37,14 +37,28 @@ public class EnemyAi {
 
         currentEnemyIndex = 0;
         foreach(Vector3Int coord in temp) {
-            //Get Scores
             Stats stats = GlobalVars.enemies[coord];
-            List<KeyValuePair<Vector3Int , float>> tilesAndScore = ScoreTiles(stats, coord);
+
+            //Check if play is really far from player
+            Vector3Int tileToClosestPLayer = playerIsfar(stats, coord);
             await Task.Yield();
 
-            //Move Ai
-            Command command = Move(tilesAndScore);
-            await Task.Yield();
+            Command command;
+
+            //If ClosestPlayer is (1, 1, 1) (which is an invalid tile) then score tiles, other wise moce to closestPLayer
+            if (tileToClosestPLayer == Vector3Int.one) {
+                //Get Scores
+                List<KeyValuePair<Vector3Int , float>> tilesAndScore = ScoreTiles(stats , coord);
+                await Task.Yield();
+
+                //Move Ai
+                command = Move(tilesAndScore);
+                await Task.Yield();
+            }
+            else {
+                command = new Command(coord, tileToClosestPLayer);
+                await Task.Yield();
+            }
 
             //Attack Player
             command = Attack(command, stats);
@@ -82,6 +96,39 @@ public class EnemyAi {
     /*********************************
         Scoring
     *********************************/
+
+    Vector3Int playerIsfar(Stats enemyStats, Vector3Int currentEnemy) {
+        //Variables that are reused
+        Vector3Int cloestPlayer = Vector3Int.one;
+        int closestPerson = -1;
+
+        foreach(KeyValuePair<Vector3Int , Stats> playerInfo in GlobalVars.players) {
+            int distance = Pathfinding.PathBetweenPoints(playerInfo.Key , currentEnemy).Count - 1;
+
+            if(closestPerson < distance) {
+                closestPerson = distance;
+                cloestPlayer = playerInfo.Key; 
+            }
+        }
+
+        if(closestPerson <= distanceThreshold) { 
+            return Vector3Int.one;
+        }
+
+
+        Vector3Int closestTile = Vector3Int.one;
+        int closestDistance = int.MaxValue;
+        foreach(Tuple<Vector3Int, int> info in Pathfinding.AllPossibleTiles(enemyCoords[currentEnemyIndex] , enemyStats.move)) {
+            int distance = Pathfinding.PathBetweenPoints(cloestPlayer , info.Item1).Count - 1;
+
+            if(distance < closestDistance) {
+                closestDistance = distance;
+                closestTile = info.Item1;
+            }
+        }
+
+        return closestTile;
+    }
 
     List<KeyValuePair<Vector3Int , float>> ScoreTiles(Stats enemyStats, Vector3Int currentEnemy) {
         List<KeyValuePair<Vector3Int, float>> tilesAndScores = getTiles(enemyStats, currentEnemy);
@@ -205,7 +252,7 @@ public class EnemyAi {
         }
 
         //Debug.Log("--- End ---");
-        Debug.Log("Attack Player at: " + playerCoord + "\nLowest Health: " + lowestHealth);
+        //Debug.Log("Attack Player at: " + playerCoord + "\nLowest Health: " + lowestHealth);
 
         command.attackTile = playerCoord;
 

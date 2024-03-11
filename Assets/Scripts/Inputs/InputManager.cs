@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 
+
 public class InputManager : MonoBehaviour {
     enum modes {
         normal = 0,
@@ -13,10 +14,12 @@ public class InputManager : MonoBehaviour {
         attack = 2,
         move = 3,
         AOE = 4,
-        heal = 5
+        heal = 5,
+        interact = 6
     }
 
     modes inputMode;
+    public Items items;
 
     [SerializeField]
     GameObject hitParticles;
@@ -26,8 +29,10 @@ public class InputManager : MonoBehaviour {
     //public float stopTime;
     static Vector3Int clickedCoord, playerCoord, enemyCoord, mouseCoord;
     Vector3 worldSpacePos;
-    public GameObject selectedPlayerMenu, statsMenu;
+    public GameObject selectedPlayerMenu, statsMenu, itemMenu;
     public TextMeshProUGUI moveTxt, powerTxt, defenseTxt, healthTxt, powerRangeTxt;
+
+
 
     //HexObjInfo hexObjInfo;
 
@@ -43,6 +48,11 @@ public class InputManager : MonoBehaviour {
         selectedPlayerMenu.SetActive(true);
         statsMenu.SetActive(false);
         turnManager = FindAnyObjectByType<TurnManager>();
+        //singleHealAMT = 2;
+        //powerBuffAMT = 3;
+        //defenseBuffAMT = 2;
+        //reviveAMT = 2;
+        //healScrollAMT = 1;
     }
     void Update() {
 
@@ -110,6 +120,16 @@ public class InputManager : MonoBehaviour {
                 Heal(playerPower);
                 inputMode = modes.normal;
             }
+            if(inputMode == modes.interact)
+            {
+                if (GlobalVars.hexagonTile[clickedCoord].GetComponent<TileScriptableObjects>().interactable)
+                {
+                    GlobalVars.hexagonTile[clickedCoord].GetComponent<TileScriptableObjects>().interactable = false;
+                    GlobalVars.hexagonTile[clickedCoord].GetComponent<TileScriptableObjects>().isObstacle = false;
+                    //indicate something happened through tile change, maybe
+                }
+                inputMode = modes.normal;
+            }
         }
 
 
@@ -156,6 +176,9 @@ public class InputManager : MonoBehaviour {
         clickedUI = true;
     }
     public void SetAOE() {
+        MoveIndicators(false);
+        HealIndicators(false);
+        //AOEIndicators(true);
         inputMode = modes.AOE;
         clickedUI = true;
     }
@@ -166,8 +189,12 @@ public class InputManager : MonoBehaviour {
         inputMode = modes.heal;
         clickedUI = true;
     }
-
-
+    public void SetInteract()
+    {
+        MoveIndicators(false);
+        HealIndicators(false);
+        InteractIndicators(true);
+    }
 
     /*********************************
         Actions
@@ -293,9 +320,7 @@ public class InputManager : MonoBehaviour {
         }
     }
 
-    public void Items() {
-        Debug.Log("Item menu opened");
-    }
+
     public void Interact() {
         Debug.Log("INTERACT");
         turnManager.Player_HardAction(playerCoord);
@@ -344,24 +369,35 @@ public class InputManager : MonoBehaviour {
             GlobalVars.hexagonTile[t].transform.GetChild(5).gameObject.SetActive(false);
         }
     }
-    //public void AOEIndeicators(bool onOff)
-    //{
-    //    Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    //    Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+    public void AOEIndicators(bool onOff)
+    {
+        //Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
-    //    RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
-    //    if(hit.collider != null)
-    //    {
-    //        mouseCoord = hit.collider.gameObject.transform.GetComponent<HexObjInfo>().hexCoord;
-    //        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(mouseCoord, playerAttRange))
-    //        {
-    //            Vector3Int t = temp.Item1;
-    //            //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
-    //            GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(onOff);
-    //        }
-    //    }
-    //}
-
+        //RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
+        //if (hit.collider != null)
+        //{
+        //    mouseCoord = hit.collider.gameObject.transform.GetComponent<HexObjInfo>().hexCoord;
+        //    foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(mouseCoord, playerAttRange))
+        //    {
+        //        Vector3Int t = temp.Item1;
+        //        //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
+        //        GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(onOff);
+        //    }
+        //}
+    }
+    public void InteractIndicators(bool onOff)
+    {
+        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, 1))
+        {
+            Vector3Int t = temp.Item1;
+            if (GlobalVars.hexagonTile[t].GetComponent<TileScriptableObjects>().interactable)
+            {
+                //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
+                GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(onOff);
+            }
+        }
+    }
 
 
     /*********************************
@@ -385,8 +421,18 @@ public class InputManager : MonoBehaviour {
         healthTxt.text = "Max Health: " + stats.maxHealth.ToString();
         powerRangeTxt.text = "Power Range: " + stats.attackRange.ToString();
     }
+    public void ItemMenu()
+    {
+        itemMenu.SetActive(!itemMenu.activeSelf);
 
-    public void UpdateHealth(int healthOffset) {
+        items.singleHealTxt.text = "x" + items.singleHealAMT.ToString();
+        items.powerBuffTxt.text = "x" + items.powerBuffAMT.ToString();
+        items.defenseBuffTxt.text = "x" + items.defenseBuffAMT.ToString();
+        items.reviveTxt.text = "x" + items.reviveAMT.ToString();
+        items.healScrollTxt.text = "x" + items.healScrollAMT.ToString();
+    }
+
+    public void UpdateHealth(float healthOffset) {
         Stats stats = GlobalVars.players[playerCoord];
         stats.curHealth += healthOffset;
         GlobalVars.players[playerCoord] = stats;
@@ -394,6 +440,69 @@ public class InputManager : MonoBehaviour {
         selectedPlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
     }
 
+    /*********************************
+            Item Functions
+    *********************************/
+    public void SingleHeal()
+    {
+        if(items.singleHealAMT != 0)
+        {
+            Debug.Log("Player was Healed and item was used");
+            if (GlobalVars.players[playerCoord].curHealth + 7 >= GlobalVars.players[playerCoord].maxHealth)
+            {
+                GlobalVars.players[playerCoord].curHealth = GlobalVars.players[playerCoord].maxHealth;
+                UpdateHealth(GlobalVars.players[playerCoord].curHealth);
+            }
+            GlobalVars.players[playerCoord].curHealth += 7;
+            UpdateHealth(GlobalVars.players[playerCoord].curHealth);
+        }
+        items.singleHealAMT--;
+    }
+    public void PowerBuff()
+    {
+        if(items.powerBuffAMT != 0)
+        {
+            Debug.Log("");
+            GlobalVars.players[playerCoord].power++;
+            //end it after a turn?
+        }
+        items.powerBuffAMT--;
+    }
+    public void DefenseBuff()
+    {
+        if (items.defenseBuffAMT != 0)
+        {
+            GlobalVars.players[playerCoord].defense++;
+            //end it after a turn?
+        }
+        items.defenseBuffAMT--;
+    }
+    public void Revive()
+    {
+        if(items.reviveAMT != 0)
+        {
+
+        }
+        items.reviveAMT--;
+    }
+    public void HealScroll()
+    {
+        if(items.healScrollAMT != 0)
+        {
+            foreach(var health in GlobalVars.players.Values)
+            {
+                //Debug.Log("all Player was healed");
+                if (GlobalVars.players[playerCoord].curHealth + 4 >= GlobalVars.players[playerCoord].maxHealth)
+                {
+                    GlobalVars.players[playerCoord].curHealth = GlobalVars.players[playerCoord].maxHealth;
+                    UpdateHealth(GlobalVars.players[playerCoord].curHealth);
+                }
+                GlobalVars.players[playerCoord].curHealth += 4;
+                UpdateHealth(GlobalVars.players[playerCoord].curHealth);
+            }
+        }
+        items.healScrollAMT--;
+    }
 
 
     /*********************************
@@ -420,5 +529,6 @@ public class InputManager : MonoBehaviour {
         return Vector3Int.zero;
     }
 
+   
 }
 

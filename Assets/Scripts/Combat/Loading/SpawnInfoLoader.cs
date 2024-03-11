@@ -9,7 +9,13 @@ public class SpawnInfoLoader : MonoBehaviour {
     public class SpawnData {
         public List<SpawnLocation> PlayerSpawns;
         public List<EnemySpawn> EnemySpawnLocations;
-        public Dictionary<string , List<EnemySpawn>> Turns;
+        public List<TurnData> Turns;
+    }
+
+    [System.Serializable]
+    public class TurnData {
+        public int TurnNumber;
+        public List<EnemySpawn> EnemySpawns;
     }
 
     [System.Serializable]
@@ -26,7 +32,13 @@ public class SpawnInfoLoader : MonoBehaviour {
 
     void Start() {
         if(spawnDataFile != null) {
-            LoadSpawnData();
+            Queue<SpawnWave> queue = LoadSpawnData();
+
+            CharacterLoader cl = FindAnyObjectByType<CharacterLoader>();
+            cl.playerSpawns = queue.Dequeue();
+            cl.enemySpawns = queue.Dequeue();
+
+            GlobalVars.spawnWaves = queue;
         }
         else {
             Debug.LogError("Spawn data file not assigned!");
@@ -34,37 +46,61 @@ public class SpawnInfoLoader : MonoBehaviour {
     }
 
 
-    void LoadSpawnData() {
+    Queue<SpawnWave> LoadSpawnData() {
         //Get Data
         string json = spawnDataFile.text;
         SpawnData data = JsonUtility.FromJson<SpawnData>(json);
+        print(json);
 
-        //Load Player Spawn into SpawnWave
+        //
+        Queue<SpawnWave> spawnQueue = new Queue<SpawnWave>();
+
+        //Load Player Spawn into Queue
         SpawnWave playerWave = new SpawnWave();
         foreach(SpawnLocation player in data.PlayerSpawns) {
             playerWave.spawns.Add(new Tuple<string , Vector3Int>("Player" , player.spawnLocation));
         }
+        spawnQueue.Enqueue(playerWave);
 
-        //Load Enemy Spawn into SpawnWave
+        //Load Enemy Spawn into Queue
         SpawnWave enemyWave = new SpawnWave();
         foreach(EnemySpawn enemy in data.EnemySpawnLocations) {
             enemyWave.spawns.Add(new Tuple<string , Vector3Int>(enemy.unitName , enemy.spawnLocation));
         }
+        spawnQueue.Enqueue(enemyWave);
 
-        //Load Enemy After Start Spawns into SpawnWave
-        List<SpawnWave> laterWaves = new List<SpawnWave>();
+        //Load Enemy Waves After Start into Queue
+        SpawnWave wave;
+        int waveNumber = 1;
 
-        foreach(KeyValuePair<string, List<EnemySpawn>> turn in data.Turns) {
-            SpawnWave wave = new SpawnWave();
+        foreach(TurnData turn in data.Turns) {
 
-            foreach(EnemySpawn enemy in turn.Value) {
+            while(waveNumber < turn.TurnNumber) {
+                spawnQueue.Enqueue(new SpawnWave());
+                waveNumber++;
+            }
+
+            wave = new SpawnWave();
+            foreach(EnemySpawn enemy in turn.EnemySpawns) {
                 wave.spawns.Add(new Tuple<string , Vector3Int>(enemy.unitName , enemy.spawnLocation));
             }
 
-            laterWaves.Add(wave);
+            waveNumber++;
+            spawnQueue.Enqueue(wave);
         }
 
-        Debug.Log(laterWaves);
+        //Debug Queue
+        string str = "";
+        for(int i = 0; i < spawnQueue.Count; i++) {
+            SpawnWave wave2 = spawnQueue.Dequeue();
+            str += wave2.ToString() + "\n\n";
+            spawnQueue.Enqueue(wave2);
+        }
+
+        Debug.Log(str);
+
+
+        return spawnQueue;
     }
 
 
