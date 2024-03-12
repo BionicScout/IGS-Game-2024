@@ -27,6 +27,10 @@ public class Stats : ScriptableObject
     public int Damage(int dmg)
     {
         dmg -= defense;
+        if(dmg <= 0)
+        {
+            dmg = 1;
+        }
         curHealth -= dmg;
         return dmg;
     }
