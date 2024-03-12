@@ -15,6 +15,7 @@ MonoBehaviour:
   charName: BurAcorn
   charType: Magic
   sprite: {fileID: 21300000, guid: 5391705f4220a7b4cbb21b339df6840b, type: 3}
+  charLevel: 1
   curHealth: 1
   maxHealth: 1
   move: 2

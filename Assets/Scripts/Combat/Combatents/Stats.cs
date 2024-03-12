@@ -10,6 +10,7 @@ public class Stats : ScriptableObject
     public string charName;
     public string charType;
     public Sprite sprite;
+    public int charLevel;
 
     public float curHealth = 10;
     public int maxHealth = 10;
@@ -45,6 +46,7 @@ public class Stats : ScriptableObject
         copy.charName = charName;
         copy.charType = charType;
         copy.sprite = sprite;
+        copy.charLevel = charLevel;
 
         copy.curHealth = curHealth;
         copy.maxHealth = maxHealth;

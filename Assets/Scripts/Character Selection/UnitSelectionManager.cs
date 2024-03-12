@@ -21,6 +21,7 @@ public class UnitSelectionManager : MonoBehaviour {
             GlobalVars.choosenPlayers.Add(playerStats[s.selectedOption].Copy());
         }
 
-        SceneManager.LoadScene("PlayTest_1");
+        //HAVE TO CHANGE THIS BACK, ONLY FOR TESTING OURPUSES
+        SceneManager.LoadScene("LevelingUp");
     }
 }
