@@ -81,44 +81,94 @@ public class LevelingUp : MonoBehaviour
                 Debug.Log(GlobalVars.choosenPlayers[selectedOption].charLevel);
             }
         }
-        //All Range Characters
-        if (GlobalVars.choosenPlayers[selectedOption].charType == "Crossbowman")
+        else if (GlobalVars.choosenPlayers[selectedOption].charType == "Paladin")
         {
             if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
             {
-                GlobalVars.choosenPlayers[selectedOption].attackRange += 4;
+                GlobalVars.choosenPlayers[selectedOption].maxHealth += 5;
                 GlobalVars.choosenPlayers[selectedOption].charLevel += 1;
-
-                Debug.Log(GlobalVars.choosenPlayers[selectedOption].power);
-                Debug.Log(GlobalVars.choosenPlayers[selectedOption].charLevel);
             }
-            else if(GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
+            else if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
             {
-                GlobalVars.choosenPlayers[selectedOption].power += 2;
+                GlobalVars.choosenPlayers[selectedOption].defense += 1;
                 GlobalVars.choosenPlayers[selectedOption].charLevel += 1;
-
-                Debug.Log(GlobalVars.choosenPlayers[selectedOption].power);
-                Debug.Log(GlobalVars.choosenPlayers[selectedOption].charLevel);
             }
         }
-        //All Magic Characters
-        if (GlobalVars.choosenPlayers[selectedOption].charType == "Cleric")
+        else if (GlobalVars.choosenPlayers[selectedOption].charType == "Spearman")
         {
             if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
             {
                 GlobalVars.choosenPlayers[selectedOption].attackRange += 1;
                 GlobalVars.choosenPlayers[selectedOption].charLevel += 1;
-
-                Debug.Log(GlobalVars.choosenPlayers[selectedOption].power);
-                Debug.Log(GlobalVars.choosenPlayers[selectedOption].charLevel);
             }
             else if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
             {
+                GlobalVars.choosenPlayers[selectedOption].charLevel += 1;
+            }
+        }
+        
+        //All Range Characters
+        else if (GlobalVars.choosenPlayers[selectedOption].charType == "Crossbowman")
+        {
+            if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
+            {
+                GlobalVars.choosenPlayers[selectedOption].attackRange += 4;
+                GlobalVars.choosenPlayers[selectedOption].charLevel += 1;
+            }
+            else if(GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
+            {
+                GlobalVars.choosenPlayers[selectedOption].power += 2;
+                GlobalVars.choosenPlayers[selectedOption].charLevel += 1;
+            }
+        }
+        else if (GlobalVars.choosenPlayers[selectedOption].charType == "Archer")
+        {
+            if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
+            {
+                GlobalVars.choosenPlayers[selectedOption].charLevel += 1;
+            }
+            else if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
+            {
+                GlobalVars.choosenPlayers[selectedOption].charLevel += 1;
+            }
+        }
+        
+        //All Magic Characters
+        else if (GlobalVars.choosenPlayers[selectedOption].charType == "Cleric")
+        {
+            if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
+            {
+                GlobalVars.choosenPlayers[selectedOption].charLevel += 1;
+            }
+            else if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
+            {
+                GlobalVars.choosenPlayers[selectedOption].power += 2;
+                GlobalVars.choosenPlayers[selectedOption].charLevel += 1;
+            }
+        }
+        else if (GlobalVars.choosenPlayers[selectedOption].charType == "Alchemist")
+        {
+            if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
+            {
                 GlobalVars.choosenPlayers[selectedOption].power += 1;
                 GlobalVars.choosenPlayers[selectedOption].charLevel += 1;
-
-                Debug.Log(GlobalVars.choosenPlayers[selectedOption].power);
-                Debug.Log(GlobalVars.choosenPlayers[selectedOption].charLevel);
+            }
+            else if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
+            {
+                GlobalVars.choosenPlayers[selectedOption].charLevel += 1;
+            }
+        }
+        else if (GlobalVars.choosenPlayers[selectedOption].charType == "Illusionist")
+        {
+            if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
+            {
+                GlobalVars.choosenPlayers[selectedOption].power += 15;
+                GlobalVars.choosenPlayers[selectedOption].charLevel += 1;
+            }
+            else if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
+            {
+                GlobalVars.choosenPlayers[selectedOption].attackRange += 1;
+                GlobalVars.choosenPlayers[selectedOption].charLevel += 1;
             }
         }
     }
@@ -165,7 +215,6 @@ public class LevelingUp : MonoBehaviour
         //dict[new Vector3Int(1, -1, 0)];
 
     }
-
     public void PaladinLvl()
     {
         if (GlobalVars.choosenPlayers[selectedOption].charType == "Paladin")
@@ -192,7 +241,6 @@ public class LevelingUp : MonoBehaviour
             }
         }
     }
-
     public void SpearmanLvl()
     {
         if (GlobalVars.choosenPlayers[selectedOption].charType == "Spearman")

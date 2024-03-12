@@ -1447,7 +1447,7 @@ MonoBehaviour:
   clickedUI: 0
   selectedPlayerMenu: {fileID: 409865014}
   statsMenu: {fileID: 688955342}
-  itemMenu: {fileID: 0}
+  itemMenu: {fileID: 662175177}
   moveTxt: {fileID: 724691104}
   powerTxt: {fileID: 1005976020}
   defenseTxt: {fileID: 1209670647}
