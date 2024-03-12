@@ -10,7 +10,7 @@ public class LevelingUp : MonoBehaviour
     SpriteRenderer spriteIcon;
     public Button nextBTN, backBTN;
 
-    public int selectedOption = 0;
+    public int selectedOption = 1;
 
 
     private void Start()
@@ -22,7 +22,7 @@ public class LevelingUp : MonoBehaviour
     {
         TurnipLvl();
         ParsnipLvl();
-        BeetLvl();
+        //BeetLvl();
     }
 
     public void NextOption()
@@ -52,6 +52,69 @@ public class LevelingUp : MonoBehaviour
         nameTxt.text = stats.charName;
     }
 
+    //for the button to use
+    public void LevelUpCharacter()
+    {
+        if (GlobalVars.choosenPlayers[selectedOption].charName == "Turnip")
+        {
+            if (GlobalVars.choosenPlayers[selectedOption].charLevel == GlobalVars.choosenPlayers[selectedOption].charLevel + 1) 
+            { 
+                GlobalVars.choosenPlayers[selectedOption].power += 1;
+                GlobalVars.choosenPlayers[selectedOption].charLevel += 1;
+
+                Debug.Log(GlobalVars.choosenPlayers[selectedOption].power);
+                Debug.Log(GlobalVars.choosenPlayers[selectedOption].charLevel);
+            }
+            if (GlobalVars.choosenPlayers[selectedOption].charLevel == GlobalVars.choosenPlayers[selectedOption].charLevel + 1)
+            {
+                GlobalVars.choosenPlayers[selectedOption].power += 1;
+                GlobalVars.choosenPlayers[selectedOption].charLevel += 1;
+
+                Debug.Log(GlobalVars.choosenPlayers[selectedOption].power);
+                Debug.Log(GlobalVars.choosenPlayers[selectedOption].charLevel);
+            }
+        }
+        if (GlobalVars.choosenPlayers[selectedOption].charName == "Parsnip")
+        {
+            if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
+            {
+                GlobalVars.choosenPlayers[selectedOption].attackRange += 4;
+                GlobalVars.choosenPlayers[selectedOption].charLevel += 1;
+
+                Debug.Log(GlobalVars.choosenPlayers[selectedOption].power);
+                Debug.Log(GlobalVars.choosenPlayers[selectedOption].charLevel);
+            }
+            if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
+            {
+                GlobalVars.choosenPlayers[selectedOption].power += 2;
+                GlobalVars.choosenPlayers[selectedOption].charLevel += 1;
+
+                Debug.Log(GlobalVars.choosenPlayers[selectedOption].power);
+                Debug.Log(GlobalVars.choosenPlayers[selectedOption].charLevel);
+            }
+        }
+        if (GlobalVars.choosenPlayers[selectedOption].charName == "Beet")
+        {
+            if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
+            {
+                GlobalVars.choosenPlayers[selectedOption].attackRange += 1;
+                GlobalVars.choosenPlayers[selectedOption].charLevel += 1;
+
+                Debug.Log(GlobalVars.choosenPlayers[selectedOption].power);
+                Debug.Log(GlobalVars.choosenPlayers[selectedOption].charLevel);
+            }
+            if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
+            {
+                GlobalVars.choosenPlayers[selectedOption].power += 1;
+                GlobalVars.choosenPlayers[selectedOption].charLevel += 1;
+
+                Debug.Log(GlobalVars.choosenPlayers[selectedOption].power);
+                Debug.Log(GlobalVars.choosenPlayers[selectedOption].charLevel);
+            }
+        }
+    }
+
+    //will update all menus
     public void TurnipLvl()
     {
         //can check their character name
@@ -60,38 +123,24 @@ public class LevelingUp : MonoBehaviour
             if(GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
             {
                 //updeates the preview menu
-                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString() + " + 1";
+                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
                 powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString() + " + 1";
-                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString() + " + 1";
-                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString() + " + 1";
-                rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString() + " + 1";
-                nextLvlTxt.text = "Next Level: Extra Damge";
+                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
+                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+                rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
+                nextLvlTxt.text = "Next Level: Increased power";
             }
             if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
             {
-
-            }
-            if (GlobalVars.choosenPlayers[selectedOption].charLevel == 3)
-            {
-
+                //updeates the preview menu
+                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+                powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString() + " + 1";
+                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
+                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+                rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
+                nextLvlTxt.text = "Fully Upgraded";
             }
         }
-            //gets each var in stats increases by one then updates the dictionary
-            Debug.Log("Move: " + GlobalVars.players[new Vector3Int(0, 0, 0)].move);
-            GlobalVars.players[new Vector3Int(0, 0, 0)].move += 1;
-            Debug.Log("New Move: " + GlobalVars.players[new Vector3Int(0, 0, 0)].move);
-
-            Debug.Log("Power: " + GlobalVars.players[new Vector3Int(0, 0, 0)].power);
-            GlobalVars.players[new Vector3Int(0, 0, 0)].power += 1;
-            Debug.Log("New Power " + GlobalVars.players[new Vector3Int(0, 0, 0)].power);
-
-            Debug.Log("Defense: " + GlobalVars.players[new Vector3Int(0, 0, 0)].defense);
-            GlobalVars.players[new Vector3Int(0, 0, 0)].defense += 1;
-            Debug.Log("New Defense: " + GlobalVars.players[new Vector3Int(0, 0, 0)].defense);
-
-            Debug.Log("Max Health: " + GlobalVars.players[new Vector3Int(0, 0, 0)].maxHealth);
-            GlobalVars.players[new Vector3Int(0, 0, 0)].maxHealth += 1;
-            Debug.Log("New Max Health: " + GlobalVars.players[new Vector3Int(0, 0, 0)].maxHealth);
 
         //how lists and dictionarys kinda aer called
         //List<Stats> list = new List<Stats>();
@@ -110,68 +159,50 @@ public class LevelingUp : MonoBehaviour
         {
             if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
             {
-
+                //updeates the preview menu
+                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+                powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString();
+                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
+                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+                rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString() + " + 4";
+                nextLvlTxt.text = "Next Level: Increased Power";
             }
             if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
             {
-
-            }
-            if (GlobalVars.choosenPlayers[selectedOption].charLevel == 3)
-            {
-
-            }
-        }
-        //gets each var in stats increases by one then updates the dictionary
-        Debug.Log("Move: " + GlobalVars.players[new Vector3Int(0, 0, 0)].move);
-        GlobalVars.players[new Vector3Int(0, 0, 0)].move += 1;
-        Debug.Log("New Move: " + GlobalVars.players[new Vector3Int(0, 0, 0)].move);
-
-        Debug.Log("Power: " + GlobalVars.players[new Vector3Int(0, 0, 0)].power);
-        GlobalVars.players[new Vector3Int(0, 0, 0)].power += 1;
-        Debug.Log("New Power " + GlobalVars.players[new Vector3Int(0, 0, 0)].power);
-
-        Debug.Log("Defense: " + GlobalVars.players[new Vector3Int(0, 0, 0)].defense);
-        GlobalVars.players[new Vector3Int(0, 0, 0)].defense += 1;
-        Debug.Log("New Defense: " + GlobalVars.players[new Vector3Int(0, 0, 0)].defense);
-
-        Debug.Log("Max Health: " + GlobalVars.players[new Vector3Int(0, 0, 0)].maxHealth);
-        GlobalVars.players[new Vector3Int(0, 0, 0)].maxHealth += 1;
-        Debug.Log("New Max Health: " + GlobalVars.players[new Vector3Int(0, 0, 0)].maxHealth);
-    }
-
-    public void BeetLvl()
-    {
-        if (GlobalVars.choosenPlayers[selectedOption].charName == "Beet")
-        {
-            if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
-            {
-
-            }
-            if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
-            {
-
-            }
-            if (GlobalVars.choosenPlayers[selectedOption].charLevel == 3)
-            {
-
+                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+                powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString() + "2";
+                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
+                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+                rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
+                nextLvlTxt.text = "Next Level: Fully Upgraded";
             }
         }
-        //gets each var in stats increases by one then updates the dictionary
-        Debug.Log("Move: " + GlobalVars.players[new Vector3Int(0, 0, 0)].move);
-        GlobalVars.players[new Vector3Int(0, 0, 0)].move += 1;
-        Debug.Log("New Move: " + GlobalVars.players[new Vector3Int(0, 0, 0)].move);
-
-        Debug.Log("Power: " + GlobalVars.players[new Vector3Int(0, 0, 0)].power);
-        GlobalVars.players[new Vector3Int(0, 0, 0)].power += 1;
-        Debug.Log("New Power " + GlobalVars.players[new Vector3Int(0, 0, 0)].power);
-
-        Debug.Log("Defense: " + GlobalVars.players[new Vector3Int(0, 0, 0)].defense);
-        GlobalVars.players[new Vector3Int(0, 0, 0)].defense += 1;
-        Debug.Log("New Defense: " + GlobalVars.players[new Vector3Int(0, 0, 0)].defense);
-
-        Debug.Log("Max Health: " + GlobalVars.players[new Vector3Int(0, 0, 0)].maxHealth);
-        GlobalVars.players[new Vector3Int(0, 0, 0)].maxHealth += 1;
-        Debug.Log("New Max Health: " + GlobalVars.players[new Vector3Int(0, 0, 0)].maxHealth);
     }
+
+    //public void BeetLvl()
+    //{
+    //    if (GlobalVars.choosenPlayers[selectedOption].charName == "Beet")
+    //    {
+    //        if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
+    //        {
+    //            //updeates the preview menu
+    //            healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+    //            powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString();
+    //            moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
+    //            defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+    //            rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString() + " + 1";
+    //            nextLvlTxt.text = "Next Level: Increased Healing Power";
+    //        }
+    //        if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
+    //        {
+    //            healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+    //            powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString() + " + 1";
+    //            moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
+    //            defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+    //            rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
+    //            nextLvlTxt.text = "Fully Upgraded";
+    //        }
+    //    }
+    //}
 }
 
