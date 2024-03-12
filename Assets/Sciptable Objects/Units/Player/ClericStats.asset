@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3c9cc9d7b7cad24eae7155a47c8be2b, type: 3}
-  m_Name: BeetStats
+  m_Name: ClericStats
   m_EditorClassIdentifier: 
   charName: Beet
   charType: Cleric
