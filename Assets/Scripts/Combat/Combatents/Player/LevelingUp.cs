@@ -22,10 +22,13 @@ public class LevelingUp : MonoBehaviour
     private void Update()
     {
         SwordsmanLvl();
+        PaladinLvl();
+        SpearmanLvl();
         CrossbowLvl();
-        ClericLvl();
-        AlchemistLvl();
-        IllusionistLvl();
+        ArcherLvl();
+        //ClericLvl();
+        //AlchemistLvl();
+        //IllusionistLvl();
     }
 
     public void NextOption()
@@ -55,12 +58,13 @@ public class LevelingUp : MonoBehaviour
         nameTxt.text = stats.charName;
     }
 
-    //for the button to use
+    //Actually changes the stats
     public void LevelUpCharacter()
     {
-        if (GlobalVars.choosenPlayers[selectedOption].charType == "Swordman")
+        //All Melee Characters
+        if (GlobalVars.choosenPlayers[selectedOption].charType == "Swordsman")
         {
-            if (GlobalVars.choosenPlayers[selectedOption].charLevel == GlobalVars.choosenPlayers[selectedOption].charLevel + 1) 
+            if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1) 
             { 
                 GlobalVars.choosenPlayers[selectedOption].power += 1;
                 GlobalVars.choosenPlayers[selectedOption].charLevel += 1;
@@ -68,7 +72,7 @@ public class LevelingUp : MonoBehaviour
                 Debug.Log(GlobalVars.choosenPlayers[selectedOption].power);
                 Debug.Log(GlobalVars.choosenPlayers[selectedOption].charLevel);
             }
-            else if (GlobalVars.choosenPlayers[selectedOption].charLevel == GlobalVars.choosenPlayers[selectedOption].charLevel + 1)
+            else if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
             {
                 GlobalVars.choosenPlayers[selectedOption].power += 1;
                 GlobalVars.choosenPlayers[selectedOption].charLevel += 1;
@@ -77,6 +81,7 @@ public class LevelingUp : MonoBehaviour
                 Debug.Log(GlobalVars.choosenPlayers[selectedOption].charLevel);
             }
         }
+        //All Range Characters
         if (GlobalVars.choosenPlayers[selectedOption].charType == "Crossbowman")
         {
             if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
@@ -96,6 +101,7 @@ public class LevelingUp : MonoBehaviour
                 Debug.Log(GlobalVars.choosenPlayers[selectedOption].charLevel);
             }
         }
+        //All Magic Characters
         if (GlobalVars.choosenPlayers[selectedOption].charType == "Cleric")
         {
             if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
@@ -125,7 +131,7 @@ public class LevelingUp : MonoBehaviour
     public void SwordsmanLvl()
     {
         //can check their character name
-        if (GlobalVars.choosenPlayers[selectedOption].charType == "Swordman")
+        if (GlobalVars.choosenPlayers[selectedOption].charType == "Swordsman")
         {
             if(GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
             {
@@ -214,7 +220,6 @@ public class LevelingUp : MonoBehaviour
         }
     }
         
-
     //Updates all Range Characters
     public void CrossbowLvl()
     {
@@ -268,80 +273,80 @@ public class LevelingUp : MonoBehaviour
     }
 
     //Updates all Magic characters
-    public void ClericLvl()
-    {
-        if (GlobalVars.choosenPlayers[selectedOption].charType == "Cleric")
-        {
-            if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
-            {
-                //updeates the preview menu
-                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
-                powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString();
-                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
-                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
-                rangeTxt.text = "Range: Heal all in a 1 tile radius";
-                nextLvlTxt.text = "Next Level: Increased Healing Power";
-            }
-            else if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
-            {
-                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
-                powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString() + " + 1";
-                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
-                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
-                rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
-                nextLvlTxt.text = "Fully Upgraded";
-            }
-        }
-    }
-    public void AlchemistLvl()
-    {
-        if (GlobalVars.choosenPlayers[selectedOption].charType == "Alchemist")
-        {
-            if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
-            {
-                //updeates the preview menu
-                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
-                powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString() + " + 2";
-                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
-                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
-                rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
-                nextLvlTxt.text = "Next Level: Poision in 1 tile raduis";
-            }
-            else if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
-            {
-                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
-                powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString();
-                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
-                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
-                rangeTxt.text = "Range: Poision all in 1 tile radius";
-                nextLvlTxt.text = "Fully Upgraded";
-            }
-        }
-    }
-    public void IllusionistLvl()
-    {
-        if (GlobalVars.choosenPlayers[selectedOption].charType == "Illusionist")
-        {
-            if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
-            {
-                //updeates the preview menu
-                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
-                powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString() + " + 15";
-                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
-                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
-                rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
-                nextLvlTxt.text = "Next Level: Increased Range";
-            }
-            else if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
-            {
-                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
-                powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString();
-                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
-                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
-                rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString() + " + 1";
-                nextLvlTxt.text = "Fully Upgraded";
-            }
-        }
-    }
+    //public void ClericLvl()
+    //{
+    //    if (GlobalVars.choosenPlayers[selectedOption].charType == "Cleric")
+    //    {
+    //        if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
+    //        {
+    //            //updeates the preview menu
+    //            healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+    //            powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString();
+    //            moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
+    //            defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+    //            rangeTxt.text = "Range: Heal all in a 1 tile radius";
+    //            nextLvlTxt.text = "Next Level: Increased Healing Power";
+    //        }
+    //        else if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
+    //        {
+    //            healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+    //            powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString() + " + 1";
+    //            moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
+    //            defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+    //            rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
+    //            nextLvlTxt.text = "Fully Upgraded";
+    //        }
+    //    }
+    //}
+    //public void AlchemistLvl()
+    //{
+    //    if (GlobalVars.choosenPlayers[selectedOption].charType == "Alchemist")
+    //    {
+    //        if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
+    //        {
+    //            //updeates the preview menu
+    //            healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+    //            powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString() + " + 2";
+    //            moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
+    //            defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+    //            rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
+    //            nextLvlTxt.text = "Next Level: Poision in 1 tile raduis";
+    //        }
+    //        else if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
+    //        {
+    //            healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+    //            powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString();
+    //            moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
+    //            defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+    //            rangeTxt.text = "Range: Poision all in 1 tile radius";
+    //            nextLvlTxt.text = "Fully Upgraded";
+    //        }
+    //    }
+    //}
+    //public void IllusionistLvl()
+    //{
+    //    if (GlobalVars.choosenPlayers[selectedOption].charType == "Illusionist")
+    //    {
+    //        if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
+    //        {
+    //            //updeates the preview menu
+    //            healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+    //            powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString() + " + 15";
+    //            moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
+    //            defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+    //            rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
+    //            nextLvlTxt.text = "Next Level: Increased Range";
+    //        }
+    //        else if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
+    //        {
+    //            healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+    //            powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString();
+    //            moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
+    //            defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+    //            rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString() + " + 1";
+    //            nextLvlTxt.text = "Fully Upgraded";
+    //        }
+    //    }
+    //}
 }
 
