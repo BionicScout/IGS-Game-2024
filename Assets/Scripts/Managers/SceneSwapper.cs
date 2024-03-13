@@ -25,6 +25,11 @@ public static class SceneSwapper {
     }
 
     public static void LoadHoldScene() {
+        if(holdLoadingScene == null) {
+            Debug.LogError("SceneSwapper - HoldLoadingScene is null");
+        }
+
         A_LoadScene(holdLoadingScene);
+        holdLoadingScene = null;
     }
 }
