@@ -69,8 +69,6 @@ public class HexLayout : MonoBehaviour {
         //Create Object, name it, and postion it. 
         GameObject obj = Instantiate(Testagon);
         obj.name = h.q + " " + h.r + " " + h.s;
-        //obj.name = "(" + x.ToString() + ", " + y.ToString() + ")";
-        //obj.name = spriteName;
 
         Vector2 pos = new Vector2(spacing.x * h.q , spacing.y * h.r) * 0.5f;
         Vector2 offset = new Vector2(h.r * spacing.x * 0.25f , 0);
@@ -96,6 +94,10 @@ public class HexLayout : MonoBehaviour {
 
         GlobalVars.hexagonTileRefrence.Add(new Vector3Int(h.q , h.r , h.s), tileTemplate);
 
+        if(tileTemplate.sprite.name == "Level1_HouseTile") {
+            GlobalVars.L1_houseTiles.Add(new Vector3Int(h.q , h.r , h.s));
+        }
+
 
         obj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = tileTemplate.sprite;
         return obj;
@@ -104,8 +106,7 @@ public class HexLayout : MonoBehaviour {
     public TileScriptableObjects GetTileTemplate(string spriteName) {
         //Get the TileObject the represents the sprite painted 
         for(int i = 0; i < tileTemplates.Count; i++) {
-            //Debug.Log(tileTemplates[i].sprite.name);
-            //Debug.Log(spriteName);
+
             if(tileTemplates[i].sprite.name == spriteName) {
                 return tileTemplates[i];
             }

@@ -23,5 +23,8 @@ public static class GlobalVars {
 
     public static Queue<SpawnWave> spawnWaves = new Queue<SpawnWave>();
 
+    //Specific Level info
+    public static List<Vector3Int> L1_houseTiles = new List<Vector3Int>();
+
 
 }

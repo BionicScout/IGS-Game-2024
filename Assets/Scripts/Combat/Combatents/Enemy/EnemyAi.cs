@@ -7,6 +7,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class EnemyAi {
@@ -41,8 +42,14 @@ public class EnemyAi {
 
         currentEnemyIndex = 0;
         foreach(Vector3Int coord in temp) {
-            if(true) {
-                //Debug.Log("QUEUE");
+            Stats stats = GlobalVars.enemies[coord];
+
+            if(stats.charType == "L1") {
+                //Debug.Log("Level 1 Ai");
+                tm.commandQueue.Enqueue(LevelOneAi(coord));
+            }
+            else {
+                //Debug.Log("General Ai");
                 tm.commandQueue.Enqueue(GeneralAi(coord));                
             }
 
@@ -94,7 +101,43 @@ public class EnemyAi {
         if(tileToClosestPLayer == Vector3Int.one) {
             //Debug.Log("CLOSE MOVE");
             //Get Scores
-            List<KeyValuePair<Vector3Int , float>> tilesAndScore = ScoreTiles(stats , coord);
+            List<KeyValuePair<Vector3Int , float>> tilesAndScore = GeneralScoreTiles(stats , coord);
+
+            //Move Ai
+            command = Move(tilesAndScore);
+
+            if(command.moveSpace == command.startSpace) {
+                command.moveSpace = Vector3Int.one;
+            }
+        }
+        else {
+            //Debug.Log("FAR MOVE");
+            command = new Command(coord , tileToClosestPLayer);
+        }
+
+        //Debug.Log("MOVE");
+
+        //Attack Player
+        //Debug.Log("ATTACK");
+        command = Attack(command , stats);
+
+        return command;
+    }
+
+    public Command LevelOneAi(Vector3Int coord) {
+        Stats stats = GlobalVars.enemies[coord];
+
+        //Check if play is really far from player
+        Vector3Int tileToClosestPLayer = playerIsfar(stats , coord);
+        
+        Command command;
+
+        //If ClosestPlayer is (1, 1, 1) (which is an invalid tile) then score tiles, other wise moce to closestPLayer
+        if(tileToClosestPLayer == Vector3Int.one) {
+            //Debug.Log("CLOSE MOVE");
+            //Get Scores
+            List<KeyValuePair<Vector3Int , float>> tilesAndScore = L1_ScoreTiles(stats , coord);
+            WriteToFile(tilesAndScore);
 
             //Move Ai
             command = Move(tilesAndScore);
@@ -155,7 +198,7 @@ public class EnemyAi {
         return closestTile;
     }
 
-    List<KeyValuePair<Vector3Int , float>> ScoreTiles(Stats enemyStats, Vector3Int currentEnemy) {
+    List<KeyValuePair<Vector3Int , float>> GeneralScoreTiles(Stats enemyStats, Vector3Int currentEnemy) {
         List<KeyValuePair<Vector3Int, float>> tilesAndScores = getTiles(enemyStats, currentEnemy);
 
         //Variables that are reused
@@ -211,6 +254,58 @@ public class EnemyAi {
 
             KeyValuePair<Vector3Int, float> temp = tilesAndScores[tileScoreIndex];
             tilesAndScores[tileScoreIndex] = new KeyValuePair<Vector3Int , float>(temp.Key, score);
+        }
+
+        return tilesAndScores;
+    }
+
+    List<KeyValuePair<Vector3Int , float>> L1_ScoreTiles(Stats enemyStats , Vector3Int currentEnemy) {
+        List<KeyValuePair<Vector3Int , float>> tilesAndScores = getTiles(enemyStats , currentEnemy);
+
+        //Variables that are reused
+        float score;
+        int closestHouse;
+        int playersCanHit;
+
+        playersCanHitList = new Dictionary<Vector3Int , int>();
+
+        for(int tileScoreIndex = 0; tileScoreIndex < tilesAndScores.Count; tileScoreIndex++) {
+            // Set tile Score
+            score = 0;
+
+            //House Scoring
+            closestHouse = -1;
+            foreach(Vector3Int houseInfo in GlobalVars.L1_houseTiles) {
+                int distance = Pathfinding.PathBetweenPoints(houseInfo, tilesAndScores[tileScoreIndex].Key).Count - 1;
+
+                if(closestHouse < distance || closestHouse == -1) {
+                    closestHouse = distance;
+                }
+            }
+
+            if(closestHouse > enemyStats.attackRange)
+                score += closestHouse * farPlayerPenalty; 
+
+
+
+
+            //Player Scoreing
+            playersCanHit = 0;
+
+            foreach(KeyValuePair<Vector3Int , Stats> playerInfo in GlobalVars.players) {
+                int distance = Pathfinding.PathBetweenPoints(playerInfo.Key , tilesAndScores[tileScoreIndex].Key).Count - 1;
+
+                if(distance <= playerInfo.Value.attackRange) {
+                    playersCanHit++;
+                }
+            }
+
+            playersCanHitList.Add(tilesAndScores[tileScoreIndex].Key , playersCanHit);
+            score -= playersCanHit * (playersCanHit + 1) * playerHitPenaltyWeight;
+
+            //Save Tile Score
+            KeyValuePair<Vector3Int , float> temp = tilesAndScores[tileScoreIndex];
+            tilesAndScores[tileScoreIndex] = new KeyValuePair<Vector3Int , float>(temp.Key , score);
         }
 
         return tilesAndScores;

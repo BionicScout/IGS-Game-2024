@@ -19,6 +19,7 @@ public class CharacterLoader : MonoBehaviour {
         for(int i = 0; i < enemySpawns.spawns.Count; i++) {
             Tuple<string , Vector3Int> enemySpawnInfo = enemySpawns.spawns[i];
             Stats enemy = enemyStats.Find(x => x.charName == enemySpawnInfo.Item1);
+            //Debug.Log(enemySpawnInfo.Item1);
             SpawnEnemy(enemySpawnInfo.Item2, enemy.Copy());
         }
 
