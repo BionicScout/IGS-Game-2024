@@ -8316,6 +8316,7 @@ MonoBehaviour:
   PlayerMenu: {fileID: 409865014}
   WinMenu: {fileID: 1900432886}
   LoseMenu: {fileID: 1888016010}
+  nextLevel: Level 1
 --- !u!4 &1555778018
 Transform:
   m_ObjectHideFlags: 0

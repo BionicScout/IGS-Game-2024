@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TurnManager : MonoBehaviour {
@@ -20,6 +21,8 @@ public class TurnManager : MonoBehaviour {
     int turn = 0;
     public Queue<SpawnWave> spawnQueue;
     SpawnWave nextWave;
+
+    public string nextLevel;
 
     private void Start() {
         playerCoords = new List<Vector3Int>();
@@ -46,16 +49,26 @@ public class TurnManager : MonoBehaviour {
             enemyCommand(commandQueue.Dequeue());
         }
 
-        if(GlobalVars.enemies.Count == 0) {
-            PlayerMenu.SetActive(false);
-            LoseMenu.SetActive(true);
+        //if(GlobalVars.enemies.Count == 0) {
+        //    PlayerMenu.SetActive(false);
+        //    LoseMenu.SetActive(true);
 
             
-        }
+        //}
 
-        if(GlobalVars.enemies.Count == 0) {
-            PlayerMenu.SetActive(false);
-            WinMenu.SetActive(true);
+        //if(GlobalVars.enemies.Count == 0) {
+        //    PlayerMenu.SetActive(false);
+        //    WinMenu.SetActive(true);
+        //}
+
+        if(Input.GetKeyDown(KeyCode.F)) {
+            if(nextLevel == "FINAL LEVEL") {
+                SceneSwapper.A_LoadScene("CharacterSelector");
+            }
+            else {
+                SceneSwapper.holdLoadingScene = nextLevel;
+                SceneSwapper.A_LoadScene("LevelingUp");
+            }
         }
     }
 

@@ -12,6 +12,8 @@ public class UnitSelectionManager : MonoBehaviour {
         for(int i = 0; i < 4; i++) {
             selections[i].Load(this, i);
         }
+
+        SceneSwapper.setCurrentScene();
     }
 
     public void Submit() {
@@ -22,6 +24,6 @@ public class UnitSelectionManager : MonoBehaviour {
         }
 
         //HAVE TO CHANGE THIS BACK, ONLY FOR TESTING OURPUSES
-        SceneManager.LoadScene("LevelingUp");
+        SceneSwapper.A_LoadScene("LevelingUp");
     }
 }

@@ -2233,6 +2233,7 @@ MonoBehaviour:
   PlayerMenu: {fileID: 2129190434}
   WinMenu: {fileID: 418894053}
   LoseMenu: {fileID: 400160622}
+  nextLevel: Level 3
 --- !u!1 &644758921
 GameObject:
   m_ObjectHideFlags: 0
@@ -7513,6 +7514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: befc4a22fd13560449d677cd04eb1602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  items: {fileID: 0}
   hitParticles: {fileID: 1052758049302362282, guid: e9dbf8a590745754680ef205c90d71df, type: 3}
   playerMove: 0
   playerPower: 0
@@ -7522,6 +7524,7 @@ MonoBehaviour:
   clickedUI: 0
   selectedPlayerMenu: {fileID: 2129190434}
   statsMenu: {fileID: 1880926017}
+  itemMenu: {fileID: 0}
   moveTxt: {fileID: 1410477929}
   powerTxt: {fileID: 1848740742}
   defenseTxt: {fileID: 1182812382}
@@ -8735,8 +8738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c68eed54123608408ea51a74c4998f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies:
-  - {fileID: 11400000, guid: 96880ec411507654099a008c3d929c4e, type: 2}
+  enemyStats: []
 --- !u!1 &1972516522
 GameObject:
   m_ObjectHideFlags: 0
