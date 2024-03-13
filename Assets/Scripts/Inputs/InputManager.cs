@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.TestTools;
 
 
 public class InputManager : MonoBehaviour {
@@ -30,7 +31,7 @@ public class InputManager : MonoBehaviour {
     static Vector3Int clickedCoord, playerCoord, enemyCoord, mouseCoord;
     Vector3 worldSpacePos;
     public GameObject selectedPlayerMenu, statsMenu, itemMenu;
-    public TextMeshProUGUI moveTxt, powerTxt, defenseTxt, healthTxt, powerRangeTxt;
+    public TextMeshProUGUI moveTxt, powerTxt, defenseTxt, healthTxt, powerRangeTxt, charTypeTxt;
 
 
 
@@ -233,10 +234,9 @@ public class InputManager : MonoBehaviour {
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
 
-            GlobalVars.players[playerCoord].power = playerPower;
-            GlobalVars.players[playerCoord].defense = playerDefense;
         }
-
+        GlobalVars.players[playerCoord].power = playerPower;
+        GlobalVars.players[playerCoord].defense = playerDefense;
     }
     public void Wack(Vector3Int hexCoordOfEnemy , float damage) {
         MoveIndicators(false);
@@ -245,7 +245,7 @@ public class InputManager : MonoBehaviour {
 
         Pathfinding.AllPossibleTiles(clickedCoord , 1);
 
-        if(GlobalVars.enemies.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord , playerCoord) <= 2) {
+        if(GlobalVars.enemies.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord , playerCoord) <= playerAttRange + 1) {
             //Get Player and current + future hex objs
             Stats enemyStats = GlobalVars.enemies[clickedCoord];
             GameObject enemyTileObj = GlobalVars.hexagonTile[clickedCoord];
@@ -272,26 +272,101 @@ public class InputManager : MonoBehaviour {
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
 
-            GlobalVars.players[playerCoord].power = playerPower;
-            GlobalVars.players[playerCoord].defense = playerDefense;
-
         }
+        GlobalVars.players[playerCoord].power = playerPower;
+        GlobalVars.players[playerCoord].defense = playerDefense;
     }
-    public void MagicAOE() {
+    public void Poison() 
+    {
+        WackIndicators(false);
+        MoveIndicators(false);
+        HealIndicators(false);
 
+        turnManager.Player_HardAction(playerCoord);
+
+        if (GlobalVars.players[playerCoord].charLevel <= 2)
+        {
+            if (Vector3Int.Distance(clickedCoord, playerCoord) <= playerAttRange + 1)
+            {
+                ShootIndicators(false);
+
+                GlobalVars.poisonTiles.Add(clickedCoord, 2);
+
+                Pathfinding.AllPossibleTiles(clickedCoord, playerAttRange);
+
+                //Update player coord
+                GlobalVars.players.Remove(clickedCoord);
+            }
+        }
+        else if (GlobalVars.players[playerCoord].charLevel == 3)
+        {
+            foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, 1))
+            {
+                Vector3Int t = temp.Item1;
+                GlobalVars.poisonTiles.Add(t, 2);
+                Debug.Log("All players in 1 range are healed");
+            }
+        }
+        GlobalVars.players[playerCoord].power = playerPower;
+        GlobalVars.players[playerCoord].defense = playerDefense;
+    }
+    public void SmokeBomb()
+    {
+        WackIndicators(false);
+        MoveIndicators(false);
+        HealIndicators(false);
+
+        turnManager.Player_HardAction(playerCoord);
+
+        if (Vector3Int.Distance(clickedCoord, playerCoord) <= playerAttRange + 1)
+        {
+            ShootIndicators(false);
+
+            foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(clickedCoord, playerAttRange))
+            {
+                Vector3Int t = temp.Item1;
+                GlobalVars.smokeTiles.Add(t, 2);
+            }
+            Pathfinding.AllPossibleTiles(clickedCoord, playerAttRange);
+
+            //Update player coord
+            GlobalVars.players.Remove(clickedCoord);
+        }
+        GlobalVars.players[playerCoord].power = playerPower;
+        GlobalVars.players[playerCoord].defense = playerDefense;
     }
     public void Heal(int healthBack) {
         ShootIndicators(false);
         WackIndicators(false);
 
-        if(GlobalVars.players.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord , playerCoord) <= 2) {
-            //Get Player and current + future hex objs
-            Stats playerStats = GlobalVars.players[clickedCoord];
-            GameObject playerTileObj = GlobalVars.hexagonTile[clickedCoord];
+        if (GlobalVars.players[clickedCoord].charLevel == 1) 
+        { 
+            if(GlobalVars.players.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord , playerCoord) <= 2) {
+                //Get Player and current + future hex objs
+                Stats playerStats = GlobalVars.players[clickedCoord];
+                GameObject playerTileObj = GlobalVars.hexagonTile[clickedCoord];
 
-            //heal player
-            playerStats.Heal(healthBack);
-            Debug.Log("Player Healed!!");
+                //heal player
+                playerStats.Heal(healthBack);
+                Debug.Log("Player Healed!!");
+
+                //turns off indicator
+                HealIndicators(false);
+
+                turnManager.Player_SoftAction(playerCoord);
+
+                //Update player coord
+                GlobalVars.players.Remove(clickedCoord);
+            }
+        }
+        else if (GlobalVars.players[clickedCoord].charLevel == 2)
+        {
+            foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, 1))
+            {
+                Vector3Int t = temp.Item1;
+                GlobalVars.players[t].Heal(healthBack);
+                Debug.Log("All players in 1 range are healed");
+            }
 
             //turns off indicator
             HealIndicators(false);
@@ -300,10 +375,9 @@ public class InputManager : MonoBehaviour {
 
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
-
-            GlobalVars.players[playerCoord].power = playerPower;
-            GlobalVars.players[playerCoord].defense = playerDefense;
         }
+        GlobalVars.players[playerCoord].power = playerPower;
+        GlobalVars.players[playerCoord].defense = playerDefense;
     }
 
     public void Move() {
@@ -422,6 +496,7 @@ public class InputManager : MonoBehaviour {
         statsMenu.SetActive(!statsMenu.activeSelf);
 
         Stats stats = GlobalVars.players[playerCoord];
+        charTypeTxt.text = stats.charType.ToString();
         moveTxt.text = "Movement: " + stats.move.ToString();
         powerTxt.text = "Power: " + stats.power.ToString();
         defenseTxt.text = "Hartyness: " + stats.defense.ToString();
