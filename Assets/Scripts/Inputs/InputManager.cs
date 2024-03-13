@@ -297,6 +297,7 @@ public class InputManager : MonoBehaviour {
             GlobalVars.players.Remove(clickedCoord);
 
             GlobalVars.players[playerCoord].power = playerPower;
+            GlobalVars.players[playerCoord].defense = playerDefense;
         }
     }
 
@@ -463,7 +464,6 @@ public class InputManager : MonoBehaviour {
     {
         if(items.powerBuffAMT != 0)
         {
-            int ogPower = GlobalVars.players[playerCoord].power;
             GlobalVars.players[playerCoord].power++;
             //end it after a turn?
         }
@@ -473,7 +473,6 @@ public class InputManager : MonoBehaviour {
     {
         if (items.defenseBuffAMT != 0)
         {
-            int ogDefense = GlobalVars.players[playerCoord].defense;
             GlobalVars.players[playerCoord].defense++;
         }
         items.defenseBuffAMT--;

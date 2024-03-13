@@ -172,6 +172,8 @@ public class LevelingUp : MonoBehaviour
                 GlobalVars.choosenPlayers[selectedOption].charLevel += 1;
             }
         }
+
+        SceneSwapper.LoadHoldScene();
     }
 
     /*********************************
