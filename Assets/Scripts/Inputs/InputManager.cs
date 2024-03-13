@@ -11,12 +11,11 @@ using UnityEngine.TestTools;
 public class InputManager : MonoBehaviour {
     enum modes {
         normal = 0,
-        shoot = 1,
-        attack = 2,
-        move = 3,
-        AOE = 4,
-        heal = 5,
-        interact = 6
+        attack = 1,
+        move = 2,
+        AOE = 3,
+        heal = 4,
+        interact = 5
     }
 
     modes inputMode;
@@ -33,13 +32,9 @@ public class InputManager : MonoBehaviour {
     public GameObject selectedPlayerMenu, statsMenu, itemMenu;
     public TextMeshProUGUI moveTxt, powerTxt, defenseTxt, healthTxt, powerRangeTxt, charTypeTxt;
 
-
-
     //HexObjInfo hexObjInfo;
 
     TurnManager turnManager;
-
-
 
     /*********************************
         Start and Update
@@ -94,13 +89,17 @@ public class InputManager : MonoBehaviour {
                 }
             }
 
-            if(inputMode == modes.shoot /*&& clicked on this player*/) {
-                Shoot(clickedCoord , 2);
-                inputMode = modes.normal;
-            }
             if(inputMode == modes.attack) {
-                Wack(clickedCoord , 2);
-                inputMode = modes.normal;
+                if (GlobalVars.players[playerCoord].charType == "Swordsman")
+                {
+                    Wack(clickedCoord , 2);
+                    inputMode = modes.normal;
+                }
+                else if (GlobalVars.players[playerCoord].charType == "Archer")
+                {
+                    Shoot(clickedCoord , 2);
+                    inputMode = modes.normal;
+                }
             }
             if(inputMode == modes.move) {
                 Move();
@@ -158,7 +157,7 @@ public class InputManager : MonoBehaviour {
         MoveIndicators(false);
         HealIndicators(false);
         ShootIndicators(true);
-        inputMode = modes.shoot;
+        inputMode = modes.attack;
         clickedUI = true;
     }
     public void SetWack() {
@@ -306,6 +305,11 @@ public class InputManager : MonoBehaviour {
                 GlobalVars.poisonTiles.Add(t, 2);
                 Debug.Log("All players in 1 range are healed");
             }
+
+            Pathfinding.AllPossibleTiles(clickedCoord, playerAttRange);
+
+            //Update player coord
+            GlobalVars.players.Remove(clickedCoord);
         }
         GlobalVars.players[playerCoord].power = playerPower;
         GlobalVars.players[playerCoord].defense = playerDefense;
@@ -326,6 +330,7 @@ public class InputManager : MonoBehaviour {
             {
                 Vector3Int t = temp.Item1;
                 GlobalVars.smokeTiles.Add(t, 2);
+                GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(true);
             }
             Pathfinding.AllPossibleTiles(clickedCoord, playerAttRange);
 

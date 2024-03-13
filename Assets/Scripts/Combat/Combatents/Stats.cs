@@ -18,6 +18,7 @@ public class Stats : ScriptableObject
     public int attackRange;
     public int power;
     public int defense;
+    public int dodge;
 
     public void Start()
     {

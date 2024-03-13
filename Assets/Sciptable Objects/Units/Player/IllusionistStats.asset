@@ -22,3 +22,4 @@ MonoBehaviour:
   attackRange: 2
   power: 4
   defense: 5
+  dodge: 5
