@@ -6,7 +6,8 @@ using UnityEngine.TextCore.Text;
 
 public class UnitSelectionManager : MonoBehaviour {
     public SingleCharacterSelection[] selections = new SingleCharacterSelection[4];
-    public List<Stats> playerStats = new List<Stats>(4); 
+    public List<Stats> playerStats = new List<Stats>(4);
+    public string nextScene = "Level 1";
 
     public void Start () { 
         for(int i = 0; i < 4; i++) {
@@ -24,6 +25,6 @@ public class UnitSelectionManager : MonoBehaviour {
         }
 
         //HAVE TO CHANGE THIS BACK, ONLY FOR TESTING OURPUSES
-        SceneSwapper.A_LoadScene("Level 1");
+        SceneSwapper.A_LoadScene(nextScene);
     }
 }

@@ -15,3 +15,6 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: bd3988aa7ad1ff74397542e43ad1fb96, type: 3}
   isObstacle: 1
   interactable: 1
+  objToChange: {fileID: 11400000, guid: 8c2cb4a7ae58997469b739b882ffb9b0, type: 2}
+  tileChanges:
+  - {x: 0, y: 0, z: 0}
