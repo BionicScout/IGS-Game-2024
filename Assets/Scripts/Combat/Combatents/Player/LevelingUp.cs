@@ -30,6 +30,11 @@ public class LevelingUp : MonoBehaviour
         ClericLvl();
         AlchemistLvl();
         IllusionistLvl();
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            SceneSwapper.LoadHoldScene();
+        }
     }
 
     public void NextOption()
