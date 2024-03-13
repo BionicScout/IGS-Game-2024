@@ -17,7 +17,6 @@
       "EnemySpawns": [
         {"unitName": "BurAcorn", "spawnLocation": {"x": -4, "y": 7, "z": -3}},
         {"unitName": "BurAcorn", "spawnLocation": {"x": -3, "y": 5, "z": -2}},
-        {"unitName": "BurAcorn", "spawnLocation": {"x": -3, "y": 6, "z": -3}},
         {"unitName": "BurAcorn", "spawnLocation": {"x": -3, "y": 6, "z": -3}}
       ]
     },

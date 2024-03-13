@@ -182,7 +182,7 @@ public class TurnManager : MonoBehaviour {
         //Move
         Stats enemystats = GlobalVars.enemies[command.startSpace];
 
-        if (command.moveSpace != Vector3Int.one)
+        if (command.moveSpace != Vector3Int.one && command.startSpace != command.moveSpace)
             Movement.moveEnemy(command.startSpace, command.moveSpace);
 
         //Instantiate(hitParticles, worldSpacePos , Quaternion.identity);
