@@ -8,4 +8,7 @@ public class TileScriptableObjects : ScriptableObject {
 
     public bool isObstacle;
     public bool interactable;
+
+    public TileScriptableObjects objToChange;
+    public List<Vector3Int> tileChanges = new List<Vector3Int>();
 }

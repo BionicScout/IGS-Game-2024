@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.WSA;
 
 public class TurnManager : MonoBehaviour {
     List<Vector3Int> playerCoords;
@@ -50,17 +51,15 @@ public class TurnManager : MonoBehaviour {
             enemyCommand(commandQueue.Dequeue());
         }
 
-        //if(GlobalVars.enemies.Count == 0) {
-        //    PlayerMenu.SetActive(false);
-        //    LoseMenu.SetActive(true);
+        if(GlobalVars.players.Count == 0) {
+            PlayerMenu.SetActive(false);
+            WinMenu.SetActive(true);
+        }
 
-            
-        //}
-
-        //if(GlobalVars.enemies.Count == 0) {
-        //    PlayerMenu.SetActive(false);
-        //    WinMenu.SetActive(true);
-        //}
+        if(GlobalVars.enemies.Count == 0 || GlobalVars.L1_houseTiles.Count == 0) {
+            PlayerMenu.SetActive(false);
+            LoseMenu.SetActive(true);
+        }
 
         if(Input.GetKeyDown(KeyCode.F)) {
             if(nextLevel == "FINAL LEVEL") {
@@ -233,6 +232,13 @@ public class TurnManager : MonoBehaviour {
         //Attack House
         if(command.houseAttackTile != Vector3Int.one) {
             Debug.Log("ATTACKED HOUSE - " +  command.houseAttackTile);
+            TileScriptableObjects scriptableObject = GlobalVars.hexagonTileRefrence[command.houseAttackTile];
+
+            GameObject houseObj = GlobalVars.hexagonTile[command.houseAttackTile];
+            houseObj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = scriptableObject.objToChange.sprite;
+            GlobalVars.hexagonTileRefrence[command.houseAttackTile] = scriptableObject.objToChange;
+
+            GlobalVars.L1_houseTiles.Remove(command.houseAttackTile);
         }
     }
 
