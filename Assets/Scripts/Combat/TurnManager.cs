@@ -63,7 +63,7 @@ public class TurnManager : MonoBehaviour {
 
         if(Input.GetKeyDown(KeyCode.F)) {
             if(nextLevel == "FINAL LEVEL") {
-                SceneSwapper.A_LoadScene("CharacterSelector");
+                SceneSwapper.A_LoadScene("CharcaterSelector");
             }
             else {
                 SceneSwapper.holdLoadingScene = nextLevel;
