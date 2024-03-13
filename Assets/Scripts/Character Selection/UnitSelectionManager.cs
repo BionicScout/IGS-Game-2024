@@ -24,6 +24,6 @@ public class UnitSelectionManager : MonoBehaviour {
         }
 
         //HAVE TO CHANGE THIS BACK, ONLY FOR TESTING OURPUSES
-        SceneSwapper.A_LoadScene("LevelingUp");
+        SceneSwapper.A_LoadScene("PlayTest_1");
     }
 }
