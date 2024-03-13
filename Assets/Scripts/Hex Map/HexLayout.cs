@@ -15,6 +15,7 @@ public class HexLayout : MonoBehaviour {
     public List<TileScriptableObjects> tileTemplates = new List<TileScriptableObjects>();
 
     Vector2 spacing;
+    public bool tileCoord = false;
 
     private void Awake() {
         //Get Spacing Between Hexagons Based of Hexagon Size
@@ -76,9 +77,10 @@ public class HexLayout : MonoBehaviour {
         obj.transform.position = pos + offset;
 
         //Temporay Equations to put text on tiles
-        //obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = obj.name;
         obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "";
-        //obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = spriteName;
+        if(tileCoord) {
+            obj.transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = obj.name;
+        }
 
 
         obj.transform.GetComponent<HexObjInfo>().hexCoord = new Vector3Int(h.q , h.r , h.s);

@@ -20,4 +20,16 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Combat_Testing.unity
     guid: 643c8561ed00d314d98c3aed5cb81c27
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 1.unity
+    guid: 7bb53038dcb8e9b4695fd71b9eadd070
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 2.unity
+    guid: dea2660bc104c4a43b2e6bc0e8404e03
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 3.unity
+    guid: e0acfe31181f6d54eac2d3f0340b3b3a
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level 4.unity
+    guid: 53598bea1faaeb7409a79e415382bae2
   m_configObjects: {}
