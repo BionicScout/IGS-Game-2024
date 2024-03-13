@@ -237,11 +237,11 @@ public class TurnManager : MonoBehaviour {
         foreach(var enemySpawn in currentWave.spawns) {
             Debug.Log("Maybe Spawn");
             // If unit is occupying space, spawn next round
-            //if(GlobalVars.players.ContainsKey(enemySpawn.Item2) || GlobalVars.enemies.ContainsKey(enemySpawn.Item2)) {
-            //    nextWaveSpawns.Add(enemySpawn);
-            //    Debug.Log("Hold Spawn");
-            //    continue;
-            //}
+            if(GlobalVars.players.ContainsKey(enemySpawn.Item2) || GlobalVars.enemies.ContainsKey(enemySpawn.Item2)) {
+                nextWaveSpawns.Add(enemySpawn);
+                Debug.Log("Hold Spawn");
+                continue;
+            }
 
             Debug.Log("Spawn");
             Stats enemy = GlobalVars.enemyStats.Find(x => x.charName == enemySpawn.Item1);
