@@ -17,6 +17,7 @@ public class TurnManager : MonoBehaviour {
 
     public GameObject PlayerMenu;
     public GameObject WinMenu, LoseMenu;
+    InputManager InputManager;
 
     int turn = 0;
     public Queue<SpawnWave> spawnQueue;
@@ -147,11 +148,13 @@ public class TurnManager : MonoBehaviour {
     public void EndTurn() {
         UpdateActiveMenu();
         StartCoroutine(ExecuteEnemyTurn());
+        InputManager.TakePoison();
     }
 
     public void StartEnemyTurn() {
         turn++;
         StartCoroutine(ExecuteEnemyTurn());
+        InputManager.TakePoison();
     }
 
     IEnumerator ExecuteEnemyTurn() {
@@ -183,12 +186,19 @@ public class TurnManager : MonoBehaviour {
         Stats enemystats = GlobalVars.enemies[command.startSpace];
 
         if (command.moveSpace != Vector3Int.one && command.startSpace != command.moveSpace)
+        {
             Movement.moveEnemy(command.startSpace, command.moveSpace);
+            InputManager.TakePoison();
+        }
+        else
+        {
+            InputManager.TakePoison();
+        }
 
         //Instantiate(hitParticles, worldSpacePos , Quaternion.identity);
 
         //Enemy attack
-        if(command.attackTile != Vector3Int.one) {
+        if (command.attackTile != Vector3Int.one) {
             //Debug.Log(command.attackTile);
 
             //Debug.Log("PLayer Health After: " + GlobalVars.players[command.attackTile].curHealth);

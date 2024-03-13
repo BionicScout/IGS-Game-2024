@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.TestTools;
+using System.Runtime.CompilerServices;
+using Random = UnityEngine.Random;
+using UnityEditor;
 
 
 public class InputManager : MonoBehaviour {
@@ -24,7 +27,7 @@ public class InputManager : MonoBehaviour {
     [SerializeField]
     GameObject hitParticles;
 
-    public int playerMove, playerPower, playerAttRange, playerDefense, playerMaxHealth;
+    public int playerMove, playerPower, playerAttRange, playerDefense, playerMaxHealth, poisonDmg;
     public bool clickedUI = false;
     //public float stopTime;
     static Vector3Int clickedCoord, playerCoord, enemyCoord, mouseCoord;
@@ -80,25 +83,34 @@ public class InputManager : MonoBehaviour {
                     playerDefense = GlobalVars.players[clickedCoord].defense;
                     playerMaxHealth = GlobalVars.players[clickedCoord].maxHealth;
 
+                    if (GlobalVars.players[clickedCoord].charType == "Alchemist")
+                    {
+                        poisonDmg = GlobalVars.players[clickedCoord].power;
+                    }
+
                     //sets all indicators false when players are clicked
                     MoveIndicators(false);
                     WackIndicators(false);
                     ShootIndicators(false);
                     HealIndicators(false);
 
+
                 }
             }
 
             if(inputMode == modes.attack) {
-                if (GlobalVars.players[playerCoord].charType == "Swordsman")
+                if (RollDodge() <= GlobalVars.players[playerCoord].dodge)
                 {
-                    Wack(clickedCoord , 2);
-                    inputMode = modes.normal;
-                }
-                else if (GlobalVars.players[playerCoord].charType == "Archer")
-                {
-                    Shoot(clickedCoord , 2);
-                    inputMode = modes.normal;
+                    if (GlobalVars.players[playerCoord].charType == "Swordsman")
+                    {
+                        Wack(clickedCoord, 2);
+                        inputMode = modes.normal;
+                    }
+                    else if (GlobalVars.players[playerCoord].charType == "Archer")
+                    {
+                        Shoot(clickedCoord , 2);
+                        inputMode = modes.normal;
+                    }   
                 }
             }
             if(inputMode == modes.move) {
@@ -290,6 +302,7 @@ public class InputManager : MonoBehaviour {
                 ShootIndicators(false);
 
                 GlobalVars.poisonTiles.Add(clickedCoord, 2);
+                GlobalVars.hexagonTile[clickedCoord].transform.GetChild(4).gameObject.SetActive(true);
 
                 Pathfinding.AllPossibleTiles(clickedCoord, playerAttRange);
 
@@ -303,7 +316,7 @@ public class InputManager : MonoBehaviour {
             {
                 Vector3Int t = temp.Item1;
                 GlobalVars.poisonTiles.Add(t, 2);
-                Debug.Log("All players in 1 range are healed");
+                GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(true);
             }
 
             Pathfinding.AllPossibleTiles(clickedCoord, playerAttRange);
@@ -384,7 +397,6 @@ public class InputManager : MonoBehaviour {
         GlobalVars.players[playerCoord].power = playerPower;
         GlobalVars.players[playerCoord].defense = playerDefense;
     }
-
     public void Move() {
         ShootIndicators(false);
         WackIndicators(false);
@@ -399,20 +411,17 @@ public class InputManager : MonoBehaviour {
 
                 Movement.movePlayer(playerCoord , clickedCoord);
                 MoveIndicators(false);
+                TakePoison();
 
                 turnManager.Player_Move(playerCoord , Pathfinding.PathBetweenPoints(clickedCoord , playerCoord).Count - 1 , clickedCoord);
                 playerCoord = clickedCoord;
             }
         }
     }
-
-
     public void Interact() {
         Debug.Log("INTERACT");
         turnManager.Player_HardAction(playerCoord);
     }
-
-
 
     /*********************************
         Tile Indicators
@@ -597,6 +606,22 @@ public class InputManager : MonoBehaviour {
         GlobalVars.enemies.Remove(enemyHex);        
     }
 
+    public float RollDodge()
+    {
+        float dodgeChance = Random.Range(1, 100);
+        return dodgeChance;
+    }
+    public void TakePoison()
+    {
+        foreach(KeyValuePair<Vector3Int, Stats> coord in GlobalVars.players)
+        {
+            if (GlobalVars.poisonTiles[coord.Key] != 0)
+            {
+                GlobalVars.players[coord.Key].Damage(poisonDmg);
+                GlobalVars.poisonTiles[coord.Key]--;
+            }
+        }
+    }
 
     public Vector3Int GetPosition() {
         if(Input.GetMouseButtonDown(0)) {
