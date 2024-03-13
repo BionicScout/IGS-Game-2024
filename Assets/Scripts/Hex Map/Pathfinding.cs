@@ -95,7 +95,9 @@ public class Pathfinding {
 
         searchList = vist(searchList , startPos);
 
-        while(queue.Count > 0) {
+        //int max_iteration = 2000;
+
+        while(queue.Count > 0 /*&& max_iteration > 0*/) {
             Vector3Int currentCoord = queue.Dequeue();
 
             foreach(Vector3Int dir in Hex.hex_directions) {
@@ -121,16 +123,27 @@ public class Pathfinding {
                 queue.Enqueue(nextTile);
                 searchList = vistAndPrevious(searchList , nextTile , currentCoord);
             }
+
+            //max_iteration--;
         }
+
+        //Debug.Log("Max Iterations: " + max_iteration);
+
+        //if(max_iteration == 0)
+        //    return new List<Vector3Int>();
 
         //return List of Possiblities
         List<Vector3Int> path = new List<Vector3Int>();
         Vector3Int currentPath = endPoint;
 
+        //Debug.Log("FIND PATH");
+        //Debug.Log("Current Path: " + currentPath);
         while(searchList[currentPath].previous != Vector3.one) {
+            //Debug.Log("Current Path: " + currentPath);
             path.Add(currentPath);
             currentPath = searchList[currentPath].previous;
         }
+        //Debug.Log("FOUND PATH");
 
         path.Add(currentPath);
         path.Reverse();

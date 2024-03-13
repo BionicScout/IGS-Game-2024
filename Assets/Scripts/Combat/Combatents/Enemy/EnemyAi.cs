@@ -27,6 +27,9 @@ public class EnemyAi {
     Dictionary<Vector3Int, int> playersCanHitList = new Dictionary<Vector3Int, int>();
 
     public async Task enemyTurn(TurnManager tm) {
+
+        Debug.Log("------------ Enemy Turn ------------");
+
         foreach(KeyValuePair<Vector3Int , Stats> info in GlobalVars.enemies) {
             enemyCoords.Add(info.Key);
         }
@@ -47,6 +50,7 @@ public class EnemyAi {
 
             //If ClosestPlayer is (1, 1, 1) (which is an invalid tile) then score tiles, other wise moce to closestPLayer
             if (tileToClosestPLayer == Vector3Int.one) {
+                //Debug.Log("CLOSE MOVE");
                 //Get Scores
                 List<KeyValuePair<Vector3Int , float>> tilesAndScore = ScoreTiles(stats , coord);
                 await Task.Yield();
@@ -54,22 +58,35 @@ public class EnemyAi {
                 //Move Ai
                 command = Move(tilesAndScore);
                 await Task.Yield();
+
+                if(command.moveSpace == command.startSpace) {
+                    command.moveSpace = Vector3Int.one;
+                }
+                await Task.Yield();
             }
             else {
+                //Debug.Log("FAR MOVE");
                 command = new Command(coord, tileToClosestPLayer);
                 await Task.Yield();
             }
 
+            //Debug.Log("MOVE");
+
             //Attack Player
+            Debug.Log("ATTACK");
             command = Attack(command, stats);
             await Task.Yield();
 
+            //Debug.Log("QUEUE");
+
             tm.commandQueue.Enqueue(command);
             currentEnemyIndex++;
+
+            Debug.Log("Enemies Processed: " + currentEnemyIndex);
         }
 
         tm.startPlayerTurn();
-        //FindObjectOfType<TurnManager>().EnemyturnTaken();
+        //FindObjectOfType<TurnManager>().EnemyturnTaken()
     }
 
     public List<KeyValuePair<Vector3Int , float>> getTiles(Stats enemyStats, Vector3Int currentEnemy) {
@@ -241,7 +258,19 @@ public class EnemyAi {
         //Debug.Log("--- Next Enemy ---");
 
         foreach(KeyValuePair<Vector3Int , Stats> playerInfo in GlobalVars.players) {
-            int distance = Pathfinding.PathBetweenPoints(playerInfo.Key , command.moveSpace).Count - 1;
+            //
+            Vector3Int endTurnTile = command.moveSpace;
+            if(endTurnTile != null) {
+                endTurnTile = command.startSpace;
+            }
+          
+
+            int distance = Pathfinding.PathBetweenPoints(playerInfo.Key , endTurnTile).Count - 1;
+
+            if(distance == -1)
+                continue;
+
+            //Debug.Log("DIST: " + distance);
             //Debug.Log("Distance: " + distance + "\nAttack Range: " + enemy.attackRange);
             //Debug.Log("Player Health: " + playerInfo.Value.curHealth + "\nLowest Health: " + lowestHealth);
 
@@ -251,7 +280,7 @@ public class EnemyAi {
             }
         }
 
-        //Debug.Log("--- End ---");
+        Debug.Log("END ATTACK");
         //Debug.Log("Attack Player at: " + playerCoord + "\nLowest Health: " + lowestHealth);
 
         command.attackTile = playerCoord;

@@ -125,15 +125,23 @@ public class TurnManager : MonoBehaviour {
 
     public void ResetVals() {
         List<int> temp = new List<int>();
+
         foreach(KeyValuePair<Vector3Int , Stats> playerInfo in GlobalVars.players) {
             temp.Add(playerInfo.Value.move);
         }
 
+        Debug.Log("Start Loop");
         for(int i = 0; i < playerCoords.Count; i++) {
+            Debug.Log("i: " + i + "\tmax i: " + playerCoords.Count);
+            Debug.Log("1");
             playerMovement[i] = temp[i];
+            Debug.Log("2");
             playerAction[i] = (false);
+            Debug.Log("3");
             playerTurnComplete[i] = (false);
+            Debug.Log("4");
         }
+        Debug.Log("End Loop");
     }
 
     public void EndTurn() {
@@ -173,15 +181,17 @@ public class TurnManager : MonoBehaviour {
     public void enemyCommand(Command command) {
         //Move
         Stats enemystats = GlobalVars.enemies[command.startSpace];
-        Movement.moveEnemy(command.startSpace, command.moveSpace);
+
+        if (command.moveSpace != Vector3Int.one)
+            Movement.moveEnemy(command.startSpace, command.moveSpace);
 
         //Instantiate(hitParticles, worldSpacePos , Quaternion.identity);
 
         //Enemy attack
         if(command.attackTile != Vector3Int.one) {
-            Debug.Log(command.attackTile);
+            //Debug.Log(command.attackTile);
 
-            Debug.Log("PLayer Health After: " + GlobalVars.players[command.attackTile].curHealth);
+            //Debug.Log("PLayer Health After: " + GlobalVars.players[command.attackTile].curHealth);
 
             Stats stats = GlobalVars.players[command.attackTile];
             stats.curHealth -= stats.Damage(enemystats.power);
@@ -189,11 +199,19 @@ public class TurnManager : MonoBehaviour {
 
             PlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
 
-            Debug.Log("PLayer Health After: " + GlobalVars.players[command.attackTile].curHealth);
+           // Debug.Log("PLayer Health After: " + GlobalVars.players[command.attackTile].curHealth);
 
 
             //Player Dies
             if(stats.curHealth <= 0) {
+                //Remove from this script
+                int playerIndex = playerCoords.FindIndex(x => x == command.attackTile);
+                playerCoords.RemoveAt(playerIndex);
+                playerMovement.RemoveAt(playerIndex);
+                playerAction.RemoveAt(playerIndex);
+                playerTurnComplete.RemoveAt(playerIndex);
+
+                //Remove From other scripts and scene
                 GameObject playerTileObj = GlobalVars.hexagonTile[command.attackTile];
                 playerTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
                 GlobalVars.players.Remove(command.attackTile);
@@ -212,7 +230,7 @@ public class TurnManager : MonoBehaviour {
         SpawnWave currentWave = nextWave;
         nextWave = GlobalVars.spawnWaves.Dequeue();
 
-        Debug.Log("--- Wave " + turn + " ---");
+        //Debug.Log("--- Wave " + turn + " ---");
 
         List<Tuple<string , Vector3Int>> nextWaveSpawns = new List<Tuple<string , Vector3Int>>();
 
@@ -227,7 +245,10 @@ public class TurnManager : MonoBehaviour {
 
             Debug.Log("Spawn");
             Stats enemy = GlobalVars.enemyStats.Find(x => x.charName == enemySpawn.Item1);
+            //Debug.Log("SpawnLoc: " + enemySpawn.Item2);
             CharacterLoader.SpawnEnemy(enemySpawn.Item2 , enemy.Copy());
+            Debug.Log("After Spawn");
+
         }
 
         Debug.Log("Exit Loop");
@@ -241,7 +262,9 @@ public class TurnManager : MonoBehaviour {
         SpawnEnemies();
         Debug.Log("Start Player Turn");
         ResetVals();
+        Debug.Log("Rest Vals");
         UpdateActiveMenu();
+        Debug.Log("Menu Back");
     }
 
     public void UpdateActiveMenu() {
