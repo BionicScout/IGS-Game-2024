@@ -2981,7 +2981,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyStats:
   - {fileID: 11400000, guid: d777cd6539cc87041aef2ca226648a43, type: 2}
-  - {fileID: 11400000, guid: 97c43a93227652a4a87f156c96a5d763, type: 2}
+  - {fileID: 11400000, guid: aa8cbce59ba4f2342a035acb2d3d3581, type: 2}
   - {fileID: 11400000, guid: ec66ddb08bbc77542a0491b86491486a, type: 2}
   - {fileID: 11400000, guid: 2c4b5258a146b1f46bed337aeb5c7631, type: 2}
 --- !u!4 &735684803
@@ -3176,7 +3176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6813bf2829e75343acb8355d3e1e10d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnDataFile: {fileID: 4900000, guid: 2248dddcea442d7449a08e2c535c3ac6, type: 3}
+  spawnDataFile: {fileID: 4900000, guid: 2decd66ce41b1604787cbc600629f590, type: 3}
 --- !u!1 &1005976018
 GameObject:
   m_ObjectHideFlags: 0

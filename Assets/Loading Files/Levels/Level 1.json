@@ -39,9 +39,9 @@
     {
       "TurnNumber": 12,
       "EnemySpawns": [
-        {"unitName": "L1_AxemanBandit", "spawnLocation": {"x": 11, "y": 7, "z": -18}},
+        {"unitName": "AxemanBandit", "spawnLocation": {"x": 11, "y": 7, "z": -18}},
         {"unitName": "L1_SpearmanBandit", "spawnLocation": {"x": 11, "y": 6, "z": -17}},
-        {"unitName": "L1_AxemanBandit", "spawnLocation": {"x": 12, "y": 5, "z": -17}}
+        {"unitName": "AxemanBandit", "spawnLocation": {"x": 12, "y": 5, "z": -17}}
       ]
     }
   ]

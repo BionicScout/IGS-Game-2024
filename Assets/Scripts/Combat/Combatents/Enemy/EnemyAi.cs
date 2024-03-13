@@ -137,7 +137,7 @@ public class EnemyAi {
             //Debug.Log("CLOSE MOVE");
             //Get Scores
             List<KeyValuePair<Vector3Int , float>> tilesAndScore = L1_ScoreTiles(stats , coord);
-            WriteToFile(tilesAndScore);
+            //WriteToFile(tilesAndScore);
 
             //Move Ai
             command = Move(tilesAndScore);
@@ -278,13 +278,14 @@ public class EnemyAi {
             foreach(Vector3Int houseInfo in GlobalVars.L1_houseTiles) {
                 int distance = Pathfinding.PathBetweenPoints(houseInfo, tilesAndScores[tileScoreIndex].Key).Count - 1;
 
-                if(closestHouse < distance || closestHouse == -1) {
+                if(closestHouse > distance || closestHouse == -1) {
                     closestHouse = distance;
                 }
             }
 
+            Debug.Log(closestHouse + "\t" + tilesAndScores[tileScoreIndex].Key);
             if(closestHouse > enemyStats.attackRange)
-                score += closestHouse * farPlayerPenalty; 
+                score += closestHouse * -20; 
 
 
 
