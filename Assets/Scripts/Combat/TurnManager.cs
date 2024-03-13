@@ -188,11 +188,11 @@ public class TurnManager : MonoBehaviour {
         if (command.moveSpace != Vector3Int.one && command.startSpace != command.moveSpace)
         {
             Movement.moveEnemy(command.startSpace, command.moveSpace);
-            InputManager.TakePoison();
+            //InputManager.TakePoison();
         }
         else
         {
-            InputManager.TakePoison();
+            //InputManager.TakePoison();
         }
 
         //Instantiate(hitParticles, worldSpacePos , Quaternion.identity);
@@ -228,6 +228,11 @@ public class TurnManager : MonoBehaviour {
                 //death audio
                 AudioManager.instance.Play("Player-Hurt");
             }
+        }
+
+        //Attack House
+        if(command.houseAttackTile != Vector3Int.one) {
+            Debug.Log("ATTACKED HOUSE - " +  command.houseAttackTile);
         }
     }
 

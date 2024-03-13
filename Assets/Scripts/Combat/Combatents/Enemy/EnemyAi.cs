@@ -157,6 +157,9 @@ public class EnemyAi {
         //Debug.Log("ATTACK");
         command = Attack(command , stats);
 
+        if(command.attackTile == Vector3Int.one)
+            command = HouseAttack(command , stats);
+
         return command;
     }
 
@@ -283,7 +286,7 @@ public class EnemyAi {
                 }
             }
 
-            Debug.Log(closestHouse + "\t" + tilesAndScores[tileScoreIndex].Key);
+            //Debug.Log(closestHouse + "\t" + tilesAndScores[tileScoreIndex].Key);
             if(closestHouse > enemyStats.attackRange)
                 score += closestHouse * -20; 
 
@@ -352,6 +355,33 @@ public class EnemyAi {
         Command command = new Command(enemyCoords[currentEnemyIndex] , moveTile);
         //Movement.moveEnemy(enemyCoords[currentEnemyIndex], moveTile);
         enemyCoords[currentEnemyIndex] = moveTile;
+        return command;
+    }
+
+    private Command HouseAttack(Command command , Stats enemy) {
+        command.attackTile = Vector3Int.one;
+
+        foreach(Vector3Int houseTile in GlobalVars.L1_houseTiles) {
+            //
+            Vector3Int endTurnTile = command.moveSpace;
+            if(endTurnTile != null) {
+                endTurnTile = command.startSpace;
+            }
+
+
+            int distance = Pathfinding.PathBetweenPoints(houseTile , endTurnTile).Count - 1;
+
+            if(distance == -1)
+                continue;
+
+            if(distance <= enemy.attackRange) {
+                command.houseAttackTile = houseTile;
+            }
+        }
+
+        //Debug.Log("END ATTACK");
+        //Debug.Log("Attack Player at: " + playerCoord + "\nLowest Health: " + lowestHealth);
+
         return command;
     }
 
