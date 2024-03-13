@@ -233,6 +233,8 @@ public class InputManager : MonoBehaviour {
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
 
+            GlobalVars.players[playerCoord].power = playerPower;
+            GlobalVars.players[playerCoord].defense = playerDefense;
         }
 
     }
@@ -269,6 +271,9 @@ public class InputManager : MonoBehaviour {
 
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
+
+            GlobalVars.players[playerCoord].power = playerPower;
+            GlobalVars.players[playerCoord].defense = playerDefense;
 
         }
     }
