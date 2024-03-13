@@ -28,13 +28,13 @@ public class EnemyAi {
 
     public async Task enemyTurn(TurnManager tm) {
 
-        Debug.Log("------------ Enemy Turn ------------");
+        //Debug.Log("------------ Enemy Turn ------------");
 
         foreach(KeyValuePair<Vector3Int , Stats> info in GlobalVars.enemies) {
             enemyCoords.Add(info.Key);
         }
 
-        Debug.Log("Enemy Count: " + enemyCoords.Count);
+        //Debug.Log("Enemy Count: " + enemyCoords.Count);
 
         List<Vector3Int> temp = new List<Vector3Int>(enemyCoords);
 
@@ -73,7 +73,7 @@ public class EnemyAi {
             //Debug.Log("MOVE");
 
             //Attack Player
-            Debug.Log("ATTACK");
+            //Debug.Log("ATTACK");
             command = Attack(command, stats);
             await Task.Yield();
 
@@ -82,7 +82,7 @@ public class EnemyAi {
             tm.commandQueue.Enqueue(command);
             currentEnemyIndex++;
 
-            Debug.Log("Enemies Processed: " + currentEnemyIndex);
+            //Debug.Log("Enemies Processed: " + currentEnemyIndex);
         }
 
         tm.startPlayerTurn();
@@ -280,7 +280,7 @@ public class EnemyAi {
             }
         }
 
-        Debug.Log("END ATTACK");
+        //Debug.Log("END ATTACK");
         //Debug.Log("Attack Player at: " + playerCoord + "\nLowest Health: " + lowestHealth);
 
         command.attackTile = playerCoord;

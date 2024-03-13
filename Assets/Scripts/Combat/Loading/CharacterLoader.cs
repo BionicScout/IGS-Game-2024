@@ -38,14 +38,14 @@ public class CharacterLoader : MonoBehaviour {
     public static void SpawnEnemy(Vector3Int spawnLoc , Stats stats) {
         Hex hex = new Hex(spawnLoc); //If spawnLoc is invalid, will send warning
 
-        Debug.Log("SpawnLoc: " + spawnLoc);
+        //Debug.Log("SpawnLoc: " + spawnLoc);
         GameObject enemyTileObj = GlobalVars.hexagonTile[spawnLoc];
         enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = stats.sprite;
-        Debug.Log("2");
+        //Debug.Log("2");
         stats.curHealth = stats.maxHealth;
-        Debug.Log("2.5");
+        //Debug.Log("2.5");
         GlobalVars.enemies.Add(spawnLoc , stats);
-        Debug.Log("3");
+        //Debug.Log("3");
     }
 
 

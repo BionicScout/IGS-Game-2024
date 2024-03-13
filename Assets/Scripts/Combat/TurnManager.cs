@@ -119,7 +119,7 @@ public class TurnManager : MonoBehaviour {
         }
 
         allPlayerTurnsUsed = true;
-        Debug.Log("PLAYER TURN HAS BEEN COMPLETED");
+        //Debug.Log("PLAYER TURN HAS BEEN COMPLETED");
         ResetVals();
     }
 
@@ -130,18 +130,18 @@ public class TurnManager : MonoBehaviour {
             temp.Add(playerInfo.Value.move);
         }
 
-        Debug.Log("Start Loop");
+        //Debug.Log("Start Loop");
         for(int i = 0; i < playerCoords.Count; i++) {
-            Debug.Log("i: " + i + "\tmax i: " + playerCoords.Count);
-            Debug.Log("1");
+            //Debug.Log("i: " + i + "\tmax i: " + playerCoords.Count);
+            //Debug.Log("1");
             playerMovement[i] = temp[i];
-            Debug.Log("2");
+            //Debug.Log("2");
             playerAction[i] = (false);
-            Debug.Log("3");
+            //Debug.Log("3");
             playerTurnComplete[i] = (false);
-            Debug.Log("4");
+            //Debug.Log("4");
         }
-        Debug.Log("End Loop");
+        //Debug.Log("End Loop");
     }
 
     public void EndTurn() {
@@ -235,23 +235,23 @@ public class TurnManager : MonoBehaviour {
         List<Tuple<string , Vector3Int>> nextWaveSpawns = new List<Tuple<string , Vector3Int>>();
 
         foreach(var enemySpawn in currentWave.spawns) {
-            Debug.Log("Maybe Spawn");
+            //Debug.Log("Maybe Spawn");
             // If unit is occupying space, spawn next round
             if(GlobalVars.players.ContainsKey(enemySpawn.Item2) || GlobalVars.enemies.ContainsKey(enemySpawn.Item2)) {
                 nextWaveSpawns.Add(enemySpawn);
-                Debug.Log("Hold Spawn");
+                //Debug.Log("Hold Spawn");
                 continue;
             }
 
-            Debug.Log("Spawn");
+            //Debug.Log("Spawn");
             Stats enemy = GlobalVars.enemyStats.Find(x => x.charName == enemySpawn.Item1);
             //Debug.Log("SpawnLoc: " + enemySpawn.Item2);
             CharacterLoader.SpawnEnemy(enemySpawn.Item2 , enemy.Copy());
-            Debug.Log("After Spawn");
+            //Debug.Log("After Spawn");
 
         }
 
-        Debug.Log("Exit Loop");
+        //Debug.Log("Exit Loop");
 
         // Add remaining spawns to the next wave
         nextWave.spawns.AddRange(nextWaveSpawns);
@@ -260,11 +260,11 @@ public class TurnManager : MonoBehaviour {
 
     public void startPlayerTurn() {
         SpawnEnemies();
-        Debug.Log("Start Player Turn");
+        //Debug.Log("Start Player Turn");
         ResetVals();
-        Debug.Log("Rest Vals");
+        //Debug.Log("Rest Vals");
         UpdateActiveMenu();
-        Debug.Log("Menu Back");
+        //Debug.Log("Menu Back");
     }
 
     public void UpdateActiveMenu() {
