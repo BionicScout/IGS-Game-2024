@@ -839,10 +839,14 @@ MonoBehaviour:
   - {fileID: 1634276666}
   - {fileID: 371589854}
   playerStats:
-  - {fileID: 11400000, guid: d62203eb532e9424d9f8b7f20839b2fe, type: 2}
-  - {fileID: 11400000, guid: 98cbe280e836566459045f9adff0c544, type: 2}
-  - {fileID: 11400000, guid: 45ea829f446c0d147af92e8f781a95b1, type: 2}
+  - {fileID: 11400000, guid: 39ba68abe2508df4a997f4a4967859a5, type: 2}
   - {fileID: 11400000, guid: 3fa4eed6f76fa6447b38e2fe43e84b28, type: 2}
+  - {fileID: 11400000, guid: b547ade009189e24284a5c2348efb020, type: 2}
+  - {fileID: 11400000, guid: 29516e27f84d657488695d3d5e0e720b, type: 2}
+  - {fileID: 11400000, guid: 45ea829f446c0d147af92e8f781a95b1, type: 2}
+  - {fileID: 11400000, guid: 98cbe280e836566459045f9adff0c544, type: 2}
+  - {fileID: 11400000, guid: d62203eb532e9424d9f8b7f20839b2fe, type: 2}
+  - {fileID: 11400000, guid: 67386806df2c11d4482b8936ccb9c897, type: 2}
 --- !u!1 &211223214
 GameObject:
   m_ObjectHideFlags: 0

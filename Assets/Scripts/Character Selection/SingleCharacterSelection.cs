@@ -35,7 +35,7 @@ public class SingleCharacterSelection : MonoBehaviour {
     private void UpdateCharacter() {
         Stats stats = selMan.playerStats[selectedOption];
         spriteIcon.sprite = stats.sprite;
-        nameTxt.text = stats.charName;
+        nameTxt.text = stats.charType;
     }
 
     public void Load(UnitSelectionManager manager, int loadChar) {

@@ -55,7 +55,7 @@ public class LevelingUp : MonoBehaviour
     {
         Stats stats = GlobalVars.choosenPlayers[selectedOption];
         spriteIcon.sprite = stats.sprite;
-        nameTxt.text = stats.charName;
+        nameTxt.text = stats.charType;
     }
 
     //Actually changes the stats
