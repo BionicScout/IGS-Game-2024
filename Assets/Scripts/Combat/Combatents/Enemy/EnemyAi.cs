@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
@@ -40,46 +41,12 @@ public class EnemyAi {
 
         currentEnemyIndex = 0;
         foreach(Vector3Int coord in temp) {
-            Stats stats = GlobalVars.enemies[coord];
-
-            //Check if play is really far from player
-            Vector3Int tileToClosestPLayer = playerIsfar(stats, coord);
-            await Task.Yield();
-
-            Command command;
-
-            //If ClosestPlayer is (1, 1, 1) (which is an invalid tile) then score tiles, other wise moce to closestPLayer
-            if (tileToClosestPLayer == Vector3Int.one) {
-                //Debug.Log("CLOSE MOVE");
-                //Get Scores
-                List<KeyValuePair<Vector3Int , float>> tilesAndScore = ScoreTiles(stats , coord);
-                await Task.Yield();
-
-                //Move Ai
-                command = Move(tilesAndScore);
-                await Task.Yield();
-
-                if(command.moveSpace == command.startSpace) {
-                    command.moveSpace = Vector3Int.one;
-                }
-                await Task.Yield();
-            }
-            else {
-                //Debug.Log("FAR MOVE");
-                command = new Command(coord, tileToClosestPLayer);
-                await Task.Yield();
+            if(true) {
+                //Debug.Log("QUEUE");
+                tm.commandQueue.Enqueue(GeneralAi(coord));                
             }
 
-            //Debug.Log("MOVE");
-
-            //Attack Player
-            //Debug.Log("ATTACK");
-            command = Attack(command, stats);
             await Task.Yield();
-
-            //Debug.Log("QUEUE");
-
-            tm.commandQueue.Enqueue(command);
             currentEnemyIndex++;
 
             //Debug.Log("Enemies Processed: " + currentEnemyIndex);
@@ -109,6 +76,47 @@ public class EnemyAi {
 
         return tilesAndScores;
     }
+
+    /*********************************
+        Types of Ai
+    *********************************/
+
+    public Command GeneralAi(Vector3Int coord) {
+        Stats stats = GlobalVars.enemies[coord];
+
+        //Check if play is really far from player
+        Vector3Int tileToClosestPLayer = playerIsfar(stats , coord);
+
+
+        Command command;
+
+        //If ClosestPlayer is (1, 1, 1) (which is an invalid tile) then score tiles, other wise moce to closestPLayer
+        if(tileToClosestPLayer == Vector3Int.one) {
+            //Debug.Log("CLOSE MOVE");
+            //Get Scores
+            List<KeyValuePair<Vector3Int , float>> tilesAndScore = ScoreTiles(stats , coord);
+
+            //Move Ai
+            command = Move(tilesAndScore);
+
+            if(command.moveSpace == command.startSpace) {
+                command.moveSpace = Vector3Int.one;
+            }
+        }
+        else {
+            //Debug.Log("FAR MOVE");
+            command = new Command(coord , tileToClosestPLayer);
+        }
+
+        //Debug.Log("MOVE");
+
+        //Attack Player
+        //Debug.Log("ATTACK");
+        command = Attack(command , stats);
+
+        return command;
+    }
+
 
     /*********************************
         Scoring
