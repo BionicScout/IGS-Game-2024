@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using Random = UnityEngine.Random;
 using UnityEditor;
 using System.Drawing;
+using System.Linq;
 
 
 public class InputManager : MonoBehaviour {
@@ -483,6 +484,31 @@ public class InputManager : MonoBehaviour {
     }
     public void Interact() {
         Debug.Log("INTERACT");
+
+        if(GlobalVars.L2_trees.Contains(clickedCoord)) {
+            //Convert Tree to Laying Down
+            TileScriptableObjects mainTileInfo = GlobalVars.hexagonTileRefrence[clickedCoord];
+
+            foreach(Vector3Int offset in GlobalVars.hexagonTileRefrence[clickedCoord].tileChanges) {
+                Vector3Int newCoord = clickedCoord + offset;
+
+                GameObject tileObj = GlobalVars.hexagonTile[clickedCoord];
+                tileObj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = mainTileInfo.objToChange.sprite;
+                GlobalVars.hexagonTileRefrence[clickedCoord] = mainTileInfo.objToChange;
+            }
+
+            GlobalVars.L2_trees.Remove(clickedCoord);
+
+            //Turn all enemies to generic ai
+            foreach(KeyValuePair<Vector3Int , Stats> enemy in GlobalVars.enemies) {
+                enemy.Value.charType = "General";
+            }
+        }
+
+
+
+
+
         turnManager.Player_HardAction(playerCoord);
     }
 
