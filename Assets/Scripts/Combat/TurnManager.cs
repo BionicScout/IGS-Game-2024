@@ -5,7 +5,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.WSA;
 
 public class TurnManager : MonoBehaviour {
     List<Vector3Int> playerCoords;
