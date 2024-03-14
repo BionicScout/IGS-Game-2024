@@ -260,6 +260,7 @@ public class InputManager : MonoBehaviour {
                 AudioManager.instance.Play("Attack");
                 //hit particles
                 Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
+                AudioManager.instance.Play("Enemy-Hurt");
 
                 //enemy death
                 if (enemyStats.curHealth <= 0)
@@ -267,7 +268,7 @@ public class InputManager : MonoBehaviour {
                     enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
                     RemoveEnmey(hexCoordOfEnemy);
                     //death audio
-                    AudioManager.instance.Play("Deah-Sound");
+                    //AudioManager.instance.Play("Deah-Sound");
                 }
             }
             ShootIndicators(false);
@@ -659,6 +660,7 @@ public class InputManager : MonoBehaviour {
             }
             GlobalVars.players[playerCoord].curHealth += 7;
             UpdateHealth(GlobalVars.players[playerCoord].curHealth);
+            AudioManager.instance.Play("Potion");
         }
         items.singleHealAMT--;
     }
@@ -668,6 +670,7 @@ public class InputManager : MonoBehaviour {
         {
             GlobalVars.players[playerCoord].power++;
             //end it after a turn?
+            AudioManager.instance.Play("Potion");
         }
         items.powerBuffAMT--;
     }
@@ -676,6 +679,7 @@ public class InputManager : MonoBehaviour {
         if (items.defenseBuffAMT != 0)
         {
             GlobalVars.players[playerCoord].defense++;
+            AudioManager.instance.Play("Potion");
         }
         items.defenseBuffAMT--;
     }
@@ -701,6 +705,7 @@ public class InputManager : MonoBehaviour {
                 }
                 GlobalVars.players[playerCoord].curHealth += 4;
                 UpdateHealth(GlobalVars.players[playerCoord].curHealth);
+                AudioManager.instance.Play("Potion");
             }
         }
         items.healScrollAMT--;

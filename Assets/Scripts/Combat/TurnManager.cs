@@ -235,7 +235,7 @@ public class TurnManager : MonoBehaviour {
                         playerTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
                         GlobalVars.players.Remove(command.attackTile);
                         //death audio
-                        AudioManager.instance.Play("Player-Hurt");
+                        //AudioManager.instance.Play("Player-Hurt");
                     }
                 }
                 enemystats.dodge = ogDodge;
