@@ -1175,7 +1175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: befc4a22fd13560449d677cd04eb1602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items: {fileID: 0}
+  items: {fileID: 2143430591}
   hitParticles: {fileID: 1052758049302362282, guid: e9dbf8a590745754680ef205c90d71df, type: 3}
   playerMove: 0
   playerPower: 0
@@ -14069,11 +14069,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3c6b6c5e632fde4d86982119d80f6c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  singleHealAMT: 0
-  powerBuffAMT: 0
-  defenseBuffAMT: 0
-  reviveAMT: 0
-  healScrollAMT: 0
+  singleHealAMT: 2
+  powerBuffAMT: 2
+  defenseBuffAMT: 3
+  reviveAMT: 1
+  healScrollAMT: 1
   singleHealTxt: {fileID: 618810972}
   powerBuffTxt: {fileID: 1381765224}
   defenseBuffTxt: {fileID: 2020319063}

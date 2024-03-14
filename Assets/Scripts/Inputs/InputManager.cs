@@ -27,7 +27,7 @@ public class InputManager : MonoBehaviour {
     [SerializeField]
     GameObject hitParticles;
 
-    public int playerMove, playerPower, playerAttRange, playerDefense, playerMaxHealth, poisonDmg;
+    public int playerMove, playerPower, playerAttRange, playerDefense, playerMaxHealth, poisonDmg, smokeDodge;
     public bool clickedUI = false;
     //public float stopTime;
     static Vector3Int clickedCoord, playerCoord, enemyCoord, mouseCoord;
@@ -87,6 +87,10 @@ public class InputManager : MonoBehaviour {
                     {
                         poisonDmg = GlobalVars.players[clickedCoord].power;
                     }
+                    if (GlobalVars.players[clickedCoord].charType == "Illusionist")
+                    {
+                        smokeDodge = GlobalVars.players[clickedCoord].power;
+                    }
 
                     //sets all indicators false when players are clicked
                     MoveIndicators(false);
@@ -94,23 +98,19 @@ public class InputManager : MonoBehaviour {
                     ShootIndicators(false);
                     HealIndicators(false);
 
-
                 }
             }
 
             if(inputMode == modes.attack) {
-                if (RollDodge() <= GlobalVars.players[playerCoord].dodge)
+                if (GlobalVars.players[playerCoord].charType == "Swordsman" || GlobalVars.players[playerCoord].charType == "Spearman" || GlobalVars.players[playerCoord].charType == "Paladin")
                 {
-                    if (GlobalVars.players[playerCoord].charType == "Swordsman")
-                    {
-                        Wack(clickedCoord, 2);
-                        inputMode = modes.normal;
-                    }
-                    else if (GlobalVars.players[playerCoord].charType == "Archer")
-                    {
-                        Shoot(clickedCoord , 2);
-                        inputMode = modes.normal;
-                    }   
+                    Wack(clickedCoord, 2);
+                    inputMode = modes.normal;
+                }
+                else if (GlobalVars.players[playerCoord].charType == "Archer" || GlobalVars.players[playerCoord].charType == "Crossbowman")
+                {
+                    Shoot(clickedCoord, 2);
+                    inputMode = modes.normal;
                 }
             }
             if(inputMode == modes.move) {
@@ -215,6 +215,7 @@ public class InputManager : MonoBehaviour {
         WackIndicators(false);
         MoveIndicators(false);
         HealIndicators(false);
+        int ogDodge = GlobalVars.players[clickedCoord].dodge;
 
         turnManager.Player_HardAction(playerCoord);
 
@@ -223,21 +224,46 @@ public class InputManager : MonoBehaviour {
             Stats enemyStats = GlobalVars.enemies[clickedCoord];
             GameObject enemyTileObj = GlobalVars.hexagonTile[clickedCoord];
 
-            //deals damage
-            enemyStats.Damage(playerPower);
-            //attack audio
-            AudioManager.instance.Play("Attack");
-            //hit particles
-            Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
+            if (InSmoke())
+            {
+                GlobalVars.players[clickedCoord].dodge = smokeDodge;
+                if (RollDodge() < GlobalVars.players[clickedCoord].dodge)
+                {
+                    //deals damage
+                    enemyStats.Damage(playerPower);
+                    //attack audio
+                    AudioManager.instance.Play("Attack");
+                    //hit particles
+                    Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
 
-            //enemy death
-            if (enemyStats.curHealth <= 0) {
-                enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
-                RemoveEnmey(hexCoordOfEnemy);
-                //death audio
-                AudioManager.instance.Play("Deah-Sound");
+                    //enemy death
+                    if (enemyStats.curHealth <= 0) {
+                        enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+                        RemoveEnmey(hexCoordOfEnemy);
+                        //death audio
+                        AudioManager.instance.Play("Deah-Sound");
+                    }
+                }
+                GlobalVars.players[clickedCoord].dodge = ogDodge;
             }
+            else if (RollDodge() < GlobalVars.players[clickedCoord].dodge)
+            {
+                //deals damage
+                enemyStats.Damage(playerPower);
+                //attack audio
+                AudioManager.instance.Play("Attack");
+                //hit particles
+                Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
 
+                //enemy death
+                if (enemyStats.curHealth <= 0)
+                {
+                    enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+                    RemoveEnmey(hexCoordOfEnemy);
+                    //death audio
+                    AudioManager.instance.Play("Deah-Sound");
+                }
+            }
             ShootIndicators(false);
 
             Pathfinding.AllPossibleTiles(clickedCoord , playerAttRange);
@@ -253,6 +279,7 @@ public class InputManager : MonoBehaviour {
         MoveIndicators(false);
         ShootIndicators(false);
         HealIndicators(false);
+        int ogDodge = GlobalVars.players[clickedCoord].dodge;
 
         Pathfinding.AllPossibleTiles(clickedCoord , 1);
 
@@ -260,20 +287,45 @@ public class InputManager : MonoBehaviour {
             //Get Player and current + future hex objs
             Stats enemyStats = GlobalVars.enemies[clickedCoord];
             GameObject enemyTileObj = GlobalVars.hexagonTile[clickedCoord];
+            if (InSmoke())
+            {
+                GlobalVars.players[clickedCoord].dodge = smokeDodge;
+                if(RollDodge() < GlobalVars.players[clickedCoord].dodge)
+                {
+                    //Deals damage
+                    enemyStats.Damage(playerPower);
+                    //attack audio
+                    AudioManager.instance.Play("Attack");
+                    //hit particles
+                    Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
 
-            //Deals damage
-            enemyStats.Damage(playerPower);
-            //attack audio
-            AudioManager.instance.Play("Attack");
-            //hit particles
-            Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
+                    //enemy death
+                    if (enemyStats.curHealth <= 0) {
+                        enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+                        RemoveEnmey(hexCoordOfEnemy);
+                        //death audio
+                        AudioManager.instance.Play("Deah-Sound");
+                    }
+                }
+                GlobalVars.players[clickedCoord].dodge = ogDodge;
+            }
+            else if (RollDodge() < GlobalVars.players[clickedCoord].dodge)
+            {
+                //Deals damage
+                enemyStats.Damage(playerPower);
+                //attack audio
+                AudioManager.instance.Play("Attack");
+                //hit particles
+                Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
 
-            //enemy death
-            if (enemyStats.curHealth <= 0) {
-                enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
-                RemoveEnmey(hexCoordOfEnemy);
-                //death audio
-                AudioManager.instance.Play("Deah-Sound");
+                //enemy death
+                if (enemyStats.curHealth <= 0)
+                {
+                    enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+                    RemoveEnmey(hexCoordOfEnemy);
+                    //death audio
+                    AudioManager.instance.Play("Deah-Sound");
+                }
             }
             //enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
             WackIndicators(false);
@@ -282,7 +334,6 @@ public class InputManager : MonoBehaviour {
 
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
-
         }
         GlobalVars.players[playerCoord].power = playerPower;
         GlobalVars.players[playerCoord].defense = playerDefense;
@@ -505,7 +556,6 @@ public class InputManager : MonoBehaviour {
         selectedPlayerMenu.transform.GetChild(2).GetComponent<Image>().sprite = stats.sprite;
         selectedPlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
     }
-
     public void StatsMenu() {
         statsMenu.SetActive(!statsMenu.activeSelf);
 
@@ -527,7 +577,6 @@ public class InputManager : MonoBehaviour {
         items.reviveTxt.text = "x" + items.reviveAMT.ToString();
         items.healScrollTxt.text = "x" + items.healScrollAMT.ToString();
     }
-
     public void UpdateHealth(float healthOffset) {
         Stats stats = GlobalVars.players[playerCoord];
         stats.curHealth += healthOffset;
@@ -624,7 +673,31 @@ public class InputManager : MonoBehaviour {
                 GlobalVars.players[coord.Key].Damage(poisonDmg);
                 GlobalVars.poisonTiles[coord.Key]--;
             }
+            if (GlobalVars.poisonTiles[coord.Key] == 0)
+            {
+                GlobalVars.poisonTiles.Remove(coord.Key);
+            }
         }
+    }
+    public bool InSmoke()
+    {
+        foreach (KeyValuePair<Vector3Int, Stats> coord in GlobalVars.players)
+        {
+            if (!GlobalVars.smokeTiles.ContainsKey(coord.Key))
+            {
+                continue;
+            }
+            if (GlobalVars.smokeTiles[coord.Key] != 0)
+            {
+                GlobalVars.smokeTiles[coord.Key]--;
+                return true;
+            }
+            if (GlobalVars.smokeTiles[coord.Key] == 0)
+            {
+                GlobalVars.smokeTiles.Remove(coord.Key);
+            }
+        }
+        return false;
     }
 
     public Vector3Int GetPosition() {

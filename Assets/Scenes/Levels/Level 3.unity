@@ -7412,7 +7412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: befc4a22fd13560449d677cd04eb1602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items: {fileID: 0}
+  items: {fileID: 2044949600}
   hitParticles: {fileID: 1052758049302362282, guid: e9dbf8a590745754680ef205c90d71df, type: 3}
   playerMove: 0
   playerPower: 0
@@ -14166,7 +14166,7 @@ GameObject:
   - component: {fileID: 2044949601}
   - component: {fileID: 2044949600}
   m_Layer: 5
-  m_Name: ItemsMenu (1)
+  m_Name: ItemsMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
