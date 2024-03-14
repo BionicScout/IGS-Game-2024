@@ -480,6 +480,8 @@ public class InputManager : MonoBehaviour {
     public void Interact() {
         Debug.Log("INTERACT");
 
+
+
         if(GlobalVars.L2_trees.Contains(clickedCoord)) {
             //Convert Tree to Laying Down
             TileScriptableObjects mainTileInfo = GlobalVars.hexagonTileRefrence[clickedCoord];
@@ -575,7 +577,7 @@ public class InputManager : MonoBehaviour {
             {
                 //InteractableTiles.Add(t);
                 //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
-                GlobalVars.hexagonTile[t].transform.GetChild(6).gameObject.SetActive(true);
+                GlobalVars.hexagonTile[t].transform.GetChild(5).gameObject.SetActive(true);
             }
         }
     }

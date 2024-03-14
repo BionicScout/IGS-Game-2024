@@ -40,7 +40,7 @@ public static class GlobalVars {
         centerHex = new Vector3Int();
         topRightHex = new Vector3Int();
 
-        enemyStats = new List<Stats>();
+        //enemyStats = new List<Stats>();
 
         players = new Dictionary<Vector3Int , Stats>();
         enemies = new Dictionary<Vector3Int , Stats>();
