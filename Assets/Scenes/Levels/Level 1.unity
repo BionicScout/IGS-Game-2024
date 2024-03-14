@@ -926,6 +926,7 @@ MonoBehaviour:
   playerAttRange: 0
   playerDefense: 0
   playerMaxHealth: 0
+  poisonDmg: 0
   clickedUI: 0
   selectedPlayerMenu: {fileID: 409865014}
   statsMenu: {fileID: 688955342}
@@ -8457,7 +8458,7 @@ MonoBehaviour:
   tileTemplates:
   - {fileID: 11400000, guid: 8c2cb4a7ae58997469b739b882ffb9b0, type: 2}
   - {fileID: 11400000, guid: 109b76db8d62c3347969d887417c522e, type: 2}
-  tileCoord: 1
+  tileCoord: 0
 --- !u!4 &1793876000
 Transform:
   m_ObjectHideFlags: 0

@@ -51,12 +51,18 @@ public class TurnManager : MonoBehaviour {
             enemyCommand(commandQueue.Dequeue());
         }
 
-        if(GlobalVars.players.Count == 0) {
+        //Win
+        if(GlobalVars.enemies.Count == 0) {
             PlayerMenu.SetActive(false);
             WinMenu.SetActive(true);
         }
 
-        if(GlobalVars.enemies.Count == 0 || GlobalVars.L1_houseTiles.Count == 0) {
+        //Lose
+        if(GlobalVars.players.Count == 0) {
+            PlayerMenu.SetActive(false);
+            LoseMenu.SetActive(true);
+        }
+        if(GlobalVars.L1_houseTiles.Count == 0 && SceneSwapper.currentScene == "Level 1") {
             PlayerMenu.SetActive(false);
             LoseMenu.SetActive(true);
         }
@@ -147,13 +153,13 @@ public class TurnManager : MonoBehaviour {
     public void EndTurn() {
         UpdateActiveMenu();
         StartCoroutine(ExecuteEnemyTurn());
-        InputManager.TakePoison();
+        //InputManager.TakePoison();
     }
 
     public void StartEnemyTurn() {
         turn++;
         StartCoroutine(ExecuteEnemyTurn());
-        InputManager.TakePoison();
+        //InputManager.TakePoison();
     }
 
     IEnumerator ExecuteEnemyTurn() {

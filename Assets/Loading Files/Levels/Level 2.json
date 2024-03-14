@@ -1,0 +1,27 @@
+{
+  "PlayerSpawns": [
+    {"spawnLocation": {"x": 7, "y": 2, "z": -9}},
+    {"spawnLocation": {"x": 8, "y": 2, "z": -10}},
+    {"spawnLocation": {"x": 8, "y": 1, "z": -9}},
+    {"spawnLocation": {"x": 9, "y": 1, "z": -10}}
+  ],
+  "EnemySpawnLocations": [
+    {"unitName": "L2_ArcherBandit", "spawnLocation": {"x": 3, "y": 9, "z": -12}},
+    {"unitName": "L2_SwordsmanBandit", "spawnLocation": {"x": 4, "y": 9, "z": -13}},
+    {"unitName": "L2_SpearmanBandit", "spawnLocation": {"x": 5, "y": 9, "z": -14}},
+    {"unitName": "L2_SwordsmanBandit", "spawnLocation": {"x": 6, "y": 9, "z": -15}},
+    {"unitName": "L2_ArcherBandit", "spawnLocation": {"x": 7, "y": 9, "z": -16}},
+    {"unitName": "L2_ArcherBandit", "spawnLocation": {"x": 4, "y": 10, "z": -14}},
+    {"unitName": "L2_ArcherBandit", "spawnLocation": {"x": 5, "y": 10, "z": -15}}
+  ],
+  "Turns": [
+    {
+      "TurnNumber": 7,
+      "EnemySpawns": [
+        {"unitName": "L2_AxemanBandit", "spawnLocation": {"x": 4, "y": 18, "z": -22}},
+        {"unitName": "L2_AxemanBandit", "spawnLocation": {"x": 5, "y": 18, "z": -23}},
+        {"unitName": "L2_AxemanBandit", "spawnLocation": {"x": 6, "y": 18, "z": -24}}
+      ]
+    }
+  ]
+}
