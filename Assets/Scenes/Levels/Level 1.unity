@@ -279,7 +279,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 25056661}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2143430591}
+        m_TargetAssemblyTypeName: Items, Assembly-CSharp
+        m_MethodName: SetHealScroll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &25056661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1459,7 +1471,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 182730969}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: DefenseBuff
         m_Mode: 1
@@ -2181,7 +2193,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 182730969}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: PowerBuff
         m_Mode: 1
@@ -2931,9 +2943,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: SetSingleHeal
+      - m_Target: {fileID: 2143430591}
+        m_TargetAssemblyTypeName: Items, Assembly-CSharp
+        m_MethodName: SetPowerBuff
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3762,7 +3774,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 182730969}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: Revive
         m_Mode: 1
@@ -4731,7 +4743,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 882527018}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2143430591}
+        m_TargetAssemblyTypeName: Items, Assembly-CSharp
+        m_MethodName: SetDefenseBuff
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &882527018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5532,7 +5556,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 182730969}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: SingleHeal
         m_Mode: 1
@@ -11510,7 +11534,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1680807388}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2143430591}
+        m_TargetAssemblyTypeName: Items, Assembly-CSharp
+        m_MethodName: SetRevive
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1680807388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11862,8 +11898,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+      - m_Target: {fileID: 2143430591}
+        m_TargetAssemblyTypeName: Items, Assembly-CSharp
         m_MethodName: SetSingleHeal
         m_Mode: 1
         m_Arguments:
@@ -12129,7 +12165,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 182730969}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: HealScroll
         m_Mode: 1
