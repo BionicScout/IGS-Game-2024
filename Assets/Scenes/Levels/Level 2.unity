@@ -7441,6 +7441,7 @@ MonoBehaviour:
   tileTemplates:
   - {fileID: 11400000, guid: c704d06506c45fe4889325bb388cfee1, type: 2}
   - {fileID: 11400000, guid: b3c1be94b343b6f40bad5adfd2ac782e, type: 2}
+  - {fileID: 11400000, guid: ac5fbcfa2bc758d45a403493106cdc8f, type: 2}
   - {fileID: 11400000, guid: 1db89d2893368dd4783945f9949f6374, type: 2}
   - {fileID: 11400000, guid: fc46bbf0b7d2330449ef6338781bb943, type: 2}
   - {fileID: 11400000, guid: 0d25fba92339cb34aa88c6fdc1423b57, type: 2}

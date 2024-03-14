@@ -48,6 +48,10 @@ public class EnemyAi {
                 //Debug.Log("Level 1 Ai");
                 tm.commandQueue.Enqueue(LevelOneAi(coord));
             }
+            else if(stats.charType == "L2") {
+                //Debug.Log("Level 2 Ai");
+                tm.commandQueue.Enqueue(LevelTwoAi(coord));
+            }
             else {
                 //Debug.Log("General Ai");
                 tm.commandQueue.Enqueue(GeneralAi(coord));                
@@ -159,6 +163,17 @@ public class EnemyAi {
 
         if(command.attackTile == Vector3Int.one)
             command = HouseAttack(command , stats);
+
+        return command;
+    }
+
+
+    public Command LevelTwoAi(Vector3Int coord) {
+        Stats stats = GlobalVars.enemies[coord];
+
+        Command command = new Command(coord);
+        //Debug.Log("ATTACK");
+        command = Attack(command , stats);
 
         return command;
     }

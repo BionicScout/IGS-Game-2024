@@ -14,4 +14,12 @@ public class Command {
         attackTile = Vector3Int.one;
         houseAttackTile = Vector3Int.one;
     }
+
+    public Command(Vector3Int startSpace) {
+        this.startSpace = startSpace;
+
+        moveSpace = Vector3Int.one;
+        attackTile = Vector3Int.one;
+        houseAttackTile = Vector3Int.one;
+    }
 }
