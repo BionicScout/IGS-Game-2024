@@ -18,8 +18,8 @@ MonoBehaviour:
   charLevel: 1
   curHealth: 5
   maxHealth: 5
-  move: 4
-  attackRange: 2
-  power: 4
-  defense: 5
+  move: 3
+  attackRange: 7
+  power: 60
+  defense: 0
   dodge: 5
