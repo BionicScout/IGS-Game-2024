@@ -17,6 +17,7 @@ public class LevelingUp : MonoBehaviour
     private void Start()
     {
         spriteIcon = GetComponent<SpriteRenderer>();
+        GlobalVars.levelClear();
     }
 
     private void Update()

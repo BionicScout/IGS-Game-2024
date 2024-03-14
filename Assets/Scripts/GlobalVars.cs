@@ -26,5 +26,24 @@ public static class GlobalVars {
     //Specific Level info
     public static List<Vector3Int> L1_houseTiles = new List<Vector3Int>();
 
+    public static void levelClear() {
+        hexagonTile = new Dictionary<Vector3Int , GameObject>();
+        hexagonTileRefrence = new Dictionary<Vector3Int , TileScriptableObjects>();
+        poisonTiles = new Dictionary<Vector3Int , int>();
+        smokeTiles = new Dictionary<Vector3Int , int>();
+        availableHexes = new List<Vector3Int>();
 
+        bottomLeftHex = new Vector3Int();
+        centerHex = new Vector3Int();
+        topRightHex = new Vector3Int();
+
+        enemyStats = new List<Stats>();
+
+        players = new Dictionary<Vector3Int , Stats>();
+        enemies = new Dictionary<Vector3Int , Stats>();
+
+        spawnWaves = new Queue<SpawnWave>();
+
+        L1_houseTiles = new List<Vector3Int>();
+    }
 }
