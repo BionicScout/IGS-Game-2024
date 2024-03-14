@@ -375,7 +375,12 @@ public class InputManager : MonoBehaviour {
             {
                 Vector3Int t = temp.Item1;
                 GlobalVars.poisonTiles.Add(t, 2);
-                GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(true);
+                foreach (Tuple<Vector3Int, int> coord in Pathfinding.AllPossibleTiles(clickedCoord, 1))
+                {
+                    Vector3Int c = coord.Item1;
+                    GlobalVars.smokeTiles.Add(t, 2);
+                    GlobalVars.hexagonTile[c].transform.GetChild(4).gameObject.SetActive(true);
+                }
             }
 
             Pathfinding.AllPossibleTiles(clickedCoord, playerAttRange);
@@ -398,7 +403,7 @@ public class InputManager : MonoBehaviour {
         {
             ShootIndicators(false);
 
-            foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(clickedCoord, playerAttRange))
+            foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(clickedCoord, 1))
             {
                 Vector3Int t = temp.Item1;
                 GlobalVars.smokeTiles.Add(t, 2);
