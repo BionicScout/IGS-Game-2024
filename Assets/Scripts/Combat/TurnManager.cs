@@ -189,11 +189,11 @@ public class TurnManager : MonoBehaviour {
     public void enemyCommand(Command command) {
         //Move
         Stats enemystats = GlobalVars.enemies[command.startSpace];
+        int ogDodge = enemystats.dodge;
 
         if (command.moveSpace != Vector3Int.one && command.startSpace != command.moveSpace)
         {
             Movement.moveEnemy(command.startSpace, command.moveSpace);
-            //InputManager.TakePoison();
         }
         else
         {
@@ -208,30 +208,67 @@ public class TurnManager : MonoBehaviour {
 
             //Debug.Log("PLayer Health After: " + GlobalVars.players[command.attackTile].curHealth);
 
-            Stats stats = GlobalVars.players[command.attackTile];
-            stats.curHealth -= stats.Damage(enemystats.power);
-            GlobalVars.players[command.attackTile] = stats;
+            if (InputManager.InSmoke())
+            {
+                enemystats.dodge = InputManager.smokeDodge;
+                if(InputManager.RollDodge() < enemystats.dodge)
+                {
+                    Stats stats = GlobalVars.players[command.attackTile];
+                    stats.curHealth -= stats.Damage(enemystats.power);
+                    GlobalVars.players[command.attackTile] = stats;
 
-            PlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
+                    PlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
 
-           // Debug.Log("PLayer Health After: " + GlobalVars.players[command.attackTile].curHealth);
+                   // Debug.Log("PLayer Health After: " + GlobalVars.players[command.attackTile].curHealth);
 
 
-            //Player Dies
-            if(stats.curHealth <= 0) {
-                //Remove from this script
-                int playerIndex = playerCoords.FindIndex(x => x == command.attackTile);
-                playerCoords.RemoveAt(playerIndex);
-                playerMovement.RemoveAt(playerIndex);
-                playerAction.RemoveAt(playerIndex);
-                playerTurnComplete.RemoveAt(playerIndex);
+                    //Player Dies
+                    if(stats.curHealth <= 0) {
+                        //Remove from this script
+                        int playerIndex = playerCoords.FindIndex(x => x == command.attackTile);
+                        playerCoords.RemoveAt(playerIndex);
+                        playerMovement.RemoveAt(playerIndex);
+                        playerAction.RemoveAt(playerIndex);
+                        playerTurnComplete.RemoveAt(playerIndex);
 
-                //Remove From other scripts and scene
-                GameObject playerTileObj = GlobalVars.hexagonTile[command.attackTile];
-                playerTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
-                GlobalVars.players.Remove(command.attackTile);
-                //death audio
-                AudioManager.instance.Play("Player-Hurt");
+                        //Remove From other scripts and scene
+                        GameObject playerTileObj = GlobalVars.hexagonTile[command.attackTile];
+                        playerTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+                        GlobalVars.players.Remove(command.attackTile);
+                        //death audio
+                        AudioManager.instance.Play("Player-Hurt");
+                    }
+                }
+                enemystats.dodge = ogDodge;
+            }
+            else if(InputManager.RollDodge() < enemystats.dodge)
+            {
+                Stats stats = GlobalVars.players[command.attackTile];
+                stats.curHealth -= stats.Damage(enemystats.power);
+                GlobalVars.players[command.attackTile] = stats;
+
+                PlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
+
+                // Debug.Log("PLayer Health After: " + GlobalVars.players[command.attackTile].curHealth);
+
+
+                //Player Dies
+                if (stats.curHealth <= 0)
+                {
+                    //Remove from this script
+                    int playerIndex = playerCoords.FindIndex(x => x == command.attackTile);
+                    playerCoords.RemoveAt(playerIndex);
+                    playerMovement.RemoveAt(playerIndex);
+                    playerAction.RemoveAt(playerIndex);
+                    playerTurnComplete.RemoveAt(playerIndex);
+
+                    //Remove From other scripts and scene
+                    GameObject playerTileObj = GlobalVars.hexagonTile[command.attackTile];
+                    playerTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+                    GlobalVars.players.Remove(command.attackTile);
+                    //death audio
+                    AudioManager.instance.Play("Player-Hurt");
+                }
             }
         }
 
