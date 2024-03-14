@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 20230694}
   - component: {fileID: 20230693}
   m_Layer: 5
-  m_Name: Button
+  m_Name: HSButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -372,7 +372,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 20230694}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807120143}
+        m_TargetAssemblyTypeName: Items, Assembly-CSharp
+        m_MethodName: SetHealScroll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &20230694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,13 +392,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 20230691}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.05882353}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -424,7 +436,7 @@ GameObject:
   - component: {fileID: 32813082}
   - component: {fileID: 32813081}
   m_Layer: 5
-  m_Name: Button
+  m_Name: SHButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -471,7 +483,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.67550725, g: 0.92400837, b: 0.9547169, a: 0.74509805}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 0.74509805}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.4431373, g: 0.6392157, b: 0.6666667, a: 0.45490196}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -493,8 +505,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+      - m_Target: {fileID: 807120143}
+        m_TargetAssemblyTypeName: Items, Assembly-CSharp
         m_MethodName: SetSingleHeal
         m_Mode: 1
         m_Arguments:
@@ -518,14 +530,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.05882353}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 02bc6413e9c541c4c8fd2e7501c27232, type: 3}
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1763,7 +1775,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1648647738}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: Revive
         m_Mode: 1
@@ -2220,7 +2232,7 @@ GameObject:
   - component: {fileID: 326602198}
   - component: {fileID: 326602197}
   m_Layer: 5
-  m_Name: Button
+  m_Name: RButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2288,7 +2300,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 326602198}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807120143}
+        m_TargetAssemblyTypeName: Items, Assembly-CSharp
+        m_MethodName: SetRevive
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &326602198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2296,13 +2320,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 326602195}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.05882353}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3696,7 +3720,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1648647738}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: DefenseBuff
         m_Mode: 1
@@ -3829,7 +3853,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1648647738}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: HealScroll
         m_Mode: 1
@@ -4159,7 +4183,7 @@ GameObject:
   - component: {fileID: 659986858}
   - component: {fileID: 659986857}
   m_Layer: 5
-  m_Name: Button
+  m_Name: DBButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4208,7 +4232,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.44313726, g: 0.6392157, b: 0.6666667, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -4227,7 +4251,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 659986858}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807120143}
+        m_TargetAssemblyTypeName: Items, Assembly-CSharp
+        m_MethodName: SetDefenseBuff
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &659986858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4235,13 +4271,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 659986855}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.05882353}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4588,7 +4624,7 @@ GameObject:
   - component: {fileID: 725969840}
   - component: {fileID: 725969839}
   m_Layer: 5
-  m_Name: Button
+  m_Name: PBButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4657,9 +4693,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: SetSingleHeal
+      - m_Target: {fileID: 807120143}
+        m_TargetAssemblyTypeName: Items, Assembly-CSharp
+        m_MethodName: SetPowerBuff
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4676,13 +4712,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 725969837}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.05882353}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -12090,7 +12126,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1648647738}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: PowerBuff
         m_Mode: 1
@@ -13636,7 +13672,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1648647738}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: SingleHeal
         m_Mode: 1
