@@ -212,6 +212,7 @@ public class InputManager : MonoBehaviour {
         MoveIndicators(false);
         HealIndicators(false);
         InteractIndicators();
+        inputMode = modes.interact;
     }
 
     /*********************************

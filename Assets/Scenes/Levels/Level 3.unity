@@ -7335,7 +7335,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 955305064}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: Interact
+        m_MethodName: SetInteract
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -1134,7 +1134,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 550408970}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: Interact
+        m_MethodName: SetInteract
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7760,6 +7760,7 @@ MonoBehaviour:
   playerDefense: 0
   playerMaxHealth: 0
   poisonDmg: 0
+  smokeDodge: 0
   clickedUI: 0
   selectedPlayerMenu: {fileID: 564735241}
   statsMenu: {fileID: 1416669824}
