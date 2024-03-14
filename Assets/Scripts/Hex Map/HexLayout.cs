@@ -98,6 +98,15 @@ public class HexLayout : MonoBehaviour {
             GlobalVars.L1_houseTiles.Add(new Vector3Int(h.q , h.r , h.s));
         }
 
+        if(tileTemplate.sprite.name == "TreeTile") {
+            GlobalVars.L2_trees.Add(new Vector3Int(h.q , h.r , h.s));
+            GlobalVars.L3_trees.Add(new Vector3Int(h.q , h.r , h.s));
+        }
+
+        if(tileTemplate.sprite.name == "Red Button") {
+            GlobalVars.L4_Buttons.Add(new Vector3Int(h.q , h.r , h.s));
+        }
+
 
         obj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = tileTemplate.sprite;
         return obj;
