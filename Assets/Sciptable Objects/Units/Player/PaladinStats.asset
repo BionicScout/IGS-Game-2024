@@ -16,10 +16,10 @@ MonoBehaviour:
   charType: Paladin
   sprite: {fileID: 21300000, guid: 93a8257d8cca1c3408f00d851d3e28dc, type: 3}
   charLevel: 1
-  curHealth: 15
-  maxHealth: 15
+  curHealth: 20
+  maxHealth: 20
   move: 3
   attackRange: 1
-  power: 5
+  power: 4
   defense: 2
   dodge: 3

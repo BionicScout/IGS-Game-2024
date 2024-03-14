@@ -17,6 +17,8 @@ public class LevelingUp : MonoBehaviour
     private void Start()
     {
         spriteIcon = GetComponent<SpriteRenderer>();
+        NextOption();
+        BackOption();
     }
 
     private void Update()
