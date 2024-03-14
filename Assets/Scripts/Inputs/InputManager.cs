@@ -615,6 +615,10 @@ public class InputManager : MonoBehaviour {
     {
         foreach(KeyValuePair<Vector3Int, Stats> coord in GlobalVars.players)
         {
+            if (!GlobalVars.poisonTiles.ContainsKey(coord.Key))
+            {
+                continue;
+            }
             if (GlobalVars.poisonTiles[coord.Key] != 0)
             {
                 GlobalVars.players[coord.Key].Damage(poisonDmg);
