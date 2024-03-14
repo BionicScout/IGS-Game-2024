@@ -84,6 +84,8 @@ public class EnemyAi {
                 continue;
             }
 
+            //Debug.Log(info.Item1);
+
 
 
             tilesAndScores.Add(new KeyValuePair<Vector3Int, float>(info.Item1, 0));
@@ -110,6 +112,7 @@ public class EnemyAi {
             //Debug.Log("CLOSE MOVE");
             //Get Scores
             List<KeyValuePair<Vector3Int , float>> tilesAndScore = GeneralScoreTiles(stats , coord);
+            WriteToFile(tilesAndScore);
 
             //Move Ai
             command = Move(tilesAndScore);

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 274a7d029d4eaaf4f9dd1a10ae7bd3ae, type: 3}
   m_Name: L4_Wall
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 823e3f74394a0ce4295ae3358dfe6a5d, type: 3}
-  isObstacle: 0
+  sprite: {fileID: 21300000, guid: f0a2e3e030de7d349896e416975e4e6d, type: 3}
+  isObstacle: 1
   interactable: 0
+  objToChange: {fileID: 0}
+  tileChanges: []

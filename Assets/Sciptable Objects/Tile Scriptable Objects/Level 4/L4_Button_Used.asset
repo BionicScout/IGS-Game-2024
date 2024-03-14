@@ -10,11 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 274a7d029d4eaaf4f9dd1a10ae7bd3ae, type: 3}
-  m_Name: L4_Door
+  m_Name: L4_Button_Used
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: b5a330384578a134fac751a5bd3fd370, type: 3}
-  isObstacle: 1
+  sprite: {fileID: 21300000, guid: 8c6b8da87743ba74ca3a972d86652d5b, type: 3}
+  isObstacle: 0
   interactable: 0
-  objToChange: {fileID: 11400000, guid: 59698f148cd18a64789dd40bcd4d87cd, type: 2}
-  tileChanges:
-  - {x: 0, y: 0, z: 0}
+  objToChange: {fileID: 0}
+  tileChanges: []
