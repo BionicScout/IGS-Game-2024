@@ -112,6 +112,21 @@ public class InputManager : MonoBehaviour {
                     Shoot(clickedCoord, 2);
                     inputMode = modes.normal;
                 }
+                else if(GlobalVars.players[playerCoord].charType == "Alchemist")
+                {
+                    Poison();
+                    inputMode = modes.normal;
+                }
+                else if (GlobalVars.players[playerCoord].charType == "Cleric")
+                {
+                    Heal(GlobalVars.players[playerCoord].power);
+                    inputMode = modes.normal;
+                }
+                else if (GlobalVars.players[playerCoord].charType == "Illusionist")
+                {
+                    SmokeBomb();
+                    inputMode = modes.normal;
+                }
             }
             if(inputMode == modes.move) {
                 Move();
@@ -119,13 +134,8 @@ public class InputManager : MonoBehaviour {
             }
             if (inputMode == modes.AOE)
             {
-                mouseCoord = hit.collider.gameObject.transform.GetComponent<HexObjInfo>().hexCoord;
-                foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(mouseCoord, playerAttRange))
-                {
-                    Vector3Int t = temp.Item1;
-                    //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
-                    GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(true);
-                }
+                SmokeBomb();
+                inputMode = modes.normal;
             }
             if (inputMode == modes.heal)
             {
@@ -187,10 +197,9 @@ public class InputManager : MonoBehaviour {
         inputMode = modes.move;
         clickedUI = true;
     }
-    public void SetAOE() {
+    public void SetSmoke() {
         MoveIndicators(false);
         HealIndicators(false);
-        //AOEIndicators(true);
         inputMode = modes.AOE;
         clickedUI = true;
     }
