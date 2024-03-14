@@ -224,7 +224,7 @@ public class InputManager : MonoBehaviour {
         WackIndicators(false);
         MoveIndicators(false);
         HealIndicators(false);
-        int ogDodge = GlobalVars.players[clickedCoord].dodge;
+        int ogDodge = GlobalVars.players[playerCoord].dodge;
 
         turnManager.Player_HardAction(playerCoord);
 
@@ -236,7 +236,7 @@ public class InputManager : MonoBehaviour {
             if (InSmoke())
             {
                 GlobalVars.players[clickedCoord].dodge = smokeDodge;
-                if (RollDodge() < GlobalVars.players[clickedCoord].dodge)
+                if (RollDodge() > GlobalVars.players[clickedCoord].dodge)
                 {
                     //deals damage
                     enemyStats.Damage(playerPower);
@@ -255,7 +255,7 @@ public class InputManager : MonoBehaviour {
                 }
                 GlobalVars.players[clickedCoord].dodge = ogDodge;
             }
-            else if (RollDodge() < GlobalVars.players[clickedCoord].dodge)
+            else if (RollDodge() > GlobalVars.players[playerCoord].dodge)
             {
                 //deals damage
                 enemyStats.Damage(playerPower);
@@ -288,7 +288,7 @@ public class InputManager : MonoBehaviour {
         MoveIndicators(false);
         ShootIndicators(false);
         HealIndicators(false);
-        int ogDodge = GlobalVars.players[clickedCoord].dodge;
+        int ogDodge = GlobalVars.players[playerCoord].dodge;
 
         Pathfinding.AllPossibleTiles(clickedCoord , 1);
 
@@ -299,7 +299,7 @@ public class InputManager : MonoBehaviour {
             if (InSmoke())
             {
                 GlobalVars.players[clickedCoord].dodge = smokeDodge;
-                if(RollDodge() < GlobalVars.players[clickedCoord].dodge)
+                if(RollDodge() > GlobalVars.players[clickedCoord].dodge)
                 {
                     //Deals damage
                     enemyStats.Damage(playerPower);
@@ -318,8 +318,10 @@ public class InputManager : MonoBehaviour {
                 }
                 GlobalVars.players[clickedCoord].dodge = ogDodge;
             }
-            else if (RollDodge() < GlobalVars.players[clickedCoord].dodge)
+            else if (RollDodge() > GlobalVars.players[playerCoord].dodge)
             {
+                Debug.Log("Attacked");
+
                 //Deals damage
                 enemyStats.Damage(playerPower);
                 //attack audio
@@ -667,6 +669,7 @@ public class InputManager : MonoBehaviour {
     public float RollDodge()
     {
         float dodgeChance = Random.Range(1, 100);
+        Debug.Log(dodgeChance +  " --------------------------------------");
         return dodgeChance;
     }
     public void TakePoison()
