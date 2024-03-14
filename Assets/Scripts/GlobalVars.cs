@@ -25,6 +25,9 @@ public static class GlobalVars {
 
     //Specific Level info
     public static List<Vector3Int> L1_houseTiles = new List<Vector3Int>();
+    public static List<Vector3Int> L2_trees = new List<Vector3Int>();
+    public static List<Vector3Int> L3_trees = new List<Vector3Int>();
+    public static List<Vector3Int> L4_Buttons = new List<Vector3Int>();
 
     public static void levelClear() {
         hexagonTile = new Dictionary<Vector3Int , GameObject>();
@@ -45,5 +48,8 @@ public static class GlobalVars {
         spawnWaves = new Queue<SpawnWave>();
 
         L1_houseTiles = new List<Vector3Int>();
+        L2_trees = new List<Vector3Int>();
+        L3_trees = new List<Vector3Int>();
+        L4_Buttons = new List<Vector3Int>();
     }
 }
