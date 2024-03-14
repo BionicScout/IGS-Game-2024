@@ -56,7 +56,6 @@ public class InputManager : MonoBehaviour {
         //healScrollAMT = 1;
     }
     void Update() {
-        InteractIndicators();
         if(clickedUI) {
             clickedUI = false;
             return;
