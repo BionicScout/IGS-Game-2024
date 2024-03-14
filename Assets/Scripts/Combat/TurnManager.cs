@@ -18,7 +18,7 @@ public class TurnManager : MonoBehaviour {
 
     public GameObject PlayerMenu;
     public GameObject WinMenu, LoseMenu;
-    InputManager InputManager;
+    public InputManager InputManager;
 
     int turn = 0;
     public Queue<SpawnWave> spawnQueue;
@@ -153,13 +153,13 @@ public class TurnManager : MonoBehaviour {
     public void EndTurn() {
         UpdateActiveMenu();
         StartCoroutine(ExecuteEnemyTurn());
-        //InputManager.TakePoison();
+        InputManager.TakePoison();
     }
 
     public void StartEnemyTurn() {
         turn++;
         StartCoroutine(ExecuteEnemyTurn());
-        //InputManager.TakePoison();
+        InputManager.TakePoison();
     }
 
     IEnumerator ExecuteEnemyTurn() {
@@ -197,7 +197,7 @@ public class TurnManager : MonoBehaviour {
         }
         else
         {
-            //InputManager.TakePoison();
+            InputManager.TakePoison();
         }
 
         //Instantiate(hitParticles, worldSpacePos , Quaternion.identity);
