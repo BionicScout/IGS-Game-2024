@@ -9,6 +9,7 @@ using UnityEngine.TestTools;
 using System.Runtime.CompilerServices;
 using Random = UnityEngine.Random;
 using UnityEditor;
+using System.Drawing;
 
 
 public class InputManager : MonoBehaviour {
@@ -54,7 +55,7 @@ public class InputManager : MonoBehaviour {
         //healScrollAMT = 1;
     }
     void Update() {
-
+        InteractIndicators();
         if(clickedUI) {
             clickedUI = false;
             return;
@@ -543,15 +544,17 @@ public class InputManager : MonoBehaviour {
         //    }
         //}
     }
-    public void InteractIndicators(bool onOff)
+    public void InteractIndicators()
     {
-        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, 1))
+        //List<Vector3Int> InteractableTiles = new List<Vector3Int>();
+        foreach (KeyValuePair<Vector3Int, TileScriptableObjects> temp in GlobalVars.hexagonTileRefrence)
         {
-            Vector3Int t = temp.Item1;
-            if (GlobalVars.hexagonTile[t].GetComponent<TileScriptableObjects>().interactable)
+            Vector3Int t = temp.Key;
+            if (temp.Value.interactable)
             {
+                //InteractableTiles.Add(t);
                 //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
-                GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(onOff);
+                GlobalVars.hexagonTile[t].transform.GetChild(6).gameObject.SetActive(true);
             }
         }
     }
