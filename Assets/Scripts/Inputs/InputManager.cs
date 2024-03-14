@@ -288,7 +288,7 @@ public class InputManager : MonoBehaviour {
         MoveIndicators(false);
         ShootIndicators(false);
         HealIndicators(false);
-        int ogDodge = GlobalVars.players[clickedCoord].dodge;
+        int ogDodge = GlobalVars.players[playerCoord].dodge;
 
         Pathfinding.AllPossibleTiles(clickedCoord , 1);
 
@@ -318,7 +318,7 @@ public class InputManager : MonoBehaviour {
                 }
                 GlobalVars.players[clickedCoord].dodge = ogDodge;
             }
-            else if (RollDodge() < GlobalVars.players[clickedCoord].dodge)
+            else if (RollDodge() < GlobalVars.players[playerCoord].dodge)
             {
                 //Deals damage
                 enemyStats.Damage(playerPower);
