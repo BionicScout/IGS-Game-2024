@@ -210,7 +210,7 @@ public class TurnManager : MonoBehaviour {
             if (InputManager.InSmoke())
             {
                 enemystats.dodge = InputManager.smokeDodge;
-                if(InputManager.RollDodge() < enemystats.dodge)
+                if(InputManager.RollDodge() > enemystats.dodge)
                 {
                     Stats stats = GlobalVars.players[command.attackTile];
                     stats.curHealth -= stats.Damage(enemystats.power);
@@ -240,7 +240,7 @@ public class TurnManager : MonoBehaviour {
                 }
                 enemystats.dodge = ogDodge;
             }
-            else if(InputManager.RollDodge() < enemystats.dodge)
+            else if(InputManager.RollDodge() > enemystats.dodge)
             {
                 Stats stats = GlobalVars.players[command.attackTile];
                 stats.curHealth -= stats.Damage(enemystats.power);
