@@ -146,12 +146,7 @@ public class InputManager : MonoBehaviour {
             }
             if(inputMode == modes.interact)
             {
-                if (GlobalVars.hexagonTile[clickedCoord].GetComponent<TileScriptableObjects>().interactable)
-                {
-                    GlobalVars.hexagonTile[clickedCoord].GetComponent<TileScriptableObjects>().interactable = false;
-                    GlobalVars.hexagonTile[clickedCoord].GetComponent<TileScriptableObjects>().isObstacle = false;
-                    //indicate something happened through tile change, maybe
-                }
+                Interact();
                 inputMode = modes.normal;
             }
         }
@@ -216,7 +211,7 @@ public class InputManager : MonoBehaviour {
     {
         MoveIndicators(false);
         HealIndicators(false);
-        InteractIndicators(true);
+        InteractIndicators();
     }
 
     /*********************************
