@@ -3309,7 +3309,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 182730969}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: Items
+        m_MethodName: ItemMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
