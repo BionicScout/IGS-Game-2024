@@ -24,16 +24,6 @@ public class LevelingUp : MonoBehaviour
 
     private void Update()
     {
-        SwordsmanLvl();
-        Debug.Log("Went through swordsman");
-        PaladinLvl();
-        SpearmanLvl();
-        CrossbowLvl();
-        ArcherLvl();
-        ClericLvl();
-        AlchemistLvl();
-        IllusionistLvl();
-
         if (Input.GetKeyDown(KeyCode.F))
         {
             SceneSwapper.LoadHoldScene();
@@ -42,6 +32,14 @@ public class LevelingUp : MonoBehaviour
 
     public void NextOption()
     {
+        SwordsmanLvl();
+        PaladinLvl();
+        SpearmanLvl();
+        CrossbowLvl();
+        ArcherLvl();
+        ClericLvl();
+        AlchemistLvl();
+        IllusionistLvl();
         selectedOption = (selectedOption + 1) % GlobalVars.choosenPlayers.Count;
         if (selectedOption >= GlobalVars.choosenPlayers.Count)
         {
@@ -52,6 +50,14 @@ public class LevelingUp : MonoBehaviour
 
     public void BackOption()
     {
+        SwordsmanLvl();
+        PaladinLvl();
+        SpearmanLvl();
+        CrossbowLvl();
+        ArcherLvl();
+        ClericLvl();
+        AlchemistLvl();
+        IllusionistLvl();
         selectedOption = (selectedOption - 1) % GlobalVars.choosenPlayers.Count;
         if (selectedOption < 0)
         {
@@ -77,17 +83,11 @@ public class LevelingUp : MonoBehaviour
             { 
                 GlobalVars.choosenPlayers[selectedOption].power += 1;
                 GlobalVars.choosenPlayers[selectedOption].charLevel += 1;
-
-                Debug.Log(GlobalVars.choosenPlayers[selectedOption].power);
-                Debug.Log(GlobalVars.choosenPlayers[selectedOption].charLevel);
             }
             else if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
             {
                 GlobalVars.choosenPlayers[selectedOption].power += 1;
                 GlobalVars.choosenPlayers[selectedOption].charLevel += 1;
-
-                Debug.Log(GlobalVars.choosenPlayers[selectedOption].power);
-                Debug.Log(GlobalVars.choosenPlayers[selectedOption].charLevel);
             }
         }
         else if (GlobalVars.choosenPlayers[selectedOption].charType == "Paladin")
