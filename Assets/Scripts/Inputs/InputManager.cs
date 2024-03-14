@@ -224,7 +224,7 @@ public class InputManager : MonoBehaviour {
         WackIndicators(false);
         MoveIndicators(false);
         HealIndicators(false);
-        int ogDodge = GlobalVars.players[clickedCoord].dodge;
+        int ogDodge = GlobalVars.players[playerCoord].dodge;
 
         turnManager.Player_HardAction(playerCoord);
 
@@ -255,7 +255,7 @@ public class InputManager : MonoBehaviour {
                 }
                 GlobalVars.players[clickedCoord].dodge = ogDodge;
             }
-            else if (RollDodge() < GlobalVars.players[clickedCoord].dodge)
+            else if (RollDodge() < GlobalVars.players[playerCoord].dodge)
             {
                 //deals damage
                 enemyStats.Damage(playerPower);
