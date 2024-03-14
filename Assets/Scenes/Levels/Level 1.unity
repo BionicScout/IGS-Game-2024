@@ -1183,6 +1183,7 @@ MonoBehaviour:
   playerDefense: 0
   playerMaxHealth: 0
   poisonDmg: 0
+  smokeDodge: 0
   clickedUI: 0
   selectedPlayerMenu: {fileID: 409865014}
   statsMenu: {fileID: 688955342}
@@ -2697,8 +2698,8 @@ Transform:
   m_GameObject: {fileID: 544611182}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.6947923, y: 1.6847, z: 10.000108}
-  m_LocalScale: {x: 46.6578, y: 24.583466, z: 1}
+  m_LocalPosition: {x: 4, y: 3, z: 10.000108}
+  m_LocalScale: {x: 40, y: 30, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2090282534}
