@@ -66,6 +66,20 @@ MonoBehaviour:
     loop: 0
     soundTrack: 0
     source: {fileID: 0}
+  - name: Player-Hurt
+    clip: {fileID: 8300000, guid: 142867e37cb284a47b4eff1c7dd9cbc6, type: 3}
+    volume: 0.497
+    pitch: 1
+    loop: 0
+    soundTrack: 0
+    source: {fileID: 0}
+  - name: Potion
+    clip: {fileID: 8300000, guid: 674e3572b13a99947bef13227e4bbfeb, type: 3}
+    volume: 0.509
+    pitch: 1
+    loop: 0
+    soundTrack: 0
+    source: {fileID: 0}
   fade: 0
   fadeTime: 2
   genericSound:

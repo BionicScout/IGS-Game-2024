@@ -218,7 +218,9 @@ public class TurnManager : MonoBehaviour {
 
                     PlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
 
-                   // Debug.Log("PLayer Health After: " + GlobalVars.players[command.attackTile].curHealth);
+                    // Debug.Log("PLayer Health After: " + GlobalVars.players[command.attackTile].curHealth);
+
+                    AudioManager.instance.Play("Player-Hurt");
 
 
                     //Player Dies
@@ -249,6 +251,8 @@ public class TurnManager : MonoBehaviour {
                 PlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
 
                 // Debug.Log("PLayer Health After: " + GlobalVars.players[command.attackTile].curHealth);
+
+                AudioManager.instance.Play("Player-Hurt");
 
 
                 //Player Dies
