@@ -45,6 +45,7 @@ public class Stats : ScriptableObject
 
     }
 
+    //used for when we need to just get the stats and not modify them
     public Stats Copy() {
         Stats copy = CreateInstance<Stats>();
 

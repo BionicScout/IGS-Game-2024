@@ -101,8 +101,7 @@ public class InputManager : MonoBehaviour {
 
                     //sets all indicators false when players are clicked
                     MoveIndicators(false);
-                    WackIndicators(false);
-                    ShootIndicators(false);
+                    AttackIndicators(false);
                     HealIndicators(false);
 
                 }
@@ -156,44 +155,34 @@ public class InputManager : MonoBehaviour {
             }
         }
 
-
+        //Debug stuff
         if(Input.GetKeyDown(KeyCode.G)) {
             UpdateHealth(-1);
         }
         if(Input.GetKeyDown(KeyCode.H)) {
             UpdateHealth(1);
         }
-
-        //if(Input.GetKeyDown(KeyCode.G)) {
-        //    AudioManager.instance.Play("Attack");
-        //}
-        //if(Input.GetKeyDown(KeyCode.H)) {
-        //    AudioManager.instance.Play("Death-Bells");
-        //}
     }
-
-
 
     /*********************************
         Update Input Mode
     *********************************/
-    public void SetShoot() {
+    //public void SetShoot() {
+    //    MoveIndicators(false);
+    //    HealIndicators(false);
+    //    ShootIndicators(true);
+    //    inputMode = modes.attack;
+    //    clickedUI = true;
+    //}
+    public void SetAttack() {
         MoveIndicators(false);
         HealIndicators(false);
-        ShootIndicators(true);
-        inputMode = modes.attack;
-        clickedUI = true;
-    }
-    public void SetWack() {
-        MoveIndicators(false);
-        HealIndicators(false);
-        WackIndicators(true);
+        AttackIndicators(true);
         inputMode = modes.attack;
         clickedUI = true;
     }
     public void SetMove() {
-        ShootIndicators(false);
-        WackIndicators(false);
+        AttackIndicators(false);
         HealIndicators(false);
         MoveIndicators(true);
         inputMode = modes.move;
@@ -206,8 +195,7 @@ public class InputManager : MonoBehaviour {
         clickedUI = true;
     }
     public void SetHeal() {
-        ShootIndicators(false);
-        WackIndicators(false);
+        AttackIndicators(false);
         HealIndicators(true);
         inputMode = modes.heal;
         clickedUI = true;
@@ -224,7 +212,6 @@ public class InputManager : MonoBehaviour {
         Actions
     *********************************/
     public void Shoot(Vector3Int hexCoordOfEnemy , float damage) {
-        WackIndicators(false);
         MoveIndicators(false);
         HealIndicators(false);
         int ogDodge = GlobalVars.players[playerCoord].dodge;
@@ -277,7 +264,7 @@ public class InputManager : MonoBehaviour {
                     //AudioManager.instance.Play("Deah-Sound");
                 }
             }
-            ShootIndicators(false);
+            AttackIndicators(false);
 
             Pathfinding.AllPossibleTiles(clickedCoord , playerAttRange);
 
@@ -290,7 +277,6 @@ public class InputManager : MonoBehaviour {
     }
     public void Wack(Vector3Int hexCoordOfEnemy , float damage) {
         MoveIndicators(false);
-        ShootIndicators(false);
         HealIndicators(false);
         int ogDodge = GlobalVars.players[playerCoord].dodge;
 
@@ -343,7 +329,7 @@ public class InputManager : MonoBehaviour {
                 }
             }
             //enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
-            WackIndicators(false);
+            AttackIndicators(false);
 
             turnManager.Player_HardAction(playerCoord);
 
@@ -355,7 +341,6 @@ public class InputManager : MonoBehaviour {
     }
     public void Poison() 
     {
-        WackIndicators(false);
         MoveIndicators(false);
         HealIndicators(false);
 
@@ -365,7 +350,7 @@ public class InputManager : MonoBehaviour {
         {
             if (Vector3Int.Distance(clickedCoord, playerCoord) <= playerAttRange + 1)
             {
-                ShootIndicators(false);
+                AttackIndicators(false);
 
                 GlobalVars.poisonTiles.Add(clickedCoord, 2);
                 GlobalVars.hexagonTile[clickedCoord].transform.GetChild(4).gameObject.SetActive(true);
@@ -400,7 +385,6 @@ public class InputManager : MonoBehaviour {
     }
     public void SmokeBomb()
     {
-        WackIndicators(false);
         MoveIndicators(false);
         HealIndicators(false);
 
@@ -408,7 +392,7 @@ public class InputManager : MonoBehaviour {
 
         if (Vector3Int.Distance(clickedCoord, playerCoord) <= playerAttRange + 1)
         {
-            ShootIndicators(false);
+            AttackIndicators(false);
 
             foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(clickedCoord, 1))
             {
@@ -425,8 +409,7 @@ public class InputManager : MonoBehaviour {
         GlobalVars.players[playerCoord].defense = playerDefense;
     }
     public void Heal(int healthBack) {
-        ShootIndicators(false);
-        WackIndicators(false);
+        AttackIndicators(false);
 
         if (GlobalVars.players[clickedCoord].charLevel == 1) 
         { 
@@ -469,8 +452,7 @@ public class InputManager : MonoBehaviour {
         GlobalVars.players[playerCoord].defense = playerDefense;
     }
     public void Move() {
-        ShootIndicators(false);
-        WackIndicators(false);
+        AttackIndicators(false);
 
         int moveRange = turnManager.getMovementLeft(playerCoord);
         List<Tuple<Vector3Int , int>> possibles = Pathfinding.AllPossibleTiles(clickedCoord , moveRange);
@@ -537,9 +519,6 @@ public class InputManager : MonoBehaviour {
             }
         }
 
-
-
-
         turnManager.Player_HardAction(playerCoord);
     }
 
@@ -556,14 +535,8 @@ public class InputManager : MonoBehaviour {
             GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(onOff);
         }
     }
-    public void WackIndicators(bool onOff) {
-        foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , 1)) {
-            Vector3Int t = temp.Item1;
-            //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
-            GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(onOff);
-        }
-    }
-    public void ShootIndicators(bool onOff) {
+
+    public void AttackIndicators(bool onOff) {
         foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , playerAttRange)) {
             Vector3Int t = temp.Item1;
             //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
@@ -722,20 +695,20 @@ public class InputManager : MonoBehaviour {
         items.healScrollAMT--;
     }
 
-
     /*********************************
         Other
     *********************************/
     public void RemoveEnmey(Vector3Int enemyHex) {
         GlobalVars.enemies.Remove(enemyHex);        
     }
-
+    //randomizes from 1-100 to see if a player or enemy dodged an attack
     public float RollDodge()
     {
         float dodgeChance = Random.Range(1, 100);
         Debug.Log(dodgeChance +  " --------------------------------------");
         return dodgeChance;
     }
+    //Checks how many turns are left for a tile effected by poison, removes it from the dictonary if equals 0
     public void TakePoison()
     {
         foreach(KeyValuePair<Vector3Int, Stats> coord in GlobalVars.players)
@@ -755,6 +728,7 @@ public class InputManager : MonoBehaviour {
             }
         }
     }
+    //Checks how many turns are left for a tile effected by smoke, removes it from the dictonary if equals 0
     public bool InSmoke()
     {
         foreach (KeyValuePair<Vector3Int, Stats> coord in GlobalVars.players)
@@ -775,7 +749,7 @@ public class InputManager : MonoBehaviour {
         }
         return false;
     }
-
+    //gets the position of a mouse click
     public Vector3Int GetPosition() {
         if(Input.GetMouseButtonDown(0)) {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -795,6 +769,4 @@ public class InputManager : MonoBehaviour {
     {
         slider.value = curValue / maxValue;
     }
-
 }
-
