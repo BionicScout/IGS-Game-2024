@@ -6,21 +6,34 @@ using UnityEngine.UI;
 
 public class Items : MonoBehaviour
 {
-    public int singleHealAMT, powerBuffAMT, defenseBuffAMT, reviveAMT, healScrollAMT;
-    public TextMeshProUGUI singleHealTxt, powerBuffTxt, defenseBuffTxt, reviveTxt, healScrollTxt;
-    public Button singleHealBTN, powerBuffBTN, defenseBuffBTN, reviveBTN, healScrollBTN;
-    public Button shUseBTN, pbUseBTN, dbUseBTN, rUseBTN, hsUSeBTN;
+    [Header("Amount")]
+    public int singleHealAMT;
+    public int powerBuffAMT;
+    public int defenseBuffAMT;
+    public int reviveAMT;
+    public int healScrollAMT;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //singleHealAMT = 0;
-        //powerBuffAMT = 0;
-        //defenseBuffAMT = 0;
-        //reviveAMT = 0;
-        //healScrollAMT = 0;
+    [Header("The Text")]
+    public TextMeshProUGUI singleHealTxt;
+    public TextMeshProUGUI powerBuffTxt;
+    public TextMeshProUGUI defenseBuffTxt;
+    public TextMeshProUGUI reviveTxt;
+    public TextMeshProUGUI healScrollTxt;
 
-    }
+    [Header("Buttons on Item")]
+    public Button singleHealBTN;
+    public Button powerBuffBTN;
+    public Button defenseBuffBTN;
+    public Button reviveBTN;
+    public Button healScrollBTN;
+
+    [Header("Buttons to Use")]
+    public Button shUseBTN;
+    public Button pbUseBTN;
+    public Button dbUseBTN;
+    public Button rUseBTN;
+    public Button hsUSeBTN;
+
     //For buttons
     public void SetSingleHeal()
     {
@@ -47,7 +60,7 @@ public class Items : MonoBehaviour
         hsUSeBTN.gameObject.SetActive(true);
         hsUSeBTN.interactable = true;
     }
-
+    //function to clear inventory/items
     public void ClearItems()
     {
         singleHealAMT = 0;

@@ -13,18 +13,15 @@ public class UnitSelectionManager : MonoBehaviour {
         for(int i = 0; i < 4; i++) {
             selections[i].Load(this, i);
         }
-
         SceneSwapper.setCurrentScene();
     }
-
+    //adds all chracter stats into a list
     public void Submit() {
         GlobalVars.choosenPlayers.Clear();
 
         foreach(SingleCharacterSelection s in selections) {
             GlobalVars.choosenPlayers.Add(playerStats[s.selectedOption].Copy());
         }
-
-        //HAVE TO CHANGE THIS BACK, ONLY FOR TESTING OURPUSES
         SceneSwapper.A_LoadScene(nextScene);
     }
 }

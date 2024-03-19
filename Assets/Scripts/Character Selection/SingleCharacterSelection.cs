@@ -15,7 +15,7 @@ public class SingleCharacterSelection : MonoBehaviour {
     private void Start() {
         spriteIcon = GetComponent<SpriteRenderer>();
     }
-
+    //buttons that change the selection number
     public void NextOption() {
         selectedOption = (selectedOption + 1) % selMan.playerStats.Count;
         if(selectedOption >= selMan.playerStats.Count) {
@@ -31,13 +31,13 @@ public class SingleCharacterSelection : MonoBehaviour {
         }
         UpdateCharacter();
     }
-
+    //changes the name and sprite depending on selection number
     private void UpdateCharacter() {
         Stats stats = selMan.playerStats[selectedOption];
         spriteIcon.sprite = stats.sprite;
         nameTxt.text = stats.charType;
     }
-
+    //functions to load the chossen characters into the levels
     public void Load(UnitSelectionManager manager, int loadChar) {
         selMan = manager;
 

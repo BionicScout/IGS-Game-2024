@@ -11,6 +11,9 @@ using Random = UnityEngine.Random;
 using UnityEditor;
 using System.Drawing;
 using System.Linq;
+using UnityEngine.UIElements;
+using Slider = UnityEngine.UI.Slider;
+using Image = UnityEngine.UI.Image;
 
 
 public class InputManager : MonoBehaviour {
@@ -36,6 +39,9 @@ public class InputManager : MonoBehaviour {
     Vector3 worldSpacePos;
     public GameObject selectedPlayerMenu, statsMenu, itemMenu;
     public TextMeshProUGUI moveTxt, powerTxt, defenseTxt, healthTxt, powerRangeTxt, charTypeTxt;
+
+    [SerializeField] 
+    public Slider slider;
 
     //HexObjInfo hexObjInfo;
 
@@ -785,7 +791,10 @@ public class InputManager : MonoBehaviour {
         }
         return Vector3Int.zero;
     }
+    public void UpdateHealthBar(float curValue, float maxValue)
+    {
+        slider.value = curValue / maxValue;
+    }
 
-   
 }
 
