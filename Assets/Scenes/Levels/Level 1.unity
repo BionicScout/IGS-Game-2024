@@ -11794,8 +11794,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Testagon: {fileID: 5476959118461974231, guid: 67cdcf27f5c35564d9978725c4dd7434, type: 3}
-  size: {x: 1, y: 1}
-  offset2: {x: 0, y: 0, z: 0}
   tilemapObj: {fileID: 1724124727}
   tileTemplates:
   - {fileID: 11400000, guid: 8c2cb4a7ae58997469b739b882ffb9b0, type: 2}
@@ -14449,8 +14447,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 714617095}
+  - {fileID: 158494694}
   - {fileID: 114494335}
   - {fileID: 2090282534}
-  - {fileID: 158494694}
   - {fileID: 1724124729}
   - {fileID: 283666943}
