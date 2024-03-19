@@ -7,7 +7,15 @@ using UnityEngine.UI;
 
 public class LevelingUp : MonoBehaviour
 {
-    public TextMeshProUGUI nameTxt, healthTxt, powerTxt, moveTxt, defenseTxt, rangeTxt, nextLvlTxt;
+    [Header("Text")]
+    public TextMeshProUGUI nameTxt;
+    public TextMeshProUGUI healthTxt;
+    public TextMeshProUGUI powerTxt;
+    public TextMeshProUGUI moveTxt;
+    public TextMeshProUGUI defenseTxt;
+    public TextMeshProUGUI rangeTxt;
+    public TextMeshProUGUI nextLvlTxt;
+
     SpriteRenderer spriteIcon;
     public Button nextBTN, backBTN;
 
@@ -32,6 +40,7 @@ public class LevelingUp : MonoBehaviour
 
     public void NextOption()
     {
+        //checks what character is being loaded based of their name
         SwordsmanLvl();
         PaladinLvl();
         SpearmanLvl();
@@ -40,6 +49,7 @@ public class LevelingUp : MonoBehaviour
         ClericLvl();
         AlchemistLvl();
         IllusionistLvl();
+        //changes all information based on the selection number
         selectedOption = (selectedOption + 1) % GlobalVars.choosenPlayers.Count;
         if (selectedOption >= GlobalVars.choosenPlayers.Count)
         {
@@ -50,6 +60,7 @@ public class LevelingUp : MonoBehaviour
 
     public void BackOption()
     {
+        //checks what character is being loaded based of their name
         SwordsmanLvl();
         PaladinLvl();
         SpearmanLvl();
@@ -58,6 +69,7 @@ public class LevelingUp : MonoBehaviour
         ClericLvl();
         AlchemistLvl();
         IllusionistLvl();
+        //changes all information based on the selection number
         selectedOption = (selectedOption - 1) % GlobalVars.choosenPlayers.Count;
         if (selectedOption < 0)
         {
@@ -65,7 +77,7 @@ public class LevelingUp : MonoBehaviour
         }
         UpdateCharacter();
     }
-
+    //changes the name and sprite depending on selection number
     private void UpdateCharacter()
     {
         Stats stats = GlobalVars.choosenPlayers[selectedOption];
@@ -76,7 +88,7 @@ public class LevelingUp : MonoBehaviour
     //Actually changes the stats
     public void LevelUpCharacter()
     {
-        //All Melee Characters
+        //Changes for Melee Characters
         if (GlobalVars.choosenPlayers[selectedOption].charType == "Swordsman")
         {
             if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1) 
@@ -116,7 +128,7 @@ public class LevelingUp : MonoBehaviour
             }
         }
         
-        //All Range Characters
+        //Changes for Range Characters
         else if (GlobalVars.choosenPlayers[selectedOption].charType == "Crossbowman")
         {
             if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
@@ -142,7 +154,7 @@ public class LevelingUp : MonoBehaviour
             }
         }
         
-        //All Magic Characters
+        //Changes for Magic Characters
         else if (GlobalVars.choosenPlayers[selectedOption].charType == "Cleric")
         {
             if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
@@ -215,15 +227,6 @@ public class LevelingUp : MonoBehaviour
                 nextLvlTxt.text = "Fully Upgraded";
             }
         }
-
-        //how lists and dictionarys kinda aer called
-        //List<Stats> list = new List<Stats>();
-        //list.Add(new Stats());
-        //list[0];
-
-        //Dictionary<Vector3Int, Stats> dict = new Dictionary<Vector3Int, Stats>();
-        //dict.Add(new Vector3Int(1, -1, 0), new Stats());
-        //dict[new Vector3Int(1, -1, 0)];
 
     }
     public void PaladinLvl()

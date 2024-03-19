@@ -22,6 +22,7 @@ public class CameraMove : MonoBehaviour
     private float mapMaxX;
     private float mapMaxY;
 
+    //gets the Min/Max of X/Y form the sprite render to use for camera bounds
     private void Awake()
     {
         mapMinX = spriteRenderer.transform.position.x - spriteRenderer.bounds.size.x / 2f;
@@ -36,12 +37,10 @@ public class CameraMove : MonoBehaviour
     private void Start()
     {
         zoom = cam.orthographicSize;
-
     }
 
     private void LateUpdate()
     {
-
         //moves camera when right click is held and moved
         if (Input.GetMouseButtonDown(1))
         {
@@ -50,7 +49,6 @@ public class CameraMove : MonoBehaviour
         if (Input.GetMouseButton(1))
         {
             Vector3 difference = dragOrigin - cam.ScreenToWorldPoint(Input.mousePosition);
-            //cam.transform.position += difference;
             cam.transform.position = ClampCam(cam.transform.position + difference);
         }
 
@@ -62,6 +60,7 @@ public class CameraMove : MonoBehaviour
 
     }
 
+    //keeps camera from moving outside a bound
     private Vector3 ClampCam(Vector3 targetPos)
     {
         float camHeight = cam.orthographicSize;

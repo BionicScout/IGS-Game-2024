@@ -1206,6 +1206,7 @@ MonoBehaviour:
   healthTxt: {fileID: 1710025193}
   powerRangeTxt: {fileID: 1388997694}
   charTypeTxt: {fileID: 1307086794}
+  slider: {fileID: 7365904326876002922, guid: f6c36e91f800a7446a6ae99b1ee3626a, type: 3}
 --- !u!1 &196413651
 GameObject:
   m_ObjectHideFlags: 0

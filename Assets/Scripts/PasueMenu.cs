@@ -20,6 +20,7 @@ public class PasueMenu : MonoBehaviour
             PauseGame();
         }
     }
+    //turns pause menu on or off
     public void PauseGame()
     {
         if (isPaused)
@@ -35,6 +36,7 @@ public class PasueMenu : MonoBehaviour
             isPaused = true;
         }
     }
+    //functions for buttons
     public void MainMenu()
     {
         SceneManager.LoadScene(mainMenu);
@@ -44,10 +46,6 @@ public class PasueMenu : MonoBehaviour
     {
         Debug.Log("QUIT");
         Application.Quit();
-
-    }
-    public void Next()
-    {
 
     }
 }
