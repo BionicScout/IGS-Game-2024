@@ -10531,8 +10531,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Testagon: {fileID: 5476959118461974231, guid: 67cdcf27f5c35564d9978725c4dd7434, type: 3}
-  size: {x: 1, y: 1}
-  offset2: {x: 0, y: 0, z: 0}
   tilemapObj: {fileID: 1972516522}
   tileTemplates:
   - {fileID: 11400000, guid: c704d06506c45fe4889325bb388cfee1, type: 2}
@@ -13555,8 +13553,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: befc4a22fd13560449d677cd04eb1602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clickedUI: 0
   items: {fileID: 807120143}
   hitParticles: {fileID: 1052758049302362282, guid: e9dbf8a590745754680ef205c90d71df, type: 3}
+  slider: {fileID: 0}
   playerMove: 0
   playerPower: 0
   playerAttRange: 0
@@ -13564,7 +13564,6 @@ MonoBehaviour:
   playerMaxHealth: 0
   poisonDmg: 0
   smokeDodge: 0
-  clickedUI: 0
   selectedPlayerMenu: {fileID: 2129190434}
   statsMenu: {fileID: 1548334233}
   itemMenu: {fileID: 807120141}

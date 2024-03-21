@@ -718,7 +718,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 182730969}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
-        m_MethodName: SetWack
+        m_MethodName: SetAttack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1307,8 +1307,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: befc4a22fd13560449d677cd04eb1602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clickedUI: 0
   items: {fileID: 2143430591}
   hitParticles: {fileID: 1052758049302362282, guid: e9dbf8a590745754680ef205c90d71df, type: 3}
+  slider: {fileID: 7365904326876002922, guid: f6c36e91f800a7446a6ae99b1ee3626a, type: 3}
   playerMove: 0
   playerPower: 0
   playerAttRange: 0
@@ -1316,7 +1318,6 @@ MonoBehaviour:
   playerMaxHealth: 0
   poisonDmg: 0
   smokeDodge: 0
-  clickedUI: 0
   selectedPlayerMenu: {fileID: 409865014}
   statsMenu: {fileID: 688955342}
   itemMenu: {fileID: 2143430589}
@@ -1326,7 +1327,6 @@ MonoBehaviour:
   healthTxt: {fileID: 1710025193}
   powerRangeTxt: {fileID: 1388997694}
   charTypeTxt: {fileID: 1307086794}
-  slider: {fileID: 7365904326876002922, guid: f6c36e91f800a7446a6ae99b1ee3626a, type: 3}
 --- !u!1 &196413651
 GameObject:
   m_ObjectHideFlags: 0

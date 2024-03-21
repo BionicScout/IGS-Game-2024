@@ -27,21 +27,37 @@ public class InputManager : MonoBehaviour {
     }
 
     modes inputMode;
+    public bool clickedUI = false;
     public Items items;
 
     [SerializeField]
     GameObject hitParticles;
-
-    public int playerMove, playerPower, playerAttRange, playerDefense, playerMaxHealth, poisonDmg, smokeDodge;
-    public bool clickedUI = false;
-    //public float stopTime;
-    static Vector3Int clickedCoord, playerCoord, enemyCoord, mouseCoord;
-    Vector3 worldSpacePos;
-    public GameObject selectedPlayerMenu, statsMenu, itemMenu;
-    public TextMeshProUGUI moveTxt, powerTxt, defenseTxt, healthTxt, powerRangeTxt, charTypeTxt;
-
     [SerializeField] 
     public Slider slider;
+
+    [Header("Stats")]
+    public int playerMove;
+    public int playerPower;
+    public int playerAttRange;
+    public int playerDefense;
+    public int playerMaxHealth;
+    public int poisonDmg;
+    public int smokeDodge; 
+
+    static Vector3Int clickedCoord, playerCoord, enemyCoord, mouseCoord;
+    Vector3 worldSpacePos;
+    [Header("Menus")]
+    public GameObject selectedPlayerMenu;
+    public GameObject statsMenu;
+    public GameObject itemMenu;
+    [Header("Text")]
+    public TextMeshProUGUI moveTxt;
+    public TextMeshProUGUI powerTxt;
+    public TextMeshProUGUI defenseTxt;
+    public TextMeshProUGUI healthTxt;
+    public TextMeshProUGUI powerRangeTxt;
+    public TextMeshProUGUI charTypeTxt;
+
 
     //HexObjInfo hexObjInfo;
 
@@ -55,30 +71,30 @@ public class InputManager : MonoBehaviour {
         selectedPlayerMenu.SetActive(true);
         statsMenu.SetActive(false);
         turnManager = FindAnyObjectByType<TurnManager>();
-        //singleHealAMT = 2;
-        //powerBuffAMT = 3;
-        //defenseBuffAMT = 2;
-        //reviveAMT = 2;
-        //healScrollAMT = 1;
+
     }
     void Update() {
         if(clickedUI) {
             clickedUI = false;
             return;
         }
-        //stopTime += Time.deltaTime;
 
         GetPosition();
-
+        //checked if the player lef clicked and gets the coord
         if(Input.GetMouseButtonDown(0)) {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x , mousePos.y);
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D , Vector2.zero);
+            foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(clickedCoord, 20))
+            {
+                Vector3Int t = temp.Item1;
+                GlobalVars.hexagonTile[t].transform.GetChild(5).gameObject.SetActive(false);
+            }
+            GlobalVars.hexagonTile[clickedCoord].transform.GetChild(5).gameObject.SetActive(true);
 
             worldSpacePos = mousePos;
-
+            //if the player clicked on a collider the if their is a character on that tile
             if(hit.collider != null) {
-                GlobalVars.hexagonTile[clickedCoord].transform.GetChild(5).gameObject.SetActive(false);
                 if (GlobalVars.players.ContainsKey(clickedCoord)) {
                     playerCoord = clickedCoord;
                     UpdatePlayerMenu();
@@ -90,6 +106,7 @@ public class InputManager : MonoBehaviour {
                     playerDefense = GlobalVars.players[clickedCoord].defense;
                     playerMaxHealth = GlobalVars.players[clickedCoord].maxHealth;
 
+                    //Characters specific tings that need to be stored
                     if (GlobalVars.players[clickedCoord].charType == "Alchemist")
                     {
                         poisonDmg = GlobalVars.players[clickedCoord].power;
@@ -106,7 +123,7 @@ public class InputManager : MonoBehaviour {
 
                 }
             }
-
+            //triggers the specific functions from the buttons
             if(inputMode == modes.attack) {
                 if (GlobalVars.players[playerCoord].charType == "Swordsman" || GlobalVars.players[playerCoord].charType == "Spearman" || GlobalVars.players[playerCoord].charType == "Paladin")
                 {
@@ -167,13 +184,6 @@ public class InputManager : MonoBehaviour {
     /*********************************
         Update Input Mode
     *********************************/
-    //public void SetShoot() {
-    //    MoveIndicators(false);
-    //    HealIndicators(false);
-    //    ShootIndicators(true);
-    //    inputMode = modes.attack;
-    //    clickedUI = true;
-    //}
     public void SetAttack() {
         MoveIndicators(false);
         HealIndicators(false);
@@ -272,6 +282,7 @@ public class InputManager : MonoBehaviour {
             GlobalVars.players.Remove(clickedCoord);
 
         }
+        //resets a players power and defense incase they used an item
         GlobalVars.players[playerCoord].power = playerPower;
         GlobalVars.players[playerCoord].defense = playerDefense;
     }
@@ -286,9 +297,11 @@ public class InputManager : MonoBehaviour {
             //Get Player and current + future hex objs
             Stats enemyStats = GlobalVars.enemies[clickedCoord];
             GameObject enemyTileObj = GlobalVars.hexagonTile[clickedCoord];
+            //checks if player is in smoke and sets the illusionists power as the characters dodge
             if (InSmoke())
             {
                 GlobalVars.players[clickedCoord].dodge = smokeDodge;
+                //sees if the player misses the attack
                 if(RollDodge() > GlobalVars.players[clickedCoord].dodge)
                 {
                     //Deals damage
@@ -306,8 +319,10 @@ public class InputManager : MonoBehaviour {
                         AudioManager.instance.Play("Deah-Sound");
                     }
                 }
+                //resets the players dodge
                 GlobalVars.players[clickedCoord].dodge = ogDodge;
             }
+            //sees if the player misses the attack
             else if (RollDodge() > GlobalVars.players[playerCoord].dodge)
             {
                 Debug.Log("Attacked");
@@ -336,6 +351,7 @@ public class InputManager : MonoBehaviour {
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
         }
+        //resets a players power and defense incase they used an item
         GlobalVars.players[playerCoord].power = playerPower;
         GlobalVars.players[playerCoord].defense = playerDefense;
     }
@@ -351,7 +367,7 @@ public class InputManager : MonoBehaviour {
             if (Vector3Int.Distance(clickedCoord, playerCoord) <= playerAttRange + 1)
             {
                 AttackIndicators(false);
-
+                //adds selected tile to a dictionary and sets an indicaotor active
                 GlobalVars.poisonTiles.Add(clickedCoord, 2);
                 GlobalVars.hexagonTile[clickedCoord].transform.GetChild(4).gameObject.SetActive(true);
 
@@ -365,6 +381,7 @@ public class InputManager : MonoBehaviour {
         {
             foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, 1))
             {
+                //adds selected tiles to a dictionary and sets an indicaotors active
                 Vector3Int t = temp.Item1;
                 GlobalVars.poisonTiles.Add(t, 2);
                 foreach (Tuple<Vector3Int, int> coord in Pathfinding.AllPossibleTiles(clickedCoord, 1))
@@ -380,6 +397,7 @@ public class InputManager : MonoBehaviour {
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
         }
+        //resets a players power and defense incase they used an item
         GlobalVars.players[playerCoord].power = playerPower;
         GlobalVars.players[playerCoord].defense = playerDefense;
     }
@@ -396,6 +414,7 @@ public class InputManager : MonoBehaviour {
 
             foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(clickedCoord, 1))
             {
+                //adds selected tiles to a dictionary and sets an indicaotors active
                 Vector3Int t = temp.Item1;
                 GlobalVars.smokeTiles.Add(t, 2);
                 GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(true);
@@ -405,6 +424,7 @@ public class InputManager : MonoBehaviour {
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
         }
+        //resets a players power and defense incase they used an item
         GlobalVars.players[playerCoord].power = playerPower;
         GlobalVars.players[playerCoord].defense = playerDefense;
     }
@@ -435,6 +455,7 @@ public class InputManager : MonoBehaviour {
         {
             foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, 1))
             {
+                //heals all players in a 1 tile range
                 Vector3Int t = temp.Item1;
                 GlobalVars.players[t].Heal(healthBack);
                 Debug.Log("All players in 1 range are healed");
@@ -448,6 +469,7 @@ public class InputManager : MonoBehaviour {
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
         }
+        //resets a players power and defense incase they used an item
         GlobalVars.players[playerCoord].power = playerPower;
         GlobalVars.players[playerCoord].defense = playerDefense;
     }
@@ -475,7 +497,7 @@ public class InputManager : MonoBehaviour {
         Debug.Log("INTERACT");
 
         if(GlobalVars.L2_trees.Contains(clickedCoord)) {
-            //Convert Tree to Laying Down
+            //Convert Tree to Laying Down, changing specific tiles sprites
             TileScriptableObjects mainTileInfo = GlobalVars.hexagonTileRefrence[clickedCoord];
 
             foreach(Vector3Int offset in GlobalVars.hexagonTileRefrence[clickedCoord].tileChanges) {
@@ -495,7 +517,7 @@ public class InputManager : MonoBehaviour {
         }
 
         if(GlobalVars.L4_Buttons.Contains(clickedCoord)) {
-            //Convert Tree to Laying Down
+            //Changes buttons tile to button pressed
             TileScriptableObjects mainTileInfo = GlobalVars.hexagonTileRefrence[clickedCoord];
 
             foreach(Vector3Int offset in GlobalVars.hexagonTileRefrence[clickedCoord].tileChanges) {
@@ -531,59 +553,28 @@ public class InputManager : MonoBehaviour {
         int moveRange = turnManager.getMovementLeft(playerCoord);
         foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , moveRange)) {
             Vector3Int t = temp.Item1;
-            //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
             GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(onOff);
         }
     }
-
     public void AttackIndicators(bool onOff) {
         foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , playerAttRange)) {
             Vector3Int t = temp.Item1;
-            //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
             GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(onOff);
         }
     }
     public void HealIndicators(bool onOff) {
         foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , 1)) {
             Vector3Int t = temp.Item1;
-            //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
             GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(onOff);
         }
     }
-    public void ClickedIndicatorsOff() {
-        foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(clickedCoord , 10)) {
-            Vector3Int t = temp.Item1;
-            //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
-            GlobalVars.hexagonTile[t].transform.GetChild(5).gameObject.SetActive(false);
-        }
-    }
-    public void AOEIndicators(bool onOff)
-    {
-        //Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
-
-        //RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
-        //if (hit.collider != null)
-        //{
-        //    mouseCoord = hit.collider.gameObject.transform.GetComponent<HexObjInfo>().hexCoord;
-        //    foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(mouseCoord, playerAttRange))
-        //    {
-        //        Vector3Int t = temp.Item1;
-        //        //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
-        //        GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(onOff);
-        //    }
-        //}
-    }
     public void InteractIndicators()
     {
-        //List<Vector3Int> InteractableTiles = new List<Vector3Int>();
         foreach (KeyValuePair<Vector3Int, TileScriptableObjects> temp in GlobalVars.hexagonTileRefrence)
         {
             Vector3Int t = temp.Key;
             if (temp.Value.interactable)
             {
-                //InteractableTiles.Add(t);
-                //GlobalVars.hexagonTile[t].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = "(" + t.x + ", " + t.y + ", " + t.z + ")";
                 GlobalVars.hexagonTile[t].transform.GetChild(5).gameObject.SetActive(true);
             }
         }
@@ -597,9 +588,11 @@ public class InputManager : MonoBehaviour {
         statsMenu.SetActive(false);
 
         Stats stats = GlobalVars.players[playerCoord];
+        //updates sprites and health
         selectedPlayerMenu.transform.GetChild(2).GetComponent<Image>().sprite = stats.sprite;
         selectedPlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
     }
+    //sets a menu active and changes all the information
     public void StatsMenu() {
         statsMenu.SetActive(!statsMenu.activeSelf);
 
@@ -611,6 +604,7 @@ public class InputManager : MonoBehaviour {
         healthTxt.text = "Max Health: " + stats.maxHealth.ToString();
         powerRangeTxt.text = "Power Range: " + stats.attackRange.ToString();
     }
+    //sets a menu active and changes all the information
     public void ItemMenu()
     {
         itemMenu.SetActive(!itemMenu.activeSelf);
@@ -634,6 +628,7 @@ public class InputManager : MonoBehaviour {
     *********************************/
     public void SingleHeal()
     {
+        //heals the character
         if(items.singleHealAMT != 0)
         {
             Debug.Log("Player was Healed and item was used");
@@ -648,6 +643,7 @@ public class InputManager : MonoBehaviour {
         }
         items.singleHealAMT--;
     }
+    //adds one to the characters power 
     public void PowerBuff()
     {
         if(items.powerBuffAMT != 0)
@@ -658,6 +654,7 @@ public class InputManager : MonoBehaviour {
         }
         items.powerBuffAMT--;
     }
+    //adds one to te character defense
     public void DefenseBuff()
     {
         if (items.defenseBuffAMT != 0)
@@ -675,6 +672,7 @@ public class InputManager : MonoBehaviour {
         }
         items.reviveAMT--;
     }
+    //heals all characters
     public void HealScroll()
     {
         if(items.healScrollAMT != 0)
