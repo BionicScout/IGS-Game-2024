@@ -1,12 +1,8 @@
-using JetBrains.Annotations;
+
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyAi {
@@ -28,6 +24,8 @@ public class EnemyAi {
     Dictionary<Vector3Int, int> playersCanHitList = new Dictionary<Vector3Int, int>();
 
     public async Task enemyTurn(TurnManager tm) {
+        var watch = new System.Diagnostics.Stopwatch();
+        watch.Start();
 
         //Debug.Log("------------ Enemy Turn ------------");
 
@@ -40,6 +38,7 @@ public class EnemyAi {
         List<Vector3Int> temp = new List<Vector3Int>(enemyCoords);
 
         currentEnemyIndex = 0;
+
         foreach(Vector3Int coord in temp) {
             Stats stats = GlobalVars.enemies[coord];
 
@@ -65,6 +64,10 @@ public class EnemyAi {
 
             //Debug.Log("Enemies Processed: " + currentEnemyIndex);
         }
+
+        watch.Stop();
+        Debug.Log("------------ TOTAL TIME FOR ENEMY TURN ------------");
+        Debug.Log("Total Enemy AI Calcs: " + watch.ElapsedMilliseconds + " ms");
 
         tm.startPlayerTurn();
         //FindObjectOfType<TurnManager>().EnemyturnTaken()
@@ -243,7 +246,13 @@ public class EnemyAi {
 
         playersCanHitList = new Dictionary<Vector3Int , int>();
 
+        Debug.Log("------------ Enemy ------------");
+        var watch = new System.Diagnostics.Stopwatch();
+        double lastTime = 0;
+        
         for(int tileScoreIndex = 0; tileScoreIndex < tilesAndScores.Count; tileScoreIndex++) {
+            watch.Start();
+
             // Set tile Score
             score = 0;
 
@@ -255,6 +264,7 @@ public class EnemyAi {
             //Debug.Log("--------" + tilesAndScores[tileScoreIndex].Key + "-------------");
             foreach(KeyValuePair<Vector3Int, Stats> playerInfo in GlobalVars.players){
                 int distance = Pathfinding.PathBetweenPoints(playerInfo.Key , tilesAndScores[tileScoreIndex].Key).Count - 1;
+
                 //Debug.Log("Distance: " + distance);
                 distances.Add(distance);
 
@@ -288,7 +298,12 @@ public class EnemyAi {
 
             KeyValuePair<Vector3Int, float> temp = tilesAndScores[tileScoreIndex];
             tilesAndScores[tileScoreIndex] = new KeyValuePair<Vector3Int , float>(temp.Key, score);
+
+            watch.Stop();
+            Debug.Log("Tile Calc Time: " + (watch.ElapsedMilliseconds - lastTime) + " ms");
+            lastTime = watch.ElapsedMilliseconds;
         }
+        Debug.Log("Total Calc Time: " + watch.ElapsedMilliseconds + " ms");
 
         return tilesAndScores;
     }

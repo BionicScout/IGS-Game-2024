@@ -1,41 +1,38 @@
-using JetBrains.Annotations;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Pathfinding {
+    private const int UNVISITED_DISTANCE = -1;
+    private const int MAX_ITERATIONS = 2000;
 
-/*********************************
-    Pathfinding Structs
-*********************************/
+
+
+
+    /*********************************
+        Pathfinding Structs
+    *********************************/
     public struct SearchHex {
         public Vector3Int coord;
-        public bool visted;
+        public bool visited;
         public bool isObstacle;
-
         public int dist;
-
         public Vector3Int previous;
 
-
-        public SearchHex(Vector3Int pos) {
-            coord = pos;
-            visted = false; 
-
-            TileScriptableObjects template = GlobalVars.hexagonTileRefrence[pos];
+        // Constructor
+        public SearchHex(Vector3Int hexCoord) {
+            coord = hexCoord;
+            visited = false;
+            TileScriptableObjects template = GlobalVars.hexagonTileRefrence[hexCoord];
             isObstacle = template.isObstacle;
-
-            dist = -1;
+            dist = UNVISITED_DISTANCE;
             previous = Vector3Int.one; //Impossible to Get with Hexagon Coords
         }
     }
 
-/*********************************
-   Pathfinding
-*********************************/
+    /*********************************
+       Pathfinding
+    *********************************/
 
     public static List<Tuple<Vector3Int , int>> AllPossibleTiles(Vector3Int startPos , int range) {
         /*Breadth First Search*/
@@ -44,7 +41,7 @@ public class Pathfinding {
         Queue<Vector3Int> queue = new Queue<Vector3Int>();
         queue.Enqueue(startPos);
 
-        searchList = vist(searchList , startPos);
+        searchList = visit(searchList , startPos);
 
         while(queue.Count > 0) {
             Vector3Int currentCoord = queue.Dequeue();
@@ -59,18 +56,18 @@ public class Pathfinding {
 
                 //Avoid Obsticale
                 if(searchList[nextTile].isObstacle) {
-                    searchList = vist(searchList , nextTile);
+                    searchList = visit(searchList , nextTile);
                     continue;
                 }
 
-                //Already Visted
-                if(searchList[nextTile].visted) {
+                //Already Visited
+                if(searchList[nextTile].visited) {
                     continue;
                 }
 
-                //Vist
+                //Visit
                 queue.Enqueue(nextTile);
-                searchList = vistAndRange(searchList , nextTile, searchList[currentCoord].dist);
+                searchList = visitAndRange(searchList , nextTile, searchList[currentCoord].dist);
             }
         }
 
@@ -93,9 +90,9 @@ public class Pathfinding {
         Queue<Vector3Int> queue = new Queue<Vector3Int>();
         queue.Enqueue(startPos);
 
-        searchList = vist(searchList , startPos);
+        searchList = visit(searchList , startPos);
 
-        //int max_iteration = 2000;
+        //int max_iteration = MAX_ITERATIONS;
 
         while(queue.Count > 0 /*&& max_iteration > 0*/) {
             Vector3Int currentCoord = queue.Dequeue();
@@ -110,18 +107,18 @@ public class Pathfinding {
 
                 //Avoid Obsticale
                 if(searchList[nextTile].isObstacle) {
-                    searchList = vist(searchList , nextTile);
+                    searchList = visit(searchList , nextTile);
                     continue;
                 }
 
-                //Already Visted
-                if(searchList[nextTile].visted) {
+                //Already Visited
+                if(searchList[nextTile].visited) {
                     continue;
                 }
 
-                //Vist
+                //Visit
                 queue.Enqueue(nextTile);
-                searchList = vistAndPrevious(searchList , nextTile , currentCoord);
+                searchList = visitAndPrevious(searchList , nextTile , currentCoord);
             }
 
             //max_iteration--;
@@ -177,29 +174,29 @@ public class Pathfinding {
         return searchList;
     }
 
-    private static Dictionary<Vector3Int , SearchHex> vist(Dictionary<Vector3Int , SearchHex> searchList , Vector3Int key) {
+    private static Dictionary<Vector3Int , SearchHex> visit(Dictionary<Vector3Int , SearchHex> searchList , Vector3Int key) {
         SearchHex temp = searchList[key];
 
-        temp.visted = true;
+        temp.visited = true;
 
         searchList[key] = temp;
         return searchList;
     }
 
-    private static Dictionary<Vector3Int , SearchHex> vistAndRange(Dictionary<Vector3Int , SearchHex> searchList , Vector3Int key , int currentRange) {
+    private static Dictionary<Vector3Int , SearchHex> visitAndRange(Dictionary<Vector3Int , SearchHex> searchList , Vector3Int key , int currentRange) {
         SearchHex temp = searchList[key];
 
-        temp.visted = true;
+        temp.visited = true;
         temp.dist = currentRange + 1;
 
         searchList[key] = temp;
         return searchList;
     }
 
-    private static Dictionary<Vector3Int , SearchHex> vistAndPrevious(Dictionary<Vector3Int , SearchHex> searchList , Vector3Int key , Vector3Int previousCoord) {
+    private static Dictionary<Vector3Int , SearchHex> visitAndPrevious(Dictionary<Vector3Int , SearchHex> searchList , Vector3Int key , Vector3Int previousCoord) {
         SearchHex temp = searchList[key];
 
-        temp.visted = true;
+        temp.visited = true;
         //temp.dist = currentRange + 1;
         temp.previous = previousCoord;
 
