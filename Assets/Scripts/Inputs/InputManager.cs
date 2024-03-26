@@ -248,6 +248,7 @@ public class InputManager : MonoBehaviour {
                     //enemy death
                     if (enemyStats.curHealth <= 0) {
                         enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+                        RollItems();
                         RemoveEnmey(hexCoordOfEnemy);
                         //death audio
                         AudioManager.instance.Play("Deah-Sound");
@@ -269,6 +270,7 @@ public class InputManager : MonoBehaviour {
                 if (enemyStats.curHealth <= 0)
                 {
                     enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+                    RollItems();
                     RemoveEnmey(hexCoordOfEnemy);
                     //death audio
                     //AudioManager.instance.Play("Deah-Sound");
@@ -314,6 +316,7 @@ public class InputManager : MonoBehaviour {
                     //enemy death
                     if (enemyStats.curHealth <= 0) {
                         enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+                        RollItems();
                         RemoveEnmey(hexCoordOfEnemy);
                         //death audio
                         AudioManager.instance.Play("Deah-Sound");
@@ -338,6 +341,7 @@ public class InputManager : MonoBehaviour {
                 if (enemyStats.curHealth <= 0)
                 {
                     enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+                    RollItems();
                     RemoveEnmey(hexCoordOfEnemy);
                     //death audio
                     AudioManager.instance.Play("Deah-Sound");
@@ -705,6 +709,41 @@ public class InputManager : MonoBehaviour {
         float dodgeChance = Random.Range(1, 100);
         Debug.Log(dodgeChance +  " --------------------------------------");
         return dodgeChance;
+    }
+    public float RollItems()
+    {
+        float itemChance = Random.Range(1, 100);
+        if(itemChance >= 50)
+        {
+            Debug.Log("Item was dropped");
+            float whatItem = Random.Range(1, 100);
+            if(itemChance > 0 && itemChance <= GlobalVars.enemies[enemyCoord].singleHealDrop) 
+            {
+                //drops single heal
+                Debug.Log("Single heal was dropped");
+            }
+            else if (itemChance > 51 && itemChance <= GlobalVars.enemies[enemyCoord].powerBuffDrop)
+            {
+                //drops power buff
+                Debug.Log("Power buff was dropped");
+            }
+            else if (itemChance > 66 && itemChance <= GlobalVars.enemies[enemyCoord].defBuffDrop)
+            {
+                //drops defense buff
+                Debug.Log("defense buff was dropped");
+            }
+            else if (itemChance > 81 && itemChance <= GlobalVars.enemies[enemyCoord].reviveDrop)
+            {
+                //drops revive
+                Debug.Log("revive was dropped");
+            }
+            else if (itemChance > 91 && itemChance <= GlobalVars.enemies[enemyCoord].healScrollDrop)
+            {
+                //drops healing scroll
+                Debug.Log("healing scroll was dropped");
+            }
+        }
+        return 0;
     }
     //Checks how many turns are left for a tile effected by poison, removes it from the dictonary if equals 0
     public void TakePoison()

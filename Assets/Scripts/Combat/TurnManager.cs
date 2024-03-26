@@ -233,6 +233,7 @@ public class TurnManager : MonoBehaviour {
                         //Remove From other scripts and scene
                         GameObject playerTileObj = GlobalVars.hexagonTile[command.attackTile];
                         playerTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+                        //GlobalVars.deadPlayers.Add(GlobalVars.players[command.attackTile]);
                         GlobalVars.players.Remove(command.attackTile);
                         //death audio
                         //AudioManager.instance.Play("Player-Hurt");

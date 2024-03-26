@@ -20,6 +20,13 @@ public class Stats : ScriptableObject
     public int defense;
     public int dodge;
 
+    public int itemDrop = 50;
+    public int singleHealDrop = 50; //0-50
+    public int powerBuffDrop = 65; //51-65
+    public int defBuffDrop = 80; //66 -80
+    public int reviveDrop = 90; //81-90
+    public int healScrollDrop = 100; //91-100
+
     public void Start()
     {
         curHealth = maxHealth;
