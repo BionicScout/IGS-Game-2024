@@ -573,12 +573,15 @@ public class InputManager : MonoBehaviour {
     {
         foreach (KeyValuePair<Vector3Int, TileScriptableObjects> temp in GlobalVars.hexagonTileRefrence)
         {
-            Vector3Int t = temp.Key;
-            if (temp.Value.interactable)
+            foreach (Tuple<Vector3Int, int> temp2 in Pathfinding.AllPossibleTiles(playerCoord, 1))
             {
-                GlobalVars.hexagonTile[t].transform.GetChild(5).gameObject.SetActive(true);
+                Vector3Int t = temp.Key;
+                if (temp.Value.interactable)
+                {
+                    GlobalVars.hexagonTile[t].transform.GetChild(5).gameObject.SetActive(true);
+                }
             }
-        }
+        } 
     }
 
     /*********************************
