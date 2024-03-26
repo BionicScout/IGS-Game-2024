@@ -1961,7 +1961,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &283666940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7858,11 +7858,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5754482459458159207, guid: f6c36e91f800a7446a6ae99b1ee3626a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5754482459458159207, guid: f6c36e91f800a7446a6ae99b1ee3626a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5754482459458159207, guid: f6c36e91f800a7446a6ae99b1ee3626a, type: 3}
       propertyPath: m_SizeDelta.x
@@ -12624,8 +12624,10 @@ MonoBehaviour:
   tileTemplates:
   - {fileID: 11400000, guid: 8c2cb4a7ae58997469b739b882ffb9b0, type: 2}
   - {fileID: 11400000, guid: 109b76db8d62c3347969d887417c522e, type: 2}
+  - {fileID: 11400000, guid: 25253f49d0381cb41b299cdfc8ea7c6a, type: 2}
   - {fileID: 11400000, guid: f8b548b2c86f1664fa5bd889f589c2ef, type: 2}
-  tileCoord: 0
+  - {fileID: 11400000, guid: c1904695e4fb5634498c1a5d4fbd140e, type: 2}
+  tileCoord: 1
 --- !u!4 &1793876000
 Transform:
   m_ObjectHideFlags: 0
