@@ -547,22 +547,23 @@ public class InputManager : MonoBehaviour {
     /*********************************
         Tile Indicators
     *********************************/
-    public void MoveIndicators(bool onOff) {
-        //int moveRange = turnManager.getMovementLeft(playerCoord);
-
+    public void MoveIndicators(bool onOff) 
+    {
         int moveRange = turnManager.getMovementLeft(playerCoord);
         foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , moveRange)) {
             Vector3Int t = temp.Item1;
             GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(onOff);
         }
     }
-    public void AttackIndicators(bool onOff) {
+    public void AttackIndicators(bool onOff) 
+    {
         foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , playerAttRange)) {
             Vector3Int t = temp.Item1;
             GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(onOff);
         }
     }
-    public void HealIndicators(bool onOff) {
+    public void HealIndicators(bool onOff) 
+    {
         foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , 1)) {
             Vector3Int t = temp.Item1;
             GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(onOff);
@@ -579,7 +580,6 @@ public class InputManager : MonoBehaviour {
             }
         }
     }
-
 
     /*********************************
         UI
