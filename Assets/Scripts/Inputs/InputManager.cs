@@ -125,27 +125,28 @@ public class InputManager : MonoBehaviour {
             }
             //triggers the specific functions from the buttons
             if(inputMode == modes.attack) {
-                if (GlobalVars.players[playerCoord].charType == "Swordsman" || GlobalVars.players[playerCoord].charType == "Spearman" || GlobalVars.players[playerCoord].charType == "Paladin")
+                if (GlobalVars.players[clickedCoord].charType == "Swordsman" || GlobalVars.players[clickedCoord].charType == "Spearman" || GlobalVars.players[clickedCoord].charType == "Paladin")
                 {
+                    Debug.Log("got the player type");
                     Wack(clickedCoord, 2);
                     inputMode = modes.normal;
                 }
-                else if (GlobalVars.players[playerCoord].charType == "Archer" || GlobalVars.players[playerCoord].charType == "Crossbowman")
+                else if (GlobalVars.players[clickedCoord].charType == "Archer" || GlobalVars.players[clickedCoord].charType == "Crossbowman")
                 {
                     Shoot(clickedCoord, 2);
                     inputMode = modes.normal;
                 }
-                else if(GlobalVars.players[playerCoord].charType == "Alchemist")
+                else if(GlobalVars.players[clickedCoord].charType == "Alchemist")
                 {
                     Poison();
                     inputMode = modes.normal;
                 }
-                else if (GlobalVars.players[playerCoord].charType == "Cleric")
+                else if (GlobalVars.players[clickedCoord].charType == "Cleric")
                 {
-                    Heal(GlobalVars.players[playerCoord].power);
+                    Heal(GlobalVars.players[clickedCoord].power);
                     inputMode = modes.normal;
                 }
-                else if (GlobalVars.players[playerCoord].charType == "Illusionist")
+                else if (GlobalVars.players[clickedCoord].charType == "Illusionist")
                 {
                     SmokeBomb();
                     inputMode = modes.normal;
@@ -192,6 +193,7 @@ public class InputManager : MonoBehaviour {
         clickedUI = true;
     }
     public void SetMove() {
+        Debug.Log("Player has attempted to move");
         AttackIndicators(false);
         HealIndicators(false);
         MoveIndicators(true);
@@ -253,9 +255,9 @@ public class InputManager : MonoBehaviour {
                         //death audio
                         AudioManager.instance.Play("Deah-Sound");
                     }
-                }
-                GlobalVars.players[clickedCoord].dodge = ogDodge;
             }
+            GlobalVars.players[clickedCoord].dodge = ogDodge;
+        }
             else if (RollDodge() > GlobalVars.players[playerCoord].dodge)
             {
                 //deals damage
@@ -304,7 +306,7 @@ public class InputManager : MonoBehaviour {
             {
                 GlobalVars.players[clickedCoord].dodge = smokeDodge;
                 //sees if the player misses the attack
-                if(RollDodge() > GlobalVars.players[clickedCoord].dodge)
+                if (RollDodge() > GlobalVars.players[clickedCoord].dodge)
                 {
                     //Deals damage
                     enemyStats.Damage(playerPower);
@@ -478,6 +480,7 @@ public class InputManager : MonoBehaviour {
         GlobalVars.players[playerCoord].defense = playerDefense;
     }
     public void Move() {
+        Debug.Log("player has started movement");
         AttackIndicators(false);
 
         int moveRange = turnManager.getMovementLeft(playerCoord);
@@ -489,6 +492,7 @@ public class InputManager : MonoBehaviour {
                 //Debug.Log("This is Item1 " + temp.Item1);
 
                 Movement.movePlayer(playerCoord , clickedCoord);
+                Debug.Log("move function was called");
                 MoveIndicators(false);
                 TakePoison();
 
@@ -496,6 +500,7 @@ public class InputManager : MonoBehaviour {
                 playerCoord = clickedCoord;
             }
         }
+        Debug.Log("player has finished move");
     }
     public void Interact() {
         Debug.Log("INTERACT");
@@ -554,9 +559,20 @@ public class InputManager : MonoBehaviour {
     public void MoveIndicators(bool onOff) 
     {
         int moveRange = turnManager.getMovementLeft(playerCoord);
-        foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , moveRange)) {
-            Vector3Int t = temp.Item1;
-            GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(onOff);
+        if(moveRange >= 0)
+        {
+            foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , moveRange - 1)) {
+                Vector3Int t = temp.Item1;
+                GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(onOff);
+            }
+        }
+        else if(moveRange == 0)
+        {
+            foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, 1))
+            {
+                Vector3Int t = temp.Item1;
+                GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(onOff);
+            }
         }
     }
     public void AttackIndicators(bool onOff) 
