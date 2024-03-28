@@ -235,12 +235,12 @@ public static List<Tuple<Vector3Int , int>> AllPossibleTiles(Vector3Int startPos
     }
 
     public static List<Vector3Int> PathBetweenPoints(Vector3Int startPos , Vector3Int endPoint) {
-        /*IGNORES THIS CHAT GPT*/ return PathBetweenPoints_Old(startPos, endPoint);
+        // /*IGNORES THIS CHAT GPT*/ return PathBetweenPoints_Old(startPos, endPoint);
 
 
         // A* (star) Pathfinding
 
-        //
+        //Loop Variables 
         SearchHex nextSearchHex;
 
         // Check if start and end positions are valid
@@ -259,7 +259,9 @@ public static List<Tuple<Vector3Int , int>> AllPossibleTiles(Vector3Int startPos
 
         //Define dictionary of tile Activley in search
         Dictionary<Vector3Int, SearchHex> searchList = new Dictionary<Vector3Int , SearchHex>();
-        searchList.Add(startPos, new SearchHex(startPos));
+        SearchHex temp = new SearchHex(startPos);
+        temp.dist = 0;
+        searchList.Add(startPos, temp);
 
         //
         int iterations = 0;
@@ -311,23 +313,40 @@ public static List<Tuple<Vector3Int , int>> AllPossibleTiles(Vector3Int startPos
             //
             iterations++;
 
-            if(iterations < MAX_ITERATIONS) {
+            if(iterations >= MAX_ITERATIONS) {
                 Debug.LogError("ERROR - Maximum iterations reached. Potential infinite loop detected.");
                 return null;
             }
         }
 
+
+
         //Trace Path back
         List<Vector3Int> path = new List<Vector3Int>();
         Vector3Int currentPath = endPoint;
 
+        // Maximum iteration limit for path reconstruction
+        int pathIterations = 0;
         while(searchList[currentPath].previous != Vector3.one) {
+            // Increment path reconstruction iteration count
+            pathIterations++;
+
+            // Check maximum iteration limit
+            if(pathIterations >= MAX_ITERATIONS) {
+                Debug.LogError("ERROR - Maximum path reconstruction iterations reached. Potential infinite loop detected.");
+                return null;
+            }
+
+            // Add current path to the list and Move to the previous tile
             path.Add(currentPath);
             currentPath = searchList[currentPath].previous;
         }
 
+        // Add the last path
         path.Add(currentPath);
         path.Reverse();
+
+
 
         return path;
 
