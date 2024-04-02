@@ -30,53 +30,66 @@ public class EnemyAi {
         var watch = new System.Diagnostics.Stopwatch();
         watch.Start();
 
-
-
-
         totalTime = 0;
         iterations = 0;
 
 
 
 
+        //Error Detection
+        if(GlobalVars.enemies == null) {
+            Debug.Log("ERROR - GlobalVars.enemeies is null");
+            return;
+        }
 
-        //Debug.Log("------------ Enemy Turn ------------");
+        if(GlobalVars.enemies == null) {
+            Debug.Log("ERROR - GlobalVars.enemeies is null");
+            return;
+        }
 
+
+        //
         foreach(KeyValuePair<Vector3Int , Stats> info in GlobalVars.enemies) {
             enemyCoords.Add(info.Key);
         }
 
-        //Debug.Log("Enemy Count: " + enemyCoords.Count);
-
-        List<Vector3Int> temp = new List<Vector3Int>(enemyCoords);
-
+        //
         currentEnemyIndex = 0;
 
-        foreach(Vector3Int coord in temp) {
+        foreach(Vector3Int coord in enemyCoords) {
             Stats stats = GlobalVars.enemies[coord];
 
+            //
+            Command command = null;
+
             if(stats.charType == "L1") {
-                //Debug.Log("Level 1 Ai");
-                tm.commandQueue.Enqueue(LevelOneAi(coord));
+                command = LevelOneAi(coord);
+                // Debug.Log("Level 1 Ai");
             }
-            else if(stats.charType == "L2") {
-                //Debug.Log("Level 2 Ai");
-                tm.commandQueue.Enqueue(LevelTwoAi(coord));
-            }
-            else if(stats.charType == "L3") {
-                //Debug.Log("Level 2 Ai");
-                tm.commandQueue.Enqueue(LevelTwoAi(coord));
+            else if(stats.charType == "L2" || stats.charType == "L3") {
+                command = LevelTwoAi(coord);
+                // Debug.Log("Level 2 Ai");
             }
             else {
-                //Debug.Log("General Ai");
-                tm.commandQueue.Enqueue(GeneralAi(coord));                
+                command = GeneralAi(coord);
+                // Debug.Log("General Ai");
             }
 
+            //
+            if(command == null) {
+                Debug.Log("ERROR - command for Enemy " + (currentEnemyIndex + 1) + " is null");
+                continue;
+            }
+
+            //
+            enemyCoords[currentEnemyIndex] = command.moveSpace;
+            tm.commandQueue.Enqueue(command);
+
+            //
             await Task.Yield();
             currentEnemyIndex++;
-
-            //Debug.Log("Enemies Processed: " + currentEnemyIndex);
         }
+
 
         watch.Stop();
         Debug.Log("------------ TOTAL TIME FOR ENEMY TURN ------------");
@@ -85,14 +98,19 @@ public class EnemyAi {
         Debug.Log("Average Scoring: " + (totalTime/iterations) + " ms");
 
         tm.startPlayerTurn();
-        //FindObjectOfType<TurnManager>().EnemyturnTaken()
     }
 
     public List<KeyValuePair<Vector3Int , float>> getTiles(Stats enemyStats, Vector3Int currentEnemy) {
 
         List<KeyValuePair<Vector3Int, float>> tilesAndScores = new List<KeyValuePair<Vector3Int, float>>(); //Hex Coord, score
 
+        int loopIterations = 2000;
         foreach(Tuple<Vector3Int, int> info in Pathfinding.AllPossibleTiles(enemyCoords[currentEnemyIndex] , enemyStats.move)) {
+            if(loopIterations <= 0) {
+                Debug.Log("ERROR - Too many iterations");
+                break;
+            }
+
             if(GlobalVars.players.ContainsKey(info.Item1)) {
                 continue;
             }
@@ -101,12 +119,12 @@ public class EnemyAi {
                 continue;
             }
 
-            //Debug.Log(info.Item1);
-
-
 
             tilesAndScores.Add(new KeyValuePair<Vector3Int, float>(info.Item1, 0));
+            loopIterations--;
         }
+
+        Debug.Log("Finished");
 
         return tilesAndScores;
     }
@@ -119,10 +137,10 @@ public class EnemyAi {
         Stats stats = GlobalVars.enemies[coord];
 
         //Check if play is really far from player
-        Vector3Int tileToClosestPLayer = playerIsfar(stats , coord);
+        Vector3Int tileToClosestPLayer = Vector3Int.one;//playerIsfar(stats , coord);
 
 
-        Command command;
+        Command command = null;
 
         //If ClosestPlayer is (1, 1, 1) (which is an invalid tile) then score tiles, other wise moce to closestPLayer
         if(tileToClosestPLayer == Vector3Int.one) {
@@ -137,7 +155,7 @@ public class EnemyAi {
             totalTime += watch.ElapsedMilliseconds;
             iterations++;
 
-            WriteToFile(tilesAndScore);
+            //WriteToFile(tilesAndScore);
 
             //Move Ai
             command = Move(tilesAndScore);
@@ -149,6 +167,11 @@ public class EnemyAi {
         else {
             //Debug.Log("FAR MOVE");
             command = new Command(coord , tileToClosestPLayer);
+        }
+
+        if(command == null) {
+            Debug.Log("ERROR - command is null");
+            return null;
         }
 
         //Debug.Log("MOVE");
