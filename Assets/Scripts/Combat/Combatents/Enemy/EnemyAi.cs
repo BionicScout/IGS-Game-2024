@@ -17,15 +17,28 @@ public class EnemyAi {
     int inRangeWeight = 5;
     int playerHitPenaltyWeight = 6;
     int farPlayerPenalty = -100;
-    int distanceThreshold = 10;
+    int distanceThreshold = 7;
 
     //Testing Purposes
     List<Vector3Int> debugMoveTiles = new List<Vector3Int>();
     Dictionary<Vector3Int, int> playersCanHitList = new Dictionary<Vector3Int, int>();
 
+    double totalTime = 0;
+    int iterations = 0;
+
     public async Task enemyTurn(TurnManager tm) {
         var watch = new System.Diagnostics.Stopwatch();
         watch.Start();
+
+
+
+
+        totalTime = 0;
+        iterations = 0;
+
+
+
+
 
         //Debug.Log("------------ Enemy Turn ------------");
 
@@ -68,6 +81,8 @@ public class EnemyAi {
         watch.Stop();
         Debug.Log("------------ TOTAL TIME FOR ENEMY TURN ------------");
         Debug.Log("Total Enemy AI Calcs: " + watch.ElapsedMilliseconds + " ms");
+        Debug.Log("Total Scoring: " + totalTime + " ms");
+        Debug.Log("Average Scoring: " + (totalTime/iterations) + " ms");
 
         tm.startPlayerTurn();
         //FindObjectOfType<TurnManager>().EnemyturnTaken()
@@ -113,7 +128,15 @@ public class EnemyAi {
         if(tileToClosestPLayer == Vector3Int.one) {
             //Debug.Log("CLOSE MOVE");
             //Get Scores
+            var watch = new System.Diagnostics.Stopwatch();
+            watch.Start();
+
             List<KeyValuePair<Vector3Int , float>> tilesAndScore = GeneralScoreTiles(stats , coord);
+
+            watch.Stop();
+            totalTime += watch.ElapsedMilliseconds;
+            iterations++;
+
             WriteToFile(tilesAndScore);
 
             //Move Ai
@@ -253,49 +276,50 @@ public class EnemyAi {
         for(int tileScoreIndex = 0; tileScoreIndex < tilesAndScores.Count; tileScoreIndex++) {
             watch.Start();
 
-            // Set tile Score
-            score = 0;
-
             //Find PLayer Distances Info
             distances = new List<int>();
             closestPerson = -1;
             playersCanHit = 0;
 
-            //Debug.Log("--------" + tilesAndScores[tileScoreIndex].Key + "-------------");
-            foreach(KeyValuePair<Vector3Int, Stats> playerInfo in GlobalVars.players){
-                int distance = Pathfinding.PathBetweenPoints(playerInfo.Key , tilesAndScores[tileScoreIndex].Key).Count - 1;
-
-                //Debug.Log("Distance: " + distance);
-                distances.Add(distance);
-
-                if (closestPerson < distance) {
-                    closestPerson = distance;
+            //Get All distances
+            foreach(KeyValuePair<Vector3Int , Stats> playerInfo in GlobalVars.players) {
+                int distance = -1; // Default distance value
+                if(tilesAndScores[tileScoreIndex].Key != null) {
+                    List<Vector3Int> path = Pathfinding.PathBetweenPoints(playerInfo.Key , tilesAndScores[tileScoreIndex].Key);
+                    if(path != null) {
+                        distance = path.Count - 1;
+                    }
                 }
+                distances.Add(distance);
+            }
 
-                if (distance <= playerInfo.Value.attackRange) {
-                    //Debug.Log("Can Hit - " + distance + " <= " + playerInfo.Value.attackRange);
+            //Get closestPerson distance
+            foreach(int dist in distances) {
+                if(closestPerson < dist) {
+                    closestPerson = dist;
+                }
+            }
+
+            //Get How Many Players can hit the current tile
+            int distIndex = 0;
+            foreach(KeyValuePair<Vector3Int, Stats> playerInfo in GlobalVars.players){
+                if (distances[distIndex] <= playerInfo.Value.attackRange) {
                     playersCanHit++;
                 }
 
-                //Debug.Log("Can Hit 2 - " + playersCanHit);
+                distIndex++;
             }
 
             playersCanHitList.Add(tilesAndScores[tileScoreIndex].Key, playersCanHit);
 
-            //Debug.Log("ClosestPerson: " + closestPerson);
 
             //Scoring
-            foreach(int distance in distances){
-                if(distance <= GlobalVars.enemies[enemyCoords[currentEnemyIndex]].attackRange)
-                    score += (GlobalVars.enemies[enemyCoords[currentEnemyIndex]].attackRange / (float)distance) * inRangeWeight;
-            }
+            score = 0;
+            score += Score_PlayersInEnemyRange(inRangeWeight , distances);
+            score += Score_EnemyInPlayerRange(playerHitPenaltyWeight , playersCanHit);
+            score += Score_FarAwayPenalty(farPlayerPenalty, closestPerson, distanceThreshold);
 
-            score -= playersCanHit * (playersCanHit + 1) * playerHitPenaltyWeight;
-
-            if (closestPerson > distanceThreshold || closestPerson == -1) {
-                score += farPlayerPenalty;
-            }
-
+            //Update Scoring
             KeyValuePair<Vector3Int, float> temp = tilesAndScores[tileScoreIndex];
             tilesAndScores[tileScoreIndex] = new KeyValuePair<Vector3Int , float>(temp.Key, score);
 
@@ -307,6 +331,40 @@ public class EnemyAi {
 
         return tilesAndScores;
     }
+
+
+    private float Score_PlayersInEnemyRange(float weight, List<int> playerDistances) {
+        float score = 0;
+
+        foreach(int distance in playerDistances) {
+            if(distance <= GlobalVars.enemies[enemyCoords[currentEnemyIndex]].attackRange)
+                score += (GlobalVars.enemies[enemyCoords[currentEnemyIndex]].attackRange / (float)distance) * weight;
+        }
+
+        return score;
+    }
+
+    private float Score_EnemyInPlayerRange(float weight, int playersCanHit) {
+        return -(playersCanHit * (playersCanHit + 1) * weight);
+    }
+
+    private float Score_FarAwayPenalty(float weight , int closestPerson , int maxDistance) {
+        if(closestPerson <= maxDistance && closestPerson != -1) {
+            // Calculate the penalty based on the distance to the closest player
+            float penalty = weight * (1 - (float)closestPerson / maxDistance);
+            return penalty;
+        }
+
+        return 0;
+    }
+
+
+
+
+
+
+
+
 
     List<KeyValuePair<Vector3Int , float>> L1_ScoreTiles(Stats enemyStats , Vector3Int currentEnemy) {
         List<KeyValuePair<Vector3Int , float>> tilesAndScores = getTiles(enemyStats , currentEnemy);
