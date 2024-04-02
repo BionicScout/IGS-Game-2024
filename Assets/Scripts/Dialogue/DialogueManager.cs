@@ -52,8 +52,7 @@ public class DialogueManager : MonoBehaviour
     public void EndDialogue()
     {
         animator.SetBool("IsOpen", false);
-        dialogueCanvas.SetActive(false);
         selectedPlayerMenu.SetActive(true);
-        Debug.Log("End of conversation");
+        dialogueCanvas.SetActive(false);
     }
 }
