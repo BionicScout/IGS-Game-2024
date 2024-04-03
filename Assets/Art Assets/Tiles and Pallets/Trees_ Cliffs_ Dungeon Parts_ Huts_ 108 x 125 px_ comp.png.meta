@@ -1,0 +1,1337 @@
+fileFormatVersion: 2
+guid: 941cdfec439fb6d4491f78efaab1324a
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 750
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d482d627126c6c4db02157db97bbf18
+      internalID: -2063254174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_1
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 750
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70d61b726fd28ff47a2d794a6a15c79e
+      internalID: 861986352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_2
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 750
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69677eb8050ba384f9edc423b692b60d
+      internalID: -410486466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_3
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 750
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa3a905e2c8679d488b2d1394da0872d
+      internalID: -2002895716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_4
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 750
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bc314222744e2f47a32f1d50dac7bf0
+      internalID: 1639141487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_5
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 750
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edb06faa4ff7ba349859d2937bb8c157
+      internalID: -1893344368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_6
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 750
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08e52fda1ffbc92459eb3dfc30f6fdb0
+      internalID: 314078091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 625
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38d33a4a9f4f9ac43b348e1d30852911
+      internalID: -768691470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_8
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 625
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db765f685a80da240a7fcd90ee72ced8
+      internalID: -1973446702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_9
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 625
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a80129aa0c5cee49ae9bfd01b97f54c
+      internalID: -1502932555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_10
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 625
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46e35ba6461518a4dab4d97853de9816
+      internalID: -961706036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_11
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 625
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 436cfb3c7be64ea448ccffa472d45898
+      internalID: -1900017424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_12
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 625
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbccf05efa56a4e41b19053194106482
+      internalID: 1887474058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_13
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 625
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 366af8d535429474c83f95a97c807746
+      internalID: 53850991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_14
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 625
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93cb7fa651399df45a352267b71ba551
+      internalID: 504282858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 500
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d509ced0c81b9448ac6087a6227bd27
+      internalID: -1735637302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_16
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 500
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78adc884887f3a048858c73d05b4672c
+      internalID: 1204278627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_17
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 500
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a363e5b60a5c14141b504eecd3892895
+      internalID: 298890338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_18
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 500
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa4fd41428692d64b8e3493470fe8807
+      internalID: 155814312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_19
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 500
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2df23f47f7e067a4f9f931742e5c0b69
+      internalID: 1410924436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_20
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 500
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77a5e3d25c5bf224a9599b5426a8b7bb
+      internalID: 1772521246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_21
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 500
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9514299196ad9d47a4bf850245711ce
+      internalID: -2104914081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_22
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 500
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0949678cb70840408406a65b02c1b06
+      internalID: 1758204832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_23
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 375
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e141455c50898340978aa9c114fb2ec
+      internalID: -1866278108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_24
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 375
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e2709bc4f63d884dbe3d076039e81ae
+      internalID: -1194041518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_25
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 375
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6574c9b0314616843a4e7c056dfbea70
+      internalID: -393722988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_26
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 375
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac1e7ad88e25ccd409670160776da477
+      internalID: 1863192829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_27
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 375
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b23916cbb06f6de469d20be34a3a6f80
+      internalID: 1878575998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_28
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 375
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 845db12c769dd974b9380d1fb4bf45cb
+      internalID: -823142413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_29
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 375
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed02ea50ff043684a8abefa2930994e7
+      internalID: -60975078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_30
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 375
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2f1b8e608c1a43459ac79a5db14b984
+      internalID: 1464445682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_31
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 250
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81f9aa123209c31468e16a1dd5d5ac91
+      internalID: 2116497496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_32
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 250
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9058c03d11a1c248aa8fea550050426
+      internalID: -1561697388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_33
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 250
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b92d2d44b051a140a7c4a6c4b1aa4ea
+      internalID: -1520541584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_34
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 250
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33b7ee0e9703e8040a1fb6cab75b962b
+      internalID: -1621215803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_35
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 250
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7130a7569b0bda47a3fc934cbd00bb3
+      internalID: -1093197208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_36
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 250
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41eb2a4b87b8e2e42b20eb09e0455953
+      internalID: -308217368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_37
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 250
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8cf9e7714a4894f45a233f3116eeacbf
+      internalID: 1639653508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_38
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 250
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c94a8c6376c1bb143ade207214b80359
+      internalID: 604031613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_39
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 125
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5017fdf22e2bb2c49b21b761a53c2519
+      internalID: 84227260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_40
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 125
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89bee7ff44f38094b83eb15bff7cec54
+      internalID: 986752484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_41
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 125
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eba9fa7dbe8de36408d98eb804f1026f
+      internalID: -901417963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_42
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 125
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 664b9e2e555b3c0499fae8b148af4f88
+      internalID: 1580864106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_43
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 125
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd415408fcb5e6b43a79a3880184c6e5
+      internalID: 1541152531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_44
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 125
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86c4c5d9728b19d46a169595e12055fa
+      internalID: 2056497247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_45
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 125
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72036cb197775e443b8e75437d30e770
+      internalID: 1284295618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_46
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 125
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2031a8aa7863dc3489a95fffefecab6a
+      internalID: -1704140013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_47
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64f838d3d5e5a2746853c13f4c9b5811
+      internalID: 525547193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_48
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 0
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d68b3e3158ea68947aad8cd69ee9dde8
+      internalID: 1923436822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_49
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 0
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d99325be5e2f2540a9a3cae85654dd6
+      internalID: -1105725717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_50
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 0
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bea921f8e9fd44d419ab09dc14b64595
+      internalID: -1645783171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_51
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 0
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c46b3355c178a6b46a35e4fef8007787
+      internalID: 426550433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_52
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 0
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c47707c14fea2d6448e6bd5c4378f558
+      internalID: 1271106600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_53
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 0
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac551792603d9fe43b14c40759dd67f2
+      internalID: -1925101042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_54
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 0
+        width: 108
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d5e92e76d9427c42935bb8e57e1fcf7
+      internalID: 585669741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_0: -2063254174
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_1: 861986352
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_10: -961706036
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_11: -1900017424
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_12: 1887474058
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_13: 53850991
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_14: 504282858
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_15: -1735637302
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_16: 1204278627
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_17: 298890338
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_18: 155814312
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_19: 1410924436
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_2: -410486466
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_20: 1772521246
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_21: -2104914081
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_22: 1758204832
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_23: -1866278108
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_24: -1194041518
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_25: -393722988
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_26: 1863192829
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_27: 1878575998
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_28: -823142413
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_29: -60975078
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_3: -2002895716
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_30: 1464445682
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_31: 2116497496
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_32: -1561697388
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_33: -1520541584
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_34: -1621215803
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_35: -1093197208
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_36: -308217368
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_37: 1639653508
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_38: 604031613
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_39: 84227260
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_4: 1639141487
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_40: 986752484
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_41: -901417963
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_42: 1580864106
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_43: 1541152531
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_44: 2056497247
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_45: 1284295618
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_46: -1704140013
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_47: 525547193
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_48: 1923436822
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_49: -1105725717
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_5: -1893344368
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_50: -1645783171
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_51: 426550433
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_52: 1271106600
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_53: -1925101042
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_54: 585669741
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_6: 314078091
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_7: -768691470
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_8: -1973446702
+      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_9: -1502932555
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
