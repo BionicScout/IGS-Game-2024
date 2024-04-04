@@ -10210,7 +10210,7 @@ GameObject:
   - component: {fileID: 1677471565}
   - component: {fileID: 1677471564}
   m_Layer: 0
-  m_Name: Tilemap
+  m_Name: Editor Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13360,7 +13360,7 @@ Grid:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1724124727}
   m_Enabled: 1
-  m_CellSize: {x: 0.8659766, y: 1, z: 1}
+  m_CellSize: {x: 1.08, y: 1.24, z: 1}
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 1
   m_CellSwizzle: 0
