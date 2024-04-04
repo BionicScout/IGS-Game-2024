@@ -12,6 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Combat_Testing.unity
     guid: 643c8561ed00d314d98c3aed5cb81c27
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 945e1dd7b99c4f74799c156338d19978
+  - enabled: 1
+    path: Assets/Scenes/Levels/Tutorial.unity
+    guid: 0b5306370a8dc8248b1176d9a8fb1d21
+  - enabled: 1
     path: Assets/Scenes/CharcaterSelector.unity
     guid: 282632c8006ff75499df2054dbb217b5
   - enabled: 1
