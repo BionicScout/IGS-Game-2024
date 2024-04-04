@@ -40,28 +40,28 @@ public class TurnManager : MonoBehaviour {
 
         commandQueue = new Queue<Command>();
 
-        nextWave = GlobalVars.spawnWaves.Dequeue();
+        //nextWave = GlobalVars.spawnWaves.Dequeue();
     }
 
     void Update() {
-        if(commandQueue.Count != 0) {
-            enemyCommand(commandQueue.Dequeue());
-        }
+        //if(commandQueue.Count != 0) {
+        //    enemyCommand(commandQueue.Dequeue());
+        //}
 
         //Win
         if(GlobalVars.enemies.Count == 0) {
             PlayerMenu.SetActive(false);
-            WinMenu.SetActive(true);
+            //WinMenu.SetActive(true);
         }
 
         //Lose
         if(GlobalVars.players.Count == 0) {
             PlayerMenu.SetActive(false);
-            LoseMenu.SetActive(true);
+            //LoseMenu.SetActive(true);
         }
         if(GlobalVars.L1_houseTiles.Count == 0 && SceneSwapper.currentScene == "Level 1") {
             PlayerMenu.SetActive(false);
-            LoseMenu.SetActive(true);
+            //LoseMenu.SetActive(true);
         }
 
         if(Input.GetKeyDown(KeyCode.F)) {

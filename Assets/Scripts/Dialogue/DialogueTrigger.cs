@@ -5,7 +5,7 @@ using UnityEngine;
 public class DialogueTrigger : MonoBehaviour
 {
     public Dialogue dialogue;
-    [SerializeField] private TextAsset inkJSON;
+    [SerializeField] private TextAsset lesson1;
 
     public void TriggerDialogue() 
     { 
@@ -14,7 +14,7 @@ public class DialogueTrigger : MonoBehaviour
     private void Start()
     {
         Debug.Log("Called Instance");
-        DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+        DialogueManager.GetInstance().EnterDialogueMode(lesson1);
     }
 
 }

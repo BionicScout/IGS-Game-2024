@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 using Story = Ink.Runtime.Story;
 
@@ -16,6 +17,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject selectedPlayerMenu;
     private static DialogueManager instance;
     private Story currentStory;
+    public string nextScene = "CharcaterSelector";
     public bool dialogueIsPlaying { get; private set; }
 
      private void Awake()
@@ -46,13 +48,13 @@ public class DialogueManager : MonoBehaviour
         dialoguePannel.SetActive(true);
         ContinueStory();
     }
-    public IEnumerator ExitDialogueMode()
+    public void ExitDialogueMode()
     {
-        yield return new WaitForSeconds(0.2f);
-        dialogueIsPlaying = false;
-        dialoguePannel.SetActive(false);
-        dialogueTxt.text = " ";
-        selectedPlayerMenu.SetActive(true);
+        //yield return new WaitForSeconds(0.2f);
+        //dialogueIsPlaying = false;
+        //dialoguePannel.SetActive(false);
+        //dialogueTxt.text = " ";
+        //selectedPlayerMenu.SetActive(true);
     }
     public void ContinueStory()
     {
@@ -62,7 +64,8 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            StartCoroutine(ExitDialogueMode());
+            //StartCoroutine(ExitDialogueMode());
+            SceneSwapper.A_LoadScene(nextScene);
         }
     }
     public static DialogueManager GetInstance()
