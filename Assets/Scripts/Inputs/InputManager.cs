@@ -68,7 +68,7 @@ public class InputManager : MonoBehaviour {
     *********************************/
     void Start() {
         inputMode = modes.normal;
-        selectedPlayerMenu.SetActive(false); //CHANGE BACK ONLY FOR TESTING THE DIALOGUE  
+        selectedPlayerMenu.SetActive(true);
         statsMenu.SetActive(false);
         turnManager = FindAnyObjectByType<TurnManager>();
 
