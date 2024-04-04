@@ -20,11 +20,12 @@ public class DialogueManager : MonoBehaviour
 
      private void Awake()
     {
+        instance = this;
+        Debug.Log("Instance was set");
         if (instance == null) 
         {
             Debug.LogWarning("Found more then one Dialogue manager in this scene");
         }
-        instance = this; 
     }
     private void Start()
     {
@@ -66,6 +67,7 @@ public class DialogueManager : MonoBehaviour
     }
     public static DialogueManager GetInstance()
     {
+        Debug.Log("Instance was called");
         return instance;
     }
 }

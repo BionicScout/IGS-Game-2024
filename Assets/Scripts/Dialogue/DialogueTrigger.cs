@@ -11,8 +11,9 @@ public class DialogueTrigger : MonoBehaviour
     { 
         //FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
     }
-    private void Awake()
+    private void Start()
     {
+        Debug.Log("Called Instance");
         DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
     }
 

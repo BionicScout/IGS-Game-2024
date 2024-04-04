@@ -882,7 +882,7 @@ MonoBehaviour:
   dialogue:
     name: 
     sentences: []
-  inkJSON: {fileID: 4900000, guid: d2957c576d862b64ba96f0808aa97a03, type: 3}
+  inkJSON: {fileID: 4900000, guid: b2fedbb8f65bc834eb1b30ad4b7c67c6, type: 3}
 --- !u!1 &82934056
 GameObject:
   m_ObjectHideFlags: 0
