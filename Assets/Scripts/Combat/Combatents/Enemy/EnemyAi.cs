@@ -26,7 +26,7 @@ public class EnemyAi {
     double totalTime = 0;
     int iterations = 0;
 
-    public async Task enemyTurn(TurnManager tm) {
+    public void enemyTurn(TurnManager tm) {
         var watch = new System.Diagnostics.Stopwatch();
         watch.Start();
 
@@ -56,7 +56,9 @@ public class EnemyAi {
         //
         currentEnemyIndex = 0;
 
-        foreach(Vector3Int coord in enemyCoords) {
+        for(int i = 0; i < enemyCoords.Count; i++) {
+            Vector3Int coord = enemyCoords[i];
+            Debug.Log("EnemeyCorrds Length: " + enemyCoords.Count);
             Stats stats = GlobalVars.enemies[coord];
 
             //
@@ -66,10 +68,10 @@ public class EnemyAi {
                 command = LevelOneAi(coord);
                 // Debug.Log("Level 1 Ai");
             }
-            else if(stats.charType == "L2" || stats.charType == "L3") {
-                command = LevelTwoAi(coord);
-                // Debug.Log("Level 2 Ai");
-            }
+            //else if(stats.charType == "L2" || stats.charType == "L3") {
+            //    command = LevelTwoAi(coord);
+            //    // Debug.Log("Level 2 Ai");
+            //}
             else {
                 command = GeneralAi(coord);
                 // Debug.Log("General Ai");
@@ -85,8 +87,9 @@ public class EnemyAi {
             enemyCoords[currentEnemyIndex] = command.moveSpace;
             tm.commandQueue.Enqueue(command);
 
+            Debug.Log("Hello 7");
+
             //
-            await Task.Yield();
             currentEnemyIndex++;
         }
 
@@ -297,6 +300,11 @@ public class EnemyAi {
         double lastTime = 0;
         
         for(int tileScoreIndex = 0; tileScoreIndex < tilesAndScores.Count; tileScoreIndex++) {
+            if(tileScoreIndex >= 2000) {
+                Debug.Log("Error - Too many iterations");
+                break;
+            }
+
             watch.Start();
 
             //Find PLayer Distances Info
@@ -305,7 +313,15 @@ public class EnemyAi {
             playersCanHit = 0;
 
             //Get All distances
+            int iterationsRemaining = 2000;
+
             foreach(KeyValuePair<Vector3Int , Stats> playerInfo in GlobalVars.players) {
+                iterationsRemaining--;
+
+                if(iterationsRemaining <= 0) {
+                    Debug.Log("Error - Too many iterations");
+                }
+
                 int distance = -1; // Default distance value
                 if(tilesAndScores[tileScoreIndex].Key != null) {
                     List<Vector3Int> path = Pathfinding.PathBetweenPoints(playerInfo.Key , tilesAndScores[tileScoreIndex].Key);
@@ -317,7 +333,15 @@ public class EnemyAi {
             }
 
             //Get closestPerson distance
+            iterationsRemaining = 2000;
+
             foreach(int dist in distances) {
+                iterationsRemaining--;
+
+                if(iterationsRemaining <= 0) {
+                    Debug.Log("Error - Too many iterations");
+                }
+
                 if(closestPerson < dist) {
                     closestPerson = dist;
                 }
@@ -347,7 +371,7 @@ public class EnemyAi {
             tilesAndScores[tileScoreIndex] = new KeyValuePair<Vector3Int , float>(temp.Key, score);
 
             watch.Stop();
-            Debug.Log("Tile Calc Time: " + (watch.ElapsedMilliseconds - lastTime) + " ms");
+            //Debug.Log("Tile Calc Time: " + (watch.ElapsedMilliseconds - lastTime) + " ms");
             lastTime = watch.ElapsedMilliseconds;
         }
         Debug.Log("Total Calc Time: " + watch.ElapsedMilliseconds + " ms");
@@ -446,7 +470,13 @@ public class EnemyAi {
         Actions
     *********************************/
     private Command Move(List<KeyValuePair<Vector3Int , float>> tilesAndScore) {
-        //Get Max Value
+        // Ensure tilesAndScore is not empty
+        if(tilesAndScore == null || tilesAndScore.Count == 0) {
+            Debug.LogError("Error: tilesAndScore is empty or null.");
+            return null; // or handle the error appropriately
+        }
+
+        // Get Max Value
         float maxValue = float.MinValue;
 
         foreach(KeyValuePair<Vector3Int , float> pair in tilesAndScore) {
@@ -455,7 +485,7 @@ public class EnemyAi {
             }
         }
 
-        //Get List maxValue
+        // Get List of max value tiles
         List<Vector3Int> tiles = new List<Vector3Int>();
 
         foreach(KeyValuePair<Vector3Int , float> pair in tilesAndScore) {
@@ -464,26 +494,31 @@ public class EnemyAi {
             }
         }
 
-        //Pick one of the moves
-        int randomMove = UnityEngine.Random.Range(0, tiles.Count);
+        Debug.Log("Tile ocunt: " + tiles.Count);
+
+        // Check for too many iterations
+        if(tiles.Count == 0) {
+            Debug.LogError("Error: No tiles with maximum score found.");
+            return null; // or handle the error appropriately
+        }
+
+        // Pick one of the moves
+        int randomMove = UnityEngine.Random.Range(0 , tiles.Count);
+        //Debug.Log("Random Move: " + randomMove);
         Vector3Int moveTile = tiles[randomMove];
 
-        //Debug.Log(tiles.Count);
-
-        //Debug
+        // Debug
         debugMoveTiles = tiles;
 
-        //foreach(Vector3Int t in tiles) {
-        //    GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(true);
-        //}
-        //GlobalVars.hexagonTile[].transform.GetChild(4).gameObject.SetActive(true);
-
-
+        // Update enemy coordinates
         Command command = new Command(enemyCoords[currentEnemyIndex] , moveTile);
-        //Movement.moveEnemy(enemyCoords[currentEnemyIndex], moveTile);
         enemyCoords[currentEnemyIndex] = moveTile;
+
+        Debug.Log("Finsih Move");
+
         return command;
     }
+
 
     private Command HouseAttack(Command command , Stats enemy) {
         command.attackTile = Vector3Int.one;

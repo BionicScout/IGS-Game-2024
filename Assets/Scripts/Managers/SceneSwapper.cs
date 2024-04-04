@@ -16,6 +16,7 @@ public static class SceneSwapper {
 
     public static void A_LoadScene(string sceneName) {
         //Switch Scene
+        Debug.Log(sceneName);
         SceneManager.LoadScene(sceneName);
         currentScene = sceneName;
     }
