@@ -31,7 +31,7 @@ public class DialogueManager : MonoBehaviour
     }
     private void Start()
     {
-       selectedPlayerMenu.SetActive(false);
+       //selectedPlayerMenu.SetActive(false);
     }
     private void Update()
     {

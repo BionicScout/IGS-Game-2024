@@ -8836,7 +8836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerMenu: {fileID: 1599404130}
-  WinMenu: {fileID: 0}
+  WinMenu: {fileID: 21615846}
   LoseMenu: {fileID: 1481956846}
   InputManager: {fileID: 1481956847}
   nextLevel: Level 2
