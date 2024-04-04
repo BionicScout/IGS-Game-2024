@@ -1,6 +1,6 @@
 {
   "PlayerSpawns": [
-    {"spawnLocation": {"x": 0, "y": 3, "z": -3}},
+    {"spawnLocation": {"x": 2, "y": 1, "z": -3}},
     {"spawnLocation": {"x": 0, "y": 2, "z": -2}},
     {"spawnLocation": {"x": 1, "y": 2, "z": -3}},
     {"spawnLocation": {"x": 1, "y": 1, "z": -2}}

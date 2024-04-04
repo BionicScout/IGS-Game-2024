@@ -3553,6 +3553,7 @@ MonoBehaviour:
     - Hello this is a test
     - Hopefully this works
     - IT DOSE!! YIPPPIEEEE
+  inkJSON: {fileID: 0}
 --- !u!114 &596016732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4877,6 +4878,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: aa8cbce59ba4f2342a035acb2d3d3581, type: 2}
   - {fileID: 11400000, guid: ec66ddb08bbc77542a0491b86491486a, type: 2}
   - {fileID: 11400000, guid: 2c4b5258a146b1f46bed337aeb5c7631, type: 2}
+  tutorialPlayers: []
 --- !u!4 &735684803
 Transform:
   m_ObjectHideFlags: 0
@@ -13550,7 +13552,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 25253f49d0381cb41b299cdfc8ea7c6a, type: 2}
   - {fileID: 11400000, guid: f8b548b2c86f1664fa5bd889f589c2ef, type: 2}
   - {fileID: 11400000, guid: c1904695e4fb5634498c1a5d4fbd140e, type: 2}
-  tileCoord: 1
+  tileCoord: 0
 --- !u!4 &1793876000
 Transform:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class EnemyAi {
     string filePath = "Assets\\/Scripts\\Combat\\Combatents\\Enemy\\EnemyAiDebug.txt"; // Define your file path here
@@ -68,10 +69,10 @@ public class EnemyAi {
                 command = LevelOneAi(coord);
                 // Debug.Log("Level 1 Ai");
             }
-            //else if(stats.charType == "L2" || stats.charType == "L3") {
-            //    command = LevelTwoAi(coord);
-            //    // Debug.Log("Level 2 Ai");
-            //}
+            else if(stats.charType == "L2" || stats.charType == "L3") {
+                command = LevelTwoAi(coord);
+                // Debug.Log("Level 2 Ai");
+            }
             else {
                 command = GeneralAi(coord);
                 // Debug.Log("General Ai");
@@ -162,7 +163,7 @@ public class EnemyAi {
             //Move Ai
             command = Move(tilesAndScore);
 
-            WriteToFile(tilesAndScore, command.moveSpace);
+            //WriteToFile(tilesAndScore, command.moveSpace);
 
             if(command.moveSpace == command.startSpace) {
                 command.moveSpace = Vector3Int.one;
@@ -365,7 +366,7 @@ public class EnemyAi {
             score = 0;
             score += Score_PlayersInEnemyRange(inRangeWeight , distances);
             score += Score_EnemyInPlayerRange(playerHitPenaltyWeight , playersCanHit);
-            score += Score_FarAwayPenalty(farPlayerPenalty, closestPerson, distanceThreshold);
+            score += Score_FarAwayPenalty(farPlayerPenalty, closestPerson, enemyStats.move * 2);
 
             //Update Scoring
             KeyValuePair<Vector3Int, float> temp = tilesAndScores[tileScoreIndex];
@@ -388,21 +389,26 @@ public class EnemyAi {
             if(distance <= GlobalVars.enemies[enemyCoords[currentEnemyIndex]].attackRange)
                 score += (GlobalVars.enemies[enemyCoords[currentEnemyIndex]].attackRange / (float)distance) * weight;
         }
+        Debug.Log("PlayersInEnemyRange Score: " + score);
 
         return score;
     }
 
     private float Score_EnemyInPlayerRange(float weight, int playersCanHit) {
+        Debug.Log("EnemyInPlayerRange Score: " + (-(playersCanHit * (playersCanHit + 1) * weight)));
         return -(playersCanHit * (playersCanHit + 1) * weight);
     }
 
     private float Score_FarAwayPenalty(float weight , int closestPerson , int maxDistance) {
-        if(closestPerson <= maxDistance && closestPerson != -1) {
+        if(closestPerson >= maxDistance && closestPerson != -1) {
             // Calculate the penalty based on the distance to the closest player
             float penalty = weight * (1 - (float)closestPerson / maxDistance);
-            return penalty;
+
+            Debug.Log("FarAwayPenalty: " + -penalty);
+            return -penalty;
         }
 
+        Debug.Log("FarAwayPenalty: " + 0);
         return 0;
     }
 

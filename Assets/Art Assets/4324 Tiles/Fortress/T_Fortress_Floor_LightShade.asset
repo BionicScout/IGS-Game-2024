@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 274a7d029d4eaaf4f9dd1a10ae7bd3ae, type: 3}
-  m_Name: Tile_Cliff_BottomRight
+  m_Name: T_Fortress_Floor_LightShade
   m_EditorClassIdentifier: 
-  sprite: {fileID: 155814312, guid: 941cdfec439fb6d4491f78efaab1324a, type: 3}
-  isObstacle: 1
+  sprite: {fileID: 1639141487, guid: 941cdfec439fb6d4491f78efaab1324a, type: 3}
+  isObstacle: 0
   interactable: 0
   objToChange: {fileID: 0}
   tileChanges: []
