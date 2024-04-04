@@ -8,30 +8,33 @@ using UnityEngine;
 public class CharacterLoader : MonoBehaviour {
     public SpawnWave playerSpawns, enemySpawns;
     public List<Stats> enemyStats;
+    public Stats swordsman, archer, healer, illusionist;
 
     private void Start() {
         if(SceneSwapper.currentScene == "Tutorial") {
-            //GlobalVars.players.Add();
+            //GlobalVars.players.Add(new Vector3Int(6, 1, -7), swordsman);
             //GlobalVars.players.Add();
             //GlobalVars.players.Add();
             //GlobalVars.players.Add();
         }
+        else
+        {
+            for(int i = 0; i < playerSpawns.spawns.Count; i++) {
+                Tuple<string , Vector3Int> playerSpawnInfo = playerSpawns.spawns[i];
+                Stats playerCharacter = GlobalVars.choosenPlayers[i];
+                SpawnPlayer(playerSpawnInfo.Item2 , playerCharacter.Copy());
+            }
 
-        for(int i = 0; i < playerSpawns.spawns.Count; i++) {
-            Tuple<string , Vector3Int> playerSpawnInfo = playerSpawns.spawns[i];
-            Stats playerCharacter = GlobalVars.choosenPlayers[i];
-            SpawnPlayer(playerSpawnInfo.Item2 , playerCharacter.Copy());
-        }
+            for(int i = 0; i < enemySpawns.spawns.Count; i++) {
+                Tuple<string , Vector3Int> enemySpawnInfo = enemySpawns.spawns[i];
+                Stats enemy = enemyStats.Find(x => x.charName == enemySpawnInfo.Item1);
+                //Debug.Log(enemySpawnInfo.Item1);
+                SpawnEnemy(enemySpawnInfo.Item2, enemy.Copy());
+            }
 
-        for(int i = 0; i < enemySpawns.spawns.Count; i++) {
-            Tuple<string , Vector3Int> enemySpawnInfo = enemySpawns.spawns[i];
-            Stats enemy = enemyStats.Find(x => x.charName == enemySpawnInfo.Item1);
-            //Debug.Log(enemySpawnInfo.Item1);
-            SpawnEnemy(enemySpawnInfo.Item2, enemy.Copy());
-        }
-
-        foreach(Stats stats in enemyStats) {
-            GlobalVars.enemyStats.Add(stats);
+            foreach(Stats stats in enemyStats) {
+                GlobalVars.enemyStats.Add(stats);
+            }
         }
     }
 

@@ -1,15 +1,15 @@
 {
   "PlayerSpawns": [
-    {"spawnLocation": {"x": 3, "y": 7, "z": -10}},
-    {"spawnLocation": {"x": 4, "y": 5, "z": -9}},
-    {"spawnLocation": {"x": 4, "y": 7, "z": -11}},
-    {"spawnLocation": {"x": 5, "y": 5, "z": -10}}
+    {"spawnLocation": {"x": 6, "y": 1, "z": -7}},
+    {"spawnLocation": {"x": 7, "y": 1, "z": -8}},
+    {"spawnLocation": {"x": 8, "y": 1, "z": -9}},
+    {"spawnLocation": {"x": 9, "y": 1, "z": -10}}
   ],
   "EnemySpawnLocations": [
-    {"unitName": "L1_SpearmanBandit", "spawnLocation": {"x": -3, "y": 9, "z": -6}},
-    {"unitName": "L1_SpearmanBandit", "spawnLocation": {"x": 0, "y": 3, "z": -3}},
-    {"unitName": "L1_SpearmanBandit", "spawnLocation": {"x": 11, "y": 3, "z": -14}},
-    {"unitName": "L1_SpearmanBandit", "spawnLocation": {"x": 8, "y": 9, "z": -17}}
+    {"unitName": "L1_SwordsmanBandit", "spawnLocation": {"x": 2, "y": 11, "z": -13}},
+    //{"unitName": "L1_SpearmanBandit", "spawnLocation": {"x": 0, "y": 3, "z": -3}},
+    //{"unitName": "L1_SpearmanBandit", "spawnLocation": {"x": 11, "y": 3, "z": -14}},
+    //{"unitName": "L1_SpearmanBandit", "spawnLocation": {"x": 8, "y": 9, "z": -17}}
   ],
   "Turns": [
     {
