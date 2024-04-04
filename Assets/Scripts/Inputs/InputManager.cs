@@ -68,7 +68,7 @@ public class InputManager : MonoBehaviour {
     *********************************/
     void Start() {
         inputMode = modes.normal;
-        selectedPlayerMenu.SetActive(false);  // needs to be swithced back, debuging dialogue chats
+        selectedPlayerMenu.SetActive(true);  
         statsMenu.SetActive(false);
         turnManager = FindAnyObjectByType<TurnManager>();
 
