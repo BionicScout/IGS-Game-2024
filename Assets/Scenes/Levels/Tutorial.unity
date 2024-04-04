@@ -6332,10 +6332,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyStats:
   - {fileID: 11400000, guid: 2c4b5258a146b1f46bed337aeb5c7631, type: 2}
-  swordsman: {fileID: 11400000, guid: 3fa4eed6f76fa6447b38e2fe43e84b28, type: 2}
-  archer: {fileID: 11400000, guid: 29516e27f84d657488695d3d5e0e720b, type: 2}
-  healer: {fileID: 11400000, guid: d62203eb532e9424d9f8b7f20839b2fe, type: 2}
-  illusionist: {fileID: 11400000, guid: 67386806df2c11d4482b8936ccb9c897, type: 2}
+  - {fileID: 11400000, guid: 2c4b5258a146b1f46bed337aeb5c7631, type: 2}
+  tutorialPlayers:
+  - {fileID: 11400000, guid: 3fa4eed6f76fa6447b38e2fe43e84b28, type: 2}
+  - {fileID: 11400000, guid: 29516e27f84d657488695d3d5e0e720b, type: 2}
+  - {fileID: 11400000, guid: d62203eb532e9424d9f8b7f20839b2fe, type: 2}
+  - {fileID: 11400000, guid: 67386806df2c11d4482b8936ccb9c897, type: 2}
 --- !u!1 &950545032
 GameObject:
   m_ObjectHideFlags: 0
@@ -15087,7 +15089,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2082879623
 RectTransform:
   m_ObjectHideFlags: 0

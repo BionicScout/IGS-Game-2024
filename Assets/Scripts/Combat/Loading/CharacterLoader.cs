@@ -8,21 +8,30 @@ using UnityEngine;
 public class CharacterLoader : MonoBehaviour {
     public SpawnWave playerSpawns, enemySpawns;
     public List<Stats> enemyStats;
-    public Stats swordsman, archer, healer, illusionist;
+    public List<Stats> tutorialPlayers;
+    //public Stats swordsman, archer, healer, illusionist;
 
     private void Start() {
         if(SceneSwapper.currentScene == "Tutorial") {
             //GlobalVars.players.Add(new Vector3Int(6, 1, -7), swordsman);
-            //GlobalVars.players.Add();
-            //GlobalVars.players.Add();
-            //GlobalVars.players.Add();
+            //GlobalVars.players.Add(new Vector3Int(7, 1, -8), swordsman);
+            //GlobalVars.players.Add(new Vector3Int(8, 1, -9), swordsman);
+            //GlobalVars.players.Add(new Vector3Int(0, 1, -10), swordsman);
+
+            for (int i = 0; i < tutorialPlayers.Count; i++)
+            {
+                Tuple<string, Vector3Int> playerSpawnInfo = playerSpawns.spawns[i];
+                Stats playerCharacter = GlobalVars.choosenPlayers[i];
+                SpawnPlayer(playerSpawnInfo.Item2, playerCharacter.Copy());
+            }
+
         }
         else
         {
             for(int i = 0; i < playerSpawns.spawns.Count; i++) {
                 Tuple<string , Vector3Int> playerSpawnInfo = playerSpawns.spawns[i];
-                Stats playerCharacter = GlobalVars.choosenPlayers[i];
-                SpawnPlayer(playerSpawnInfo.Item2 , playerCharacter.Copy());
+                //Stats playerCharacter = GlobalVars.choosenPlayers[i];
+                //SpawnPlayer(playerSpawnInfo.Item2 , playerCharacter.Copy());
             }
 
             for(int i = 0; i < enemySpawns.spawns.Count; i++) {
