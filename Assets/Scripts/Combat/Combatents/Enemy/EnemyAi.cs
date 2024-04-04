@@ -158,10 +158,11 @@ public class EnemyAi {
             totalTime += watch.ElapsedMilliseconds;
             iterations++;
 
-            //WriteToFile(tilesAndScore);
 
             //Move Ai
             command = Move(tilesAndScore);
+
+            WriteToFile(tilesAndScore, command.moveSpace);
 
             if(command.moveSpace == command.startSpace) {
                 command.moveSpace = Vector3Int.one;
@@ -590,7 +591,7 @@ public class EnemyAi {
             Debugging
         *********************************/
 
-        void WriteToFile(List<KeyValuePair<Vector3Int , float>> tilesAndScores) {
+        void WriteToFile(List<KeyValuePair<Vector3Int , float>> tilesAndScores, Vector3Int enemyCoord) {
         // Check if the file already exists, if not, create it
         if(!File.Exists(filePath)) {
             File.Create(filePath).Close();
@@ -599,7 +600,8 @@ public class EnemyAi {
         // Open the file to write
         using(StreamWriter writer = new StreamWriter(filePath)) {
             // Write class information to the file
-            writer.WriteLine("Tile Scores: ");
+            writer.WriteLine("Current Enemy: " + enemyCoord);
+            writer.WriteLine("\nTile Scores: ");
 
             foreach(KeyValuePair<Vector3Int, float> tile in tilesAndScores) {
                 writer.WriteLine(tile.Key + " - Score: " + tile.Value);
