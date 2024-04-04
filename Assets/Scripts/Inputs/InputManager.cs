@@ -228,8 +228,6 @@ public class InputManager : MonoBehaviour {
         HealIndicators(false);
         int ogDodge = GlobalVars.players[playerCoord].dodge;
 
-        turnManager.Player_HardAction(playerCoord);
-
         if(GlobalVars.enemies.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord , playerCoord) <= playerAttRange + 1) {
             //Get Player and current + future hex objs
             Stats enemyStats = GlobalVars.enemies[clickedCoord];
@@ -281,6 +279,8 @@ public class InputManager : MonoBehaviour {
             AttackIndicators(false);
 
             Pathfinding.AllPossibleTiles(clickedCoord , playerAttRange);
+
+            turnManager.Player_HardAction(playerCoord);
 
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
