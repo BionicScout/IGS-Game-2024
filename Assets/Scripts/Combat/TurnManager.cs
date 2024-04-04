@@ -149,11 +149,6 @@ public class TurnManager : MonoBehaviour {
 
     public void EndTurn() {
         UpdateActiveMenu();
-        StartCoroutine(ExecuteEnemyTurn());
-        InputManager.TakePoison();
-    }
-
-    public void StartEnemyTurn() {
         turn++;
         StartCoroutine(ExecuteEnemyTurn());
         InputManager.TakePoison();
