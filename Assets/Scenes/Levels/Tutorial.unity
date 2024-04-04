@@ -14186,7 +14186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6813bf2829e75343acb8355d3e1e10d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnDataFile: {fileID: 4900000, guid: 2decd66ce41b1604787cbc600629f590, type: 3}
+  spawnDataFile: {fileID: 4900000, guid: 3a59015a471eb1342b7a396e7f3b087e, type: 3}
 --- !u!1 &1871372190
 GameObject:
   m_ObjectHideFlags: 0
@@ -15467,6 +15467,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialoguePannel: {fileID: 2083085681}
   dialogueTxt: {fileID: 1909725943}
+  selectedPlayerMenu: {fileID: 0}
 --- !u!1 &2131439107
 GameObject:
   m_ObjectHideFlags: 0
