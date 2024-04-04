@@ -1,58 +1,116 @@
+using Ink.Parsed;
+using Ink.Runtime;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using Story = Ink.Runtime.Story;
 
 public class DialogueManager : MonoBehaviour
 {
-    private Queue<string> sentences;
-    public GameObject dialogueCanvas;
-    public GameObject selectedPlayerMenu;
-    public TextMeshProUGUI nameTxt, dialogueTxt;
-    public Animator animator;
+    [Header("Dialogue UI")]
+    [SerializeField] private GameObject dialoguePannel;
+    [SerializeField] private TextMeshProUGUI dialogueTxt;
+    [SerializeField] private GameObject selectedPlayerMenu;
+    private static DialogueManager instance;
+    private Story currentStory;
+    public bool dialogueIsPlaying { get; private set; }
 
-    // Start is called before the first frame update
-    void Start()
+     private void Awake()
     {
-        sentences = new Queue<string>();
-    }
-    public void StartDialogue(Dialogue dialogue)
-    {
-        animator.SetBool("IsOpen", true);
-        nameTxt.text = dialogue.name;
-        sentences.Clear();
-        foreach(string sentence in dialogue.sentences)
+        if (instance == null) 
         {
-            sentences.Enqueue(sentence);
+            Debug.LogWarning("Found more then one Dialogue manager in this scene");
         }
-        DisplayNextSentence();
+        instance = this; 
     }
-
-    public void DisplayNextSentence()
+    private void Start()
     {
-        if(sentences.Count == 0)
+       selectedPlayerMenu.SetActive(false);
+    }
+    private void Update()
+    {
+        if(!dialogueIsPlaying)
         {
-            EndDialogue();
             return;
         }
-        string sentence = sentences.Dequeue();
-        StopAllCoroutines();
-        StartCoroutine(TypeSentence(sentence));
+
     }
-    IEnumerator TypeSentence(string sentence)
+    public void EnterDialogueMode(TextAsset inkJSON)
     {
+        currentStory = new Story(inkJSON.text);
+        dialogueIsPlaying = true;
+        dialoguePannel.SetActive(true);
+        ContinueStory();
+    }
+    public IEnumerator ExitDialogueMode()
+    {
+        yield return new WaitForSeconds(0.2f);
+        dialogueIsPlaying = false;
+        dialoguePannel.SetActive(false);
         dialogueTxt.text = " ";
-        foreach(char letter in sentence.ToCharArray())
+        selectedPlayerMenu.SetActive(true);
+    }
+    public void ContinueStory()
+    {
+        if (currentStory.canContinue)
         {
-            dialogueTxt.text += letter;
-            yield return null;
+            dialogueTxt.text = currentStory.Continue();
+        }
+        else
+        {
+            StartCoroutine(ExitDialogueMode());
         }
     }
-    public void EndDialogue()
+    public static DialogueManager GetInstance()
     {
-        animator.SetBool("IsOpen", false);
-        selectedPlayerMenu.SetActive(true);
-        dialogueCanvas.SetActive(false);
+        return instance;
     }
 }
+
+
+//    // Start is called before the first frame update
+//    void Start()
+//    {
+//        sentences = new Queue<string>();
+//    }
+//    public void StartDialogue(Dialogue dialogue)
+//    {
+//        animator.SetBool("IsOpen", true);
+//        nameTxt.text = dialogue.name;
+//        sentences.Clear();
+//        foreach(string sentence in dialogue.sentences)
+//        {
+//            sentences.Enqueue(sentence);
+//        }
+//        DisplayNextSentence();
+//    }
+
+//    public void DisplayNextSentence()
+//    {
+//        if(sentences.Count == 0)
+//        {
+//            EndDialogue();
+//            return;
+//        }
+//        string sentence = sentences.Dequeue();
+//        StopAllCoroutines();
+//        StartCoroutine(TypeSentence(sentence));
+//    }
+//    IEnumerator TypeSentence(string sentence)
+//    {
+//        dialogueTxt.text = " ";
+//        foreach(char letter in sentence.ToCharArray())
+//        {
+//            dialogueTxt.text += letter;
+//            yield return null;
+//        }
+//    }
+//    public void EndDialogue()
+//    {
+//        animator.SetBool("IsOpen", false);
+//        selectedPlayerMenu.SetActive(true);
+//        dialogueCanvas.SetActive(false);
+//    }
