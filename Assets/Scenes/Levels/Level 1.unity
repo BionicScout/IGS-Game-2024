@@ -3553,7 +3553,7 @@ MonoBehaviour:
     - Hello this is a test
     - Hopefully this works
     - IT DOSE!! YIPPPIEEEE
-  inkJSON: {fileID: 0}
+  lesson1: {fileID: 0}
 --- !u!114 &596016732
 MonoBehaviour:
   m_ObjectHideFlags: 0
