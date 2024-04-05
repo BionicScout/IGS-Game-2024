@@ -7413,6 +7413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a905c8bfd04ec5f408622c4501d7fd63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitParticles: {fileID: 1052758049302362282, guid: e9dbf8a590745754680ef205c90d71df, type: 3}
   PlayerMenu: {fileID: 564735241}
   WinMenu: {fileID: 224490381}
   LoseMenu: {fileID: 1235068413}
