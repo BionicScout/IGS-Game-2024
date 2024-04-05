@@ -65,6 +65,7 @@ public class DialogueManager : MonoBehaviour
         else
         {
             //StartCoroutine(ExitDialogueMode());
+            GlobalVars.levelClear();
             SceneSwapper.A_LoadScene(nextScene);
         }
     }

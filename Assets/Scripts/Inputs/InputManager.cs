@@ -90,6 +90,7 @@ public class InputManager : MonoBehaviour {
                 Vector3Int t = temp.Item1;
                 GlobalVars.hexagonTile[t].transform.GetChild(5).gameObject.SetActive(false);
             }
+            ClearIndicators();
             GlobalVars.hexagonTile[clickedCoord].transform.GetChild(5).gameObject.SetActive(true);
 
             worldSpacePos = mousePos;
@@ -117,26 +118,25 @@ public class InputManager : MonoBehaviour {
                     }
 
                     //sets all indicators false when players are clicked
-                    MoveIndicators(false);
-                    AttackIndicators(false);
-                    HealIndicators(false);
+                    ClearIndicators();
 
                 }
             }
             //triggers the specific functions from the buttons
             if(inputMode == modes.attack) {
-                if (GlobalVars.players[clickedCoord].charType == "Swordsman" || GlobalVars.players[clickedCoord].charType == "Spearman" || GlobalVars.players[clickedCoord].charType == "Paladin")
+                if (GlobalVars.players[playerCoord].charType == "Swordsman" || GlobalVars.players[playerCoord].charType == "Spearman" || GlobalVars.players[playerCoord].charType == "Paladin")
                 {
-                    Debug.Log("got the player type");
+                    Debug.Log("Wack function was called");
                     Wack(clickedCoord, 2);
                     inputMode = modes.normal;
                 }
-                else if (GlobalVars.players[clickedCoord].charType == "Archer" || GlobalVars.players[clickedCoord].charType == "Crossbowman")
+                else if (GlobalVars.players[playerCoord].charType == "Archer" || GlobalVars.players[playerCoord].charType == "Crossbowman")
                 {
                     Shoot(clickedCoord, 2);
+                    Debug.Log("Shoot function was called");
                     inputMode = modes.normal;
                 }
-                else if(GlobalVars.players[clickedCoord].charType == "Alchemist")
+                else if(GlobalVars.players[playerCoord].charType == "Alchemist")
                 {
                     Poison();
                     inputMode = modes.normal;
@@ -146,7 +146,7 @@ public class InputManager : MonoBehaviour {
                     Heal(GlobalVars.players[clickedCoord].power);
                     inputMode = modes.normal;
                 }
-                else if (GlobalVars.players[clickedCoord].charType == "Illusionist")
+                else if (GlobalVars.players[playerCoord].charType == "Illusionist")
                 {
                     SmokeBomb();
                     inputMode = modes.normal;
@@ -186,36 +186,30 @@ public class InputManager : MonoBehaviour {
         Update Input Mode
     *********************************/
     public void SetAttack() {
-        MoveIndicators(false);
-        HealIndicators(false);
+        ClearIndicators();
         AttackIndicators(true);
         inputMode = modes.attack;
         clickedUI = true;
     }
     public void SetMove() {
-        Debug.Log("Player has attempted to move");
-        AttackIndicators(false);
-        HealIndicators(false);
+        ClearIndicators();
         MoveIndicators(true);
         inputMode = modes.move;
         clickedUI = true;
     }
     public void SetSmoke() {
-        MoveIndicators(false);
-        HealIndicators(false);
+        ClearIndicators();
         inputMode = modes.AOE;
         clickedUI = true;
     }
     public void SetHeal() {
-        AttackIndicators(false);
-        HealIndicators(true);
+        ClearIndicators();
         inputMode = modes.heal;
         clickedUI = true;
     }
     public void SetInteract()
     {
-        MoveIndicators(false);
-        HealIndicators(false);
+        ClearIndicators();
         InteractIndicators();
         inputMode = modes.interact;
     }
@@ -224,22 +218,27 @@ public class InputManager : MonoBehaviour {
         Actions
     *********************************/
     public void Shoot(Vector3Int hexCoordOfEnemy , float damage) {
-        MoveIndicators(false);
-        HealIndicators(false);
+        Debug.Log("Shoot Function has started");
+        ClearIndicators();
         int ogDodge = GlobalVars.players[playerCoord].dodge;
 
         if(GlobalVars.enemies.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord , playerCoord) <= playerAttRange + 1) {
+            Debug.Log("checked if enemy was in range");
             //Get Player and current + future hex objs
             Stats enemyStats = GlobalVars.enemies[clickedCoord];
             GameObject enemyTileObj = GlobalVars.hexagonTile[clickedCoord];
 
             if (InSmoke())
             {
+                Debug.Log("Checked if player is in smoke");
                 GlobalVars.players[clickedCoord].dodge = smokeDodge;
                 if (RollDodge() > GlobalVars.players[clickedCoord].dodge)
                 {
+                    Debug.Log("Rolled and checked to see in the enemy dodged");
                     //deals damage
                     enemyStats.Damage(playerPower);
+                    Debug.Log("Damage was delt");
+                    Debug.Log("enemy health: " + enemyStats.curHealth);
                     //attack audio
                     AudioManager.instance.Play("Attack");
                     //hit particles
@@ -247,9 +246,9 @@ public class InputManager : MonoBehaviour {
 
                     //enemy death
                     if (enemyStats.curHealth <= 0) {
+                        RemoveEnmey(hexCoordOfEnemy);
                         enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
                         //RollItems();
-                        RemoveEnmey(hexCoordOfEnemy);
                         //death audio
                         AudioManager.instance.Play("Deah-Sound");
                     }
@@ -258,13 +257,15 @@ public class InputManager : MonoBehaviour {
         }
             else if (RollDodge() > GlobalVars.players[playerCoord].dodge)
             {
+                Debug.Log("Rolled and checked to see in the enemy dodged");
                 //deals damage
+                Debug.Log("Damage was delt");
                 enemyStats.Damage(playerPower);
                 //attack audio
                 AudioManager.instance.Play("Attack");
                 //hit particles
                 Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
-                AudioManager.instance.Play("Enemy-Hurt");
+                //AudioManager.instance.Play("Enemy-Hurt");
 
                 //enemy death
                 if (enemyStats.curHealth <= 0)
@@ -273,7 +274,7 @@ public class InputManager : MonoBehaviour {
                     //RollItems();
                     RemoveEnmey(hexCoordOfEnemy);
                     //death audio
-                    //AudioManager.instance.Play("Deah-Sound");
+                    AudioManager.instance.Play("Deah-Sound");
                 }
             }
             AttackIndicators(false);
@@ -291,24 +292,28 @@ public class InputManager : MonoBehaviour {
         GlobalVars.players[playerCoord].defense = playerDefense;
     }
     public void Wack(Vector3Int hexCoordOfEnemy , float damage) {
-        MoveIndicators(false);
-        HealIndicators(false);
+        Debug.Log("Wack Function has started");
+        ClearIndicators();
         int ogDodge = GlobalVars.players[playerCoord].dodge;
 
         Pathfinding.AllPossibleTiles(clickedCoord , 1);
 
         if(GlobalVars.enemies.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord , playerCoord) <= playerAttRange + 1) {
+            Debug.Log("checked if enemy was in range");
             //Get Player and current + future hex objs
             Stats enemyStats = GlobalVars.enemies[clickedCoord];
             GameObject enemyTileObj = GlobalVars.hexagonTile[clickedCoord];
             //checks if player is in smoke and sets the illusionists power as the characters dodge
             if (InSmoke())
             {
+                Debug.Log("Checked if player is in smoke");
                 GlobalVars.players[clickedCoord].dodge = smokeDodge;
                 //sees if the player misses the attack
                 if (RollDodge() > GlobalVars.players[clickedCoord].dodge)
                 {
-                    //Deals damage
+                    Debug.Log("Rolled and checked to see in the enemy dodged");
+                    //deals damage
+                    Debug.Log("Damage was delt");
                     enemyStats.Damage(playerPower);
                     //attack audio
                     AudioManager.instance.Play("Attack");
@@ -330,9 +335,9 @@ public class InputManager : MonoBehaviour {
             //sees if the player misses the attack
             else if (RollDodge() > GlobalVars.players[playerCoord].dodge)
             {
-                Debug.Log("Attacked");
-
-                //Deals damage
+                Debug.Log("Rolled and checked to see in the enemy dodged");
+                //deals damage
+                Debug.Log("Damage was delt");
                 enemyStats.Damage(playerPower);
                 //attack audio
                 AudioManager.instance.Play("Attack");
@@ -342,11 +347,12 @@ public class InputManager : MonoBehaviour {
                 //enemy death
                 if (enemyStats.curHealth <= 0)
                 {
+                    Debug.Log("Enemy was killed");
                     enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
                     //RollItems();
                     RemoveEnmey(hexCoordOfEnemy);
                     //death audio
-                    //AudioManager.instance.Play("Deah-Sound");
+                    AudioManager.instance.Play("Deah-Sound");
                 }
             }
             //enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
@@ -363,9 +369,7 @@ public class InputManager : MonoBehaviour {
     }
     public void Poison() 
     {
-        MoveIndicators(false);
-        HealIndicators(false);
-
+        ClearIndicators();
         turnManager.Player_HardAction(playerCoord);
 
         if (GlobalVars.players[playerCoord].charLevel <= 2)
@@ -409,9 +413,7 @@ public class InputManager : MonoBehaviour {
     }
     public void SmokeBomb()
     {
-        MoveIndicators(false);
-        HealIndicators(false);
-
+        ClearIndicators();
         turnManager.Player_HardAction(playerCoord);
 
         if (Vector3Int.Distance(clickedCoord, playerCoord) <= playerAttRange + 1)
@@ -435,8 +437,7 @@ public class InputManager : MonoBehaviour {
         GlobalVars.players[playerCoord].defense = playerDefense;
     }
     public void Heal(int healthBack) {
-        AttackIndicators(false);
-
+        ClearIndicators();
         if (GlobalVars.players[clickedCoord].charLevel == 1) 
         { 
             if(GlobalVars.players.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord , playerCoord) <= 2) {
@@ -480,19 +481,15 @@ public class InputManager : MonoBehaviour {
         GlobalVars.players[playerCoord].defense = playerDefense;
     }
     public void Move() {
-        Debug.Log("player has started movement");
-        AttackIndicators(false);
+        ClearIndicators();
 
         int moveRange = turnManager.getMovementLeft(playerCoord);
         List<Tuple<Vector3Int , int>> possibles = Pathfinding.AllPossibleTiles(clickedCoord , moveRange);
 
         foreach(Tuple<Vector3Int , int> temp in possibles) {
-            if(temp.Item1 == clickedCoord && Vector3Int.Distance(clickedCoord , playerCoord) <= moveRange + 1) {
-                //Debug.Log("Tile distance: " + Vector3Int.Distance(clickedCoord , playerCoord));
-                //Debug.Log("This is Item1 " + temp.Item1);
-
+            if(temp.Item1 == clickedCoord && Vector3Int.Distance(clickedCoord , playerCoord) <= moveRange + 1) 
+            {
                 Movement.movePlayer(playerCoord , clickedCoord);
-                Debug.Log("move function was called");
                 MoveIndicators(false);
                 TakePoison();
 
@@ -500,7 +497,6 @@ public class InputManager : MonoBehaviour {
                 playerCoord = clickedCoord;
             }
         }
-        Debug.Log("player has finished move");
     }
     public void Interact() {
         Debug.Log("INTERACT");
@@ -598,6 +594,15 @@ public class InputManager : MonoBehaviour {
             {
                 GlobalVars.hexagonTile[t].transform.GetChild(5).gameObject.SetActive(true);
             }
+        }
+    }
+    public void ClearIndicators()
+    {
+        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, 20))
+        {
+            Vector3Int t = temp.Item1;
+            GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(false);
+            GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(false);
         }
     }
 
