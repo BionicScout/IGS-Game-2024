@@ -48,13 +48,13 @@ public class DialogueManager : MonoBehaviour
         dialoguePannel.SetActive(true);
         ContinueStory();
     }
-    public void ExitDialogueMode()
+    public IEnumerator ExitDialogueMode()
     {
-        //yield return new WaitForSeconds(0.2f);
-        //dialogueIsPlaying = false;
-        //dialoguePannel.SetActive(false);
-        //dialogueTxt.text = " ";
-        //selectedPlayerMenu.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        dialogueIsPlaying = false;
+        dialoguePannel.SetActive(false);
+        dialogueTxt.text = " ";
+        selectedPlayerMenu.SetActive(true);
     }
     public void ContinueStory()
     {
@@ -64,7 +64,7 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            //StartCoroutine(ExitDialogueMode());
+            StartCoroutine(ExitDialogueMode());
             GlobalVars.levelClear();
             SceneSwapper.A_LoadScene(nextScene);
         }
