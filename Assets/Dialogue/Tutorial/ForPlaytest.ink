@@ -10,7 +10,7 @@ You did a great job!!
 So the enemy moved closer to you, its now time to attack.
 But first let go over your charcters stats. 
 There again should be a button on your charcters menu called STATS. 
-A new menu should pop up, listing all the inportant stats, which will be different for each character.
+A new menu should pop up, listing all the important stats, which will be different for each character.
 The stats include: your characters type, movement range, power, hartyness(defense), health and power range.
 
 Now lets get on to attacking.
@@ -24,10 +24,10 @@ Nice Kill!!
 
 Im sorry but for this next lesson we've had to damage your swordsman.
 
-Go ahead and click on them, you'll see that the health bar has gone donw. Lets fix that!!
+Go ahead and click on them, you'll see that the health bar has gone down. Lets fix that!!
 
-There should be a button labled ITEMS, it works similar to the stast menu.
-Once you see the menu clcik on the first one in the list, it is a healing potion. After you clicked on it a USE button should have apperared, click on that too.
+There should be a button labled ITEMS, it works similar to the stats menu.
+Once you see the menu click on the first one in the list, it is a healing potion. After you clicked on it a USE button should have appeared, click on that too.
 
 Lets do a brief rundown of all the items.
 we can skip the heal potion since we just went over that.
@@ -36,14 +36,14 @@ Third is a defense buff, its the same as the power buff but for your defense.
 Forth is a revive which can be used to bring any dead character back.
 Last we have the healing scroll which can heal all you charcters by 4 health points. 
 
-Like always hit the end turn when your done.
+Like always hit the end turn when you're done.
 
 
-Look at that all healed up!!
+Look at that, all healed up!!
 
 Next lets move on. Somethings around the world are able to be interacted with.
-For this tutorial it will be the tree, go ahaead and move towards it.
-Once you are within a one tile radius click the INTERACT button, the tree should now have a white borader around the tile.
+For this tutorial it will be the tree, go ahead and move towards it.
+Once you are within a one tile radius click the INTERACT button, the tree should now have a white boarder around the tile.
 By clicking on the tree you will chop it down letting you cross to the other side of the river.
 
 As always hit the end turn button when you finish.

@@ -2,7 +2,7 @@ You did a great job!!
 So the enemy moved closer to you, its now time to attack.
 But first let go over your charcters stats. 
 There again should be a button on your charcters menu called STATS. 
-A new menu should pop up, listing all the inportant stats, which will be different for each character.
+A new menu should pop up, listing all the important stats, which will be different for each character.
 The stats include: your characters type, movement range, power, hartyness(defense), health and power range.
 
 Now lets get on to attacking.

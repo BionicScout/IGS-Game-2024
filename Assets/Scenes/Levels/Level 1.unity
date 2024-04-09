@@ -1450,6 +1450,7 @@ GameObject:
   - component: {fileID: 158494693}
   - component: {fileID: 158494692}
   - component: {fileID: 158494696}
+  - component: {fileID: 158494697}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1545,6 +1546,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 158494693}
   spriteRenderer: {fileID: 544611183}
+--- !u!114 &158494697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158494691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 377db23e87d4c584091cc5866648b2b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextScene: Level 2
 --- !u!1 &172522067
 GameObject:
   m_ObjectHideFlags: 0
@@ -1844,13 +1858,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 283666939}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 158494697}
+        m_TargetAssemblyTypeName: WinLoseScreen, Assembly-CSharp
+        m_MethodName: Replay
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3961,7 +3975,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 620124608}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 158494697}
+        m_TargetAssemblyTypeName: WinLoseScreen, Assembly-CSharp
+        m_MethodName: Replay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &620124608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9139,7 +9165,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1543223987}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 158494697}
+        m_TargetAssemblyTypeName: WinLoseScreen, Assembly-CSharp
+        m_MethodName: Continue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1543223987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14993,7 +15031,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1946173625}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 283666944}
+        m_TargetAssemblyTypeName: PasueMenu, Assembly-CSharp
+        m_MethodName: MainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1946173625
 MonoBehaviour:
   m_ObjectHideFlags: 0
