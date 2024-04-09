@@ -204,7 +204,7 @@ public class TurnManager : MonoBehaviour {
 
         //Enemy attack
         if (command.attackTile != Vector3Int.one) {
-            //Debug.Log(command.attackTile);
+            Debug.Log("TURN MANAGER: " + command.attackTile);
 
             //Debug.Log("PLayer Health After: " + GlobalVars.players[command.attackTile].curHealth);
 

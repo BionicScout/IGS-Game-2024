@@ -728,7 +728,7 @@ public class InputManager : MonoBehaviour {
     public float RollDodge()
     {
         float dodgeChance = Random.Range(1, 100);
-        Debug.Log(dodgeChance +  " --------------------------------------");
+        //Debug.Log(dodgeChance +  " --------------------------------------");
         return dodgeChance;
     }
     public float RollItems()

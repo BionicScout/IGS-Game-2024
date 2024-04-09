@@ -26,7 +26,7 @@ public class Pathfinding {
             coord = hexCoord;
             visited = false;
             TileScriptableObjects template = GlobalVars.hexagonTileRefrence[hexCoord];
-            isObstacle = template.isObstacle;
+            isObstacle = template.isObstacle || GlobalVars.players.ContainsKey(hexCoord) || GlobalVars.enemies.ContainsKey(hexCoord);
             dist = UNVISITED_DISTANCE;
             previous = Vector3Int.one; //Impossible to Get with Hexagon Coords
         }
@@ -166,9 +166,6 @@ public static List<Tuple<Vector3Int , int>> AllPossibleTiles(Vector3Int startPos
     }
 
     public static List<Vector3Int> PathBetweenPoints(Vector3Int startPos , Vector3Int endPoint) {
-        // /*IGNORES THIS CHAT GPT*/ return PathBetweenPoints_Old(startPos, endPoint);
-
-
         // A* (star) Pathfinding
 
         //Loop Variables 
@@ -250,6 +247,12 @@ public static List<Tuple<Vector3Int , int>> AllPossibleTiles(Vector3Int startPos
             }
         }
 
+        //Doesn't Reach Target
+        if(!searchList.ContainsKey(endPoint)) {
+            Debug.Log("Pathfinding - end point not reached");
+            return null;
+        }
+
 
 
         //Trace Path back
@@ -258,26 +261,28 @@ public static List<Tuple<Vector3Int , int>> AllPossibleTiles(Vector3Int startPos
 
         // Maximum iteration limit for path reconstruction
         int pathIterations = 0;
+        //Debug.Log("---------------------------------------------------------------------------------------------------");
+        //Debug.Log(currentPath + "\t" + searchList.ContainsKey(currentPath));
+
         while(searchList[currentPath].previous != Vector3.one) {
             // Increment path reconstruction iteration count
             pathIterations++;
 
             // Check maximum iteration limit
             if(pathIterations >= MAX_ITERATIONS) {
-                Debug.LogError("ERROR - Maximum path reconstruction iterations reached. Potential infinite loop detected.");
+                //Debug.LogError("ERROR - Maximum path reconstruction iterations reached. Potential infinite loop detected.");
                 return null;
             }
 
             // Add current path to the list and Move to the previous tile
             path.Add(currentPath);
             currentPath = searchList[currentPath].previous;
+            Debug.Log(currentPath);
         }
 
         // Add the last path
         path.Add(currentPath);
         path.Reverse();
-
-
 
         return path;
 

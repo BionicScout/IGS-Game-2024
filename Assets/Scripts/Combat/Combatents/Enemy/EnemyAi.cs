@@ -59,7 +59,7 @@ public class EnemyAi {
 
         for(int i = 0; i < enemyCoords.Count; i++) {
             Vector3Int coord = enemyCoords[i];
-            Debug.Log("EnemeyCorrds Length: " + enemyCoords.Count);
+            //Debug.Log("EnemeyCorrds Length: " + enemyCoords.Count);
             Stats stats = GlobalVars.enemies[coord];
 
             //
@@ -87,8 +87,6 @@ public class EnemyAi {
             //
             enemyCoords[currentEnemyIndex] = command.moveSpace;
             tm.commandQueue.Enqueue(command);
-
-            Debug.Log("Hello 7");
 
             //
             currentEnemyIndex++;
@@ -234,6 +232,8 @@ public class EnemyAi {
         Command command = new Command(coord);
         //Debug.Log("ATTACK");
         command = Attack(command , stats);
+
+        Debug.Log("ENEMY AI (" + stats.charName + ")  " + command.attackTile);
 
         return command;
     }
@@ -566,11 +566,18 @@ public class EnemyAi {
             if(endTurnTile != null) {
                 endTurnTile = command.startSpace;
             }
-          
 
-            int distance = Pathfinding.PathBetweenPoints(playerInfo.Key , endTurnTile).Count - 1;
+            //Debug.Log("PLayer: " + playerInfo.Key);
+            //Debug.Log("Enemy: " + endTurnTile);
 
-            if(distance == -1)
+            List<Vector3Int> list = Pathfinding.PathBetweenPoints(playerInfo.Key , endTurnTile);
+            if(list == null) {
+                continue;
+            }
+
+            int distance = list.Count - 1;
+
+            if(distance == -1 || distance == 0|| distance > enemy.attackRange)
                 continue;
 
             //Debug.Log("DIST: " + distance);
@@ -578,6 +585,7 @@ public class EnemyAi {
             //Debug.Log("Player Health: " + playerInfo.Value.curHealth + "\nLowest Health: " + lowestHealth);
 
             if(distance <= enemy.attackRange && playerInfo.Value.curHealth < lowestHealth) {
+                Debug.Log("Distance: " +  distance);
                 lowestHealth = playerInfo.Value.curHealth;
                 playerCoord = playerInfo.Key;
             }
@@ -587,6 +595,7 @@ public class EnemyAi {
         //Debug.Log("Attack Player at: " + playerCoord + "\nLowest Health: " + lowestHealth);
 
         command.attackTile = playerCoord;
+        Debug.Log("ATTACK COORD: " + playerCoord);
 
 
         return command;

@@ -34,17 +34,17 @@ public class Stats : ScriptableObject
 
     public int Damage(int dmg)
     {
-        Debug.Log("Health: " + curHealth);
-        Debug.Log("Damage: " + dmg);
+        //Debug.Log("Health: " + curHealth);
+        //Debug.Log("Damage: " + dmg);
         dmg -= defense;
         if (dmg <= 0)
         {
-            Debug.Log("In damage function");
+            //Debug.Log("In damage function");
             dmg = 1;
         }
         curHealth -= dmg;
-        Debug.Log("Damage: " + dmg);
-        Debug.Log("Health: " + curHealth);
+        //Debug.Log("Damage: " + dmg);
+        //Debug.Log("Health: " + curHealth);
         return dmg;
     }
     public void Heal(int heal)
