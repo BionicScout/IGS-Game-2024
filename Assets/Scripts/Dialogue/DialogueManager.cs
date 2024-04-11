@@ -14,6 +14,7 @@ public class DialogueManager : MonoBehaviour
     [Header("Dialogue UI")]
     [SerializeField] private GameObject dialoguePannel;
     [SerializeField] private TextMeshProUGUI dialogueTxt;
+    [SerializeField] private TextMeshProUGUI nameTxt;
     [SerializeField] private GameObject selectedPlayerMenu;
     private static DialogueManager instance;
     private Story currentStory;
@@ -99,11 +100,13 @@ public class DialogueManager : MonoBehaviour
             switch(tagKey)
             {
                 case SPEAKER_TAG:
-                    Debug.Log("speaker = " + tagValue);
+                    nameTxt.text = tagValue;
                     break;
-                case PORTRAIT_TAG: 
+                case PORTRAIT_TAG:
+                    Debug.Log("portrait = " + tagValue);
                     break;
                 case LAYOUT_TAG:
+                    Debug.Log("layout = " + tagValue);
                     break;
                 default:
                     Debug.LogWarning("Tag cam in but is not being handled " + tag);
