@@ -85,7 +85,7 @@ public class InputManager : MonoBehaviour {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x , mousePos.y);
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D , Vector2.zero);
-            foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(clickedCoord, 20))
+            foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(clickedCoord, 75, false))
             {
                 Vector3Int t = temp.Item1;
                 GlobalVars.hexagonTile[t].transform.GetChild(5).gameObject.SetActive(false);
@@ -279,7 +279,7 @@ public class InputManager : MonoBehaviour {
             }
             AttackIndicators(false);
 
-            Pathfinding.AllPossibleTiles(clickedCoord , playerAttRange);
+            Pathfinding.AllPossibleTiles(clickedCoord , playerAttRange, false);
 
             turnManager.Player_HardAction(playerCoord);
 
@@ -296,7 +296,7 @@ public class InputManager : MonoBehaviour {
         ClearIndicators();
         int ogDodge = GlobalVars.players[playerCoord].dodge;
 
-        Pathfinding.AllPossibleTiles(clickedCoord , 1);
+        Pathfinding.AllPossibleTiles(clickedCoord , 1 , false);
 
         if(GlobalVars.enemies.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord , playerCoord) <= playerAttRange + 1) {
             Debug.Log("checked if enemy was in range");
@@ -381,7 +381,7 @@ public class InputManager : MonoBehaviour {
                 GlobalVars.poisonTiles.Add(clickedCoord, 2);
                 GlobalVars.hexagonTile[clickedCoord].transform.GetChild(4).gameObject.SetActive(true);
 
-                Pathfinding.AllPossibleTiles(clickedCoord, playerAttRange);
+                Pathfinding.AllPossibleTiles(clickedCoord, playerAttRange , false);
 
                 //Update player coord
                 GlobalVars.players.Remove(clickedCoord);
@@ -389,12 +389,12 @@ public class InputManager : MonoBehaviour {
         }
         else if (GlobalVars.players[playerCoord].charLevel == 3)
         {
-            foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, 1))
+            foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, 1, false))
             {
                 //adds selected tiles to a dictionary and sets an indicaotors active
                 Vector3Int t = temp.Item1;
                 GlobalVars.poisonTiles.Add(t, 2);
-                foreach (Tuple<Vector3Int, int> coord in Pathfinding.AllPossibleTiles(clickedCoord, 1))
+                foreach (Tuple<Vector3Int, int> coord in Pathfinding.AllPossibleTiles(clickedCoord, 1, false))
                 {
                     Vector3Int c = coord.Item1;
                     GlobalVars.smokeTiles.Add(t, 2);
@@ -402,7 +402,7 @@ public class InputManager : MonoBehaviour {
                 }
             }
 
-            Pathfinding.AllPossibleTiles(clickedCoord, playerAttRange);
+            Pathfinding.AllPossibleTiles(clickedCoord, playerAttRange, false);
 
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
@@ -420,14 +420,14 @@ public class InputManager : MonoBehaviour {
         {
             AttackIndicators(false);
 
-            foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(clickedCoord, 1))
+            foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(clickedCoord, 1, false))
             {
                 //adds selected tiles to a dictionary and sets an indicaotors active
                 Vector3Int t = temp.Item1;
                 GlobalVars.smokeTiles.Add(t, 2);
                 GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(true);
             }
-            Pathfinding.AllPossibleTiles(clickedCoord, playerAttRange);
+            Pathfinding.AllPossibleTiles(clickedCoord, playerAttRange, false);
 
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
@@ -460,7 +460,7 @@ public class InputManager : MonoBehaviour {
         }
         else if (GlobalVars.players[clickedCoord].charLevel == 2)
         {
-            foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, 1))
+            foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, 1, false))
             {
                 //heals all players in a 1 tile range
                 Vector3Int t = temp.Item1;
@@ -484,7 +484,7 @@ public class InputManager : MonoBehaviour {
         ClearIndicators();
 
         int moveRange = turnManager.getMovementLeft(playerCoord);
-        List<Tuple<Vector3Int , int>> possibles = Pathfinding.AllPossibleTiles(clickedCoord , moveRange);
+        List<Tuple<Vector3Int , int>> possibles = Pathfinding.AllPossibleTiles(clickedCoord , moveRange,  true);
 
         foreach(Tuple<Vector3Int , int> temp in possibles) {
             if(temp.Item1 == clickedCoord && Vector3Int.Distance(clickedCoord , playerCoord) <= moveRange + 1) 
@@ -493,7 +493,7 @@ public class InputManager : MonoBehaviour {
                 MoveIndicators(false);
                 TakePoison();
 
-                turnManager.Player_Move(playerCoord , Pathfinding.PathBetweenPoints(clickedCoord , playerCoord).Count - 1 , clickedCoord);
+                turnManager.Player_Move(playerCoord , Pathfinding.PathBetweenPoints(clickedCoord , playerCoord, true).Count - 1 , clickedCoord);
                 playerCoord = clickedCoord;
             }
         }
@@ -557,14 +557,14 @@ public class InputManager : MonoBehaviour {
         int moveRange = turnManager.getMovementLeft(playerCoord);
         if(moveRange >= 0)
         {
-            foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , moveRange - 1)) {
+            foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , moveRange - 1 , true)) {
                 Vector3Int t = temp.Item1;
                 GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(onOff);
             }
         }
         else if(moveRange == 0)
         {
-            foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, 1))
+            foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, 1 , true))
             {
                 Vector3Int t = temp.Item1;
                 GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(onOff);
@@ -573,14 +573,14 @@ public class InputManager : MonoBehaviour {
     }
     public void AttackIndicators(bool onOff) 
     {
-        foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , playerAttRange)) {
+        foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , playerAttRange, false)) {
             Vector3Int t = temp.Item1;
             GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(onOff);
         }
     }
     public void HealIndicators(bool onOff) 
     {
-        foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , 1)) {
+        foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , 1, false)) {
             Vector3Int t = temp.Item1;
             GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(onOff);
         }
@@ -598,7 +598,7 @@ public class InputManager : MonoBehaviour {
     }
     public void ClearIndicators()
     {
-        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, 20))
+        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, 50, false))
         {
             Vector3Int t = temp.Item1;
             GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(false);

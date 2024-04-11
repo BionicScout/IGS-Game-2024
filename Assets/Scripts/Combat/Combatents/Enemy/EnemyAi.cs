@@ -107,7 +107,7 @@ public class EnemyAi {
         List<KeyValuePair<Vector3Int, float>> tilesAndScores = new List<KeyValuePair<Vector3Int, float>>(); //Hex Coord, score
 
         int loopIterations = 2000;
-        foreach(Tuple<Vector3Int, int> info in Pathfinding.AllPossibleTiles(enemyCoords[currentEnemyIndex] , enemyStats.move)) {
+        foreach(Tuple<Vector3Int, int> info in Pathfinding.AllPossibleTiles(enemyCoords[currentEnemyIndex] , enemyStats.move, true)) {
             if(loopIterations <= 0) {
                 Debug.Log("ERROR - Too many iterations");
                 break;
@@ -259,7 +259,7 @@ public class EnemyAi {
         int closestPerson = -1;
 
         foreach(KeyValuePair<Vector3Int , Stats> playerInfo in GlobalVars.players) {
-            int distance = Pathfinding.PathBetweenPoints(playerInfo.Key , currentEnemy).Count - 1;
+            int distance = Pathfinding.PathBetweenPoints(playerInfo.Key , currentEnemy, true).Count - 1;
 
             if(closestPerson < distance) {
                 closestPerson = distance;
@@ -274,8 +274,8 @@ public class EnemyAi {
 
         Vector3Int closestTile = Vector3Int.one;
         int closestDistance = int.MaxValue;
-        foreach(Tuple<Vector3Int, int> info in Pathfinding.AllPossibleTiles(enemyCoords[currentEnemyIndex] , enemyStats.move)) {
-            int distance = Pathfinding.PathBetweenPoints(cloestPlayer , info.Item1).Count - 1;
+        foreach(Tuple<Vector3Int, int> info in Pathfinding.AllPossibleTiles(enemyCoords[currentEnemyIndex] , enemyStats.move, true)) {
+            int distance = Pathfinding.PathBetweenPoints(cloestPlayer , info.Item1, true).Count - 1;
 
             if(distance < closestDistance) {
                 closestDistance = distance;
@@ -326,7 +326,7 @@ public class EnemyAi {
 
                 int distance = -1; // Default distance value
                 if(tilesAndScores[tileScoreIndex].Key != null) {
-                    List<Vector3Int> path = Pathfinding.PathBetweenPoints(playerInfo.Key , tilesAndScores[tileScoreIndex].Key);
+                    List<Vector3Int> path = Pathfinding.PathBetweenPoints(playerInfo.Key , tilesAndScores[tileScoreIndex].Key, true);
                     if(path != null) {
                         distance = path.Count - 1;
                     }
@@ -437,7 +437,7 @@ public class EnemyAi {
             //House Scoring
             closestHouse = -1;
             foreach(Vector3Int houseInfo in GlobalVars.L1_houseTiles) {
-                int distance = Pathfinding.PathBetweenPoints(houseInfo, tilesAndScores[tileScoreIndex].Key).Count - 1;
+                int distance = Pathfinding.PathBetweenPoints(houseInfo, tilesAndScores[tileScoreIndex].Key, true).Count - 1;
 
                 if(closestHouse > distance || closestHouse == -1) {
                     closestHouse = distance;
@@ -455,7 +455,7 @@ public class EnemyAi {
             playersCanHit = 0;
 
             foreach(KeyValuePair<Vector3Int , Stats> playerInfo in GlobalVars.players) {
-                int distance = Pathfinding.PathBetweenPoints(playerInfo.Key , tilesAndScores[tileScoreIndex].Key).Count - 1;
+                int distance = Pathfinding.PathBetweenPoints(playerInfo.Key , tilesAndScores[tileScoreIndex].Key, true).Count - 1;
 
                 if(distance <= playerInfo.Value.attackRange) {
                     playersCanHit++;
@@ -538,7 +538,7 @@ public class EnemyAi {
             }
 
 
-            int distance = Pathfinding.PathBetweenPoints(houseTile , endTurnTile).Count - 1;
+            int distance = Pathfinding.PathBetweenPoints(houseTile , endTurnTile, true).Count - 1;
 
             if(distance == -1)
                 continue;
@@ -570,7 +570,7 @@ public class EnemyAi {
             //Debug.Log("PLayer: " + playerInfo.Key);
             //Debug.Log("Enemy: " + endTurnTile);
 
-            List<Vector3Int> list = Pathfinding.PathBetweenPoints(playerInfo.Key , endTurnTile);
+            List<Vector3Int> list = Pathfinding.PathBetweenPoints(playerInfo.Key , endTurnTile, false);
             if(list == null) {
                 continue;
             }
