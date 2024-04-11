@@ -1085,8 +1085,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -700, y: -150}
-  m_SizeDelta: {x: 490, y: 450}
+  m_AnchoredPosition: {x: 485, y: -9.2305}
+  m_SizeDelta: {x: 490, y: 501.5391}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &191358957
 MonoBehaviour:
@@ -1108,7 +1108,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 18f0484e468379243b37675c48586eaf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 26ec43407a3d4a4469c9ef2a5959d1cc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2050,7 +2050,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0.15471691, g: 0.15471691, b: 0.15471691, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -5372,7 +5372,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -10
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.12452829, g: 0.12452829, b: 0.12452829, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -14147,10 +14147,10 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 334967778}
+  - {fileID: 294606261}
   - {fileID: 1358620275}
   - {fileID: 863141958}
   - {fileID: 546066582}
   - {fileID: 1139786094}
   - {fileID: 2082879623}
-  - {fileID: 294606261}
-  - {fileID: 334967778}
