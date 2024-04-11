@@ -1437,14 +1437,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: befc4a22fd13560449d677cd04eb1602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clickedUI: 0
   items: {fileID: 0}
   hitParticles: {fileID: 1052758049302362282, guid: e9dbf8a590745754680ef205c90d71df, type: 3}
+  slider: {fileID: 0}
   playerMove: 0
   playerPower: 0
   playerAttRange: 0
   playerDefense: 0
   playerMaxHealth: 0
-  clickedUI: 0
+  poisonDmg: 0
+  smokeDodge: 0
   selectedPlayerMenu: {fileID: 409865014}
   statsMenu: {fileID: 688955342}
   itemMenu: {fileID: 662175177}
@@ -4434,6 +4437,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyStats:
   - {fileID: 11400000, guid: 96880ec411507654099a008c3d929c4e, type: 2}
+  tutorialPlayers: []
 --- !u!4 &735684803
 Transform:
   m_ObjectHideFlags: 0
@@ -8452,6 +8456,7 @@ MonoBehaviour:
   PlayerMenu: {fileID: 409865014}
   WinMenu: {fileID: 1900432886}
   LoseMenu: {fileID: 1888016010}
+  InputManager: {fileID: 0}
   nextLevel: Level 1
 --- !u!4 &1555778018
 Transform:
@@ -14465,16 +14470,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 0, y: 0, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 5
-      m_TileSpriteIndex: 2
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 3
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: 1, y: 0, z: 0}
     second:
       serializedVersion: 2
@@ -18887,7 +18882,7 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 16
+  - m_RefCount: 15
     m_Data: {fileID: 11400000, guid: a09b91e972302dc4a9564add4fec4fc7, type: 2}
   - m_RefCount: 0
     m_Data: {fileID: 0}
@@ -18902,7 +18897,7 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 16
+  - m_RefCount: 15
     m_Data: {fileID: 21300000, guid: 414fb1beb62ff3d4a902b6a8dcae5835, type: 3}
   - m_RefCount: 98
     m_Data: {fileID: 21300000, guid: df50a8f8713a42247bc6526ecd8c393d, type: 3}
@@ -18919,7 +18914,7 @@ Tilemap:
   - m_RefCount: 0
     m_Data: {fileID: 0}
   m_TileMatrixArray:
-  - m_RefCount: 924
+  - m_RefCount: 923
     m_Data:
       e00: 1
       e01: 0
@@ -18944,7 +18939,7 @@ Tilemap:
     m_Data: {r: NaN, g: NaN, b: NaN, a: NaN}
   - m_RefCount: 0
     m_Data: {r: NaN, g: NaN, b: NaN, a: NaN}
-  - m_RefCount: 924
+  - m_RefCount: 923
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   - m_RefCount: 0
     m_Data: {r: 4.8701e-41, g: 4.8701e-41, b: 4.8701e-41, a: 4.8701e-41}
@@ -19181,8 +19176,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Testagon: {fileID: 5476959118461974231, guid: 67cdcf27f5c35564d9978725c4dd7434, type: 3}
-  size: {x: 1, y: 1}
-  offset2: {x: 0, y: 0, z: 0}
   tilemapObj: {fileID: 1724124727}
   tileTemplates:
   - {fileID: 11400000, guid: 0b4706935042ec044afd1b5aaf3c0d40, type: 2}
@@ -19191,6 +19184,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b72f999e7eb618645a96a8f45a655a6e, type: 2}
   - {fileID: 11400000, guid: 39b1535aa86cd2d4fba3cde05a6d9bb0, type: 2}
   - {fileID: 11400000, guid: 836b0913fcbd8b54ca6fb2e8ff0a5d99, type: 2}
+  tileCoord: 0
 --- !u!4 &1793876000
 Transform:
   m_ObjectHideFlags: 0

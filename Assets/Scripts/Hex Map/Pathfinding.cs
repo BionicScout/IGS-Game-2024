@@ -18,7 +18,7 @@ public class Pathfinding {
         public Vector3Int previous;
 
         // Constructor
-        public SearchHex(Vector3Int hexCoord) {
+        public SearchHex(Vector3Int hexCoord, bool ignoreUnits) {
             if(!GlobalVars.hexagonTileRefrence.ContainsKey(hexCoord)) {
                 Debug.LogError("ERROR - Invalid hexagon coordinate provided: " + hexCoord);
             }
@@ -26,7 +26,7 @@ public class Pathfinding {
             coord = hexCoord;
             visited = false;
             TileScriptableObjects template = GlobalVars.hexagonTileRefrence[hexCoord];
-            isObstacle = template.isObstacle;
+            isObstacle = template.isObstacle || (ignoreUnits && (GlobalVars.players.ContainsKey(hexCoord) || GlobalVars.enemies.ContainsKey(hexCoord)));
             dist = UNVISITED_DISTANCE;
             previous = Vector3Int.one; //Impossible to Get with Hexagon Coords
         }
@@ -71,7 +71,7 @@ public class Pathfinding {
    Pathfinding
 *********************************/
 
-public static List<Tuple<Vector3Int , int>> AllPossibleTiles(Vector3Int startPos , int range) {
+public static List<Tuple<Vector3Int , int>> AllPossibleTiles(Vector3Int startPos , int range, bool ignoreUnits) {
         // Check for valid start position
         if(!GlobalVars.availableHexes.Contains(startPos)) {
             Debug.LogError("ERROR - Invalid start position provided");
@@ -97,7 +97,7 @@ public static List<Tuple<Vector3Int , int>> AllPossibleTiles(Vector3Int startPos
 
         // Create dictionary with start hex
         Dictionary<Vector3Int , SearchHex> searchList = new Dictionary<Vector3Int , SearchHex> {
-            { startPos, new SearchHex(startPos) }
+            { startPos, new SearchHex(startPos, ignoreUnits) }
         };
 
         // Define queue with tiles to search. Starts with the starting location. Then Search list.
@@ -122,7 +122,7 @@ public static List<Tuple<Vector3Int , int>> AllPossibleTiles(Vector3Int startPos
 
                 // If position is on board, add Search hex if needed
                 if(!searchList.ContainsKey(nextTile)) {
-                    nextSearchHex = new SearchHex(nextTile);
+                    nextSearchHex = new SearchHex(nextTile , ignoreUnits);
                     searchList.Add(nextTile , nextSearchHex);
                 }
                 else {
@@ -165,10 +165,7 @@ public static List<Tuple<Vector3Int , int>> AllPossibleTiles(Vector3Int startPos
         return possibleTiles;
     }
 
-    public static List<Vector3Int> PathBetweenPoints(Vector3Int startPos , Vector3Int endPoint) {
-        // /*IGNORES THIS CHAT GPT*/ return PathBetweenPoints_Old(startPos, endPoint);
-
-
+    public static List<Vector3Int> PathBetweenPoints(Vector3Int startPos , Vector3Int endPoint, bool ignoreUnits) {
         // A* (star) Pathfinding
 
         //Loop Variables 
@@ -190,7 +187,7 @@ public static List<Tuple<Vector3Int , int>> AllPossibleTiles(Vector3Int startPos
 
         //Define dictionary of tile Activley in search
         Dictionary<Vector3Int, SearchHex> searchList = new Dictionary<Vector3Int , SearchHex>();
-        SearchHex temp = new SearchHex(startPos);
+        SearchHex temp = new SearchHex(startPos, ignoreUnits);
         temp.dist = 0;
         searchList.Add(startPos, temp);
 
@@ -215,7 +212,7 @@ public static List<Tuple<Vector3Int , int>> AllPossibleTiles(Vector3Int startPos
 
                 // If position is on board, add Search hex if needed
                 if(!searchList.ContainsKey(nextTile)) {
-                    nextSearchHex = new SearchHex(nextTile);
+                    nextSearchHex = new SearchHex(nextTile , ignoreUnits);
                     searchList.Add(nextTile , nextSearchHex);
                 }
                 else {
@@ -250,6 +247,12 @@ public static List<Tuple<Vector3Int , int>> AllPossibleTiles(Vector3Int startPos
             }
         }
 
+        //Doesn't Reach Target
+        if(!searchList.ContainsKey(endPoint)) {
+            Debug.Log("Pathfinding - end point not reached");
+            return null;
+        }
+
 
 
         //Trace Path back
@@ -258,26 +261,28 @@ public static List<Tuple<Vector3Int , int>> AllPossibleTiles(Vector3Int startPos
 
         // Maximum iteration limit for path reconstruction
         int pathIterations = 0;
+        //Debug.Log("---------------------------------------------------------------------------------------------------");
+        //Debug.Log(currentPath + "\t" + searchList.ContainsKey(currentPath));
+
         while(searchList[currentPath].previous != Vector3.one) {
             // Increment path reconstruction iteration count
             pathIterations++;
 
             // Check maximum iteration limit
             if(pathIterations >= MAX_ITERATIONS) {
-                Debug.LogError("ERROR - Maximum path reconstruction iterations reached. Potential infinite loop detected.");
+                //Debug.LogError("ERROR - Maximum path reconstruction iterations reached. Potential infinite loop detected.");
                 return null;
             }
 
             // Add current path to the list and Move to the previous tile
             path.Add(currentPath);
             currentPath = searchList[currentPath].previous;
+            //Debug.Log(currentPath);
         }
 
         // Add the last path
         path.Add(currentPath);
         path.Reverse();
-
-
 
         return path;
 

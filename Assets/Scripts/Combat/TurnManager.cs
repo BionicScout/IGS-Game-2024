@@ -10,6 +10,8 @@ public class TurnManager : MonoBehaviour {
     List<bool> playerAction;
     List<bool> playerTurnComplete;
     bool allPlayerTurnsUsed;
+    public  GameObject hitParticles;
+    Vector3 worldSpacePos;
 
     public Queue<Command> commandQueue;
 
@@ -28,6 +30,7 @@ public class TurnManager : MonoBehaviour {
         playerMovement = new List<int>(); //Movement speed left
         playerAction = new List<bool>(); //False - Action not use, True - Action Used
         playerTurnComplete = new List<bool>(); //False - Player can move or do an action, True - Action Used and Moved Used
+        worldSpacePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         allPlayerTurnsUsed = false;
 
@@ -201,7 +204,7 @@ public class TurnManager : MonoBehaviour {
 
         //Enemy attack
         if (command.attackTile != Vector3Int.one) {
-            //Debug.Log(command.attackTile);
+            Debug.Log("TURN MANAGER: " + command.attackTile);
 
             //Debug.Log("PLayer Health After: " + GlobalVars.players[command.attackTile].curHealth);
 
@@ -212,6 +215,7 @@ public class TurnManager : MonoBehaviour {
                 {
                     Stats stats = GlobalVars.players[command.attackTile];
                     stats.curHealth -= stats.Damage(enemystats.power);
+                    Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
                     GlobalVars.players[command.attackTile] = stats;
 
                     PlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
@@ -245,6 +249,7 @@ public class TurnManager : MonoBehaviour {
             {
                 Stats stats = GlobalVars.players[command.attackTile];
                 stats.curHealth -= stats.Damage(enemystats.power);
+                Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
                 GlobalVars.players[command.attackTile] = stats;
 
                 PlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
