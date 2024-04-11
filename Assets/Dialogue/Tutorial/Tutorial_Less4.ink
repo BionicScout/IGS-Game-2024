@@ -1,4 +1,4 @@
-Look at that, all healed up!!
+Look at that, all healed up!! #speaker:DEV #portrait:turotial_narrator #layout:right
 
 Next lets move on. Somethings around the world are able to be interacted with.
 For this tutorial it will be the tree, go ahead and move towards it.

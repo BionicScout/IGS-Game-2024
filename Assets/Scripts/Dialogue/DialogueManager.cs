@@ -19,6 +19,9 @@ public class DialogueManager : MonoBehaviour
     private Story currentStory;
     public string nextScene = "CharcaterSelector";
     public bool dialogueIsPlaying { get; private set; }
+    private const string SPEAKER_TAG = "speaker";
+    private const string PORTRAIT_TAG = "portrait";
+    private const string LAYOUT_TAG = "layout";
 
      private void Awake()
     {
@@ -48,23 +51,26 @@ public class DialogueManager : MonoBehaviour
         dialoguePannel.SetActive(true);
         ContinueStory();
     }
-    public void ExitDialogueMode()
+    public IEnumerator ExitDialogueMode()
     {
-        //yield return new WaitForSeconds(0.2f);
-        //dialogueIsPlaying = false;
-        //dialoguePannel.SetActive(false);
-        //dialogueTxt.text = " ";
-        //selectedPlayerMenu.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        dialogueIsPlaying = false;
+        dialoguePannel.SetActive(false);
+        dialogueTxt.text = " ";
+        selectedPlayerMenu.SetActive(true);
     }
     public void ContinueStory()
     {
         if (currentStory.canContinue)
         {
+            //sets dialogue
             dialogueTxt.text = currentStory.Continue();
+            //will handle tags
+            HandleTags(currentStory.currentTags);
         }
         else
         {
-            //StartCoroutine(ExitDialogueMode());
+            StartCoroutine(ExitDialogueMode());
             GlobalVars.levelClear();
             SceneSwapper.A_LoadScene(nextScene);
         }
@@ -73,6 +79,37 @@ public class DialogueManager : MonoBehaviour
     {
         Debug.Log("Instance was called");
         return instance;
+    }
+
+    private void HandleTags(List<string> currentTags)
+    {
+        //will loop through each tag
+        foreach (string tag in currentTags)
+        {
+            //parse the tags
+            string[] splitTag = tag.Split(':');
+            if(splitTag.Length != 2)
+            {
+                Debug.Log("Tag could not be split: " + tag);
+            }
+            string tagKey = splitTag[0].Trim();
+            string tagValue = splitTag[1].Trim();
+
+            //handles the tag
+            switch(tagKey)
+            {
+                case SPEAKER_TAG:
+                    Debug.Log("speaker = " + tagValue);
+                    break;
+                case PORTRAIT_TAG: 
+                    break;
+                case LAYOUT_TAG:
+                    break;
+                default:
+                    Debug.LogWarning("Tag cam in but is not being handled " + tag);
+                    break;
+            }
+        }
     }
 }
 

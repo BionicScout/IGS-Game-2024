@@ -1,4 +1,4 @@
-Nice Kill!!
+Nice Kill!! #speaker:DEV #portrait:turotial_narrator #layout:right
 
 Im sorry but for this next lesson we've had to damage your swordsman.
 
