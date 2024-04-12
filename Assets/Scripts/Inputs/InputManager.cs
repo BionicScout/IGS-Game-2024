@@ -689,14 +689,6 @@ public class InputManager : MonoBehaviour {
         }
         items.defenseBuffAMT--;
     }
-    public void Revive()
-    {
-        if(items.reviveAMT != 0)
-        {
-
-        }
-        items.reviveAMT--;
-    }
     //heals all characters
     public void HealScroll()
     {
