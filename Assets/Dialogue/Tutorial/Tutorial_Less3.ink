@@ -14,4 +14,4 @@ Third is a defense buff, its the same as the power buff but for your defense.
 Forth is a revive which can be used to bring any dead character back.
 Last we have the healing scroll which can heal all you charcters by 4 health points. 
 
-Like always hit the end turn when you're done.
+Like always hit the end turn when you're done. #speaker:DEV #portrait:DEV_Portrait_MC #layout:right

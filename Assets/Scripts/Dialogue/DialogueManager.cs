@@ -16,6 +16,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dialogueTxt;
     [SerializeField] private TextMeshProUGUI nameTxt;
     [SerializeField] private Animator portraitAnimator;
+    [SerializeField] private Animator layoutAnimator;
     [SerializeField] private GameObject selectedPlayerMenu;
     private static DialogueManager instance;
     private Story currentStory;
@@ -73,8 +74,6 @@ public class DialogueManager : MonoBehaviour
         else
         {
             StartCoroutine(ExitDialogueMode());
-            GlobalVars.levelClear();
-            SceneSwapper.A_LoadScene(nextScene);
         }
     }
     public static DialogueManager GetInstance()
@@ -104,11 +103,10 @@ public class DialogueManager : MonoBehaviour
                     nameTxt.text = tagValue;
                     break;
                 case PORTRAIT_TAG:
-                    Debug.Log("Portrait = " + tagValue);
                     portraitAnimator.Play(tagValue);
                     break;
                 case LAYOUT_TAG:
-                    Debug.Log("layout = " + tagValue);
+                    layoutAnimator.Play(tagValue);
                     break;
                 default:
                     Debug.LogWarning("Tag cam in but is not being handled " + tag);
@@ -117,48 +115,3 @@ public class DialogueManager : MonoBehaviour
         }
     }
 }
-
-
-//    // Start is called before the first frame update
-//    void Start()
-//    {
-//        sentences = new Queue<string>();
-//    }
-//    public void StartDialogue(Dialogue dialogue)
-//    {
-//        animator.SetBool("IsOpen", true);
-//        nameTxt.text = dialogue.name;
-//        sentences.Clear();
-//        foreach(string sentence in dialogue.sentences)
-//        {
-//            sentences.Enqueue(sentence);
-//        }
-//        DisplayNextSentence();
-//    }
-
-//    public void DisplayNextSentence()
-//    {
-//        if(sentences.Count == 0)
-//        {
-//            EndDialogue();
-//            return;
-//        }
-//        string sentence = sentences.Dequeue();
-//        StopAllCoroutines();
-//        StartCoroutine(TypeSentence(sentence));
-//    }
-//    IEnumerator TypeSentence(string sentence)
-//    {
-//        dialogueTxt.text = " ";
-//        foreach(char letter in sentence.ToCharArray())
-//        {
-//            dialogueTxt.text += letter;
-//            yield return null;
-//        }
-//    }
-//    public void EndDialogue()
-//    {
-//        animator.SetBool("IsOpen", false);
-//        selectedPlayerMenu.SetActive(true);
-//        dialogueCanvas.SetActive(false);
-//    }
