@@ -173,7 +173,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_3
+      name: S_Fort_Floor
       rect:
         serializedVersion: 2
         x: 432
@@ -218,7 +218,7 @@ TextureImporter:
       name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_5
       rect:
         serializedVersion: 2
-        x: 648
+        x: 647
         y: 750
         width: 108
         height: 125
@@ -236,7 +236,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: S_Fortress_Wall
+      name: S_Fort_Wall
       rect:
         serializedVersion: 2
         x: 756
@@ -341,11 +341,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_11
+      name: S_Fort_Floor_1
       rect:
         serializedVersion: 2
         x: 432
-        y: 625
+        y: 624
         width: 108
         height: 125
       alignment: 0
@@ -362,11 +362,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_12
+      name: S_Fort_Floor_2
       rect:
         serializedVersion: 2
-        x: 540
-        y: 625
+        x: 538
+        y: 626
         width: 108
         height: 125
       alignment: 0
@@ -383,10 +383,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_13
+      name: S_Fort_Wall_1
       rect:
         serializedVersion: 2
-        x: 648
+        x: 649
         y: 625
         width: 108
         height: 125
@@ -404,7 +404,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_14
+      name: S_Fort_Wall_2
       rect:
         serializedVersion: 2
         x: 756
@@ -509,7 +509,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_19
+      name: S_Fort_Floor_4
       rect:
         serializedVersion: 2
         x: 432
@@ -530,11 +530,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_20
+      name: S_Fort_Floor_3
       rect:
         serializedVersion: 2
         x: 540
-        y: 500
+        y: 499
         width: 108
         height: 125
       alignment: 0
@@ -572,7 +572,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_22
+      name: S_Fort_Wall_Top
       rect:
         serializedVersion: 2
         x: 756
@@ -1283,19 +1283,20 @@ TextureImporter:
       S_Cliff_TopRight: -961706036
       S_Cliff_Top_A: -1973446702
       S_Cliff_Top_B: -1502932555
+      S_Fort_Floor: -2002895716
+      S_Fort_Floor_1: -1900017424
+      S_Fort_Floor_2: 1887474058
+      S_Fort_Floor_3: 1772521246
+      S_Fort_Floor_4: 1410924436
+      S_Fort_Wall: 314078091
+      S_Fort_Wall_1: 53850991
+      S_Fort_Wall_2: 504282858
+      S_Fort_Wall_Top: 1758204832
       S_Fortress_Floor_LightShade: 1639141487
-      S_Fortress_Wall: 314078091
       Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_0: -2063254174
       Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_1: 861986352
-      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_11: -1900017424
-      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_12: 1887474058
-      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_13: 53850991
-      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_14: 504282858
-      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_19: 1410924436
       Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_2: -410486466
-      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_20: 1772521246
       Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_21: -2104914081
-      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_22: 1758204832
       Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_23: -1866278108
       Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_24: -1194041518
       Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_25: -393722988
@@ -1303,7 +1304,6 @@ TextureImporter:
       Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_27: 1878575998
       Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_28: -823142413
       Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_29: -60975078
-      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_3: -2002895716
       Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_30: 1464445682
       Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_31: 2116497496
       Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_32: -1561697388
