@@ -50,6 +50,8 @@ public class InputManager : MonoBehaviour {
     public GameObject selectedPlayerMenu;
     public GameObject statsMenu;
     public GameObject itemMenu;
+    public GameObject radioMenu;
+
     [Header("Text")]
     public TextMeshProUGUI moveTxt;
     public TextMeshProUGUI powerTxt;
@@ -818,5 +820,23 @@ public class InputManager : MonoBehaviour {
     public void UpdateHealthBar(float curValue, float maxValue)
     {
         slider.value = curValue / maxValue;
+    }
+
+
+
+
+
+
+
+
+
+
+
+    public void moveRadioWheel() {
+        radioMenu.transform.position = GlobalVars.hexagonTile[playerCoord].transform.position;
+    }
+
+    public void toggleRadioMenu() {
+        radioMenu.SetActive(radioMenu.activeSelf);
     }
 }
