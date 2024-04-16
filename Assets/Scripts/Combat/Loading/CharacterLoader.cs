@@ -28,11 +28,11 @@ public class CharacterLoader : MonoBehaviour {
         }
         else
         {
-            for(int i = 0; i < playerSpawns.spawns.Count; i++) {
-                Tuple<string , Vector3Int> playerSpawnInfo = playerSpawns.spawns[i];
-                Stats playerCharacter = GlobalVars.choosenPlayers[i];
-                SpawnPlayer(playerSpawnInfo.Item2, playerCharacter.Copy());
-            }
+            //for(int i = 0; i < playerSpawns.spawns.Count; i++) {
+            //    Tuple<string , Vector3Int> playerSpawnInfo = playerSpawns.spawns[i];
+            //    Stats playerCharacter = GlobalVars.choosenPlayers[i];
+            //    SpawnPlayer(playerSpawnInfo.Item2, playerCharacter.Copy());
+            //}
 
             for(int i = 0; i < enemySpawns.spawns.Count; i++) {
                 Tuple<string , Vector3Int> enemySpawnInfo = enemySpawns.spawns[i];

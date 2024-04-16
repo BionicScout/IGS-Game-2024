@@ -1356,7 +1356,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8342595713833785899, guid: 774471e2c4217d24fa12ce0a31501119, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1366,6 +1366,11 @@ PrefabInstance:
 --- !u!224 &238259165 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8307934779165338008, guid: 774471e2c4217d24fa12ce0a31501119, type: 3}
+  m_PrefabInstance: {fileID: 238259164}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &238259166 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8342595713833785899, guid: 774471e2c4217d24fa12ce0a31501119, type: 3}
   m_PrefabInstance: {fileID: 238259164}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &239727075
@@ -3901,8 +3906,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d2fd22544df57664da4470e886072fd1, type: 2}
+  m_sharedMaterial: {fileID: 4572650804283835925, guid: d2fd22544df57664da4470e886072fd1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4648,7 +4653,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &920165256
 Transform:
   m_ObjectHideFlags: 0
@@ -6496,6 +6501,7 @@ MonoBehaviour:
   selectedPlayerMenu: {fileID: 0}
   statsMenu: {fileID: 1171457830}
   itemMenu: {fileID: 21615846}
+  radioMenu: {fileID: 0}
   moveTxt: {fileID: 1406363480}
   powerTxt: {fileID: 1171982381}
   defenseTxt: {fileID: 1765125479}
@@ -7520,6 +7526,10 @@ PrefabInstance:
     - target: {fileID: 7541271292209010321, guid: 985286f4a7d620e409f0053eeb50e2da, type: 3}
       propertyPath: m_Name
       value: RadioWheel
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541271292209010321, guid: 985286f4a7d620e409f0053eeb50e2da, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11463,7 +11473,7 @@ MonoBehaviour:
   nameTxt: {fileID: 1642683685}
   portraitAnimator: {fileID: 191358959}
   layoutAnimator: {fileID: 1119808626}
-  selectedPlayerMenu: {fileID: 0}
+  selectedPlayerMenu: {fileID: 238259166}
   nextScene: CharcaterSelector
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
