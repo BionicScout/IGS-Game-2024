@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4e571e63101c3e84da1c9e5f408e22ea
+guid: 58719bd85df619241856f6181c6df45c
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - PENSEE
+  - Legendary Runes Free Trial
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
