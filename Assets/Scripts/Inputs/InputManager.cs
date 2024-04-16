@@ -489,13 +489,14 @@ public class InputManager : MonoBehaviour {
         List<Tuple<Vector3Int , int>> possibles = Pathfinding.AllPossibleTiles(clickedCoord , moveRange,  true);
 
         foreach(Tuple<Vector3Int , int> temp in possibles) {
+            int dist = Pathfinding.PathBetweenPoints(clickedCoord , playerCoord , true).Count - 1;
             if(temp.Item1 == clickedCoord && Vector3Int.Distance(clickedCoord , playerCoord) <= moveRange + 1) 
             {
                 Movement.movePlayer(playerCoord , clickedCoord);
                 MoveIndicators(false);
                 TakePoison();
 
-                turnManager.Player_Move(playerCoord , Pathfinding.PathBetweenPoints(clickedCoord , playerCoord, true).Count - 1 , clickedCoord);
+                turnManager.Player_Move(playerCoord , dist, clickedCoord);
                 playerCoord = clickedCoord;
             }
         }
