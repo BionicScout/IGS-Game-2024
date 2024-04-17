@@ -1769,6 +1769,7 @@ MonoBehaviour:
   selectedPlayerMenu: {fileID: 409865014}
   statsMenu: {fileID: 688955342}
   itemMenu: {fileID: 2143430589}
+  radioMenu: {fileID: 0}
   moveTxt: {fileID: 724691104}
   powerTxt: {fileID: 1005976020}
   defenseTxt: {fileID: 1209670647}
