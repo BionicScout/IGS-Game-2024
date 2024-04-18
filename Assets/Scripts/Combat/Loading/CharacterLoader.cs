@@ -9,35 +9,41 @@ public class CharacterLoader : MonoBehaviour {
     public SpawnWave playerSpawns, enemySpawns;
     public List<Stats> enemyStats;
     public List<Stats> tutorialPlayers;
-    //public Stats swordsman, archer, healer, illusionist;
+    public Stats tutorialEnemies;
+    private List<Vector3Int> spawnLocs = new List<Vector3Int>();
 
     private void Start() {
-        if(SceneSwapper.currentScene == "Tutorial") {
-            //GlobalVars.players.Add(new Vector3Int(6, 1, -7), swordsman);
-            //GlobalVars.players.Add(new Vector3Int(7, 1, -8), swordsman);
-            //GlobalVars.players.Add(new Vector3Int(8, 1, -9), swordsman);
-            //GlobalVars.players.Add(new Vector3Int(0, 1, -10), swordsman);
+        SceneSwapper.setCurrentScene();
+        //spawn cords for players
+        spawnLocs.Add(new Vector3Int(6, 1, -7));
+        spawnLocs.Add(new Vector3Int(7, 1, -8));
+        spawnLocs.Add(new Vector3Int(8, 1, -9));
+        spawnLocs.Add(new Vector3Int(9, 1, -10));
+        
 
-            for (int i = 0; i < tutorialPlayers.Count; i++)
+        if (SceneSwapper.currentScene == "Tutorial") {
+            for (int i = 0; i < 4; i++)
+            {
+                Stats stats = tutorialPlayers[i].Copy();
+                Vector3Int loc = spawnLocs[i];
+                SpawnPlayer(loc, stats.Copy());
+            }
+            Stats Enemystats = tutorialEnemies.Copy();
+            Vector3Int enemyLoc = new Vector3Int(2, 11, -13);
+            SpawnPlayer(enemyLoc, Enemystats.Copy());
+        }
+        else
+        {
+            for (int i = 0; i < playerSpawns.spawns.Count; i++)
             {
                 Tuple<string, Vector3Int> playerSpawnInfo = playerSpawns.spawns[i];
                 Stats playerCharacter = GlobalVars.choosenPlayers[i];
                 SpawnPlayer(playerSpawnInfo.Item2, playerCharacter.Copy());
             }
 
-        }
-        else
-        {
-            //for(int i = 0; i < playerSpawns.spawns.Count; i++) {
-            //    Tuple<string , Vector3Int> playerSpawnInfo = playerSpawns.spawns[i];
-            //    Stats playerCharacter = GlobalVars.choosenPlayers[i];
-            //    SpawnPlayer(playerSpawnInfo.Item2, playerCharacter.Copy());
-            //}
-
-            for(int i = 0; i < enemySpawns.spawns.Count; i++) {
+            for (int i = 0; i < enemySpawns.spawns.Count; i++) {
                 Tuple<string , Vector3Int> enemySpawnInfo = enemySpawns.spawns[i];
                 Stats enemy = enemyStats.Find(x => x.charName == enemySpawnInfo.Item1);
-                //Debug.Log(enemySpawnInfo.Item1);
                 SpawnEnemy(enemySpawnInfo.Item2, enemy.Copy());
             }
 
