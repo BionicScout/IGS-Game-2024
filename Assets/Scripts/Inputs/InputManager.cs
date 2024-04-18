@@ -77,7 +77,7 @@ public class InputManager : MonoBehaviour {
         turnManager = FindAnyObjectByType<TurnManager>();
 
         selectPlayer(1);
-        moveRadioWheel();
+        //moveRadioWheel();
 
     }
 
@@ -505,7 +505,7 @@ public class InputManager : MonoBehaviour {
             if(temp.Item1 == clickedCoord && dist <= moveRange + 1) 
             {
                 Movement.movePlayer(playerCoord , clickedCoord);
-                moveRadioWheel();
+                //moveRadioWheel();
                 MoveIndicators(false);
                 TakePoison();
 
