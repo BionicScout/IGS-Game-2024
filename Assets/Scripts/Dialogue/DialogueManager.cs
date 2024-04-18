@@ -25,6 +25,13 @@ public class DialogueManager : MonoBehaviour
     private const string SPEAKER_TAG = "speaker";
     private const string PORTRAIT_TAG = "portrait";
     private const string LAYOUT_TAG = "layout";
+    [Header("Character Screen Buttons")]
+    [SerializeField] private Button statsBTN;
+    [SerializeField] private Button moveBTN;
+    [SerializeField] private Button attackBTN;
+    [SerializeField] private Button interactBTN;
+    [SerializeField] private Button itemsBTN;
+    private int lessonNum;
 
      private void Awake()
     {
@@ -37,7 +44,8 @@ public class DialogueManager : MonoBehaviour
     }
     private void Start()
     {
-       //selectedPlayerMenu.SetActive(false);
+        selectedPlayerMenu.SetActive(false);
+        SceneSwapper.GetCurrentScene();
     }
     private void Update()
     {
@@ -50,6 +58,7 @@ public class DialogueManager : MonoBehaviour
     public void EnterDialogueMode(TextAsset inkJSON)
     {
         currentStory = new Story(inkJSON.text);
+        lessonNum++;
         dialogueIsPlaying = true;
         dialoguePannel.SetActive(true);
         ContinueStory();
@@ -61,6 +70,35 @@ public class DialogueManager : MonoBehaviour
         dialoguePannel.SetActive(false);
         dialogueTxt.text = " ";
         selectedPlayerMenu.SetActive(true);
+
+        if(SceneSwapper.currentScene == "Tutorial")
+        {
+            if(lessonNum == 1)
+            {
+                statsBTN.interactable = false;
+                attackBTN.interactable = false;
+                interactBTN.interactable = false;
+                itemsBTN.interactable = false;
+            }
+            else if (lessonNum == 2)
+            {
+                interactBTN.interactable = false;
+                itemsBTN.interactable = false;
+            }
+            else if (lessonNum == 3)
+            {
+                interactBTN.interactable = false;
+            }
+            else if (lessonNum == 4)
+            {
+                interactBTN.interactable = false;
+            }
+            else if (lessonNum == 5)
+            {
+                interactBTN.interactable = false;
+            }
+            else { }
+        }
     }
     public void ContinueStory()
     {
