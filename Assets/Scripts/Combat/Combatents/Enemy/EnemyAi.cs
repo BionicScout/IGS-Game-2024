@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class EnemyAi {
@@ -11,8 +12,8 @@ public class EnemyAi {
 
 
     List<Vector3Int> enemyCoords = new List<Vector3Int>();
+    List<Vector3Int> attackedHouses = new List<Vector3Int>();
     int currentEnemyIndex = 0;
-
 
     // Predefined Weights
     int inRangeWeight = 5;
@@ -24,6 +25,10 @@ public class EnemyAi {
     List<Vector3Int> debugMoveTiles = new List<Vector3Int>();
     Dictionary<Vector3Int, int> playersCanHitList = new Dictionary<Vector3Int, int>();
 
+    //Constants
+    int MAX_ITERATIONS = 2000;
+
+    //
     double totalTime = 0;
     int iterations = 0;
 
@@ -33,8 +38,6 @@ public class EnemyAi {
 
         totalTime = 0;
         iterations = 0;
-
-
 
 
         //Error Detection
@@ -106,7 +109,7 @@ public class EnemyAi {
 
         List<KeyValuePair<Vector3Int, float>> tilesAndScores = new List<KeyValuePair<Vector3Int, float>>(); //Hex Coord, score
 
-        int loopIterations = 2000;
+        int loopIterations = MAX_ITERATIONS;
         foreach(Tuple<Vector3Int, int> info in Pathfinding.AllPossibleTiles(enemyCoords[currentEnemyIndex] , enemyStats.move, true)) {
             if(loopIterations <= 0) {
                 Debug.Log("ERROR - Too many iterations");
@@ -126,7 +129,7 @@ public class EnemyAi {
             loopIterations--;
         }
 
-        Debug.Log("Finished");
+        //Debug.Log("Finished");
 
         return tilesAndScores;
     }
@@ -250,7 +253,7 @@ public class EnemyAi {
 
 
     /*********************************
-        Scoring
+        Complete Scoring Functions
     *********************************/
 
     Vector3Int playerIsfar(Stats enemyStats, Vector3Int currentEnemy) {
@@ -296,18 +299,12 @@ public class EnemyAi {
         int playersCanHit;
 
         playersCanHitList = new Dictionary<Vector3Int , int>();
-
-        Debug.Log("------------ Enemy ------------");
-        var watch = new System.Diagnostics.Stopwatch();
-        double lastTime = 0;
-        
+       
         for(int tileScoreIndex = 0; tileScoreIndex < tilesAndScores.Count; tileScoreIndex++) {
-            if(tileScoreIndex >= 2000) {
+            if(tileScoreIndex >= MAX_ITERATIONS) {
                 Debug.Log("Error - Too many iterations");
                 break;
             }
-
-            watch.Start();
 
             //Find PLayer Distances Info
             distances = new List<int>();
@@ -315,7 +312,7 @@ public class EnemyAi {
             playersCanHit = 0;
 
             //Get All distances
-            int iterationsRemaining = 2000;
+            int iterationsRemaining = MAX_ITERATIONS;
 
             foreach(KeyValuePair<Vector3Int , Stats> playerInfo in GlobalVars.players) {
                 iterationsRemaining--;
@@ -335,7 +332,7 @@ public class EnemyAi {
             }
 
             //Get closestPerson distance
-            iterationsRemaining = 2000;
+            iterationsRemaining = MAX_ITERATIONS;
 
             foreach(int dist in distances) {
                 iterationsRemaining--;
@@ -371,17 +368,65 @@ public class EnemyAi {
             //Update Scoring
             KeyValuePair<Vector3Int, float> temp = tilesAndScores[tileScoreIndex];
             tilesAndScores[tileScoreIndex] = new KeyValuePair<Vector3Int , float>(temp.Key, score);
-
-            watch.Stop();
-            //Debug.Log("Tile Calc Time: " + (watch.ElapsedMilliseconds - lastTime) + " ms");
-            lastTime = watch.ElapsedMilliseconds;
         }
-        Debug.Log("Total Calc Time: " + watch.ElapsedMilliseconds + " ms");
+
+        return tilesAndScores;
+    }
+
+    List<KeyValuePair<Vector3Int , float>> L1_ScoreTiles(Stats enemyStats , Vector3Int currentEnemy) {
+        List<KeyValuePair<Vector3Int , float>> tilesAndScores = getTiles(enemyStats , currentEnemy);
+
+        //Variables that are reused
+        float score;
+        int playersCanHit;
+
+        playersCanHitList = new Dictionary<Vector3Int , int>();
+
+        for(int tileScoreIndex = 0; tileScoreIndex < tilesAndScores.Count; tileScoreIndex++) {
+            if(tileScoreIndex >= MAX_ITERATIONS) {
+                Debug.Log("Error - Too many iterations");
+                break;
+            }
+
+            // Set tile Score
+            score = 0;
+
+            //House Scoring
+            score += Score_House(tilesAndScores[tileScoreIndex].Key, enemyStats);
+
+            //Player Scoreing
+            playersCanHit = 0;
+
+            int iterationsRemaining = MAX_ITERATIONS;
+            foreach(KeyValuePair<Vector3Int , Stats> playerInfo in GlobalVars.players) {
+                iterationsRemaining--;
+
+                if(iterationsRemaining <= 0) {
+                    Debug.Log("Error - Too many iterations");
+                }
+
+                int distance = Pathfinding.PathBetweenPoints(playerInfo.Key , tilesAndScores[tileScoreIndex].Key , true).Count - 1;
+
+                if(distance <= playerInfo.Value.attackRange) {
+                    playersCanHit++;
+                }
+            }
+
+            playersCanHitList.Add(tilesAndScores[tileScoreIndex].Key , playersCanHit);
+            score -= playersCanHit * (playersCanHit + 1) * playerHitPenaltyWeight;
+
+            //Save Tile Score
+            KeyValuePair<Vector3Int , float> temp = tilesAndScores[tileScoreIndex];
+            tilesAndScores[tileScoreIndex] = new KeyValuePair<Vector3Int , float>(temp.Key , score);
+        }
 
         return tilesAndScores;
     }
 
 
+    /*********************************
+        Scoring Functions
+    *********************************/
     private float Score_PlayersInEnemyRange(float weight, List<int> playerDistances) {
         float score = 0;
 
@@ -412,66 +457,26 @@ public class EnemyAi {
         return 0;
     }
 
+    private float Score_House(Vector3Int endTile, Stats enemyStats) {
+        float score = 0;
 
+        //House Scoring
+        int closestHouse = -1;
+        foreach(Vector3Int houseInfo in GlobalVars.L1_houseTiles) {
+            int distance = Pathfinding.PathBetweenPoints(houseInfo, endTile, true).Count - 1;
 
-
-
-
-
-
-
-    List<KeyValuePair<Vector3Int , float>> L1_ScoreTiles(Stats enemyStats , Vector3Int currentEnemy) {
-        List<KeyValuePair<Vector3Int , float>> tilesAndScores = getTiles(enemyStats , currentEnemy);
-
-        //Variables that are reused
-        float score;
-        int closestHouse;
-        int playersCanHit;
-
-        playersCanHitList = new Dictionary<Vector3Int , int>();
-
-        for(int tileScoreIndex = 0; tileScoreIndex < tilesAndScores.Count; tileScoreIndex++) {
-            // Set tile Score
-            score = 0;
-
-            //House Scoring
-            closestHouse = -1;
-            foreach(Vector3Int houseInfo in GlobalVars.L1_houseTiles) {
-                int distance = Pathfinding.PathBetweenPoints(houseInfo, tilesAndScores[tileScoreIndex].Key, true).Count - 1;
-
-                if(closestHouse > distance || closestHouse == -1) {
-                    closestHouse = distance;
-                }
+            if(closestHouse > distance || closestHouse == -1) {
+                closestHouse = distance;
             }
-
-            //Debug.Log(closestHouse + "\t" + tilesAndScores[tileScoreIndex].Key);
-            if(closestHouse > enemyStats.attackRange)
-                score += closestHouse * -20; 
-
-
-
-
-            //Player Scoreing
-            playersCanHit = 0;
-
-            foreach(KeyValuePair<Vector3Int , Stats> playerInfo in GlobalVars.players) {
-                int distance = Pathfinding.PathBetweenPoints(playerInfo.Key , tilesAndScores[tileScoreIndex].Key, true).Count - 1;
-
-                if(distance <= playerInfo.Value.attackRange) {
-                    playersCanHit++;
-                }
-            }
-
-            playersCanHitList.Add(tilesAndScores[tileScoreIndex].Key , playersCanHit);
-            score -= playersCanHit * (playersCanHit + 1) * playerHitPenaltyWeight;
-
-            //Save Tile Score
-            KeyValuePair<Vector3Int , float> temp = tilesAndScores[tileScoreIndex];
-            tilesAndScores[tileScoreIndex] = new KeyValuePair<Vector3Int , float>(temp.Key , score);
         }
 
-        return tilesAndScores;
+        //Debug.Log(closestHouse + "\t" + tilesAndScores[tileScoreIndex].Key);
+        if(closestHouse > enemyStats.attackRange)
+            score += closestHouse * -20;
+
+        return score;
     }
+
 
     /*********************************
         Actions
@@ -501,7 +506,7 @@ public class EnemyAi {
             }
         }
 
-        Debug.Log("Tile ocunt: " + tiles.Count);
+        //Debug.Log("Tile ocunt: " + tiles.Count);
 
         // Check for too many iterations
         if(tiles.Count == 0) {
@@ -521,7 +526,7 @@ public class EnemyAi {
         Command command = new Command(enemyCoords[currentEnemyIndex] , moveTile);
         enemyCoords[currentEnemyIndex] = moveTile;
 
-        Debug.Log("Finsih Move");
+        //Debug.Log("Finsih Move");
 
         return command;
     }
@@ -531,6 +536,10 @@ public class EnemyAi {
         command.attackTile = Vector3Int.one;
 
         foreach(Vector3Int houseTile in GlobalVars.L1_houseTiles) {
+            if(attackedHouses.Contains(houseTile)) {
+                continue;
+            }
+
             //
             Vector3Int endTurnTile = command.moveSpace;
             if(endTurnTile != null) {
@@ -545,6 +554,7 @@ public class EnemyAi {
 
             if(distance <= enemy.attackRange) {
                 command.houseAttackTile = houseTile;
+                attackedHouses.Add(houseTile);
             }
         }
 
@@ -585,7 +595,7 @@ public class EnemyAi {
             //Debug.Log("Player Health: " + playerInfo.Value.curHealth + "\nLowest Health: " + lowestHealth);
 
             if(distance <= enemy.attackRange && playerInfo.Value.curHealth < lowestHealth) {
-                Debug.Log("Distance: " +  distance);
+                //Debug.Log("Distance: " +  distance);
                 lowestHealth = playerInfo.Value.curHealth;
                 playerCoord = playerInfo.Key;
             }
@@ -595,7 +605,7 @@ public class EnemyAi {
         //Debug.Log("Attack Player at: " + playerCoord + "\nLowest Health: " + lowestHealth);
 
         command.attackTile = playerCoord;
-        Debug.Log("ATTACK COORD: " + playerCoord);
+       // Debug.Log("ATTACK COORD: " + playerCoord);
 
 
         return command;

@@ -281,10 +281,11 @@ public class TurnManager : MonoBehaviour {
 
         //Attack House
         if(command.houseAttackTile != Vector3Int.one) {
-            Debug.Log("ATTACKED HOUSE - " +  command.houseAttackTile);
-            TileScriptableObjects scriptableObject = GlobalVars.hexagonTileRefrence[command.houseAttackTile];
+            //Debug.Log("ATTACKED HOUSE - " +  command.houseAttackTile);
+            TileScriptableObjects scriptableObject = GlobalVars.hexagonTileRefrence[command.houseAttackTile];        ;
 
             GameObject houseObj = GlobalVars.hexagonTile[command.houseAttackTile];
+
             houseObj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = scriptableObject.objToChange.sprite;
             GlobalVars.hexagonTileRefrence[command.houseAttackTile] = scriptableObject.objToChange;
 

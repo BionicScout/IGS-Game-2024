@@ -63,6 +63,8 @@ public class InputManager : MonoBehaviour {
 
     //HexObjInfo hexObjInfo;
 
+    public Camera cam;
+
     TurnManager turnManager;
 
     /*********************************
@@ -74,7 +76,11 @@ public class InputManager : MonoBehaviour {
         statsMenu.SetActive(false);
         turnManager = FindAnyObjectByType<TurnManager>();
 
+        selectPlayer(1);
+        moveRadioWheel();
+
     }
+
     void Update() {
         if(clickedUI) {
             clickedUI = false;
@@ -239,6 +245,7 @@ public class InputManager : MonoBehaviour {
                     Debug.Log("Rolled and checked to see in the enemy dodged");
                     //deals damage
                     enemyStats.Damage(playerPower);
+                    Enemy_UpdateHealth(clickedCoord);
                     Debug.Log("Damage was delt");
                     Debug.Log("enemy health: " + enemyStats.curHealth);
                     //attack audio
@@ -317,6 +324,7 @@ public class InputManager : MonoBehaviour {
                     //deals damage
                     Debug.Log("Damage was delt");
                     enemyStats.Damage(playerPower);
+                    Enemy_UpdateHealth(clickedCoord);
                     //attack audio
                     AudioManager.instance.Play("Attack");
                     //hit particles
@@ -449,6 +457,7 @@ public class InputManager : MonoBehaviour {
 
                 //heal player
                 playerStats.Heal(healthBack);
+                Player_UpdateHealth(clickedCoord);
                 Debug.Log("Player Healed!!");
 
                 //turns off indicator
@@ -490,9 +499,13 @@ public class InputManager : MonoBehaviour {
 
         foreach(Tuple<Vector3Int , int> temp in possibles) {
             int dist = Pathfinding.PathBetweenPoints(clickedCoord , playerCoord , true).Count - 1;
-            if(temp.Item1 == clickedCoord && Vector3Int.Distance(clickedCoord , playerCoord) <= moveRange + 1) 
+            //Debug.Log(dist);
+            //Debug.Log();
+
+            if(temp.Item1 == clickedCoord && dist <= moveRange + 1) 
             {
                 Movement.movePlayer(playerCoord , clickedCoord);
+                moveRadioWheel();
                 MoveIndicators(false);
                 TakePoison();
 
@@ -617,8 +630,8 @@ public class InputManager : MonoBehaviour {
 
         Stats stats = GlobalVars.players[playerCoord];
         //updates sprites and health
-        selectedPlayerMenu.transform.GetChild(2).GetComponent<Image>().sprite = stats.sprite;
-        selectedPlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
+        selectedPlayerMenu.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = stats.sprite;
+        //selectedPlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
     }
     //sets a menu active and changes all the information
     public void StatsMenu() {
@@ -647,6 +660,7 @@ public class InputManager : MonoBehaviour {
         Stats stats = GlobalVars.players[playerCoord];
         stats.curHealth += healthOffset;
         GlobalVars.players[playerCoord] = stats;
+        Player_UpdateHealth(playerCoord);
 
         selectedPlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
     }
@@ -668,6 +682,7 @@ public class InputManager : MonoBehaviour {
             GlobalVars.players[playerCoord].curHealth += 7;
             UpdateHealth(GlobalVars.players[playerCoord].curHealth);
             AudioManager.instance.Play("Potion");
+            Player_UpdateHealth(playerCoord);
         }
         items.singleHealAMT--;
     }
@@ -708,6 +723,7 @@ public class InputManager : MonoBehaviour {
                 GlobalVars.players[playerCoord].curHealth += 4;
                 UpdateHealth(GlobalVars.players[playerCoord].curHealth);
                 AudioManager.instance.Play("Potion");
+                Player_UpdateHealth(playerCoord);
             }
         }
         items.healScrollAMT--;
@@ -770,9 +786,9 @@ public class InputManager : MonoBehaviour {
             {
                 continue;
             }
-            if (GlobalVars.poisonTiles[coord.Key] != 0)
-            {
+            if (GlobalVars.poisonTiles[coord.Key] != 0) {
                 GlobalVars.players[coord.Key].Damage(poisonDmg);
+                Player_UpdateHealth(coord.Key);
                 GlobalVars.poisonTiles[coord.Key]--;
             }
             if (GlobalVars.poisonTiles[coord.Key] == 0)
@@ -823,6 +839,19 @@ public class InputManager : MonoBehaviour {
         slider.value = curValue / maxValue;
     }
 
+    public void Player_UpdateHealth(Vector3Int playerCoord) {
+        Stats playerStats = GlobalVars.enemies[playerCoord];
+        GameObject currentTileObj = GlobalVars.hexagonTile[playerCoord];
+
+        currentTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = playerStats.curHealth / playerStats.maxHealth;
+    }
+
+    public void Enemy_UpdateHealth(Vector3Int enemyCoord) {
+        Stats enemyStats = GlobalVars.enemies[enemyCoord];
+        GameObject currentTileObj = GlobalVars.hexagonTile[enemyCoord];
+
+        currentTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = enemyStats.curHealth / enemyStats.maxHealth;
+    }
 
 
 
@@ -834,10 +863,44 @@ public class InputManager : MonoBehaviour {
 
 
     public void moveRadioWheel() {
-        radioMenu.transform.position = GlobalVars.hexagonTile[playerCoord].transform.position;
+        Vector3 screenPosition = cam.WorldToScreenPoint(GlobalVars.hexagonTile[playerCoord].transform.position);
+        radioMenu.transform.position = screenPosition;
     }
 
     public void toggleRadioMenu() {
         radioMenu.SetActive(radioMenu.activeSelf);
+    }
+
+    public void selectPlayer(int index) {
+        string charName = GlobalVars.choosenPlayers[index].charName;
+
+       
+        foreach(KeyValuePair<Vector3Int, Stats> player in GlobalVars.players) {
+
+            if(player.Value.charName == charName) {
+                playerCoord = player.Key;
+                clickedCoord = player.Key;
+
+                UpdatePlayerMenu();
+
+                //gets players stats annd stores them
+                playerMove = GlobalVars.players[clickedCoord].move;
+                playerPower = GlobalVars.players[clickedCoord].power;
+                playerAttRange = GlobalVars.players[clickedCoord].attackRange;
+                playerDefense = GlobalVars.players[clickedCoord].defense;
+                playerMaxHealth = GlobalVars.players[clickedCoord].maxHealth;
+
+                //Characters specific tings that need to be stored
+                if(GlobalVars.players[clickedCoord].charType == "Alchemist") {
+                    poisonDmg = GlobalVars.players[clickedCoord].power;
+                }
+                if(GlobalVars.players[clickedCoord].charType == "Illusionist") {
+                    smokeDodge = GlobalVars.players[clickedCoord].power;
+                }
+
+                //sets all indicators false when players are clicked
+                ClearIndicators();
+            }
+        }
     }
 }

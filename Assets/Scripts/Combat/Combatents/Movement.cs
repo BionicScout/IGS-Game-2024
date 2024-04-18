@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Movement : MonoBehaviour {
     public Vector3Int currentHex;
@@ -39,6 +40,11 @@ public class Movement : MonoBehaviour {
         GlobalVars.players.Remove(playerCoord);
         GlobalVars.players.Add(newTileCoord, playerStats);
 
+        //Update Health Bar
+        currentTileObj.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
+        newTileObj.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
+        newTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = playerStats.curHealth / playerStats.maxHealth;
+
 
         Vector3 offset = newTileObj.transform.position - currentTileObj.transform.position;
         //playerStats.healthBar.transform.position = playerStats.healthBar.transform.position + offset;
@@ -53,6 +59,11 @@ public class Movement : MonoBehaviour {
         //Update Sprite
         currentTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
         newTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = enemyStats.sprite;
+
+        //Update Health Bar
+        currentTileObj.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
+        newTileObj.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
+        newTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = enemyStats.curHealth / enemyStats.maxHealth;
 
         //Update player coord
         GlobalVars.enemies.Add(newTileCoord , enemyStats);
