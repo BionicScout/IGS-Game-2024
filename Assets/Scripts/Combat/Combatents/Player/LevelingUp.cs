@@ -209,21 +209,21 @@ public class LevelingUp : MonoBehaviour
             if(GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
             {
                 //updeates the preview menu
-                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
-                powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString() + " + 1";
-                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
-                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
-                rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
-                nextLvlTxt.text = "Next Level: Increased power";
+                healthTxt.text = GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+                powerTxt.text = GlobalVars.choosenPlayers[selectedOption].power.ToString();
+                moveTxt.text = GlobalVars.choosenPlayers[selectedOption].move.ToString();
+                defenseTxt.text = GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+                rangeTxt.text = GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
+                nextLvlTxt.text = "Increased power";
             }
             else if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
             {
                 //updeates the preview menu
-                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
-                powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString() + " + 1";
-                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
-                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
-                rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
+                healthTxt.text = GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+                powerTxt.text = GlobalVars.choosenPlayers[selectedOption].power.ToString();
+                moveTxt.text = GlobalVars.choosenPlayers[selectedOption].move.ToString();
+                defenseTxt.text = GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+                rangeTxt.text = GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
                 nextLvlTxt.text = "Fully Upgraded";
             }
         }
@@ -239,21 +239,21 @@ public class LevelingUp : MonoBehaviour
                 Debug.Log("Checked if Lvl 1");
                 //updeates the preview menu
                 Debug.Log(GlobalVars.choosenPlayers[selectedOption].maxHealth);
-                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString() + " + 5";
-                powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString();
-                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
-                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
-                rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
-                nextLvlTxt.text = "Next Level: Increased Defense";
+                healthTxt.text =GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+                powerTxt.text = GlobalVars.choosenPlayers[selectedOption].power.ToString();
+                moveTxt.text = GlobalVars.choosenPlayers[selectedOption].move.ToString();
+                defenseTxt.text = GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+                rangeTxt.text = GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
+                nextLvlTxt.text = "Increased Defense";
             }
             else if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
             {
                 //updeates the preview menu
-                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
-                powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString();
-                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
-                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString() + " + 1";
-                rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
+                healthTxt.text = GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+                powerTxt.text = GlobalVars.choosenPlayers[selectedOption].power.ToString();
+                moveTxt.text = GlobalVars.choosenPlayers[selectedOption].move.ToString();
+                defenseTxt.text = GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+                rangeTxt.text = GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
                 nextLvlTxt.text = "Fully Upgraded";
             }
         }
@@ -265,21 +265,21 @@ public class LevelingUp : MonoBehaviour
             if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
             {
                 //updeates the preview menu
-                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
-                powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString();
-                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
-                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
-                rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString() + " + 1";
-                nextLvlTxt.text = "Next Level: Attack in range for half damage";
+                healthTxt.text = GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+                powerTxt.text = GlobalVars.choosenPlayers[selectedOption].power.ToString();
+                moveTxt.text = GlobalVars.choosenPlayers[selectedOption].move.ToString();
+                defenseTxt.text = GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+                rangeTxt.text = GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
+                nextLvlTxt.text = "Attack in range for half damage";
             }
             else if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
             {
                 //updeates the preview menu
-                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
-                powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString();
-                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
-                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
-                rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
+                healthTxt.text = GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+                powerTxt.text = GlobalVars.choosenPlayers[selectedOption].power.ToString();
+                moveTxt.text = GlobalVars.choosenPlayers[selectedOption].move.ToString();
+                defenseTxt.text = GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+                rangeTxt.text = GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
                 nextLvlTxt.text = "Fully Upgraded";
             }
         }
@@ -293,21 +293,21 @@ public class LevelingUp : MonoBehaviour
             if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
             {
                 //updeates the preview menu
-                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
-                powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString();
-                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
-                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
-                rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString() + " + 4";
-                nextLvlTxt.text = "Next Level: Increased Power";
+                healthTxt.text = GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+                powerTxt.text = GlobalVars.choosenPlayers[selectedOption].power.ToString();
+                moveTxt.text = GlobalVars.choosenPlayers[selectedOption].move.ToString();
+                defenseTxt.text = GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+                rangeTxt.text = GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
+                nextLvlTxt.text = "Increased Power";
             }
             else if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
             {
-                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
-                powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString() + "2";
-                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
-                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
-                rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
-                nextLvlTxt.text = "Next Level: Fully Upgraded";
+                healthTxt.text = GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+                powerTxt.text = GlobalVars.choosenPlayers[selectedOption].power.ToString();
+                moveTxt.text = GlobalVars.choosenPlayers[selectedOption].move.ToString();
+                defenseTxt.text = GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+                rangeTxt.text = GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
+                nextLvlTxt.text = "Fully Upgraded";
             }
         }
     }
@@ -318,21 +318,21 @@ public class LevelingUp : MonoBehaviour
             if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
             {
                 //updeates the preview menu
-                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
-                powerTxt.text = "Power: 2 attacks for 1 action";
-                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
-                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
-                rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString() + " + 4";
-                nextLvlTxt.text = "Next Level: 3 attacks for 1 action";
+                healthTxt.text = GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+                powerTxt.text = GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+                moveTxt.text = GlobalVars.choosenPlayers[selectedOption].move.ToString();
+                defenseTxt.text = GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+                rangeTxt.text = GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
+                nextLvlTxt.text = "3 attacks for 1 action";
             }
             else if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
             {
-                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
-                powerTxt.text = "Power: 3 attacks for 1 action";
-                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
-                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
-                rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
-                nextLvlTxt.text = "Next Level: Fully Upgraded";
+                healthTxt.text = GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+                powerTxt.text = GlobalVars.choosenPlayers[selectedOption].power.ToString();
+                moveTxt.text = GlobalVars.choosenPlayers[selectedOption].move.ToString();
+                defenseTxt.text = GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+                rangeTxt.text = GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
+                nextLvlTxt.text = "Fully Upgraded";
             }
         }
     }
@@ -345,20 +345,20 @@ public class LevelingUp : MonoBehaviour
             if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
             {
                 //updeates the preview menu
-                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
-                powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString();
-                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
-                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
-                rangeTxt.text = "Range: Heal all in a 1 tile radius";
-                nextLvlTxt.text = "Next Level: Increased Healing Power";
+                healthTxt.text = GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+                powerTxt.text = GlobalVars.choosenPlayers[selectedOption].power.ToString();
+                moveTxt.text = GlobalVars.choosenPlayers[selectedOption].move.ToString();
+                defenseTxt.text = GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+                rangeTxt.text = GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
+                nextLvlTxt.text = "Increased Healing Power";
             }
             else if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
             {
-                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
-                powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString() + " + 1";
-                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
-                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
-                rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
+                healthTxt.text = GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+                powerTxt.text = GlobalVars.choosenPlayers[selectedOption].power.ToString();
+                moveTxt.text = GlobalVars.choosenPlayers[selectedOption].move.ToString();
+                defenseTxt.text = GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+                rangeTxt.text = GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
                 nextLvlTxt.text = "Fully Upgraded";
             }
         }
@@ -370,20 +370,20 @@ public class LevelingUp : MonoBehaviour
             if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
             {
                 //updeates the preview menu
-                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
-                powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString() + " + 2";
-                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
-                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
-                rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
-                nextLvlTxt.text = "Next Level: Poision in 1 tile raduis";
+                healthTxt.text = GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+                powerTxt.text = GlobalVars.choosenPlayers[selectedOption].power.ToString();
+                moveTxt.text = GlobalVars.choosenPlayers[selectedOption].move.ToString();
+                defenseTxt.text = GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+                rangeTxt.text = GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
+                nextLvlTxt.text = "Poision in 1 tile raduis";
             }
             else if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
             {
-                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
-                powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString();
-                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
-                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
-                rangeTxt.text = "Range: Poision all in 1 tile radius";
+                healthTxt.text = GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+                powerTxt.text = GlobalVars.choosenPlayers[selectedOption].power.ToString();
+                moveTxt.text = GlobalVars.choosenPlayers[selectedOption].move.ToString();
+                defenseTxt.text = GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+                rangeTxt.text = GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
                 nextLvlTxt.text = "Fully Upgraded";
             }
         }
@@ -395,20 +395,20 @@ public class LevelingUp : MonoBehaviour
             if (GlobalVars.choosenPlayers[selectedOption].charLevel == 1)
             {
                 //updeates the preview menu
-                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
-                powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString() + " + 15";
-                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
-                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
-                rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
-                nextLvlTxt.text = "Next Level: Increased Range";
+                healthTxt.text = GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+                powerTxt.text = GlobalVars.choosenPlayers[selectedOption].power.ToString();
+                moveTxt.text = GlobalVars.choosenPlayers[selectedOption].move.ToString();
+                defenseTxt.text = GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+                rangeTxt.text = GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
+                nextLvlTxt.text = "Increased Range";
             }
             else if (GlobalVars.choosenPlayers[selectedOption].charLevel == 2)
             {
-                healthTxt.text = "Max Health: " + GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
-                powerTxt.text = "Power: " + GlobalVars.choosenPlayers[selectedOption].power.ToString();
-                moveTxt.text = "Movement: " + GlobalVars.choosenPlayers[selectedOption].move.ToString();
-                defenseTxt.text = "Defense: " + GlobalVars.choosenPlayers[selectedOption].defense.ToString();
-                rangeTxt.text = "Range: " + GlobalVars.choosenPlayers[selectedOption].attackRange.ToString() + " + 1";
+                healthTxt.text = GlobalVars.choosenPlayers[selectedOption].maxHealth.ToString();
+                powerTxt.text = GlobalVars.choosenPlayers[selectedOption].power.ToString();
+                moveTxt.text = GlobalVars.choosenPlayers[selectedOption].move.ToString();
+                defenseTxt.text = GlobalVars.choosenPlayers[selectedOption].defense.ToString();
+                rangeTxt.text = GlobalVars.choosenPlayers[selectedOption].attackRange.ToString();
                 nextLvlTxt.text = "Fully Upgraded";
             }
         }
