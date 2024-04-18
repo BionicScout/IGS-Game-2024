@@ -1,0 +1,84 @@
+RUNEnglish font 
+
+font: DS_RUNEnglish-1
+Version: 2.0 - January 2000
+©copyright - 1997, 2000 - Daniel Steven Smith 
+
+Copyright, License and Distribution Information:
+================================================
+This font is the property of and copyrighted by Daniel Steven Smith, 
+and is subject to this license agreement, which you accept by 
+installing and using this font.   
+
+Warranty: 
+=========
+Although I have taken care to see that they work, the fonts are not 
+warranted to work on your system. You use them at your own risk. 
+
+Shareware: 
+========== 
+This font is shareware:  If you have installed this font, enjoy using 
+it, and plan on using it in the future, please do one of the following 
+(depending on your use):
+
+Personal, Private or Non-Commercial Use: 
+----------------------------------------
+Payment of a US$1 (one US dollar or equivalent in any currency) 
+shareware fee entitles you to use the font in perpetuity, on any 
+machine that you personally own or control, and grants you the right 
+to do the following:  
+  - You may use the font to produce images and graphics for any 
+    personal, private or non-commercial publication or product.  
+  - You may use the font to produce images and graphics for any 
+    personal, private or non-commercial web page.  
+  - You may alter or modify it, or translate it into any other format 
+    for your personal use.  (You may not distribute a modified or 
+    translated font).  
+
+Commercial Use: 
+---------------
+Payment of a US$30 (thirty US dollars) shareware fee entitles you to 
+use the font in perpetuity, on any machine that you personally own or 
+control, and grants you the right to do the following:  
+  - You may use the font to produce images and graphics for any 
+    commercial publication or product.  
+  - You may use the font to produce images and graphics for any 
+    commercial web page, computer game or software application.  
+  - You may alter or modify it, or translate it into any other format 
+    for your personal use.  (You may not distribute a modified or 
+    translated font).  
+
+Limitations: 
+============
+You will not distribute this font as part of a commercial software 
+release without securing my permission in advance.  (I may choose to 
+withhold permission to include the fonts in software I deem 
+objectionable.)  I will expect:  
+  - Acknowledgment of the authorship of the fonts.  
+  - A reasonable royalty fee equal to US$0.01 (one US cent) for every 
+    copy of the font that is distributed as part of the commercial 
+    software release.
+  - Receipt of one registerable full version of the commercial 
+    software, to use or give away as I see fit.  
+
+Distribution: 
+=============
+The fonts may be distributed by individuals, bulletin board systems, 
+FTP sites, WWW sites, etc., without restriction as long as:   
+  - No fee is charged for the font.  
+  - All files are included.  
+  - No files are modified. 
+  - If distributed as part of a "shareware library"; that I receive a 
+    copy of every different disk or CD containing my fonts, to use or 
+    give away as I see fit. 
+
+For any uses not covered explicitly by this agreement, please contact me. 
+    Daniel Steven Smith
+    12 Overlook Drive
+    Leominster, MA, USA
+    01453-5142
+    fontmaster@geocities.com
+    http://www.geocities.com/TimesSquare/4948/index.html
+
+I am always grateful for acknowledgment of my fonts, especially if you 
+send samples showing how you have used them.
