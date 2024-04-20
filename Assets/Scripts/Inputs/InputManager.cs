@@ -689,6 +689,7 @@ public class InputManager : MonoBehaviour {
     //adds one to the characters power 
     public void PowerBuff()
     {
+        items.powerBuffUsed = true;
         if(items.powerBuffAMT != 0)
         {
             GlobalVars.players[playerCoord].power++;
@@ -700,6 +701,7 @@ public class InputManager : MonoBehaviour {
     //adds one to te character defense
     public void DefenseBuff()
     {
+        items.defenseBuffUsed = true;
         if (items.defenseBuffAMT != 0)
         {
             GlobalVars.players[playerCoord].defense++;

@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class Items : MonoBehaviour
 {
+    public bool powerBuffUsed;
+    public bool defenseBuffUsed;
     [Header("Amount")]
     public int singleHealAMT;
     public int powerBuffAMT;
