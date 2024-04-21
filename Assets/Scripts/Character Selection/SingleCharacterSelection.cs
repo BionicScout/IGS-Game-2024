@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -7,6 +8,7 @@ public class SingleCharacterSelection : MonoBehaviour {
     public TextMeshProUGUI nameTxt;
     SpriteRenderer spriteIcon;
     public Button nextBTN, backBTN;
+    public SpriteRenderer previousChar, nextChar;
 
     public int selectedOption = 0;
 
@@ -36,6 +38,24 @@ public class SingleCharacterSelection : MonoBehaviour {
         Stats stats = selMan.playerStats[selectedOption];
         spriteIcon.sprite = stats.sprite;
         nameTxt.text = stats.charType;
+
+        //PreviousCharacter();
+        int prevChar = (selectedOption - 1) % selMan.playerStats.Count;
+        if (prevChar <= 0)
+        {
+            prevChar = selMan.playerStats.Count - 1;
+        }
+        stats = selMan.playerStats[prevChar];
+        previousChar.sprite = stats.sprite;
+        //NextCharacter();        
+        int nxtChar = selectedOption + 1;
+        if (nxtChar >= selMan.playerStats.Count)
+        {
+            nxtChar = 0;
+        }
+        stats = selMan.playerStats[nxtChar];
+        nextChar.sprite = stats.sprite;
+
     }
     //functions to load the chossen characters into the levels
     public void Load(UnitSelectionManager manager, int loadChar) {
