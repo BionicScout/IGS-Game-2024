@@ -16,7 +16,7 @@ public class LevelingUp : MonoBehaviour
     public TextMeshProUGUI rangeTxt;
     public TextMeshProUGUI nextLvlTxt;
 
-    SpriteRenderer spriteIcon;
+    public SpriteRenderer spriteIcon;
     public Button nextBTN, backBTN;
 
     public int selectedOption = 0;
