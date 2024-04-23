@@ -28,7 +28,7 @@ public class InputManager : MonoBehaviour {
 
     modes inputMode;
     public bool clickedUI = false;
-    public Items items;
+    Items items;
 
     [SerializeField]
     GameObject hitParticles;
@@ -407,7 +407,7 @@ public class InputManager : MonoBehaviour {
                 foreach (Tuple<Vector3Int, int> coord in Pathfinding.AllPossibleTiles(clickedCoord, 1, false))
                 {
                     Vector3Int c = coord.Item1;
-                    GlobalVars.smokeTiles.Add(t, 2);
+                    GlobalVars.poisonTiles.Add(t, 2);
                     GlobalVars.hexagonTile[c].transform.GetChild(4).gameObject.SetActive(true);
                 }
             }
@@ -639,11 +639,11 @@ public class InputManager : MonoBehaviour {
 
         Stats stats = GlobalVars.players[playerCoord];
         charTypeTxt.text = stats.charType.ToString();
-        moveTxt.text = "Movement: " + stats.move.ToString();
-        powerTxt.text = "Power: " + stats.power.ToString();
-        defenseTxt.text = "Hartyness: " + stats.defense.ToString();
-        healthTxt.text = "Max Health: " + stats.maxHealth.ToString();
-        powerRangeTxt.text = "Power Range: " + stats.attackRange.ToString();
+        moveTxt.text = stats.move.ToString();
+        powerTxt.text =  stats.power.ToString();
+        defenseTxt.text = stats.defense.ToString();
+        healthTxt.text = stats.maxHealth.ToString();
+        powerRangeTxt.text = stats.attackRange.ToString();
     }
     //sets a menu active and changes all the information
     public void ItemMenu()
