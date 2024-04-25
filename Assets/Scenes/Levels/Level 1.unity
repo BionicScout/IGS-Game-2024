@@ -2294,6 +2294,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4251816243873517705, guid: 6cc58c98d7763554ab46a9d9507a4ec7, type: 3}
+      propertyPath: lesson1
+      value: 
+      objectReference: {fileID: 4900000, guid: 5111b9f19ac4e344fbdfefcffdb715b9, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2331,6 +2335,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &997512417 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1288575905971861073, guid: 6cc58c98d7763554ab46a9d9507a4ec7, type: 3}
+  m_PrefabInstance: {fileID: 997512412}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &997512418 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1219853548725196691, guid: 6cc58c98d7763554ab46a9d9507a4ec7, type: 3}
+  m_PrefabInstance: {fileID: 997512412}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1035969896
 GameObject:
   m_ObjectHideFlags: 0
@@ -7436,7 +7450,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5844484304663780538, guid: 774471e2c4217d24fa12ce0a31501119, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5863023728118923675, guid: 774471e2c4217d24fa12ce0a31501119, type: 3}
       propertyPath: m_AnchorMax.y
@@ -8069,8 +8083,8 @@ MonoBehaviour:
   dialoguePannel: {fileID: 997512414}
   dialogueTxt: {fileID: 997512416}
   nameTxt: {fileID: 997512415}
-  portraitAnimator: {fileID: 0}
-  layoutAnimator: {fileID: 0}
+  portraitAnimator: {fileID: 997512418}
+  layoutAnimator: {fileID: 997512417}
   combatUI: {fileID: 1974157233}
   nextScene: CharcaterSelector
 --- !u!1660057539 &9223372036854775807
