@@ -17,7 +17,7 @@ public class LevelingUp : MonoBehaviour
     public TextMeshProUGUI level2Txt;
     public TextMeshProUGUI level3Txt;
 
-    public SpriteRenderer spriteIcon;
+    Image spriteIcon;
     public Button nextBTN, backBTN;
 
     public int selectedOption = 0;
@@ -25,7 +25,7 @@ public class LevelingUp : MonoBehaviour
 
     private void Start()
     {
-        spriteIcon = GetComponent<SpriteRenderer>();
+        spriteIcon = GetComponent<Image>();
         NextOption();
         BackOption();
         GlobalVars.levelClear();
@@ -47,8 +47,8 @@ public class LevelingUp : MonoBehaviour
         {
             selectedOption = 0;
         }
-        MenuChanger();
         UpdateCharacter();
+        MenuChanger();
     }
 
     public void BackOption()
@@ -60,8 +60,8 @@ public class LevelingUp : MonoBehaviour
             selectedOption = GlobalVars.choosenPlayers.Count - 1;
         }
         //checks what character is being loaded based of their name
-        MenuChanger();
         UpdateCharacter();
+        MenuChanger();
     }
     //changes the name and sprite depending on selection number
     private void UpdateCharacter()
