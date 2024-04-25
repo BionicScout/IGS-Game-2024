@@ -65,6 +65,7 @@ public class Stats : ScriptableObject
         copy.charName = charName;
         copy.charType = charType;
         copy.sprite = sprite;
+        copy.squareSprite = squareSprite;
         copy.charLevel = charLevel;
 
         copy.curHealth = curHealth;

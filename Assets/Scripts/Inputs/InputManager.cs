@@ -1,17 +1,8 @@
 using UnityEngine;
-using System.Collections;
-using Unity.VisualScripting;
 using System;
 using System.Collections.Generic;
 using TMPro;
-using UnityEngine.UI;
-using UnityEngine.TestTools;
-using System.Runtime.CompilerServices;
 using Random = UnityEngine.Random;
-using UnityEditor;
-using System.Drawing;
-using System.Linq;
-using UnityEngine.UIElements;
 using Slider = UnityEngine.UI.Slider;
 using Image = UnityEngine.UI.Image;
 
@@ -76,9 +67,24 @@ public class InputManager : MonoBehaviour {
         statsMenu.SetActive(false);
         turnManager = FindAnyObjectByType<TurnManager>();
 
-        selectPlayer(1);
+        selectPlayer(0);
         //moveRadioWheel();
 
+        //Unit Sector Images
+        Transform selectImage = selectedPlayerMenu.transform.GetChild(0).GetChild(0).GetChild(0);
+
+        Transform characterSelectButtons = selectedPlayerMenu.transform.GetChild(1);
+        Debug.Log(GlobalVars.players.Count);
+        int i = 0;
+        foreach(KeyValuePair<Vector3Int , Stats> player in GlobalVars.players) {
+            if(i == 0) {
+                selectImage.GetComponent<Image>().sprite = player.Value.squareSprite; 
+            }
+
+            Image image = characterSelectButtons.GetChild(i).GetChild(0).GetComponent<Image>();
+            image.sprite = player.Value.squareSprite;
+            i++;
+        }
     }
 
     void Update() {
