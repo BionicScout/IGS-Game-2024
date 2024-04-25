@@ -636,7 +636,7 @@ public class InputManager : MonoBehaviour {
 
         Stats stats = GlobalVars.players[playerCoord];
         //updates sprites and health
-        selectedPlayerMenu.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = stats.sprite;
+        selectedPlayerMenu.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = stats.squareSprite;
         //selectedPlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
     }
     //sets a menu active and changes all the information
