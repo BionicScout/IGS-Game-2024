@@ -10,6 +10,7 @@ public class Stats : ScriptableObject
     public string charName;
     public string charType;
     public Sprite sprite;
+    public Sprite squareSprite;
     public int charLevel;
 
     public float curHealth = 10;
