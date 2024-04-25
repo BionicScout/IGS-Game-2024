@@ -17,20 +17,16 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI nameTxt;
     [SerializeField] private Animator portraitAnimator;
     [SerializeField] private Animator layoutAnimator;
-    [SerializeField] private GameObject selectedPlayerMenu;
+    [SerializeField] private GameObject combatUI;
     private static DialogueManager instance;
+    Tutorial tutorial;
     private Story currentStory;
+
     public string nextScene = "CharcaterSelector";
     public bool dialogueIsPlaying { get; private set; }
     private const string SPEAKER_TAG = "speaker";
     private const string PORTRAIT_TAG = "portrait";
     private const string LAYOUT_TAG = "layout";
-    [Header("Character Screen Buttons")]
-    [SerializeField] private Button statsBTN;
-    [SerializeField] private Button moveBTN;
-    [SerializeField] private Button attackBTN;
-    [SerializeField] private Button interactBTN;
-    [SerializeField] private Button itemsBTN;
     private int lessonNum;
 
      private void Awake()
@@ -44,7 +40,7 @@ public class DialogueManager : MonoBehaviour
     }
     private void Start()
     {
-        selectedPlayerMenu.SetActive(false);
+        combatUI.SetActive(false);
         SceneSwapper.GetCurrentScene();
     }
     private void Update()
@@ -69,33 +65,33 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = false;
         dialoguePannel.SetActive(false);
         dialogueTxt.text = " ";
-        selectedPlayerMenu.SetActive(true);
+        combatUI.SetActive(true);
 
         if(SceneSwapper.currentScene == "Tutorial")
         {
             if(lessonNum == 1)
             {
-                statsBTN.interactable = false;
-                attackBTN.interactable = false;
-                interactBTN.interactable = false;
-                itemsBTN.interactable = false;
+                tutorial.statsBTN.interactable = false;
+                tutorial.attackBTN.interactable = false;
+                tutorial.interactBTN.interactable = false;
+                tutorial.itemsBTN.interactable = false;
             }
             else if (lessonNum == 2)
             {
-                interactBTN.interactable = false;
-                itemsBTN.interactable = false;
+                tutorial.interactBTN.interactable = false;
+                tutorial.itemsBTN.interactable = false;
             }
             else if (lessonNum == 3)
             {
-                interactBTN.interactable = false;
+                tutorial.interactBTN.interactable = false;
             }
             else if (lessonNum == 4)
             {
-                interactBTN.interactable = false;
+                tutorial.interactBTN.interactable = false;
             }
             else if (lessonNum == 5)
             {
-                interactBTN.interactable = false;
+                tutorial.interactBTN.interactable = false;
             }
             else { }
         }
