@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charName: L1_ArcherBandit
   charType: L1
-  sprite: {fileID: 21300000, guid: 5ff53be46f3c9d543b967994a11655c3, type: 3}
+  sprite: {fileID: 21300000, guid: 5391705f4220a7b4cbb21b339df6840b, type: 3}
+  squareSprite: {fileID: 0}
   charLevel: 1
   curHealth: 6
   maxHealth: 6
@@ -22,3 +23,10 @@ MonoBehaviour:
   attackRange: 2
   power: 4
   defense: 0
+  dodge: 0
+  itemDrop: 50
+  singleHealDrop: 50
+  powerBuffDrop: 65
+  defBuffDrop: 80
+  reviveDrop: 90
+  healScrollDrop: 100

@@ -15,6 +15,7 @@ MonoBehaviour:
   charName: Beet
   charType: Cleric
   sprite: {fileID: 21300000, guid: 57ee9e74d9ac9f14ba9f832a424b84d3, type: 3}
+  squareSprite: {fileID: 21300000, guid: 583b2c12978ef66408bf288e5a3d792c, type: 3}
   charLevel: 1
   curHealth: 5
   maxHealth: 5
