@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charName: L2_AxemanBandit
   charType: L2
-  sprite: {fileID: 21300000, guid: b92d78024e8a95e458585448c9f2cfcc, type: 3}
+  sprite: {fileID: 21300000, guid: c38ff8705997f5d40b87a66b7f8369d8, type: 3}
   squareSprite: {fileID: 0}
   charLevel: 1
   curHealth: 3
