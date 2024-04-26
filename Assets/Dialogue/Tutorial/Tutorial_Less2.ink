@@ -1,4 +1,4 @@
-You did a great job!! #speaker:DEV 1 #portrait:DEV_Portrait #layout:right
+You did a great job!! #speaker:DEV 1 #portrait:DEV_Portrait #layout:tutorial_right
 So the enemy moved closer to you, its now time to attack.
 
 But first lets go over your character stats.
@@ -9,5 +9,5 @@ The stats include: your characters type, movement range, power, hartyness(defens
 Now lets get on to attacking.
 Very similar to moving, there will be a button labeled ATTACK, clicking on it will show your attack range.
 If an enemy is on one of the red highlighted tiles you can click on them to do some damage.
-#speaker:DEV 1 #portrait:DEV_Portrait_MC #layout:right
+#speaker:DEV 1 #portrait:DEV_Portrait_MC #layout:tutorial_right
 Once you've finished with that your going to want to click the END TURN button again.
