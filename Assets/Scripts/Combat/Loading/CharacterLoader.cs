@@ -22,11 +22,15 @@ public class CharacterLoader : MonoBehaviour {
         
 
         if (SceneSwapper.currentScene == "Tutorial") {
+            GlobalVars.levelClear();
             for (int i = 0; i < 4; i++)
             {
                 Stats stats = tutorialPlayers[i].Copy();
                 Vector3Int loc = spawnLocs[i];
                 SpawnPlayer(loc, stats.Copy());
+                //GlobalVars.choosenPlayers.Add(stats);
+                GlobalVars.players.Add(loc, stats);
+                Debug.Log("Player sprite: " + GlobalVars.choosenPlayers[i].squareSprite);
             }
             Stats Enemystats = tutorialEnemies.Copy();
             Vector3Int enemyLoc = new Vector3Int(2, 11, -13);

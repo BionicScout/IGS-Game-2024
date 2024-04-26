@@ -2,6 +2,7 @@ Nice Kill!! #speaker:DEV 1 #portrait:DEV_Portrait #layout:tutorial_right
 
 Im sorry but for this next lesson we've had to damage your swordsman. #speaker:DEV 1 #portrait:DEV_Portrait_Nerv #layout:tutorial_right
 
+#speaker:DEV 1 #portrait:DEV_Portrait #layout:tutorial_right
 Go ahead and click on them, you'll see that the health bar has gone down. Lets fix that!!
 
 There should be a button labled ITEMS, it works similar to the stats menu.

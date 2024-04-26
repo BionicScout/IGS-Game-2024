@@ -73,6 +73,7 @@ public class Tutorial : MonoBehaviour
         else
         {
             SceneSwapper.A_LoadScene(nextScene);
+            GlobalVars.levelClear();
         }
     }
     public void ActionManager()
