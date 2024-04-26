@@ -139,6 +139,14 @@ PrefabInstance:
       propertyPath: outro
       value: 
       objectReference: {fileID: 4900000, guid: 94d660deefdea5a40b78045860c4e6d9, type: 3}
+    - target: {fileID: 2514404767772000810, guid: 49a08b716d0e1d2478911e0810964a53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 258753002}
+    - target: {fileID: 2514404767772000810, guid: 49a08b716d0e1d2478911e0810964a53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ExitDialogueMode
+      objectReference: {fileID: 0}
     - target: {fileID: 8253374179145304821, guid: 49a08b716d0e1d2478911e0810964a53, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -218,6 +226,14 @@ PrefabInstance:
     - target: {fileID: 8253374179145304821, guid: 49a08b716d0e1d2478911e0810964a53, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8754829605839066848, guid: 49a08b716d0e1d2478911e0810964a53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 258753002}
+    - target: {fileID: 8754829605839066848, guid: 49a08b716d0e1d2478911e0810964a53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ContinueStory
       objectReference: {fileID: 0}
     - target: {fileID: 9087107578918739451, guid: 49a08b716d0e1d2478911e0810964a53, type: 3}
       propertyPath: m_Name
@@ -1422,6 +1438,11 @@ PrefabInstance:
 --- !u!224 &316054856 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8299018670256721519, guid: c1e1ae23ee6a04c49a973aaf95641eea, type: 3}
+  m_PrefabInstance: {fileID: 316054855}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &316054857 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8612658499758105145, guid: c1e1ae23ee6a04c49a973aaf95641eea, type: 3}
   m_PrefabInstance: {fileID: 316054855}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &350575295
@@ -7716,12 +7737,12 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 224490382}
-  - {fileID: 1235068416}
   - {fileID: 23092867}
   - {fileID: 316054856}
   - {fileID: 224029302}
   - {fileID: 1251505256}
+  - {fileID: 224490382}
+  - {fileID: 1235068416}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -7742,7 +7763,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenu: MainMenu
-  pauseMenu: {fileID: 0}
+  pauseMenu: {fileID: 316054857}
   isPaused: 0
 --- !u!114 &1555071953
 MonoBehaviour:
