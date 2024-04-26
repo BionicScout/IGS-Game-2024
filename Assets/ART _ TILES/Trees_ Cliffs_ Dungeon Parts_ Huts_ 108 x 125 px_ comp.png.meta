@@ -131,7 +131,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_1
+      name: S_House
       rect:
         serializedVersion: 2
         x: 108
@@ -1293,8 +1293,8 @@ TextureImporter:
       S_Fort_Wall_2: 504282858
       S_Fort_Wall_Top: 1758204832
       S_Fortress_Floor_LightShade: 1639141487
+      S_House: 861986352
       Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_0: -2063254174
-      Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_1: 861986352
       Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_2: -410486466
       Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_21: -2104914081
       Trees_ Cliffs_ Dungeon Parts_ Huts_ 108 x 125 px_ comp_23: -1866278108
