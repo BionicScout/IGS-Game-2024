@@ -1,0 +1,1 @@
+You goddamm guards why can't you just let things go?! #speaker:Crying Onion #portrait:Onion #layout:right

@@ -1,5 +1,6 @@
- #speaker:DEV 2 #protrait:DEV2_Portrait #layout:right
+ #speaker:DEV 2 #protrait:DEV2_Portrait_Sly #layout:right
 Another fun magic user is the ILLUSIONIST.
+ #speaker:DEV 2 #protrait:DEV2_Portrait #layout:right
 They can throw smoke bombs around that will make landing attacks harder for both characters and enemies if they are in the effected area. 
 
 Try it out. Once you've placed it you should see that the tiles of the affected area stay highlighted.
