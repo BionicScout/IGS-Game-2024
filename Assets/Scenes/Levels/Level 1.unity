@@ -2137,15 +2137,23 @@ PrefabInstance:
     - target: {fileID: 3389086946706063864, guid: 6cc58c98d7763554ab46a9d9507a4ec7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 997512414}
+      objectReference: {fileID: 2123255529}
     - target: {fileID: 3389086946706063864, guid: 6cc58c98d7763554ab46a9d9507a4ec7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: ContinueStory
       objectReference: {fileID: 0}
     - target: {fileID: 4251816243873517705, guid: 6cc58c98d7763554ab46a9d9507a4ec7, type: 3}
       propertyPath: lesson1
       value: 
       objectReference: {fileID: 4900000, guid: 5111b9f19ac4e344fbdfefcffdb715b9, type: 3}
+    - target: {fileID: 8400311079272518962, guid: 6cc58c98d7763554ab46a9d9507a4ec7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2123255529}
+    - target: {fileID: 8400311079272518962, guid: 6cc58c98d7763554ab46a9d9507a4ec7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ExitDialogueMode
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7889,6 +7897,7 @@ MonoBehaviour:
   portraitAnimator: {fileID: 997512418}
   layoutAnimator: {fileID: 997512417}
   combatUI: {fileID: 1974157233}
+  tutorial: {fileID: 0}
   nextScene: CharcaterSelector
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

@@ -19,7 +19,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private Animator layoutAnimator;
     [SerializeField] private GameObject combatUI;
     private static DialogueManager instance;
-    Tutorial tutorial;
+    public Tutorial tutorial;
     private Story currentStory;
 
     public string nextScene = "CharcaterSelector";
@@ -59,9 +59,9 @@ public class DialogueManager : MonoBehaviour
         dialoguePannel.SetActive(true);
         ContinueStory();
     }
-    public IEnumerator ExitDialogueMode()
+    public void ExitDialogueMode()
     {
-        yield return new WaitForSeconds(0.2f);
+        //yield return new WaitForSeconds(0.2f);
         dialogueIsPlaying = false;
         dialoguePannel.SetActive(false);
         dialogueTxt.text = " ";
@@ -69,31 +69,31 @@ public class DialogueManager : MonoBehaviour
 
         if(SceneSwapper.currentScene == "Tutorial")
         {
-            if(lessonNum == 1)
-            {
-                tutorial.statsBTN.interactable = false;
-                tutorial.attackBTN.interactable = false;
-                tutorial.interactBTN.interactable = false;
-                tutorial.itemsBTN.interactable = false;
-            }
-            else if (lessonNum == 2)
-            {
-                tutorial.interactBTN.interactable = false;
-                tutorial.itemsBTN.interactable = false;
-            }
-            else if (lessonNum == 3)
-            {
-                tutorial.interactBTN.interactable = false;
-            }
-            else if (lessonNum == 4)
-            {
-                tutorial.interactBTN.interactable = false;
-            }
-            else if (lessonNum == 5)
-            {
-                tutorial.interactBTN.interactable = false;
-            }
-            else { }
+            //if(lessonNum == 1)
+            //{
+            //    tutorial.statsBTN.interactable = false;
+            //    tutorial.attackBTN.interactable = false;
+            //    tutorial.interactBTN.interactable = false;
+            //    tutorial.itemsBTN.interactable = false;
+            //}
+            //else if (lessonNum == 2)
+            //{
+            //    tutorial.interactBTN.interactable = false;
+            //    tutorial.itemsBTN.interactable = false;
+            //}
+            //else if (lessonNum == 3)
+            //{
+            //    tutorial.interactBTN.interactable = false;
+            //}
+            //else if (lessonNum == 4)
+            //{
+            //    tutorial.interactBTN.interactable = false;
+            //}
+            //else if (lessonNum == 5)
+            //{
+            //    tutorial.interactBTN.interactable = false;
+            //}
+            //else { }
         }
     }
     public void ContinueStory()
@@ -107,7 +107,7 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            StartCoroutine(ExitDialogueMode());
+            ExitDialogueMode();
         }
     }
     public static DialogueManager GetInstance()

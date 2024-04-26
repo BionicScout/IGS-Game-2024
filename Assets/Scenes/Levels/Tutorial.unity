@@ -4423,6 +4423,7 @@ MonoBehaviour:
   portraitAnimator: {fileID: 191358959}
   layoutAnimator: {fileID: 1119808626}
   combatUI: {fileID: 238259166}
+  tutorial: {fileID: 0}
   nextScene: CharcaterSelector
 --- !u!1001 &4220637726323798661
 PrefabInstance:
@@ -4524,10 +4525,46 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2122511845}
+    - target: {fileID: 5034585948053721691, guid: 6cc58c98d7763554ab46a9d9507a4ec7, type: 3}
+      propertyPath: m_fontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034585948053721691, guid: 6cc58c98d7763554ab46a9d9507a4ec7, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5379412048259529412, guid: 6cc58c98d7763554ab46a9d9507a4ec7, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 196.0558
+      objectReference: {fileID: 0}
+    - target: {fileID: 5379412048259529412, guid: 6cc58c98d7763554ab46a9d9507a4ec7, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 38.9857
+      objectReference: {fileID: 0}
+    - target: {fileID: 5379412048259529412, guid: 6cc58c98d7763554ab46a9d9507a4ec7, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.51750183
+      objectReference: {fileID: 0}
+    - target: {fileID: 5379412048259529412, guid: 6cc58c98d7763554ab46a9d9507a4ec7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.100299835
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945031769525630616, guid: 6cc58c98d7763554ab46a9d9507a4ec7, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 245.8071
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945031769525630616, guid: 6cc58c98d7763554ab46a9d9507a4ec7, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 61.4518
+      objectReference: {fileID: 0}
     - target: {fileID: 8400311079272518962, guid: 6cc58c98d7763554ab46a9d9507a4ec7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2122511845}
+    - target: {fileID: 8400311079272518962, guid: 6cc58c98d7763554ab46a9d9507a4ec7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ExitDialogueMode
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4700,8 +4737,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 334967778}
   - {fileID: 294606261}
-  - {fileID: 1358620275}
   - {fileID: 863141958}
+  - {fileID: 1358620275}
+  - {fileID: 2082879623}
   - {fileID: 546066582}
   - {fileID: 1139786094}
-  - {fileID: 2082879623}
