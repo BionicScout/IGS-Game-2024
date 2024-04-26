@@ -65,6 +65,7 @@ public class InputManager : MonoBehaviour {
         inputMode = modes.normal;
         selectedPlayerMenu.SetActive(true);
         statsMenu.SetActive(false);
+        itemMenu.SetActive(false);
         turnManager = FindAnyObjectByType<TurnManager>();
         Debug.Log("Hello World");
 
@@ -676,7 +677,6 @@ public class InputManager : MonoBehaviour {
         items.singleHealTxt.text = "x" + items.singleHealAMT.ToString();
         items.powerBuffTxt.text = "x" + items.powerBuffAMT.ToString();
         items.defenseBuffTxt.text = "x" + items.defenseBuffAMT.ToString();
-        items.reviveTxt.text = "x" + items.reviveAMT.ToString();
         items.healScrollTxt.text = "x" + items.healScrollAMT.ToString();
     }
     public void UpdateHealth(float healthOffset) {

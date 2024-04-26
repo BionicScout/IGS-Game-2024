@@ -21,6 +21,7 @@ public class TurnManager : MonoBehaviour {
     public GameObject PlayerMenu;
     public GameObject WinMenu, LoseMenu;
     public InputManager InputManager;
+    public DialogueTrigger DiaTrigger;
 
     int turn = 0;
     public Queue<SpawnWave> spawnQueue;
@@ -65,6 +66,7 @@ public class TurnManager : MonoBehaviour {
         if (GlobalVars.enemies.Count == 0) {
             PlayerMenu.SetActive(false);
             WinMenu.SetActive(true);
+            DialogueManager.GetInstance().EnterDialogueMode(DiaTrigger.outro);
         }
 
         //Lose

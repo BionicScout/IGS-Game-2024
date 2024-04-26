@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    [SerializeField] private TextAsset intro;
-    [SerializeField] private TextAsset outro;
+    [SerializeField] public TextAsset intro;
+    [SerializeField] public TextAsset outro;
 
     public void TriggerDialogue() 
     { 

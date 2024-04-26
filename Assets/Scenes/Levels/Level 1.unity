@@ -2848,10 +2848,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allPlayerTurnsUsed: 0
   hitParticles: {fileID: 1052758049302362282, guid: e9dbf8a590745754680ef205c90d71df, type: 3}
-  PlayerMenu: {fileID: 0}
+  PlayerMenu: {fileID: 1974157233}
   WinMenu: {fileID: 1900432886}
   LoseMenu: {fileID: 1888016010}
   InputManager: {fileID: 182730969}
+  DiaTrigger: {fileID: 3113214801683234592}
   nextLevel: Level 2
 --- !u!4 &1555778018
 Transform:
@@ -7844,10 +7845,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 283666943}
     m_Modifications:
+    - target: {fileID: 1410811798006483003, guid: 49a08b716d0e1d2478911e0810964a53, type: 3}
+      propertyPath: intro
+      value: 
+      objectReference: {fileID: 4900000, guid: 5111b9f19ac4e344fbdfefcffdb715b9, type: 3}
+    - target: {fileID: 1410811798006483003, guid: 49a08b716d0e1d2478911e0810964a53, type: 3}
+      propertyPath: outro
+      value: 
+      objectReference: {fileID: 4900000, guid: d97c226382376d14cb9c6527725bf53e, type: 3}
     - target: {fileID: 2514404767772000810, guid: 49a08b716d0e1d2478911e0810964a53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2123255529}
+    - target: {fileID: 4945256914343915623, guid: 49a08b716d0e1d2478911e0810964a53, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d6875ca45cd97034fb4f3dcb4d3e3d61, type: 3}
+    - target: {fileID: 5087618345017770123, guid: 49a08b716d0e1d2478911e0810964a53, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d23e88dd041bb0140813f2fcda4d038a, type: 2}
+    - target: {fileID: 5942962548068201021, guid: 49a08b716d0e1d2478911e0810964a53, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 609.4434
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942962548068201021, guid: 49a08b716d0e1d2478911e0810964a53, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 621.881
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942962548068201021, guid: 49a08b716d0e1d2478911e0810964a53, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -59.72168
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942962548068201021, guid: 49a08b716d0e1d2478911e0810964a53, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -60.94049
+      objectReference: {fileID: 0}
     - target: {fileID: 8253374179145304821, guid: 49a08b716d0e1d2478911e0810964a53, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -7941,6 +7974,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49a08b716d0e1d2478911e0810964a53, type: 3}
+--- !u!114 &3113214801683234592 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1410811798006483003, guid: 49a08b716d0e1d2478911e0810964a53, type: 3}
+  m_PrefabInstance: {fileID: 3113214801683234591}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997512414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 625ec903277e9024e93f060ba4ac3375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

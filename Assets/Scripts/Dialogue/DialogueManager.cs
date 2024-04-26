@@ -70,7 +70,10 @@ public class DialogueManager : MonoBehaviour
         dialogueTxt.text = " ";
         combatUI.SetActive(true);
         radialMenu.SetActive(true);
-        tutorial.ActionManager();
+        if(SceneSwapper.currentScene == "Tutorial")
+        {
+            tutorial.ActionManager();
+        }
     }
     public void ContinueStory()
     {
