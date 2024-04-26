@@ -8,8 +8,10 @@ public class TurnManager : MonoBehaviour {
     List<Vector3Int> playerCoords;
     List<int> playerMovement;
     List<bool> playerAction;
+    List<bool> playerPotion;
     List<bool> playerTurnComplete;
-    bool allPlayerTurnsUsed;
+    public bool allPlayerTurnsUsed;
+
     public  GameObject hitParticles;
     Vector3 worldSpacePos;
 
@@ -28,6 +30,7 @@ public class TurnManager : MonoBehaviour {
     private void Start() {
         playerCoords = new List<Vector3Int>();
         playerMovement = new List<int>(); //Movement speed left
+        playerPotion = new List<bool>();
         playerAction = new List<bool>(); //False - Action not use, True - Action Used
         playerTurnComplete = new List<bool>(); //False - Player can move or do an action, True - Action Used and Moved Used
         worldSpacePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -37,6 +40,7 @@ public class TurnManager : MonoBehaviour {
         foreach(KeyValuePair<Vector3Int, Stats> playerInfo in GlobalVars.players) {
             playerCoords.Add(playerInfo.Key);
             playerMovement.Add(playerInfo.Value.move);
+            playerPotion.Add(false);
             playerAction.Add(false);
             playerTurnComplete.Add(false);
         }
@@ -94,22 +98,13 @@ public class TurnManager : MonoBehaviour {
         playerCoords[playerIndex] = newPos;
 
         playerMovement[playerIndex] = playerMovement[playerIndex] - distance;
-
-        if(playerAction[playerIndex] == true && playerMovement[playerIndex] == 0) {
-            playerTurnComplete[playerIndex] = true;
-            CheckPlayerTurn();
-        }
     }
 
-    public void Player_SoftAction(Vector3Int playerPos) {
+    public void Player_PotionAction(Vector3Int playerPos) {
         int playerIndex = playerCoords.FindIndex(a => a == playerPos);
 
-        playerAction[playerIndex] = true;
-
-        if(playerMovement[playerIndex] == 0) {
-            playerTurnComplete[playerIndex] = true;
-            CheckPlayerTurn();
-        }
+        playerPotion[playerIndex] = true;
+        playerMovement[playerIndex] = 0;
     }
 
     public void Player_HardAction(Vector3Int playerPos) {
@@ -117,6 +112,7 @@ public class TurnManager : MonoBehaviour {
 
         playerMovement[playerIndex] = 0;
         playerAction[playerIndex] = true;
+        playerPotion[playerIndex] = true;
         playerTurnComplete[playerIndex] = true;
 
         CheckPlayerTurn();
@@ -141,18 +137,12 @@ public class TurnManager : MonoBehaviour {
             temp.Add(playerInfo.Value.move);
         }
 
-        //Debug.Log("Start Loop");
         for(int i = 0; i < playerCoords.Count; i++) {
-            //Debug.Log("i: " + i + "\tmax i: " + playerCoords.Count);
-            //Debug.Log("1");
             playerMovement[i] = temp[i];
-            //Debug.Log("2");
             playerAction[i] = (false);
-            //Debug.Log("3");
+            playerPotion[i] = (false);
             playerTurnComplete[i] = (false);
-            //Debug.Log("4");
         }
-        //Debug.Log("End Loop");
     }
 
     public void EndTurn() {
@@ -177,6 +167,10 @@ public class TurnManager : MonoBehaviour {
 
     public int getMovementLeft(Vector3Int playerPos) {
         return playerMovement[playerCoords.FindIndex(a => a == playerPos)];
+    }
+
+    public bool getPotionUse(Vector3Int playerPos) {
+        return playerPotion[playerCoords.FindIndex(a => a == playerPos)];
     }
 
     public bool getActionUse(Vector3Int playerPos) {

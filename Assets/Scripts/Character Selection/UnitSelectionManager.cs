@@ -11,7 +11,7 @@ public class UnitSelectionManager : MonoBehaviour {
 
     public void Start () { 
         for(int i = 0; i < 4; i++) {
-            selections[i].Load(this, i);
+            selections[i].Load(this, Random.Range(0, 7));
         }
         SceneSwapper.setCurrentScene();
     }

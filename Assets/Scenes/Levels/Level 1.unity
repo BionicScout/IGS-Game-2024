@@ -591,6 +591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickedUI: 0
+  items: {fileID: 1725276005}
   hitParticles: {fileID: 1052758049302362282, guid: e9dbf8a590745754680ef205c90d71df, type: 3}
   slider: {fileID: 7365904326876002922, guid: f6c36e91f800a7446a6ae99b1ee3626a, type: 3}
   playerMove: 0
@@ -2966,6 +2967,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a905c8bfd04ec5f408622c4501d7fd63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allPlayerTurnsUsed: 0
   hitParticles: {fileID: 1052758049302362282, guid: e9dbf8a590745754680ef205c90d71df, type: 3}
   PlayerMenu: {fileID: 0}
   WinMenu: {fileID: 1900432886}
@@ -6526,6 +6528,17 @@ Transform:
   - {fileID: 1677471563}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1725276005 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2376440235071069321, guid: 774471e2c4217d24fa12ce0a31501119, type: 3}
+  m_PrefabInstance: {fileID: 1974157231}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1974157240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3c6b6c5e632fde4d86982119d80f6c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1793875998
 GameObject:
   m_ObjectHideFlags: 0
@@ -7897,6 +7910,7 @@ MonoBehaviour:
   portraitAnimator: {fileID: 997512418}
   layoutAnimator: {fileID: 997512417}
   combatUI: {fileID: 1974157233}
+  radialMenu: {fileID: 1646609011}
   tutorial: {fileID: 0}
   nextScene: CharcaterSelector
 --- !u!1660057539 &9223372036854775807

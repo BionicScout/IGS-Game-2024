@@ -19,7 +19,7 @@ public class InputManager : MonoBehaviour {
 
     modes inputMode;
     public bool clickedUI = false;
-    Items items;
+    public Items items;
 
     [SerializeField]
     GameObject hitParticles;
@@ -66,6 +66,7 @@ public class InputManager : MonoBehaviour {
         selectedPlayerMenu.SetActive(true);
         statsMenu.SetActive(false);
         turnManager = FindAnyObjectByType<TurnManager>();
+        Debug.Log("Hello World");
 
         selectPlayer(0);
         //moveRadioWheel();
@@ -206,6 +207,10 @@ public class InputManager : MonoBehaviour {
         clickedUI = true;
     }
     public void SetMove() {
+        if(turnManager.getMovementLeft(playerCoord) <= 0) {
+            return;
+        }
+
         ClearIndicators();
         MoveIndicators(true);
         inputMode = modes.move;
@@ -469,7 +474,7 @@ public class InputManager : MonoBehaviour {
                 //turns off indicator
                 HealIndicators(false);
 
-                turnManager.Player_SoftAction(playerCoord);
+                turnManager.Player_HardAction(playerCoord);
 
                 //Update player coord
                 GlobalVars.players.Remove(clickedCoord);
@@ -488,7 +493,7 @@ public class InputManager : MonoBehaviour {
             //turns off indicator
             HealIndicators(false);
 
-            turnManager.Player_SoftAction(playerCoord);
+            turnManager.Player_HardAction(playerCoord);
 
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
@@ -689,8 +694,11 @@ public class InputManager : MonoBehaviour {
             UpdateHealth(GlobalVars.players[playerCoord].curHealth);
             AudioManager.instance.Play("Potion");
             Player_UpdateHealth(playerCoord);
+            items.singleHealAMT--;
+            turnManager.Player_PotionAction(playerCoord);
         }
-        items.singleHealAMT--;
+
+        ItemMenu();
     }
     //adds one to the characters power 
     public void PowerBuff()
@@ -701,8 +709,11 @@ public class InputManager : MonoBehaviour {
             GlobalVars.players[playerCoord].power++;
             //end it after a turn?
             AudioManager.instance.Play("Potion");
+            items.powerBuffAMT--;
+            turnManager.Player_PotionAction(playerCoord);
         }
-        items.powerBuffAMT--;
+
+        ItemMenu();
     }
     //adds one to te character defense
     public void DefenseBuff()
@@ -712,8 +723,11 @@ public class InputManager : MonoBehaviour {
         {
             GlobalVars.players[playerCoord].defense++;
             AudioManager.instance.Play("Potion");
+            items.defenseBuffAMT--;
+            turnManager.Player_PotionAction(playerCoord);
         }
-        items.defenseBuffAMT--;
+
+        ItemMenu();
     }
     //heals all characters
     public void HealScroll()
@@ -733,8 +747,12 @@ public class InputManager : MonoBehaviour {
                 AudioManager.instance.Play("Potion");
                 Player_UpdateHealth(playerCoord);
             }
+
+            turnManager.Player_PotionAction(playerCoord);
+            items.healScrollAMT--;
         }
-        items.healScrollAMT--;
+
+        ItemMenu();
     }
 
     /*********************************
