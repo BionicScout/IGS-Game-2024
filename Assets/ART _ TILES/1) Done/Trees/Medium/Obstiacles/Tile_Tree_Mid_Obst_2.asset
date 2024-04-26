@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tile_Tree_Mid_Obst_2
   m_EditorClassIdentifier: 
   sprite: {fileID: 1324726779, guid: 0cdf76a554ad6ec43b858e3279c04dbf, type: 3}
-  isObstacle: 0
+  isObstacle: 1
   interactable: 0
   objToChange: {fileID: 11400000, guid: 0b4706935042ec044afd1b5aaf3c0d40, type: 2}
   tileChanges: []

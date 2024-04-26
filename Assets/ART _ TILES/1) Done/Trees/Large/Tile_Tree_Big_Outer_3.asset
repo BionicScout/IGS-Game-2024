@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 274a7d029d4eaaf4f9dd1a10ae7bd3ae, type: 3}
   m_Name: Tile_Tree_Big_Outer_3
   m_EditorClassIdentifier: 
-  sprite: {fileID: 1674967302, guid: 0cdf76a554ad6ec43b858e3279c04dbf, type: 3}
-  isObstacle: 0
+  sprite: {fileID: 1771071069, guid: 0cdf76a554ad6ec43b858e3279c04dbf, type: 3}
+  isObstacle: 1
   interactable: 0
   objToChange: {fileID: 11400000, guid: 0b4706935042ec044afd1b5aaf3c0d40, type: 2}
   tileChanges: []

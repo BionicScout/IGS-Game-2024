@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: Tile_Tree_Small_Interact
   m_EditorClassIdentifier: 
   sprite: {fileID: 1674967302, guid: 0cdf76a554ad6ec43b858e3279c04dbf, type: 3}
-  isObstacle: 0
-  interactable: 0
-  objToChange: {fileID: 11400000, guid: 0b4706935042ec044afd1b5aaf3c0d40, type: 2}
-  tileChanges: []
+  isObstacle: 1
+  interactable: 1
+  objToChange: {fileID: 11400000, guid: c704d06506c45fe4889325bb388cfee1, type: 2}
+  tileChanges:
+  - {x: 0, y: 0, z: 0}
+  - {x: -1, y: 1, z: 0}
+  - {x: 0, y: 1, z: -1}
+  - {x: -1, y: 2, z: -1}
