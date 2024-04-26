@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 274a7d029d4eaaf4f9dd1a10ae7bd3ae, type: 3}
   m_Name: Tile_Path
   m_EditorClassIdentifier: 
-  sprite: {fileID: 2013171066, guid: 18b02ab512b05e5439e29edec94af12c, type: 3}
+  sprite: {fileID: 867433862, guid: 18b02ab512b05e5439e29edec94af12c, type: 3}
   isObstacle: 0
   interactable: 0
   objToChange: {fileID: 11400000, guid: 0b4706935042ec044afd1b5aaf3c0d40, type: 2}
