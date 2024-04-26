@@ -7,7 +7,7 @@ using Slider = UnityEngine.UI.Slider;
 using Image = UnityEngine.UI.Image;
 
 
-public class Tut_InputManager : MonoBehaviour {
+public class Tut_InputManager1 : MonoBehaviour {
     enum modes {
         normal = 0,
         attack = 1,
@@ -23,6 +23,8 @@ public class Tut_InputManager : MonoBehaviour {
 
     [SerializeField]
     GameObject hitParticles;
+    [SerializeField] 
+    public Slider slider;
 
     [Header("Stats")]
     public int playerMove;
@@ -81,7 +83,6 @@ public class Tut_InputManager : MonoBehaviour {
                 selectImage.GetComponent<Image>().sprite = player.Value.squareSprite; 
             }
 
-            Debug.Log(i);
             Image image = characterSelectButtons.GetChild(i).GetChild(0).GetComponent<Image>();
             image.sprite = player.Value.squareSprite;
             i++;
@@ -651,8 +652,6 @@ public class Tut_InputManager : MonoBehaviour {
     void UpdatePlayerMenu() {
         statsMenu.SetActive(false);
 
-        Debug.Log(GlobalVars.availableHexes.Count);
-
         Stats stats = GlobalVars.players[playerCoord];
         //updates sprites and health
         selectedPlayerMenu.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = stats.squareSprite;
@@ -872,6 +871,10 @@ public class Tut_InputManager : MonoBehaviour {
             return Vector3Int.zero;
         }
         return Vector3Int.zero;
+    }
+    public void UpdateHealthBar(float curValue, float maxValue)
+    {
+        slider.value = curValue / maxValue;
     }
 
     public void Player_UpdateHealth(Vector3Int playerCoord) {
