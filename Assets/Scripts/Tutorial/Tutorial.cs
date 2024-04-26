@@ -20,6 +20,7 @@ public class Tutorial : MonoBehaviour
     public Button attackBTN;
     public Button interactBTN;
     public Button itemsBTN;
+    private string nextScene = "CharcaterSelector";
 
     public void Start()
     {
@@ -39,80 +40,88 @@ public class Tutorial : MonoBehaviour
             DialogueManager.GetInstance().EnterDialogueMode(less2);
             lessonNum += 1;
         }
-        if (lessonNum == 3)
+        else if (lessonNum == 3)
         {
             //Movement.moveEnemy(new Vector3Int(2, 11, -13), new Vector3Int(4, 8, -12));
             DialogueManager.GetInstance().EnterDialogueMode(less3);
             lessonNum += 1;
         }
-        if (lessonNum == 4)
+        else if (lessonNum == 4)
         {
             //Movement.moveEnemy(new Vector3Int(2, 11, -13), new Vector3Int(4, 8, -12));
             DialogueManager.GetInstance().EnterDialogueMode(less4);
             lessonNum += 1;
         }
-        if (lessonNum == 5)
+        else if (lessonNum == 5)
         {
             //Movement.moveEnemy(new Vector3Int(2, 11, -13), new Vector3Int(4, 8, -12));
             DialogueManager.GetInstance().EnterDialogueMode(less5);
             lessonNum += 1;
         }
-        if (lessonNum == 6)
+        else if (lessonNum == 6)
         {
             //Movement.moveEnemy(new Vector3Int(2, 11, -13), new Vector3Int(4, 8, -12));
             DialogueManager.GetInstance().EnterDialogueMode(less6);
             lessonNum += 1;
         }
-        if (lessonNum == 7)
+        else if(lessonNum == 7)
         {
             //Movement.moveEnemy(new Vector3Int(2, 11, -13), new Vector3Int(4, 8, -12));
             DialogueManager.GetInstance().EnterDialogueMode(less7);
             lessonNum += 1;
+        }
+        else
+        {
+            SceneSwapper.A_LoadScene(nextScene);
         }
     }
     public void ActionManager()
     {
         if(lessonNum == 2)
         {
-            statsBTN.interactable = false;
-            attackBTN.interactable = false;
-            interactBTN.interactable = false;   
-            itemsBTN.interactable = false;
+            //statsBTN.interactable = false;
+            statsBTN.gameObject.SetActive(false);
+            //attackBTN.interactable = false;
+            attackBTN.gameObject.SetActive(false);
+            //interactBTN.interactable = false;   
+            interactBTN.gameObject.SetActive(false);
+            //itemsBTN.interactable = false;
+            itemsBTN.gameObject.SetActive(false);
         }
         else if(lessonNum == 3) 
         {
-            statsBTN.interactable = true;
-            attackBTN.interactable = true;
-            interactBTN.interactable = false;
-            itemsBTN.interactable = false;
+            statsBTN.gameObject.SetActive(true);
+            attackBTN.gameObject.SetActive(true);
+            interactBTN.gameObject.SetActive(false);
+            itemsBTN.gameObject.SetActive(false);
         }
         else if (lessonNum == 4)
         {
-            statsBTN.interactable = true;
-            attackBTN.interactable = true;
-            interactBTN.interactable = false;
-            itemsBTN.interactable = true;
+            statsBTN.gameObject.SetActive(true);
+            attackBTN.gameObject.SetActive(true);
+            interactBTN.gameObject.SetActive(false);
+            itemsBTN.gameObject.SetActive(true);
         }
         else if (lessonNum == 5)
         {
-            statsBTN.interactable = true;
-            attackBTN.interactable = true;
-            interactBTN.interactable = false;
-            itemsBTN.interactable = true;
+            statsBTN.gameObject.SetActive(true);
+            attackBTN.gameObject.SetActive(true);
+            interactBTN.gameObject.SetActive(false);
+            itemsBTN.gameObject.SetActive(true);
         }
         else if (lessonNum == 6)
         {
-            statsBTN.interactable = true;
-            attackBTN.interactable = true;
-            interactBTN.interactable = false;
-            itemsBTN.interactable = true;
+            statsBTN.gameObject.SetActive(true);
+            attackBTN.gameObject.SetActive(true);
+            interactBTN.gameObject.SetActive(false);
+            itemsBTN.gameObject.SetActive(true);
         }
         else if (lessonNum == 7)
         {
-            statsBTN.interactable = true;
-            attackBTN.interactable = true;
-            interactBTN.interactable = true;
-            itemsBTN.interactable = true;
+            statsBTN.gameObject.SetActive(true);
+            attackBTN.gameObject.SetActive(true);
+            interactBTN.gameObject.SetActive(true);
+            itemsBTN.gameObject.SetActive(true);
         }
         else
         {
