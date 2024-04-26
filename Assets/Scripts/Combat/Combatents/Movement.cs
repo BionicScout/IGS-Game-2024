@@ -15,8 +15,6 @@ public class Movement : MonoBehaviour {
 
     private void Start() {
         currentHex = GlobalVars.centerHex;
-        GlobalVars.hexagonTile[currentHex].transform.GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = 
-            "(" + currentHex.x + ", " + currentHex.y + ", " + currentHex.z + ")";
 
         GlobalVars.hexagonTile[currentHex].transform.GetComponent<HexObjInfo>().unitName = "Player";
         GlobalVars.hexagonTile[currentHex].transform.GetComponent<HexObjInfo>().unitSprite = playerSprite;
