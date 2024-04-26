@@ -6576,7 +6576,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 25253f49d0381cb41b299cdfc8ea7c6a, type: 2}
   - {fileID: 11400000, guid: 003972ca850c2cc4190d830ddfd46bda, type: 2}
   - {fileID: 11400000, guid: c1904695e4fb5634498c1a5d4fbd140e, type: 2}
-  tileCoord: 0
+  tileCoord: 1
 --- !u!4 &1793876000
 Transform:
   m_ObjectHideFlags: 0
@@ -7172,6 +7172,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -9
       objectReference: {fileID: 0}
+    - target: {fileID: 2522866555467000899, guid: 774471e2c4217d24fa12ce0a31501119, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3084185435979118723, guid: 774471e2c4217d24fa12ce0a31501119, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 182730969}
+    - target: {fileID: 3084185435979118723, guid: 774471e2c4217d24fa12ce0a31501119, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SingleHeal
+      objectReference: {fileID: 0}
     - target: {fileID: 3535962514936885648, guid: 774471e2c4217d24fa12ce0a31501119, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -7224,6 +7236,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -9
       objectReference: {fileID: 0}
+    - target: {fileID: 5038907447732267901, guid: 774471e2c4217d24fa12ce0a31501119, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 182730969}
+    - target: {fileID: 5038907447732267901, guid: 774471e2c4217d24fa12ce0a31501119, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HealScroll
+      objectReference: {fileID: 0}
     - target: {fileID: 5213375122033727867, guid: 774471e2c4217d24fa12ce0a31501119, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -7255,6 +7275,10 @@ PrefabInstance:
     - target: {fileID: 5213375122033727867, guid: 774471e2c4217d24fa12ce0a31501119, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5748377844525296570, guid: 774471e2c4217d24fa12ce0a31501119, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5789690224414154044, guid: 774471e2c4217d24fa12ce0a31501119, type: 3}
       propertyPath: m_AnchorMax.y
@@ -7311,6 +7335,26 @@ PrefabInstance:
     - target: {fileID: 6071938558692100115, guid: 774471e2c4217d24fa12ce0a31501119, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -137.704
+      objectReference: {fileID: 0}
+    - target: {fileID: 6297357203341748272, guid: 774471e2c4217d24fa12ce0a31501119, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6450731317277561967, guid: 774471e2c4217d24fa12ce0a31501119, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 182730969}
+    - target: {fileID: 6450731317277561967, guid: 774471e2c4217d24fa12ce0a31501119, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PowerBuff
+      objectReference: {fileID: 0}
+    - target: {fileID: 6566307374741689027, guid: 774471e2c4217d24fa12ce0a31501119, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 182730969}
+    - target: {fileID: 6566307374741689027, guid: 774471e2c4217d24fa12ce0a31501119, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DefenseBuff
       objectReference: {fileID: 0}
     - target: {fileID: 6880102166228451688, guid: 774471e2c4217d24fa12ce0a31501119, type: 3}
       propertyPath: m_AnchorMax.y

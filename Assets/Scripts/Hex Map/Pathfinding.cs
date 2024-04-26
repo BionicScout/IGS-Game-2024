@@ -30,6 +30,19 @@ public class Pathfinding {
             dist = UNVISITED_DISTANCE;
             previous = Vector3Int.one; //Impossible to Get with Hexagon Coords
         }
+
+        public SearchHex(Vector3Int hexCoord , bool ignoreUnits, Vector3Int startLoc) {
+            if(!GlobalVars.hexagonTileRefrence.ContainsKey(hexCoord)) {
+                Debug.LogError("ERROR - Invalid hexagon coordinate provided: " + hexCoord);
+            }
+
+            coord = hexCoord;
+            visited = false;
+            TileScriptableObjects template = GlobalVars.hexagonTileRefrence[hexCoord];
+            isObstacle = template.isObstacle || (ignoreUnits && startLoc != hexCoord && (GlobalVars.players.ContainsKey(hexCoord) || GlobalVars.enemies.ContainsKey(hexCoord)));
+            dist = UNVISITED_DISTANCE;
+            previous = Vector3Int.one; //Impossible to Get with Hexagon Coords
+        }
     }
 
     public class PriorityQueue<Vector3Int> {
@@ -187,7 +200,7 @@ public static List<Tuple<Vector3Int , int>> AllPossibleTiles(Vector3Int startPos
 
         //Define dictionary of tile Activley in search
         Dictionary<Vector3Int, SearchHex> searchList = new Dictionary<Vector3Int , SearchHex>();
-        SearchHex temp = new SearchHex(startPos, ignoreUnits);
+        SearchHex temp = new SearchHex(startPos, ignoreUnits, startPos);
         temp.dist = 0;
         searchList.Add(startPos, temp);
 
@@ -198,6 +211,7 @@ public static List<Tuple<Vector3Int , int>> AllPossibleTiles(Vector3Int startPos
 
             //If target found exit
             if(currentTilePos == endPoint) {
+                Debug.Log(searchList[endPoint].previous);
                 break;
             }
 
@@ -212,7 +226,7 @@ public static List<Tuple<Vector3Int , int>> AllPossibleTiles(Vector3Int startPos
 
                 // If position is on board, add Search hex if needed
                 if(!searchList.ContainsKey(nextTile)) {
-                    nextSearchHex = new SearchHex(nextTile , ignoreUnits);
+                    nextSearchHex = new SearchHex(nextTile , ignoreUnits, startPos);
                     searchList.Add(nextTile , nextSearchHex);
                 }
                 else {
@@ -262,7 +276,7 @@ public static List<Tuple<Vector3Int , int>> AllPossibleTiles(Vector3Int startPos
         // Maximum iteration limit for path reconstruction
         int pathIterations = 0;
         //Debug.Log("---------------------------------------------------------------------------------------------------");
-        //Debug.Log(currentPath + "\t" + searchList.ContainsKey(currentPath));
+        Debug.Log(currentPath + "\t" + searchList.ContainsKey(currentPath));
 
         while(searchList[currentPath].previous != Vector3.one) {
             // Increment path reconstruction iteration count
@@ -270,14 +284,14 @@ public static List<Tuple<Vector3Int , int>> AllPossibleTiles(Vector3Int startPos
 
             // Check maximum iteration limit
             if(pathIterations >= MAX_ITERATIONS) {
-                //Debug.LogError("ERROR - Maximum path reconstruction iterations reached. Potential infinite loop detected.");
+                Debug.LogError("ERROR - Maximum path reconstruction iterations reached. Potential infinite loop detected.");
                 return null;
             }
 
             // Add current path to the list and Move to the previous tile
             path.Add(currentPath);
             currentPath = searchList[currentPath].previous;
-            //Debug.Log(currentPath);
+            Debug.Log(currentPath);
         }
 
         // Add the last path

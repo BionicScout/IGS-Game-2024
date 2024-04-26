@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TestTools;
 using UnityEngine.UI;
 
 public class TurnManager : MonoBehaviour {
@@ -97,7 +98,9 @@ public class TurnManager : MonoBehaviour {
 
         playerCoords[playerIndex] = newPos;
 
+        Debug.Log("Distance: " + distance);
         playerMovement[playerIndex] = playerMovement[playerIndex] - distance;
+        Debug.Log("Movement Left: " + playerMovement[playerIndex]);
     }
 
     public void Player_PotionAction(Vector3Int playerPos) {

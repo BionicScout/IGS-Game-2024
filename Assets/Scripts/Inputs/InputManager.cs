@@ -109,6 +109,7 @@ public class InputManager : MonoBehaviour {
             GlobalVars.hexagonTile[clickedCoord].transform.GetChild(5).gameObject.SetActive(true);
 
             worldSpacePos = mousePos;
+
             //if the player clicked on a collider the if their is a character on that tile
             if(hit.collider != null) {
                 if (GlobalVars.players.ContainsKey(clickedCoord)) {
@@ -167,21 +168,21 @@ public class InputManager : MonoBehaviour {
                     inputMode = modes.normal;
                 }
             }
-            if(inputMode == modes.move) {
+            else if(inputMode == modes.move) {
                 Move();
                 inputMode = modes.normal;
             }
-            if (inputMode == modes.AOE)
+            else if (inputMode == modes.AOE)
             {
                 SmokeBomb();
                 inputMode = modes.normal;
             }
-            if (inputMode == modes.heal)
+            else if (inputMode == modes.heal)
             {
                 Heal(playerPower);
                 inputMode = modes.normal;
             }
-            if(inputMode == modes.interact)
+            else if(inputMode == modes.interact)
             {
                 Interact();
                 inputMode = modes.normal;
@@ -505,16 +506,26 @@ public class InputManager : MonoBehaviour {
     public void Move() {
         ClearIndicators();
 
+        Debug.Log(Pathfinding.PathBetweenPoints(clickedCoord , playerCoord , false).Count);
+
         int moveRange = turnManager.getMovementLeft(playerCoord);
         List<Tuple<Vector3Int , int>> possibles = Pathfinding.AllPossibleTiles(clickedCoord , moveRange,  true);
 
+
         foreach(Tuple<Vector3Int , int> temp in possibles) {
-            int dist = Pathfinding.PathBetweenPoints(clickedCoord , playerCoord , true).Count - 1;
-            //Debug.Log(dist);
+            Debug.Log("--------------------");
+            int dist = Pathfinding.PathBetweenPoints(temp.Item1 , playerCoord , false).Count - 1;
+
+            foreach(Vector3Int pos in Pathfinding.PathBetweenPoints(temp.Item1 , playerCoord , true)) {
+                Debug.Log(pos);
+            }
+
+            Debug.Log(dist);
             //Debug.Log();
 
             if(temp.Item1 == clickedCoord && dist <= moveRange + 1) 
             {
+                Debug.Log("Hi");
                 Movement.movePlayer(playerCoord , clickedCoord);
                 //moveRadioWheel();
                 MoveIndicators(false);
@@ -522,6 +533,7 @@ public class InputManager : MonoBehaviour {
 
                 turnManager.Player_Move(playerCoord , dist, clickedCoord);
                 playerCoord = clickedCoord;
+                break;
             }
         }
     }
