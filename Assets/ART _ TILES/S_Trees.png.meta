@@ -110,111 +110,6 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: S_Trees_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 375
-        width: 108
-        height: 125
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 65d677a55f24c244fba82830279c40bd
-      internalID: 964315938
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: S_Trees_1
-      rect:
-        serializedVersion: 2
-        x: 108
-        y: 375
-        width: 108
-        height: 125
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7d79f8a6dc4dd70418d65bfbee0a9026
-      internalID: -381246899
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: S_Trees_2
-      rect:
-        serializedVersion: 2
-        x: 216
-        y: 375
-        width: 108
-        height: 125
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 47dc46f9ef72e224a896b9971cefa6e4
-      internalID: 1560394297
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: S_Trees_3
-      rect:
-        serializedVersion: 2
-        x: 324
-        y: 375
-        width: 108
-        height: 125
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: eb1eccf33d8de724b90362c163aca098
-      internalID: 50808020
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: S_Trees_4
-      rect:
-        serializedVersion: 2
-        x: 432
-        y: 375
-        width: 108
-        height: 125
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9dbcd4ddb3a07cf41ac9a35f96dc73d1
-      internalID: 1599632562
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: S_Tree_Big_Outer_8
       rect:
         serializedVersion: 2
@@ -273,111 +168,6 @@ TextureImporter:
       bones: []
       spriteID: d2f1475c61cce72488422e0e15d0540b
       internalID: 694271822
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: S_Trees_8
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 250
-        width: 108
-        height: 125
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6a98c68530caa8d4d9fe5c8891f86910
-      internalID: -1548638563
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: S_Trees_9
-      rect:
-        serializedVersion: 2
-        x: 108
-        y: 250
-        width: 108
-        height: 125
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4b4adfebe3a67904ca50bee7fc68216d
-      internalID: 329776937
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: S_Trees_10
-      rect:
-        serializedVersion: 2
-        x: 216
-        y: 250
-        width: 108
-        height: 125
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 73e46e82b7f037a42bafce6ccb06f623
-      internalID: -698826650
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: S_Trees_11
-      rect:
-        serializedVersion: 2
-        x: 324
-        y: 250
-        width: 108
-        height: 125
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0247c793ec4fa9d45b7fa355a349066f
-      internalID: -716799363
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: S_Trees_12
-      rect:
-        serializedVersion: 2
-        x: 432
-        y: 250
-        width: 108
-        height: 125
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 07021b69e91531d43a929ab0c5413d2a
-      internalID: 413489581
       vertices: []
       indices: 
       edges: []
@@ -488,11 +278,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: S_Trees_18
+      name: S_Tree_Mid_Obst_1
       rect:
         serializedVersion: 2
         x: 216
-        y: 125
+        y: 126
         width: 108
         height: 125
       alignment: 0
@@ -509,7 +299,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: S_Trees_19
+      name: S_Tree_Mid_Obst_3
       rect:
         serializedVersion: 2
         x: 324
@@ -656,7 +446,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: S_Trees_26
+      name: S_Tree_Mid_Obst_4
       rect:
         serializedVersion: 2
         x: 216
@@ -677,7 +467,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: S_Trees_27
+      name: S_Tree_Mid_Obst_2
       rect:
         serializedVersion: 2
         x: 324
@@ -698,7 +488,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: S_Trees_28
+      name: S_Tree_Small_Obst
       rect:
         serializedVersion: 2
         x: 432
@@ -769,7 +559,7 @@ TextureImporter:
         width: 108
         height: 125
       alignment: 9
-      pivot: {x: 6.9912786, y: 0.047059752}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -808,18 +598,18 @@ TextureImporter:
       S_Tree_Mid_Interact_2: 1249097282
       S_Tree_Mid_Interact_3: -1355266418
       S_Tree_Mid_Interact_4: -1424034266
+      S_Tree_Mid_Obst_1: -2143865049
+      S_Tree_Mid_Obst_2: 1324726779
+      S_Tree_Mid_Obst_3: 1429751606
+      S_Tree_Mid_Obst_4: -712072797
       S_Tree_Small_Interact: 1674967302
+      S_Tree_Small_Obst: -1877193351
       S_Trees_0: 964315938
       S_Trees_1: -381246899
       S_Trees_10: -698826650
       S_Trees_11: -716799363
       S_Trees_12: 413489581
-      S_Trees_18: -2143865049
-      S_Trees_19: 1429751606
       S_Trees_2: 1560394297
-      S_Trees_26: -712072797
-      S_Trees_27: 1324726779
-      S_Trees_28: -1877193351
       S_Trees_3: 50808020
       S_Trees_4: 1599632562
       S_Trees_8: -1548638563
