@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    [SerializeField] private TextAsset lesson1;
+    [SerializeField] private TextAsset intro;
+    [SerializeField] private TextAsset outro;
 
     public void TriggerDialogue() 
     { 
@@ -13,7 +14,7 @@ public class DialogueTrigger : MonoBehaviour
     private void Start()
     {
         Debug.Log("Called Instance");
-        DialogueManager.GetInstance().EnterDialogueMode(lesson1);
+        DialogueManager.GetInstance().EnterDialogueMode(intro);
     }
 
 }

@@ -28,7 +28,7 @@ public class DialogueManager : MonoBehaviour
     private const string SPEAKER_TAG = "speaker";
     private const string PORTRAIT_TAG = "portrait";
     private const string LAYOUT_TAG = "layout";
-    private int lessonNum;
+    
 
      private void Awake()
     {
@@ -55,8 +55,9 @@ public class DialogueManager : MonoBehaviour
     }
     public void EnterDialogueMode(TextAsset inkJSON)
     {
+        combatUI.SetActive(false);
+        radialMenu.SetActive(false);
         currentStory = new Story(inkJSON.text);
-        lessonNum++;
         dialogueIsPlaying = true;
         dialoguePannel.SetActive(true);
         ContinueStory();
@@ -69,35 +70,7 @@ public class DialogueManager : MonoBehaviour
         dialogueTxt.text = " ";
         combatUI.SetActive(true);
         radialMenu.SetActive(true);
-
-        if (SceneSwapper.currentScene == "Tutorial")
-        {
-            //if(lessonNum == 1)
-            //{
-            //    tutorial.statsBTN.interactable = false;
-            //    tutorial.attackBTN.interactable = false;
-            //    tutorial.interactBTN.interactable = false;
-            //    tutorial.itemsBTN.interactable = false;
-            //}
-            //else if (lessonNum == 2)
-            //{
-            //    tutorial.interactBTN.interactable = false;
-            //    tutorial.itemsBTN.interactable = false;
-            //}
-            //else if (lessonNum == 3)
-            //{
-            //    tutorial.interactBTN.interactable = false;
-            //}
-            //else if (lessonNum == 4)
-            //{
-            //    tutorial.interactBTN.interactable = false;
-            //}
-            //else if (lessonNum == 5)
-            //{
-            //    tutorial.interactBTN.interactable = false;
-            //}
-            //else { }
-        }
+        tutorial.ActionManager();
     }
     public void ContinueStory()
     {
