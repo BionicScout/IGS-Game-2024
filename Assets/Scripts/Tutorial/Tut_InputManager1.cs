@@ -7,7 +7,7 @@ using Slider = UnityEngine.UI.Slider;
 using Image = UnityEngine.UI.Image;
 
 
-public class InputManager : MonoBehaviour {
+public class Tut_InputManager1 : MonoBehaviour {
     enum modes {
         normal = 0,
         attack = 1,
