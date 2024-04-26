@@ -18,6 +18,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private Animator portraitAnimator;
     [SerializeField] private Animator layoutAnimator;
     [SerializeField] private GameObject combatUI;
+    [SerializeField] private GameObject radialMenu;
     private static DialogueManager instance;
     public Tutorial tutorial;
     private Story currentStory;
@@ -41,6 +42,7 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         combatUI.SetActive(false);
+        radialMenu.SetActive(false);
         SceneSwapper.GetCurrentScene();
     }
     private void Update()
@@ -66,8 +68,9 @@ public class DialogueManager : MonoBehaviour
         dialoguePannel.SetActive(false);
         dialogueTxt.text = " ";
         combatUI.SetActive(true);
+        radialMenu.SetActive(true);
 
-        if(SceneSwapper.currentScene == "Tutorial")
+        if (SceneSwapper.currentScene == "Tutorial")
         {
             //if(lessonNum == 1)
             //{
