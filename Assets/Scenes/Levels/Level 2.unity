@@ -3553,7 +3553,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileSpriteIndex: 5
       m_TileMatrixIndex: 0
       m_TileColorIndex: 4
       m_TileObjectToInstantiateIndex: 65535
@@ -5682,8 +5682,8 @@ Tilemap:
   - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 85acd8b4b457909448af0eac15131a87, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 1
-    m_Data: {fileID: 821551781, guid: 32dac9fb63624784482548f253311f20, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 860129658, guid: 32dac9fb63624784482548f253311f20, type: 3}
   - m_RefCount: 2
@@ -5692,8 +5692,8 @@ Tilemap:
     m_Data: {fileID: 1658970615, guid: 32dac9fb63624784482548f253311f20, type: 3}
   - m_RefCount: 5
     m_Data: {fileID: 21300000, guid: 414fb1beb62ff3d4a902b6a8dcae5835, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 821551781, guid: 32dac9fb63624784482548f253311f20, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: -698233917, guid: 0cdf76a554ad6ec43b858e3279c04dbf, type: 3}
   - m_RefCount: 76
@@ -6174,6 +6174,23 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 405a29a7a90840a42aee4a82c6434a01, type: 2}
   - {fileID: 11400000, guid: 8de7dcf48361a2241a8a3f36888d84b0, type: 2}
   - {fileID: 11400000, guid: b435282bdff33244cb1b038560b0ee55, type: 2}
+  - {fileID: 11400000, guid: a8bbe8b2aa3d25d43a01f0654cdaeade, type: 2}
+  - {fileID: 11400000, guid: 3c9e3a6b396be0a4e8faa55dc45825ec, type: 2}
+  - {fileID: 11400000, guid: d8fa2d1351b6b80468adbc98ad02b1bb, type: 2}
+  - {fileID: 11400000, guid: 8be6f4a88a975cd4d94d668b033eaf1f, type: 2}
+  - {fileID: 11400000, guid: 072cea77e5e28374385452c5940f78f4, type: 2}
+  - {fileID: 11400000, guid: 1b438faa530020f4bb438ae0c872d20a, type: 2}
+  - {fileID: 11400000, guid: a0c031b3148ff1044921e1a0b9cb55b0, type: 2}
+  - {fileID: 11400000, guid: d1c9e591eecde5d4b829c8c69a46fee2, type: 2}
+  - {fileID: 11400000, guid: ad2273dba59d2a44cb31407b3265f1b8, type: 2}
+  - {fileID: 11400000, guid: 5144d3a9b779dfe44adc4122256bb518, type: 2}
+  - {fileID: 11400000, guid: 0ef1bebf9b2e32345812ae559fd8a7e0, type: 2}
+  - {fileID: 11400000, guid: a4c3f85fdd7e17644a110ab97fb81e1e, type: 2}
+  - {fileID: 11400000, guid: cb21dd456700a6444ad02229cd95971c, type: 2}
+  - {fileID: 11400000, guid: 4073b87cd87cac0449010d9443dd7b93, type: 2}
+  - {fileID: 11400000, guid: d2524b96cfdf13246b7ba7933e846e6c, type: 2}
+  - {fileID: 11400000, guid: fec0b30e08552c742a30e21233705b6a, type: 2}
+  - {fileID: 11400000, guid: f154ffd543456a14981470e4e812150e, type: 2}
   tileCoord: 0
 --- !u!1001 &1045360473
 PrefabInstance:
