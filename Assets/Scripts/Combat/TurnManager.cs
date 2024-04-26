@@ -49,44 +49,49 @@ public class TurnManager : MonoBehaviour {
 
         commandQueue = new Queue<Command>();
 
-        nextWave = GlobalVars.spawnWaves.Dequeue();
+        if(SceneSwapper.currentScene != "Tutorial")
+        {
+            nextWave = GlobalVars.spawnWaves.Dequeue();
+
+        }
     }
 
     void Update() {
-        if(SceneSwapper.currentScene == "Tutorial")
+        if(SceneSwapper.currentScene != "Tutorial")
         {
-            return;
-        }
-        if (commandQueue.Count != 0)
-        {
-            enemyCommand(commandQueue.Dequeue());
-        }
-
-        //Win
-        if (GlobalVars.enemies.Count == 0) {
-            PlayerMenu.SetActive(false);
-            WinMenu.SetActive(true);
-            DialogueManager.GetInstance().EnterDialogueMode(DiaTrigger.outro);
-        }
-
-        //Lose
-        if(GlobalVars.players.Count == 0) {
-            PlayerMenu.SetActive(false);
-            LoseMenu.SetActive(true);
-        }
-        if(GlobalVars.L1_houseTiles.Count == 0 && SceneSwapper.currentScene == "Level 1") {
-            PlayerMenu.SetActive(false);
-            LoseMenu.SetActive(true);
-        }
-
-        if(Input.GetKeyDown(KeyCode.F)) {
-            if(nextLevel == "FINAL LEVEL") {
-                SceneSwapper.A_LoadScene("MainMenu");
+            if (commandQueue.Count != 0)
+            {
+                enemyCommand(commandQueue.Dequeue());
             }
-            else {
-                SceneSwapper.holdLoadingScene = nextLevel;
-                SceneSwapper.A_LoadScene("LevelingUp");
+
+            //Win
+            if (GlobalVars.enemies.Count == 0) 
+            {
+                PlayerMenu.SetActive(false);
+                WinMenu.SetActive(true);
+                DialogueManager.GetInstance().EnterDialogueMode(DiaTrigger.outro);
             }
+
+            //Lose
+            if(GlobalVars.players.Count == 0) {
+                PlayerMenu.SetActive(false);
+                LoseMenu.SetActive(true);
+            }
+            if(GlobalVars.L1_houseTiles.Count == 0 && SceneSwapper.currentScene == "Level 1") {
+                PlayerMenu.SetActive(false);
+                LoseMenu.SetActive(true);
+            }
+
+            if(Input.GetKeyDown(KeyCode.F)) {
+                if(nextLevel == "FINAL LEVEL") {
+                    SceneSwapper.A_LoadScene("MainMenu");
+                }
+                else {
+                    SceneSwapper.holdLoadingScene = nextLevel;
+                    SceneSwapper.A_LoadScene("LevelingUp");
+                }
+            }
+
         }
     }
 
@@ -151,6 +156,7 @@ public class TurnManager : MonoBehaviour {
     }
 
     public void EndTurn() {
+        if(SceneSwapper.currentScene == "Tutorial") { return; }
         UpdateActiveMenu();
         turn++;
         StartCoroutine(ExecuteEnemyTurn());

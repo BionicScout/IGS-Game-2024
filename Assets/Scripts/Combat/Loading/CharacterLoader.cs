@@ -13,6 +13,14 @@ public class CharacterLoader : MonoBehaviour {
     private List<Vector3Int> spawnLocs = new List<Vector3Int>();
 
     private void Start() {
+        foreach (var player in GlobalVars.choosenPlayers)
+        {
+            Debug.Log("This player is in choosen players " + player.charType);
+        }
+        foreach (var player in GlobalVars.players.Values)
+        {
+            Debug.Log("This player is in players dictonary " + player.charType);
+        }
         SceneSwapper.setCurrentScene();
         //spawn cords for players
         spawnLocs.Add(new Vector3Int(6, 1, -7));
@@ -22,20 +30,24 @@ public class CharacterLoader : MonoBehaviour {
         
 
         if (SceneSwapper.currentScene == "Tutorial") {
-            GlobalVars.levelClear();
+            //GlobalVars.levelClear();
             for (int i = 0; i < 4; i++)
             {
+                if(i == 4)
+                {
+                    break;
+                }
                 Stats stats = tutorialPlayers[i].Copy();
                 Vector3Int loc = spawnLocs[i];
+                Debug.Log("this tile is in hex dict " + GlobalVars.availableHexes.Contains(loc));
                 SpawnPlayer(loc, stats.Copy());
-                //GlobalVars.choosenPlayers.Add(stats);
-                GlobalVars.players.Add(loc, stats);
+                GlobalVars.choosenPlayers.Add(stats);
                 Debug.Log("Player sprite: " + GlobalVars.choosenPlayers[i].squareSprite);
+                Debug.Log(GlobalVars.players.Count + " From charcter loader");
             }
             Stats Enemystats = tutorialEnemies.Copy();
             Vector3Int enemyLoc = new Vector3Int(2, 11, -13);
-            GlobalVars.enemies.Add(enemyLoc, Enemystats);
-            SpawnPlayer(enemyLoc, Enemystats.Copy());
+            SpawnEnemy(enemyLoc, Enemystats.Copy());
         }
         else
         {
@@ -59,6 +71,8 @@ public class CharacterLoader : MonoBehaviour {
     }
 
     public static void SpawnPlayer(Vector3Int spawnLoc, Stats playerStats) {
+
+        Debug.Log(GlobalVars.availableHexes.Count);
         GameObject currentTileObj = GlobalVars.hexagonTile[spawnLoc];
         currentTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = playerStats.sprite;
 
