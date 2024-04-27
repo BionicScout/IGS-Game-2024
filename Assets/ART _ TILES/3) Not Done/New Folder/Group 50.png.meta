@@ -215,7 +215,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Group 50_5
+      name: S_Final_Button_2
       rect:
         serializedVersion: 2
         x: 108
@@ -246,8 +246,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Group 50_5: 660898771
       S_Final_Button: 1601544702
+      S_Final_Button_2: 660898771
       S_Fort_Final_Floor: 1403005571
       S_Fort_Final_Wall: -1539856505
       S_Lava_1: 1212620116
