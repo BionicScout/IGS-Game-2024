@@ -5068,7 +5068,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 01284f9cc420ad344b25fa0268045359, type: 2}
   - {fileID: 11400000, guid: 5f3d1766d2e8d264ab6d7f1cfe2508a4, type: 2}
   - {fileID: 11400000, guid: 003972ca850c2cc4190d830ddfd46bda, type: 2}
-  tileCoord: 1
+  tileCoord: 0
 --- !u!1001 &331599907
 PrefabInstance:
   m_ObjectHideFlags: 0
