@@ -149,8 +149,8 @@ public class InputManager : MonoBehaviour {
                 }
                 else if (GlobalVars.players[playerCoord].charType == "Archer" || GlobalVars.players[playerCoord].charType == "Crossbowman")
                 {
-                    Shoot(clickedCoord, 2);
                     Debug.Log("Shoot function was called");
+                    Shoot(clickedCoord, 2);
                     inputMode = modes.normal;
                 }
                 else if(GlobalVars.players[playerCoord].charType == "Alchemist")
@@ -292,11 +292,11 @@ public class InputManager : MonoBehaviour {
                 //enemy death
                 if (enemyStats.curHealth <= 0)
                 {
+                    RemoveEnmey(hexCoordOfEnemy);
                     enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
                     //RollItems();
-                    RemoveEnmey(hexCoordOfEnemy);
                     //death audio
-                    AudioManager.instance.Play("Deah-Sound");
+                    //AudioManager.instance.Play("Deah-Sound");
                 }
             }
             AttackIndicators(false);
