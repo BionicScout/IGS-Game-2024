@@ -10,16 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 274a7d029d4eaaf4f9dd1a10ae7bd3ae, type: 3}
-  m_Name: Tile_Button_Final
+  m_Name: Tile_Tree_Small_Interact_Lv3
   m_EditorClassIdentifier: 
-  sprite: {fileID: 1601544702, guid: dbd06133d06a0d140a4c9cd7d915ca81, type: 3}
-  isObstacle: 0
+  sprite: {fileID: 1674967302, guid: 0cdf76a554ad6ec43b858e3279c04dbf, type: 3}
+  isObstacle: 1
   interactable: 1
-  objToChange: {fileID: 11400000, guid: d5585f68614d6434ab67511e1a27a53c, type: 2}
+  objToChange: {fileID: 11400000, guid: 5f3d1766d2e8d264ab6d7f1cfe2508a4, type: 2}
   tileChanges:
   - {x: 0, y: 0, z: 0}
-  - {x: 4, y: -4, z: 0}
-  - {x: 5, y: -4, z: -1}
-  - {x: 6, y: -4, z: -2}
-  - {x: 7, y: -3, z: -4}
-  - {x: 8, y: -3, z: -5}

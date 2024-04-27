@@ -180,7 +180,7 @@ public class HexLayout : MonoBehaviour {
             GlobalVars.L3_trees.Add(new Vector3Int(h.q , h.r , h.s));
         }
 
-        if(tileTemplate.sprite.name == "Red Button") {
+        if(tileTemplate.sprite.name == "S_Final_Button" || tileTemplate.sprite.name == "S_Final_Button_2") {
             GlobalVars.L4_Buttons.Add(new Vector3Int(h.q , h.r , h.s));
         }
 

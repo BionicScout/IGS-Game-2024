@@ -564,6 +564,26 @@ public class InputManager : MonoBehaviour {
             }
         }
 
+        if(GlobalVars.L3_trees.Contains(clickedCoord)) {
+            //Convert Tree to Laying Down, changing specific tiles sprites
+            TileScriptableObjects mainTileInfo = GlobalVars.hexagonTileRefrence[clickedCoord];
+
+            foreach(Vector3Int offset in GlobalVars.hexagonTileRefrence[clickedCoord].tileChanges) {
+                Vector3Int newCoord = clickedCoord + offset;
+
+                GameObject tileObj = GlobalVars.hexagonTile[newCoord];
+                tileObj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = mainTileInfo.objToChange.sprite;
+                GlobalVars.hexagonTileRefrence[newCoord] = mainTileInfo.objToChange;
+            }
+
+            GlobalVars.L3_trees.Remove(clickedCoord);
+
+            //Turn all enemies to generic ai
+            foreach(KeyValuePair<Vector3Int , Stats> enemy in GlobalVars.enemies) {
+                enemy.Value.charType = "General";
+            }
+        }
+
         if(GlobalVars.L4_Buttons.Contains(clickedCoord)) {
             //Changes buttons tile to button pressed
             TileScriptableObjects mainTileInfo = GlobalVars.hexagonTileRefrence[clickedCoord];
