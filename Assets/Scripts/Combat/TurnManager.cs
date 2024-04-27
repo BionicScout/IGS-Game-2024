@@ -233,9 +233,14 @@ public class TurnManager : MonoBehaviour {
 
                     AudioManager.instance.Play("Player-Hurt");
 
+                    GameObject newTileObj = GlobalVars.hexagonTile[command.attackTile];
+                    newTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = stats.curHealth / stats.maxHealth;
+
 
                     //Player Dies
                     if(stats.curHealth <= 0) {
+                        newTileObj.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
+
                         //Remove from this script
                         int playerIndex = playerCoords.FindIndex(x => x == command.attackTile);
                         playerCoords.RemoveAt(playerIndex);
@@ -267,10 +272,16 @@ public class TurnManager : MonoBehaviour {
 
                 AudioManager.instance.Play("Player-Hurt");
 
+                GameObject newTileObj = GlobalVars.hexagonTile[command.attackTile];
+                newTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = stats.curHealth / stats.maxHealth;
+
 
                 //Player Dies
                 if (stats.curHealth <= 0)
                 {
+
+                    newTileObj.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
+
                     //Remove from this script
                     int playerIndex = playerCoords.FindIndex(x => x == command.attackTile);
                     playerCoords.RemoveAt(playerIndex);

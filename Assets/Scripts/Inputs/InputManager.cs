@@ -265,6 +265,8 @@ public class InputManager : MonoBehaviour {
                     AudioManager.instance.Play("Player Attack");
                     //hit particles
                     Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
+                    GameObject newTileObj = GlobalVars.hexagonTile[clickedCoord];
+                    newTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = enemyStats.curHealth / enemyStats.maxHealth;
 
                     //enemy death
                     if (enemyStats.curHealth <= 0) {
@@ -272,7 +274,8 @@ public class InputManager : MonoBehaviour {
                         enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
                         //RollItems();
                         //death audio
-                        AudioManager.instance.Play("Death-Sound");
+                        newTileObj.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
+                        //AudioManager.instance.Play("Death-Sound");
                     }
             }
             GlobalVars.players[clickedCoord].dodge = ogDodge;
@@ -289,6 +292,10 @@ public class InputManager : MonoBehaviour {
                 Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
                 //AudioManager.instance.Play("Enemy-Hurt");
 
+
+                GameObject newTileObj = GlobalVars.hexagonTile[clickedCoord];
+                newTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = enemyStats.curHealth / enemyStats.maxHealth;
+
                 //enemy death
                 if (enemyStats.curHealth <= 0)
                 {
@@ -296,7 +303,8 @@ public class InputManager : MonoBehaviour {
                     enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
                     //RollItems();
                     //death audio
-                    AudioManager.instance.Play("Death-Sound");
+                    newTileObj.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
+                    //AudioManager.instance.Play("Death-Sound");
                 }
             }
             AttackIndicators(false);
@@ -343,13 +351,17 @@ public class InputManager : MonoBehaviour {
                     //hit particles
                     Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
 
+                    GameObject newTileObj = GlobalVars.hexagonTile[clickedCoord];
+                    newTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = enemyStats.curHealth / enemyStats.maxHealth;
+
                     //enemy death
                     if (enemyStats.curHealth <= 0) {
                         enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
                         //RollItems();
                         RemoveEnmey(hexCoordOfEnemy);
                         //death audio
-                        AudioManager.instance.Play("Death-Sound");
+                        newTileObj.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
+                        //AudioManager.instance.Play("Death-Sound");
                     }
                 }
                 //resets the players dodge
@@ -367,6 +379,9 @@ public class InputManager : MonoBehaviour {
                 //hit particles
                 Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
 
+                GameObject newTileObj = GlobalVars.hexagonTile[clickedCoord];
+                newTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = enemyStats.curHealth / enemyStats.maxHealth;
+
                 //enemy death
                 if (enemyStats.curHealth <= 0)
                 {
@@ -375,7 +390,9 @@ public class InputManager : MonoBehaviour {
                     //RollItems();
                     RemoveEnmey(hexCoordOfEnemy);
                     //death audio
-                    AudioManager.instance.Play("Death-Sound");
+                    newTileObj.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
+                    //AudioManager.instance.Play("Death-Sound");
+                    
                 }
             }
             //enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
@@ -481,6 +498,9 @@ public class InputManager : MonoBehaviour {
 
                 //Update player coord
                 GlobalVars.players.Remove(clickedCoord);
+
+                GameObject newTileObj = GlobalVars.hexagonTile[clickedCoord];
+                newTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = playerStats.curHealth / playerStats.maxHealth;
             }
         }
         else if (GlobalVars.players[clickedCoord].charLevel == 2)

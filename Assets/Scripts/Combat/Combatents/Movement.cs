@@ -43,7 +43,6 @@ public class Movement : MonoBehaviour {
         newTileObj.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
         newTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = playerStats.curHealth / playerStats.maxHealth;
 
-
         Vector3 offset = newTileObj.transform.position - currentTileObj.transform.position;
         //playerStats.healthBar.transform.position = playerStats.healthBar.transform.position + offset;
     }
