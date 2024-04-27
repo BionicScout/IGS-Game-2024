@@ -46,7 +46,7 @@ public class CharacterLoader : MonoBehaviour {
                 Debug.Log(GlobalVars.players.Count + " From charcter loader");
             }
             Stats Enemystats = tutorialEnemies.Copy();
-            Vector3Int enemyLoc = new Vector3Int(2, 11, -13);
+            Vector3Int enemyLoc = new Vector3Int(8, 5, -13);
             SpawnEnemy(enemyLoc, Enemystats.Copy());
         }
         else

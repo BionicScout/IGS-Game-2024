@@ -238,6 +238,8 @@ public class Tut_InputManager : MonoBehaviour {
         Actions
     *********************************/
     public void Shoot(Vector3Int hexCoordOfEnemy , float damage) {
+        if(turnManager.getActionUse(playerCoord))
+        {
         Debug.Log("Shoot Function has started");
         ClearIndicators();
         int ogDodge = GlobalVars.players[playerCoord].dodge;
@@ -311,8 +313,12 @@ public class Tut_InputManager : MonoBehaviour {
         //resets a players power and defense incase they used an item
         GlobalVars.players[playerCoord].power = playerPower;
         GlobalVars.players[playerCoord].defense = playerDefense;
+        }
     }
     public void Wack(Vector3Int hexCoordOfEnemy , float damage) {
+        if (turnManager.getActionUse(playerCoord))
+        {
+
         Debug.Log("Wack Function has started");
         ClearIndicators();
         int ogDodge = GlobalVars.players[playerCoord].dodge;
@@ -388,9 +394,12 @@ public class Tut_InputManager : MonoBehaviour {
         //resets a players power and defense incase they used an item
         GlobalVars.players[playerCoord].power = playerPower;
         GlobalVars.players[playerCoord].defense = playerDefense;
+        }
     }
     public void Poison() 
     {
+        if (turnManager.getActionUse(playerCoord))
+        {
         ClearIndicators();
         turnManager.Player_HardAction(playerCoord);
 
@@ -432,9 +441,13 @@ public class Tut_InputManager : MonoBehaviour {
         //resets a players power and defense incase they used an item
         GlobalVars.players[playerCoord].power = playerPower;
         GlobalVars.players[playerCoord].defense = playerDefense;
+
+        }
     }
     public void SmokeBomb()
     {
+        if (turnManager.getActionUse(playerCoord))
+        {
         ClearIndicators();
         turnManager.Player_HardAction(playerCoord);
 
@@ -457,8 +470,12 @@ public class Tut_InputManager : MonoBehaviour {
         //resets a players power and defense incase they used an item
         GlobalVars.players[playerCoord].power = playerPower;
         GlobalVars.players[playerCoord].defense = playerDefense;
+
+        }
     }
     public void Heal(int healthBack) {
+        if (turnManager.getActionUse(playerCoord))
+        {
         ClearIndicators();
         if (GlobalVars.players[clickedCoord].charLevel == 1) 
         { 
@@ -502,6 +519,8 @@ public class Tut_InputManager : MonoBehaviour {
         //resets a players power and defense incase they used an item
         GlobalVars.players[playerCoord].power = playerPower;
         GlobalVars.players[playerCoord].defense = playerDefense;
+
+        }
     }
     public void Move() {
         ClearIndicators();
@@ -538,6 +557,9 @@ public class Tut_InputManager : MonoBehaviour {
         }
     }
     public void Interact() {
+        if (turnManager.getActionUse(playerCoord))
+        {
+
         Debug.Log("INTERACT");
 
         if(GlobalVars.L2_trees.Contains(clickedCoord)) {
@@ -586,6 +608,7 @@ public class Tut_InputManager : MonoBehaviour {
         }
 
         turnManager.Player_HardAction(playerCoord);
+        }
     }
 
     /*********************************

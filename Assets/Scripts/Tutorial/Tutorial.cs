@@ -36,12 +36,13 @@ public class Tutorial : MonoBehaviour
     {
         if (lessonNum == 2)
         {
-            Movement.moveEnemy(new Vector3Int(2, 11, -13), new Vector3Int(4, 8, -12));
+            Movement.moveEnemy(new Vector3Int(8, 5, -13), new Vector3Int(8, 3, -11));
             DialogueManager.GetInstance().EnterDialogueMode(less2);
             lessonNum += 1;
         }
         else if (lessonNum == 3)
         {
+            GlobalVars.choosenPlayers[2].curHealth = 6;
             //Movement.moveEnemy(new Vector3Int(2, 11, -13), new Vector3Int(4, 8, -12));
             DialogueManager.GetInstance().EnterDialogueMode(less3);
             lessonNum += 1;
