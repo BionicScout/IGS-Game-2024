@@ -1214,6 +1214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allPlayerTurnsUsed: 0
+  winConMet: 0
   hitParticles: {fileID: 1052758049302362282, guid: e9dbf8a590745754680ef205c90d71df, type: 3}
   PlayerMenu: {fileID: 1974157233}
   WinMenu: {fileID: 1900432886}
@@ -5656,6 +5657,10 @@ PrefabInstance:
       propertyPath: outro
       value: 
       objectReference: {fileID: 4900000, guid: d97c226382376d14cb9c6527725bf53e, type: 3}
+    - target: {fileID: 1410811798006483003, guid: 49a08b716d0e1d2478911e0810964a53, type: 3}
+      propertyPath: turnManager
+      value: 
+      objectReference: {fileID: 1555778017}
     - target: {fileID: 2514404767772000810, guid: 49a08b716d0e1d2478911e0810964a53, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

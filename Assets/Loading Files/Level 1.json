@@ -8,7 +8,7 @@
   "EnemySpawnLocations": [
     {"unitName": "L1_SpearmanBandit", "spawnLocation": {"x": -3, "y": 9, "z": -6}},
     {"unitName": "L1_SpearmanBandit", "spawnLocation": {"x": 0, "y": 3, "z": -3}},
-    {"unitName": "L1_SpearmanBandit", "spawnLocation": {"x": 11, "y": 3, "z": -14}},
+    {"unitName": "L1_SpearmanBandit", "spawnLocation": {"x": 10, "y": 3, "z": -13}},
     {"unitName": "L1_SpearmanBandit", "spawnLocation": {"x": 8, "y": 9, "z": -17}}
   ],
   "Turns": [
