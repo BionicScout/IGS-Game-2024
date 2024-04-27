@@ -55,6 +55,8 @@ public class TurnManager : MonoBehaviour {
             nextWave = GlobalVars.spawnWaves.Dequeue();
 
         }
+
+        WinMenu.SetActive(false);
     }
 
     void Update() {
