@@ -47,15 +47,15 @@ MonoBehaviour:
   sounds:
   - name: Menu Music
     clip: {fileID: 8300000, guid: b8674f621da8e2f418c7afd204002ea5, type: 3}
-    volume: 0.5
+    volume: 0.727
     pitch: 1
     loop: 0
     soundTrack: 1
     source: {fileID: 0}
   - name: Combat Music
     clip: {fileID: 8300000, guid: ec5e6321df5458548b3d87eb22a1b029, type: 3}
-    volume: 0.5
-    pitch: 1
+    volume: 0.64
+    pitch: 0.95
     loop: 0
     soundTrack: 1
     source: {fileID: 0}
@@ -66,12 +66,12 @@ MonoBehaviour:
     loop: 0
     soundTrack: 1
     source: {fileID: 0}
-  - name: EnemyAttack
-    clip: {fileID: 8300000, guid: 8da2ce73991cdc4449f4251328e0b5a9, type: 3}
+  - name: Win Level
+    clip: {fileID: 8300000, guid: 3f3fd9e0a25f78a4f96997156ffef6c3, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
-    soundTrack: 0
+    soundTrack: 1
     source: {fileID: 0}
   - name: Button
     clip: {fileID: 8300000, guid: 1598d52b76a99834eb057fb01654a87b, type: 3}
@@ -117,6 +117,20 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Potion
     clip: {fileID: 8300000, guid: eca1b1a896655b24795ac2d36e5ecffe, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    soundTrack: 0
+    source: {fileID: 0}
+  - name: Smoke Bomb
+    clip: {fileID: 8300000, guid: d3ac8305e5d304440b1c4a0ff2783b0d, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    soundTrack: 0
+    source: {fileID: 0}
+  - name: Move
+    clip: {fileID: 8300000, guid: 3b59b60cf560d694784b48aba6710565, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0

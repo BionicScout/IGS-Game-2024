@@ -262,7 +262,7 @@ public class InputManager : MonoBehaviour {
                     Debug.Log("Damage was delt");
                     Debug.Log("enemy health: " + enemyStats.curHealth);
                     //attack audio
-                    AudioManager.instance.Play("Attack");
+                    AudioManager.instance.Play("Player Attack");
                     //hit particles
                     Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
 
@@ -272,7 +272,7 @@ public class InputManager : MonoBehaviour {
                         enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
                         //RollItems();
                         //death audio
-                        AudioManager.instance.Play("Deah-Sound");
+                        AudioManager.instance.Play("Death-Sound");
                     }
             }
             GlobalVars.players[clickedCoord].dodge = ogDodge;
@@ -284,7 +284,7 @@ public class InputManager : MonoBehaviour {
                 Debug.Log("Damage was delt");
                 enemyStats.Damage(playerPower);
                 //attack audio
-                AudioManager.instance.Play("Attack");
+                AudioManager.instance.Play("Player Attack");
                 //hit particles
                 Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
                 //AudioManager.instance.Play("Enemy-Hurt");
@@ -296,7 +296,7 @@ public class InputManager : MonoBehaviour {
                     enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
                     //RollItems();
                     //death audio
-                    //AudioManager.instance.Play("Deah-Sound");
+                    AudioManager.instance.Play("Death-Sound");
                 }
             }
             AttackIndicators(false);
@@ -339,7 +339,7 @@ public class InputManager : MonoBehaviour {
                     enemyStats.Damage(playerPower);
                     Enemy_UpdateHealth(clickedCoord);
                     //attack audio
-                    AudioManager.instance.Play("Attack");
+                    AudioManager.instance.Play("Player Attack");
                     //hit particles
                     Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
 
@@ -349,7 +349,7 @@ public class InputManager : MonoBehaviour {
                         //RollItems();
                         RemoveEnmey(hexCoordOfEnemy);
                         //death audio
-                        AudioManager.instance.Play("Deah-Sound");
+                        AudioManager.instance.Play("Death-Sound");
                     }
                 }
                 //resets the players dodge
@@ -363,7 +363,7 @@ public class InputManager : MonoBehaviour {
                 Debug.Log("Damage was delt");
                 enemyStats.Damage(playerPower);
                 //attack audio
-                AudioManager.instance.Play("Attack");
+                AudioManager.instance.Play("Player Attack");
                 //hit particles
                 Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
 
@@ -375,7 +375,7 @@ public class InputManager : MonoBehaviour {
                     //RollItems();
                     RemoveEnmey(hexCoordOfEnemy);
                     //death audio
-                    AudioManager.instance.Play("Deah-Sound");
+                    AudioManager.instance.Play("Death-Sound");
                 }
             }
             //enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
@@ -454,6 +454,7 @@ public class InputManager : MonoBehaviour {
 
             //Update player coord
             GlobalVars.players.Remove(clickedCoord);
+            AudioManager.instance.Play("Potion");
         }
         //resets a players power and defense incase they used an item
         GlobalVars.players[playerCoord].power = playerPower;
@@ -531,6 +532,8 @@ public class InputManager : MonoBehaviour {
                 //moveRadioWheel();
                 MoveIndicators(false);
                 TakePoison();
+
+                AudioManager.instance.Play("Move");
 
                 turnManager.Player_Move(playerCoord , dist, clickedCoord);
                 playerCoord = clickedCoord;

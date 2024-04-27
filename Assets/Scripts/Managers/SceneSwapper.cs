@@ -19,6 +19,13 @@ public static class SceneSwapper {
         Debug.Log(sceneName);
         SceneManager.LoadScene(sceneName);
         currentScene = sceneName;
+
+        if(currentScene == "MainMenu")
+            AudioManager.instance.PlayFromSoundtrack("Menu-Music");
+        if(currentScene == "Tutorial" || currentScene == "Level 1")
+            AudioManager.instance.PlayFromSoundtrack("Combat Music");
+
+
     }
 
     public static string GetCurrentScene() {
