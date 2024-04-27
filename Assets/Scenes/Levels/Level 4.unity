@@ -6003,6 +6003,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextScene: MainMenu
+  winMenu: {fileID: 2125881252}
+  loseMenu: {fileID: 428671389}
 --- !u!1001 &428671387
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6174,6 +6176,8 @@ MonoBehaviour:
   statsMenu: {fileID: 224029312}
   itemMenu: {fileID: 224029305}
   radioMenu: {fileID: 1251505257}
+  winMenu: {fileID: 0}
+  loseMenu: {fileID: 0}
   moveTxt: {fileID: 224029309}
   powerTxt: {fileID: 224029310}
   defenseTxt: {fileID: 224029307}
