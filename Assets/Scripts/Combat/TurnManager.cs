@@ -68,8 +68,9 @@ public class TurnManager : MonoBehaviour {
             //Win
             if (GlobalVars.enemies.Count == 0 && !endState) 
             {
-                DialogueManager.GetInstance().EnterDialogueMode(DiaTrigger.outro);
+                //DialogueManager.GetInstance().EnterDialogueMode(DiaTrigger.outro);
                 PlayerMenu.SetActive(false);
+                WinMenu.SetActive(true);
                 AudioManager.instance.PlayFromSoundtrack("Win Level");
             }
 

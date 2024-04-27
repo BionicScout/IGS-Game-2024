@@ -1214,7 +1214,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allPlayerTurnsUsed: 0
-  winConMet: 0
   hitParticles: {fileID: 1052758049302362282, guid: e9dbf8a590745754680ef205c90d71df, type: 3}
   PlayerMenu: {fileID: 1974157233}
   WinMenu: {fileID: 1900432886}
@@ -4579,7 +4578,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 003972ca850c2cc4190d830ddfd46bda, type: 2}
   - {fileID: 11400000, guid: 01284f9cc420ad344b25fa0268045359, type: 2}
   - {fileID: 11400000, guid: 8001612b4b5840a4b814acf2a29d8591, type: 2}
-  tileCoord: 1
+  tileCoord: 0
 --- !u!4 &1793876000
 Transform:
   m_ObjectHideFlags: 0
