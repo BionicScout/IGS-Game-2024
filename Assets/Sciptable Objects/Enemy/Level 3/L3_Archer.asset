@@ -21,7 +21,7 @@ MonoBehaviour:
   maxHealth: 6
   move: 3
   attackRange: 200
-  power: 4
+  power: 1
   defense: 0
   dodge: 0
   itemDrop: 50
