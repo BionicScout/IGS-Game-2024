@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 345460777, guid: 0cdf76a554ad6ec43b858e3279c04dbf, type: 3}
   isObstacle: 1
-  interactable: 0
-  objToChange: {fileID: 11400000, guid: 0b4706935042ec044afd1b5aaf3c0d40, type: 2}
-  tileChanges: []
+  interactable: 1
+  objToChange: {fileID: 11400000, guid: 5f3d1766d2e8d264ab6d7f1cfe2508a4, type: 2}
+  tileChanges:
+  - {x: 0, y: 0, z: 0}
