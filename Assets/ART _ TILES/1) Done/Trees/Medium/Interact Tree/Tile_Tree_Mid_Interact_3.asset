@@ -18,3 +18,6 @@ MonoBehaviour:
   objToChange: {fileID: 11400000, guid: 5f3d1766d2e8d264ab6d7f1cfe2508a4, type: 2}
   tileChanges:
   - {x: 0, y: 0, z: 0}
+  - {x: -1, y: 1, z: 0}
+  - {x: 0, y: 1, z: -1}
+  - {x: -1, y: 2, z: -1}
