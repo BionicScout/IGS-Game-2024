@@ -171,11 +171,11 @@ public class HexLayout : MonoBehaviour {
         GlobalVars.hexagonTileRefrence.Add(new Vector3Int(h.q , h.r , h.s), tileTemplate);
 
         //Level Specfic Global Variables
-        if(tileTemplate.sprite.name == "Level1_HouseTile") {
+        if(tileTemplate.sprite.name == "S_House") {
             GlobalVars.L1_houseTiles.Add(new Vector3Int(h.q , h.r , h.s));
         }
 
-        if(tileTemplate.sprite.name == "TreeTile") {
+        if(tileTemplate.sprite.name == "S_Tree_Small_Interact") {
             GlobalVars.L2_trees.Add(new Vector3Int(h.q , h.r , h.s));
             GlobalVars.L3_trees.Add(new Vector3Int(h.q , h.r , h.s));
         }

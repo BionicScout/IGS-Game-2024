@@ -68,14 +68,15 @@ public class TurnManager : MonoBehaviour {
             if (GlobalVars.enemies.Count == 0) 
             {
                 PlayerMenu.SetActive(false);
-                WinMenu.SetActive(true);
+                //WinMenu.SetActive(true);
                 DialogueManager.GetInstance().EnterDialogueMode(DiaTrigger.outro);
             }
 
             //Lose
             if(GlobalVars.players.Count == 0) {
                 PlayerMenu.SetActive(false);
-                LoseMenu.SetActive(true);
+                LoseMenuOpen();
+
             }
             if(GlobalVars.L1_houseTiles.Count == 0 && SceneSwapper.currentScene == "Level 1") {
                 PlayerMenu.SetActive(false);
@@ -346,5 +347,18 @@ public class TurnManager : MonoBehaviour {
 
     public void UpdateActiveMenu() {
         PlayerMenu.SetActive(!PlayerMenu.activeSelf);
+    }
+    public void LoseMenuOpen()
+    {
+        LoseMenu.SetActive(true);
+        Transform menu = LoseMenu.transform.GetChild(0);
+        Transform selectImage = menu.transform.GetChild(0).GetChild(0);
+        int i = 0;
+        foreach (KeyValuePair<Vector3Int, Stats> player in GlobalVars.players)
+        {
+            Image image = menu.GetChild(i).GetChild(0).GetComponent<Image>();
+            image.sprite = player.Value.squareSprite;
+            i++;
+        }
     }
 }
