@@ -45,43 +45,86 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: Background - Temp
-    clip: {fileID: 8300000, guid: 8279ced49b5dfb949b82a7df2ef234ca, type: 3}
-    volume: 0.497
+  - name: Menu Music
+    clip: {fileID: 8300000, guid: b8674f621da8e2f418c7afd204002ea5, type: 3}
+    volume: 0.5
     pitch: 1
     loop: 0
     soundTrack: 1
     source: {fileID: 0}
-  - name: Death-Bells
+  - name: Combat Music
+    clip: {fileID: 8300000, guid: ec5e6321df5458548b3d87eb22a1b029, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    soundTrack: 1
+    source: {fileID: 0}
+  - name: Death-Screen
     clip: {fileID: 8300000, guid: da991b5be2a03c54ea5be5da431be7e6, type: 3}
-    volume: 0.497
+    volume: 0.5
     pitch: 1
     loop: 0
-    soundTrack: 0
+    soundTrack: 1
     source: {fileID: 0}
-  - name: Attack
+  - name: EnemyAttack
     clip: {fileID: 8300000, guid: 8da2ce73991cdc4449f4251328e0b5a9, type: 3}
-    volume: 0.497
+    volume: 0.5
     pitch: 1
     loop: 0
     soundTrack: 0
     source: {fileID: 0}
-  - name: Player-Hurt
+  - name: Button
+    clip: {fileID: 8300000, guid: 1598d52b76a99834eb057fb01654a87b, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    soundTrack: 0
+    source: {fileID: 0}
+  - name: Enemy Hurt
+    clip: {fileID: 8300000, guid: d218fff41e5df514bb27582f9d663976, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    soundTrack: 0
+    source: {fileID: 0}
+  - name: EnemyAttack
+    clip: {fileID: 8300000, guid: 8da2ce73991cdc4449f4251328e0b5a9, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    soundTrack: 0
+    source: {fileID: 0}
+  - name: Player Attack
+    clip: {fileID: 8300000, guid: 138abe3aae86ece448493bc5adfe596f, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    soundTrack: 0
+    source: {fileID: 0}
+  - name: Player Death
+    clip: {fileID: 8300000, guid: ed4a699ee59ca154cba0e12b0206f4c5, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    soundTrack: 0
+    source: {fileID: 0}
+  - name: Player Hurt
     clip: {fileID: 8300000, guid: 142867e37cb284a47b4eff1c7dd9cbc6, type: 3}
-    volume: 0.497
+    volume: 0.5
     pitch: 1
     loop: 0
     soundTrack: 0
     source: {fileID: 0}
   - name: Potion
-    clip: {fileID: 8300000, guid: 674e3572b13a99947bef13227e4bbfeb, type: 3}
-    volume: 0.509
+    clip: {fileID: 8300000, guid: eca1b1a896655b24795ac2d36e5ecffe, type: 3}
+    volume: 0.5
     pitch: 1
     loop: 0
     soundTrack: 0
     source: {fileID: 0}
   fade: 0
   fadeTime: 2
+  loopTrack: 1
   genericSound:
     name: Beep
     clip: {fileID: 8300000, guid: cc60fcc024ca5ac49af95939fd651ad5, type: 3}

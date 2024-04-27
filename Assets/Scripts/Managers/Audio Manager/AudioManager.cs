@@ -15,6 +15,9 @@ public class AudioManager : MonoBehaviour {
     public int fadeTime = 2;
     float fadeTimer = 0;
 
+    public bool loopTrack = true;
+    int nextLoop = -1;
+
     public Sound genericSound;
 
     void Awake() {
@@ -53,12 +56,15 @@ public class AudioManager : MonoBehaviour {
             return;
 
 		if (!currentTrack.source.isPlaying) {
-			currentSoundTrack++;
+            if(!loopTrack) {
 
-			if (currentSoundTrack >= soundTrackIndexes.Count) {
-				currentSoundTrack = 0;
+                currentSoundTrack++;
 
-			}
+                if(currentSoundTrack >= soundTrackIndexes.Count) {
+                    currentSoundTrack = 0;
+
+                }
+            }
 
 			currentTrack = sounds[soundTrackIndexes[currentSoundTrack]];
 			Play(currentTrack.name);
@@ -72,8 +78,10 @@ public class AudioManager : MonoBehaviour {
                 fadeTimer = 0;
                 sounds[currentSoundTrack].source.Stop();
 
-
-                currentSoundTrack++;
+                if(nextLoop != -1) {
+                    currentSoundTrack = nextLoop;
+                    nextLoop = -1;
+                }
 
                 if(currentSoundTrack >= soundTrackIndexes.Count) {
                     currentSoundTrack = 0;
@@ -91,17 +99,41 @@ public class AudioManager : MonoBehaviour {
         }
 	}
 
-    public void Play (string name) {
-        Sound s = Array.Find(sounds, sound => sound.name == name);//Error
-        if (s == null)
-        {
-            print("Audio \"" + name + "\" not found");
+    public void Play(string name) {
+        Sound s = null;
+        foreach(Sound sound in sounds) {
+            if(sound.name == name) {
+                s = sound;
+                break;
+            }
+        }
+
+        if(s == null) {
+            Debug.LogWarning("Audio \"" + name + "\" not found");
             genericSound.source.Play();
             return;
         }
-        
-        s.source.Play();
 
-        //Debug.Log("PLAYING");
+        s.source.Play();
     }
+
+    public void PlayFromSoundtrack(string name) {
+        int index = -1;
+        for(int i = 0; i < sounds.Length; i++) {
+            Sound sound = sounds[i];
+            if(sound.name == name) {
+                index = i;
+                break;
+            }
+        }
+
+        if(index == -1) {
+            Debug.LogWarning("Audio \"" + name + "\" not found");
+            return;
+        }
+
+        fade = true;
+        nextLoop = index;
+    }
+
 }
