@@ -16,7 +16,15 @@ public class WinLoseScreen : MonoBehaviour
     }
     public void Continue()
     {
-        SceneSwapper.A_LoadScene(nextScene);
+        string currentLevel = SceneSwapper.currentScene;
+        int levelNum = int.Parse(currentLevel.Substring(currentLevel.Length - 1));
+        levelNum++;
+        string nextLevel = "Level " + levelNum.ToString();
+
+
+
+        SceneSwapper.holdLoadingScene = nextLevel;
+        SceneSwapper.A_LoadScene("LevelingUp");
 
     }
 }

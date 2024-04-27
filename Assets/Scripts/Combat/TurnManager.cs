@@ -57,6 +57,7 @@ public class TurnManager : MonoBehaviour {
         }
 
         WinMenu.SetActive(false);
+        Debug.Log("Off");
     }
 
     void Update() {
@@ -74,6 +75,9 @@ public class TurnManager : MonoBehaviour {
                 PlayerMenu.SetActive(false);
                 WinMenu.SetActive(true);
                 AudioManager.instance.PlayFromSoundtrack("Win Level");
+                if(nextLevel == "FINAL LEVEL") {
+                    SceneSwapper.A_LoadScene("MainMenu");
+                }
             }
 
             //Lose
