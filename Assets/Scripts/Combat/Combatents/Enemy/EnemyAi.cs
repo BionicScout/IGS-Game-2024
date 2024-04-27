@@ -266,7 +266,12 @@ public class EnemyAi {
         int closestPerson = -1;
 
         foreach(KeyValuePair<Vector3Int , Stats> playerInfo in GlobalVars.players) {
-            int distance = Pathfinding.PathBetweenPoints(playerInfo.Key , currentEnemy, true).Count - 1;
+            List<Vector3Int> temp = Pathfinding.PathBetweenPoints(playerInfo.Key , currentEnemy , true);
+
+            int distance = closestPerson * 2;
+            if(temp != null) {
+                distance = temp.Count - 1;
+            }
 
             if(closestPerson < distance) {
                 closestPerson = distance;
@@ -410,7 +415,12 @@ public class EnemyAi {
                     Debug.Log("Error - Too many iterations");
                 }
 
-                int distance = Pathfinding.PathBetweenPoints(playerInfo.Key , tilesAndScores[tileScoreIndex].Key , true).Count - 1;
+                List<Vector3Int> tempPath = Pathfinding.PathBetweenPoints(playerInfo.Key , tilesAndScores[tileScoreIndex].Key , true);
+
+                int distance = playerInfo.Value.attackRange * 2;
+                if(tempPath != null) {
+                    distance = tempPath.Count - 1;
+                }
 
                 if(distance <= playerInfo.Value.attackRange) {
                     playersCanHit++;
@@ -468,7 +478,14 @@ public class EnemyAi {
         //House Scoring
         int closestHouse = -1;
         foreach(Vector3Int houseInfo in GlobalVars.L1_houseTiles) {
-            int distance = Pathfinding.PathBetweenPoints(houseInfo, endTile, true).Count - 1;
+            List<Vector3Int> temp = Pathfinding.PathBetweenPoints(houseInfo , endTile , true);
+
+            int distance = closestHouse + 1;
+            if (temp != null)
+            {
+                distance = temp.Count - 1;
+            }
+
 
             if(closestHouse > distance || closestHouse == -1) {
                 closestHouse = distance;
@@ -551,8 +568,11 @@ public class EnemyAi {
                 endTurnTile = command.startSpace;
             }
 
+            List<Vector3Int> temp = Pathfinding.PathBetweenPoints(houseTile , endTurnTile , true);
+            if(temp == null)
+                continue;
 
-            int distance = Pathfinding.PathBetweenPoints(houseTile , endTurnTile, true).Count - 1;
+            int distance = temp.Count - 1;
 
             if(distance == -1)
                 continue;

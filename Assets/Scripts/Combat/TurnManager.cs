@@ -196,6 +196,8 @@ public class TurnManager : MonoBehaviour {
         Enemy Turn
     *********************************/
     public void enemyCommand(Command command) {
+
+        Debug.Log("Start Command");
         //Move
         Stats enemystats = GlobalVars.enemies[command.startSpace];
         int ogDodge = enemystats.dodge;
@@ -310,6 +312,8 @@ public class TurnManager : MonoBehaviour {
 
             GlobalVars.L1_houseTiles.Remove(command.houseAttackTile);
         }
+
+        Debug.Log("End Command");
     }
 
     public void SpawnEnemies() {
@@ -351,11 +355,11 @@ public class TurnManager : MonoBehaviour {
 
     public void startPlayerTurn() {
         SpawnEnemies();
-        //Debug.Log("Start Player Turn");
+        Debug.Log("Start Player Turn");
         ResetVals();
-        //Debug.Log("Rest Vals");
+        Debug.Log("Rest Vals");
         UpdateActiveMenu();
-        //Debug.Log("Menu Back");
+        Debug.Log("Menu Back");
     }
 
     public void UpdateActiveMenu() {
