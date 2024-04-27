@@ -31,7 +31,6 @@ public class TurnManager : MonoBehaviour {
     bool endState = false;
 
     private void Start() {
-        endState = false;
         playerCoords = new List<Vector3Int>();
         playerMovement = new List<int>(); //Movement speed left
         playerPotion = new List<bool>();
@@ -69,29 +68,24 @@ public class TurnManager : MonoBehaviour {
             }
 
             //Win
-            if(nextLevel != "FINAL LEVEL") {
-                if(GlobalVars.enemies.Count == 0 && !endState) {
-                    //DialogueManager.GetInstance().EnterDialogueMode(DiaTrigger.outro);
-                    PlayerMenu.SetActive(false);
-                    SceneSwapper.A_LoadScene(nextLevel);
-                    AudioManager.instance.PlayFromSoundtrack("Win Level");
-
-                    WinMenu.SetActive(true);
-                    endState = true;
-                }
+            if (GlobalVars.enemies.Count == 0 && !endState) 
+            {
+                //DialogueManager.GetInstance().EnterDialogueMode(DiaTrigger.outro);
+                PlayerMenu.SetActive(false);
+                WinMenu.SetActive(true);
+                AudioManager.instance.PlayFromSoundtrack("Win Level");
             }
+
             //Lose
             if(GlobalVars.players.Count == 0 && !endState) {
                 PlayerMenu.SetActive(false);
                 LoseMenuOpen();
                 AudioManager.instance.PlayFromSoundtrack("Death-Screen");
-                endState = true;
             }
             if(GlobalVars.L1_houseTiles.Count == 0 && SceneSwapper.currentScene == "Level 1" && !endState) {
                 PlayerMenu.SetActive(false);
                 LoseMenu.SetActive(true);
                 AudioManager.instance.PlayFromSoundtrack("Death-Screen");
-                endState = true;
             }
 
             if(Input.GetKeyDown(KeyCode.F)) {

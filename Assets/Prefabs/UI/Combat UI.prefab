@@ -3078,7 +3078,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4256384197927348854
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5830,7 +5830,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 390, y: -340}
+  m_AnchoredPosition: {x: -54, y: -337.5}
   m_SizeDelta: {x: 280, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4763078260273102788
@@ -5888,22 +5888,18 @@ MonoBehaviour:
   singleHealAMT: 2
   powerBuffAMT: 2
   defenseBuffAMT: 3
-  reviveAMT: 1
   healScrollAMT: 1
   singleHealTxt: {fileID: 3934116939945770752}
   powerBuffTxt: {fileID: 34064805170571240}
   defenseBuffTxt: {fileID: 7898767919790591939}
-  reviveTxt: {fileID: 0}
   healScrollTxt: {fileID: 6868157042041711102}
   singleHealBTN: {fileID: 3071558540049075618}
   powerBuffBTN: {fileID: 2013683827985995384}
   defenseBuffBTN: {fileID: 8961824858413094353}
-  reviveBTN: {fileID: 0}
   healScrollBTN: {fileID: 2069932157664125635}
   shUseBTN: {fileID: 3084185435979118723}
   pbUseBTN: {fileID: 6450731317277561967}
   dbUseBTN: {fileID: 6566307374741689027}
-  rUseBTN: {fileID: 0}
   hsUSeBTN: {fileID: 5038907447732267901}
 --- !u!1 &6045247006711407188
 GameObject:
@@ -8012,7 +8008,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1042920620940332161
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8297,7 +8293,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3052173705719748033
 RectTransform:
   m_ObjectHideFlags: 0

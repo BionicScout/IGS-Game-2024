@@ -239,37 +239,64 @@ public class InputManager : MonoBehaviour {
         Actions
     *********************************/
     public void Shoot(Vector3Int hexCoordOfEnemy , float damage) {
-        Debug.Log("Shoot Function has started");
-        ClearIndicators();
-        int ogDodge = GlobalVars.players[playerCoord].dodge;
+        if(!turnManager.getActionUse(playerCoord)) 
+        {
+            Debug.Log("Shoot Function has started");
+            ClearIndicators();
+            int ogDodge = GlobalVars.players[playerCoord].dodge;
 
-        if(GlobalVars.enemies.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord , playerCoord) <= playerAttRange + 1) {
-            Debug.Log("checked if enemy was in range");
-            //Get Player and current + future hex objs
-            Stats enemyStats = GlobalVars.enemies[clickedCoord];
-            GameObject enemyTileObj = GlobalVars.hexagonTile[clickedCoord];
+            if(GlobalVars.enemies.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord , playerCoord) <= playerAttRange + 1) {
+                Debug.Log("checked if enemy was in range");
+                //Get Player and current + future hex objs
+                Stats enemyStats = GlobalVars.enemies[clickedCoord];
+                GameObject enemyTileObj = GlobalVars.hexagonTile[clickedCoord];
 
-            if (InSmoke())
-            {
-                Debug.Log("Checked if player is in smoke");
-                GlobalVars.players[clickedCoord].dodge = smokeDodge;
-                if (RollDodge() > GlobalVars.players[clickedCoord].dodge)
-                {
+                if(InSmoke()) {
+                    Debug.Log("Checked if player is in smoke");
+                    GlobalVars.players[clickedCoord].dodge = smokeDodge;
+                    if(RollDodge() > GlobalVars.players[clickedCoord].dodge) {
+                        Debug.Log("Rolled and checked to see in the enemy dodged");
+                        //deals damage
+                        enemyStats.Damage(playerPower);
+                        Enemy_UpdateHealth(clickedCoord);
+                        Debug.Log("Damage was delt");
+                        Debug.Log("enemy health: " + enemyStats.curHealth);
+                        //attack audio
+                        AudioManager.instance.Play("Player Attack");
+                        //hit particles
+                        Instantiate(hitParticles , worldSpacePos , Quaternion.identity);
+                        GameObject newTileObj = GlobalVars.hexagonTile[clickedCoord];
+                        newTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = enemyStats.curHealth / enemyStats.maxHealth;
+
+                        //enemy death
+                        if(enemyStats.curHealth <= 0) {
+                            RemoveEnmey(hexCoordOfEnemy);
+                            enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+                            //RollItems();
+                            //death audio
+                            newTileObj.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
+                            //AudioManager.instance.Play("Death-Sound");
+                        }
+                    }
+                    GlobalVars.players[clickedCoord].dodge = ogDodge;
+                }
+                else if(RollDodge() > GlobalVars.players[playerCoord].dodge) {
                     Debug.Log("Rolled and checked to see in the enemy dodged");
                     //deals damage
-                    enemyStats.Damage(playerPower);
-                    Enemy_UpdateHealth(clickedCoord);
                     Debug.Log("Damage was delt");
-                    Debug.Log("enemy health: " + enemyStats.curHealth);
+                    enemyStats.Damage(playerPower);
                     //attack audio
                     AudioManager.instance.Play("Player Attack");
                     //hit particles
-                    Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
+                    Instantiate(hitParticles , worldSpacePos , Quaternion.identity);
+                    //AudioManager.instance.Play("Enemy-Hurt");
+
+
                     GameObject newTileObj = GlobalVars.hexagonTile[clickedCoord];
                     newTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = enemyStats.curHealth / enemyStats.maxHealth;
 
                     //enemy death
-                    if (enemyStats.curHealth <= 0) {
+                    if(enemyStats.curHealth <= 0) {
                         RemoveEnmey(hexCoordOfEnemy);
                         enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
                         //RollItems();
@@ -277,49 +304,22 @@ public class InputManager : MonoBehaviour {
                         newTileObj.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
                         //AudioManager.instance.Play("Death-Sound");
                     }
-            }
-            GlobalVars.players[clickedCoord].dodge = ogDodge;
-        }
-            else if (RollDodge() > GlobalVars.players[playerCoord].dodge)
-            {
-                Debug.Log("Rolled and checked to see in the enemy dodged");
-                //deals damage
-                Debug.Log("Damage was delt");
-                enemyStats.Damage(playerPower);
-                //attack audio
-                AudioManager.instance.Play("Player Attack");
-                //hit particles
-                Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
-                //AudioManager.instance.Play("Enemy-Hurt");
-
-
-                GameObject newTileObj = GlobalVars.hexagonTile[clickedCoord];
-                newTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = enemyStats.curHealth / enemyStats.maxHealth;
-
-                //enemy death
-                if (enemyStats.curHealth <= 0)
-                {
-                    RemoveEnmey(hexCoordOfEnemy);
-                    enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
-                    //RollItems();
-                    //death audio
-                    newTileObj.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
-                    //AudioManager.instance.Play("Death-Sound");
                 }
+                AttackIndicators(false);
+
+                Pathfinding.AllPossibleTiles(clickedCoord , playerAttRange , false);
+
+                turnManager.Player_HardAction(playerCoord);
+
+                //Update player coord
+                GlobalVars.players.Remove(clickedCoord);
+
             }
-            AttackIndicators(false);
-
-            Pathfinding.AllPossibleTiles(clickedCoord , playerAttRange, false);
-
-            turnManager.Player_HardAction(playerCoord);
-
-            //Update player coord
-            GlobalVars.players.Remove(clickedCoord);
-
+            //resets a players power and defense incase they used an item
+            GlobalVars.players[playerCoord].power = playerPower;
+            GlobalVars.players[playerCoord].defense = playerDefense;
         }
-        //resets a players power and defense incase they used an item
-        GlobalVars.players[playerCoord].power = playerPower;
-        GlobalVars.players[playerCoord].defense = playerDefense;
+        
     }
     public void Wack(Vector3Int hexCoordOfEnemy , float damage) {
         Debug.Log("Wack Function has started");
@@ -479,17 +479,38 @@ public class InputManager : MonoBehaviour {
     }
     public void Heal(int healthBack) {
         ClearIndicators();
-        if (GlobalVars.players[clickedCoord].charLevel == 1) 
-        { 
-            if(GlobalVars.players.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord , playerCoord) <= 2) {
-                //Get Player and current + future hex objs
-                Stats playerStats = GlobalVars.players[clickedCoord];
-                GameObject playerTileObj = GlobalVars.hexagonTile[clickedCoord];
+        if(turnManager.getActionUse(playerCoord)) 
+        {
+            if(GlobalVars.players[clickedCoord].charLevel == 1) {
+                if(GlobalVars.players.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord , playerCoord) <= 2) {
+                    //Get Player and current + future hex objs
+                    Stats playerStats = GlobalVars.players[clickedCoord];
+                    GameObject playerTileObj = GlobalVars.hexagonTile[clickedCoord];
 
-                //heal player
-                playerStats.Heal(healthBack);
-                Player_UpdateHealth(clickedCoord);
-                Debug.Log("Player Healed!!");
+                    //heal player
+                    playerStats.Heal(healthBack);
+                    Player_UpdateHealth(clickedCoord);
+                    Debug.Log("Player Healed!!");
+
+                    //turns off indicator
+                    HealIndicators(false);
+
+                    turnManager.Player_HardAction(playerCoord);
+
+                    //Update player coord
+                    GlobalVars.players.Remove(clickedCoord);
+
+                    GameObject newTileObj = GlobalVars.hexagonTile[clickedCoord];
+                    newTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = playerStats.curHealth / playerStats.maxHealth;
+                }
+            }
+            else if(GlobalVars.players[clickedCoord].charLevel == 2) {
+                foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , 1 , false)) {
+                    //heals all players in a 1 tile range
+                    Vector3Int t = temp.Item1;
+                    GlobalVars.players[t].Heal(healthBack);
+                    Debug.Log("All players in 1 range are healed");
+                }
 
                 //turns off indicator
                 HealIndicators(false);
@@ -498,32 +519,11 @@ public class InputManager : MonoBehaviour {
 
                 //Update player coord
                 GlobalVars.players.Remove(clickedCoord);
-
-                GameObject newTileObj = GlobalVars.hexagonTile[clickedCoord];
-                newTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = playerStats.curHealth / playerStats.maxHealth;
             }
+            //resets a players power and defense incase they used an item
+            GlobalVars.players[playerCoord].power = playerPower;
+            GlobalVars.players[playerCoord].defense = playerDefense;
         }
-        else if (GlobalVars.players[clickedCoord].charLevel == 2)
-        {
-            foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, 1, false))
-            {
-                //heals all players in a 1 tile range
-                Vector3Int t = temp.Item1;
-                GlobalVars.players[t].Heal(healthBack);
-                Debug.Log("All players in 1 range are healed");
-            }
-
-            //turns off indicator
-            HealIndicators(false);
-
-            turnManager.Player_HardAction(playerCoord);
-
-            //Update player coord
-            GlobalVars.players.Remove(clickedCoord);
-        }
-        //resets a players power and defense incase they used an item
-        GlobalVars.players[playerCoord].power = playerPower;
-        GlobalVars.players[playerCoord].defense = playerDefense;
     }
     public void Move() {
         ClearIndicators();
@@ -562,74 +562,77 @@ public class InputManager : MonoBehaviour {
         }
     }
     public void Interact() {
-        Debug.Log("INTERACT");
+        if(turnManager.getActionUse(playerCoord)) 
+        {
+            Debug.Log("INTERACT");
 
-        if(GlobalVars.L2_trees.Contains(clickedCoord)) {
-            //Convert Tree to Laying Down, changing specific tiles sprites
-            TileScriptableObjects mainTileInfo = GlobalVars.hexagonTileRefrence[clickedCoord];
+            if(GlobalVars.L2_trees.Contains(clickedCoord)) {
+                //Convert Tree to Laying Down, changing specific tiles sprites
+                TileScriptableObjects mainTileInfo = GlobalVars.hexagonTileRefrence[clickedCoord];
 
-            foreach(Vector3Int offset in GlobalVars.hexagonTileRefrence[clickedCoord].tileChanges) {
-                Vector3Int newCoord = clickedCoord + offset;
+                foreach(Vector3Int offset in GlobalVars.hexagonTileRefrence[clickedCoord].tileChanges) {
+                    Vector3Int newCoord = clickedCoord + offset;
 
-                GameObject tileObj = GlobalVars.hexagonTile[newCoord];
-                tileObj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = mainTileInfo.objToChange.sprite;
-                GlobalVars.hexagonTileRefrence[newCoord] = mainTileInfo.objToChange;
+                    GameObject tileObj = GlobalVars.hexagonTile[newCoord];
+                    tileObj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = mainTileInfo.objToChange.sprite;
+                    GlobalVars.hexagonTileRefrence[newCoord] = mainTileInfo.objToChange;
+                }
+
+                GlobalVars.L2_trees.Remove(clickedCoord);
+
+                //Turn all enemies to generic ai
+                foreach(KeyValuePair<Vector3Int , Stats> enemy in GlobalVars.enemies) {
+                    enemy.Value.charType = "General";
+                }
             }
 
-            GlobalVars.L2_trees.Remove(clickedCoord);
+            if(GlobalVars.L3_trees.Contains(clickedCoord)) {
+                //Convert Tree to Laying Down, changing specific tiles sprites
+                TileScriptableObjects mainTileInfo = GlobalVars.hexagonTileRefrence[clickedCoord];
 
-            //Turn all enemies to generic ai
-            foreach(KeyValuePair<Vector3Int , Stats> enemy in GlobalVars.enemies) {
-                enemy.Value.charType = "General";
-            }
-        }
+                foreach(Vector3Int offset in GlobalVars.hexagonTileRefrence[clickedCoord].tileChanges) {
+                    Vector3Int newCoord = clickedCoord + offset;
 
-        if(GlobalVars.L3_trees.Contains(clickedCoord)) {
-            //Convert Tree to Laying Down, changing specific tiles sprites
-            TileScriptableObjects mainTileInfo = GlobalVars.hexagonTileRefrence[clickedCoord];
+                    GameObject tileObj = GlobalVars.hexagonTile[newCoord];
+                    tileObj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = mainTileInfo.objToChange.sprite;
+                    GlobalVars.hexagonTileRefrence[newCoord] = mainTileInfo.objToChange;
+                }
 
-            foreach(Vector3Int offset in GlobalVars.hexagonTileRefrence[clickedCoord].tileChanges) {
-                Vector3Int newCoord = clickedCoord + offset;
+                GlobalVars.L3_trees.Remove(clickedCoord);
 
-                GameObject tileObj = GlobalVars.hexagonTile[newCoord];
-                tileObj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = mainTileInfo.objToChange.sprite;
-                GlobalVars.hexagonTileRefrence[newCoord] = mainTileInfo.objToChange;
-            }
-
-            GlobalVars.L3_trees.Remove(clickedCoord);
-
-            //Turn all enemies to generic ai
-            foreach(KeyValuePair<Vector3Int , Stats> enemy in GlobalVars.enemies) {
-                enemy.Value.charType = "General";
-            }
-        }
-
-        if(GlobalVars.L4_Buttons.Contains(clickedCoord)) {
-            //Changes buttons tile to button pressed
-            TileScriptableObjects mainTileInfo = GlobalVars.hexagonTileRefrence[clickedCoord];
-
-            foreach(Vector3Int offset in GlobalVars.hexagonTileRefrence[clickedCoord].tileChanges) {
-                Vector3Int newCoord = clickedCoord + offset;
-
-                GameObject tileObj = GlobalVars.hexagonTile[newCoord];
-                tileObj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = mainTileInfo.objToChange.sprite;
-                GlobalVars.hexagonTileRefrence[newCoord] = mainTileInfo.objToChange;
+                //Turn all enemies to generic ai
+                foreach(KeyValuePair<Vector3Int , Stats> enemy in GlobalVars.enemies) {
+                    enemy.Value.charType = "General";
+                }
             }
 
-            GlobalVars.L4_Buttons.Remove(clickedCoord);
+            if(GlobalVars.L4_Buttons.Contains(clickedCoord)) {
+                //Changes buttons tile to button pressed
+                TileScriptableObjects mainTileInfo = GlobalVars.hexagonTileRefrence[clickedCoord];
 
-            if(GlobalVars.L4_Buttons.Count == 0) {
-                foreach(KeyValuePair<Vector3Int , TileScriptableObjects> tile in GlobalVars.hexagonTileRefrence) {
-                    if(tile.Value.sprite.name == "Cliff_Low_comp"){
-                        GameObject tileObj = GlobalVars.hexagonTile[tile.Key];
-                        tileObj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = tile.Value.objToChange.sprite;
-                        GlobalVars.hexagonTileRefrence[tile.Key] = tile.Value.objToChange;
+                foreach(Vector3Int offset in GlobalVars.hexagonTileRefrence[clickedCoord].tileChanges) {
+                    Vector3Int newCoord = clickedCoord + offset;
+
+                    GameObject tileObj = GlobalVars.hexagonTile[newCoord];
+                    tileObj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = mainTileInfo.objToChange.sprite;
+                    GlobalVars.hexagonTileRefrence[newCoord] = mainTileInfo.objToChange;
+                }
+
+                GlobalVars.L4_Buttons.Remove(clickedCoord);
+
+                if(GlobalVars.L4_Buttons.Count == 0) {
+                    foreach(KeyValuePair<Vector3Int , TileScriptableObjects> tile in GlobalVars.hexagonTileRefrence) {
+                        if(tile.Value.sprite.name == "Cliff_Low_comp") {
+                            GameObject tileObj = GlobalVars.hexagonTile[tile.Key];
+                            tileObj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = tile.Value.objToChange.sprite;
+                            GlobalVars.hexagonTileRefrence[tile.Key] = tile.Value.objToChange;
+                        }
                     }
                 }
             }
-        }
 
-        turnManager.Player_HardAction(playerCoord);
+            turnManager.Player_HardAction(playerCoord);
+        }
     }
 
     /*********************************
@@ -656,29 +659,35 @@ public class InputManager : MonoBehaviour {
     }
     public void AttackIndicators(bool onOff) 
     {
-        foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , playerAttRange, false)) {
-            Vector3Int t = temp.Item1;
-            GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(onOff);
+        if(!turnManager.getActionUse(playerCoord)) 
+        {
+            foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , playerAttRange , false)) {
+                Vector3Int t = temp.Item1;
+                GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(onOff);
+            }
         }
     }
     public void HealIndicators(bool onOff) 
     {
-        foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , 1, false)) {
-            Vector3Int t = temp.Item1;
-            GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(onOff);
+        if(!turnManager.getActionUse(playerCoord)) 
+        {
+            foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , 1 , false)) {
+                Vector3Int t = temp.Item1;
+                GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(onOff);
+            }
         }
     }
     public void InteractIndicators()
     {
-        foreach (KeyValuePair<Vector3Int, TileScriptableObjects> temp in GlobalVars.hexagonTileRefrence)
+        if(turnManager.getActionUse(playerCoord)) 
         {
-            Vector3Int t = temp.Key;
-            foreach (Tuple<Vector3Int, int> temp2 in Pathfinding.AllPossibleTiles(playerCoord, 1, true))
-            {
-                if (temp.Value.interactable)
-                {
-                    Vector3Int t2 = temp2.Item1;
-                    GlobalVars.hexagonTile[t2].transform.GetChild(5).gameObject.SetActive(true);
+            foreach(KeyValuePair<Vector3Int , TileScriptableObjects> temp in GlobalVars.hexagonTileRefrence) {
+                Vector3Int t = temp.Key;
+                foreach(Tuple<Vector3Int , int> temp2 in Pathfinding.AllPossibleTiles(playerCoord , 1 , true)) {
+                    if(temp.Value.interactable) {
+                        Vector3Int t2 = temp2.Item1;
+                        GlobalVars.hexagonTile[t2].transform.GetChild(5).gameObject.SetActive(true);
+                    }
                 }
             }
         }
