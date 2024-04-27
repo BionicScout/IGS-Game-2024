@@ -129,6 +129,10 @@ public class EnemyAi {
             loopIterations--;
         }
 
+        if(tilesAndScores.Count == 0) {
+            tilesAndScores.Add(new KeyValuePair<Vector3Int , float>(currentEnemy , 0));
+        }
+
         //Debug.Log("Finished");
 
         return tilesAndScores;
@@ -291,6 +295,7 @@ public class EnemyAi {
 
     List<KeyValuePair<Vector3Int , float>> GeneralScoreTiles(Stats enemyStats, Vector3Int currentEnemy) {
         List<KeyValuePair<Vector3Int, float>> tilesAndScores = getTiles(enemyStats, currentEnemy);
+        Debug.Log(tilesAndScores.Count);
 
         //Variables that are reused
         float score;
