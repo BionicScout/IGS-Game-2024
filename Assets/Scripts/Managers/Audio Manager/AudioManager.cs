@@ -93,7 +93,7 @@ public class AudioManager : MonoBehaviour {
             else {
                 AudioSource s = sounds[soundTrackIndexes[currentSoundTrack]].source;
                 s.volume = sounds[soundTrackIndexes[currentSoundTrack]].volume * ((fadeTime-fadeTimer) / fadeTime);
-                Debug.Log(s.volume);
+                //Debug.Log(s.volume);
             }
 
         }

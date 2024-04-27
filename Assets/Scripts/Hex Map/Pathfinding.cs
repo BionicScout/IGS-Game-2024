@@ -276,7 +276,7 @@ public static List<Tuple<Vector3Int , int>> AllPossibleTiles(Vector3Int startPos
         // Maximum iteration limit for path reconstruction
         int pathIterations = 0;
         //Debug.Log("---------------------------------------------------------------------------------------------------");
-        Debug.Log(currentPath + "\t" + searchList.ContainsKey(currentPath));
+        //Debug.Log(currentPath + "\t" + searchList.ContainsKey(currentPath));
 
         while(searchList[currentPath].previous != Vector3.one) {
             // Increment path reconstruction iteration count
@@ -291,7 +291,7 @@ public static List<Tuple<Vector3Int , int>> AllPossibleTiles(Vector3Int startPos
             // Add current path to the list and Move to the previous tile
             path.Add(currentPath);
             currentPath = searchList[currentPath].previous;
-            Debug.Log(currentPath);
+            //Debug.Log(currentPath);
         }
 
         // Add the last path

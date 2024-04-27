@@ -72,7 +72,7 @@ public class CharacterLoader : MonoBehaviour {
 
     public static void SpawnPlayer(Vector3Int spawnLoc, Stats playerStats) {
 
-        Debug.Log(GlobalVars.availableHexes.Count);
+        //Debug.Log(GlobalVars.availableHexes.Count);
         GameObject currentTileObj = GlobalVars.hexagonTile[spawnLoc];
         currentTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = playerStats.sprite;
 

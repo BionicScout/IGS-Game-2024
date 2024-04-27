@@ -227,11 +227,11 @@ public class TurnManager : MonoBehaviour {
                     Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
                     GlobalVars.players[command.attackTile] = stats;
 
-                    PlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
+                    //PlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
 
                     // Debug.Log("PLayer Health After: " + GlobalVars.players[command.attackTile].curHealth);
 
-                    AudioManager.instance.Play("Player-Hurt");
+                    AudioManager.instance.Play("Player Hurt");
 
                     GameObject newTileObj = GlobalVars.hexagonTile[command.attackTile];
                     newTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = stats.curHealth / stats.maxHealth;
@@ -266,11 +266,11 @@ public class TurnManager : MonoBehaviour {
                 Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
                 GlobalVars.players[command.attackTile] = stats;
 
-                PlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
+                //PlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
 
                 // Debug.Log("PLayer Health After: " + GlobalVars.players[command.attackTile].curHealth);
 
-                AudioManager.instance.Play("Player-Hurt");
+                AudioManager.instance.Play("Player Hurt");
 
                 GameObject newTileObj = GlobalVars.hexagonTile[command.attackTile];
                 newTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = stats.curHealth / stats.maxHealth;
@@ -294,7 +294,6 @@ public class TurnManager : MonoBehaviour {
                     playerTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
                     GlobalVars.players.Remove(command.attackTile);
                     //death audio
-                    AudioManager.instance.Play("Player-Hurt");
                 }
             }
         }
