@@ -67,9 +67,8 @@ public class TurnManager : MonoBehaviour {
             //Win
             if (GlobalVars.enemies.Count == 0) 
             {
-                PlayerMenu.SetActive(false);
-                //WinMenu.SetActive(true);
                 DialogueManager.GetInstance().EnterDialogueMode(DiaTrigger.outro);
+                PlayerMenu.SetActive(false);
             }
 
             //Lose

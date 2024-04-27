@@ -12,6 +12,6 @@ Lets do a brief rundown of all the items.
 we can skip the heal potion since we just went over that.
 Second in the list is a power buff, it'll increase that characters power for one turn.
 Third is a defense buff, its the same as the power buff but for your defense.
-Last we have the healing scroll which can heal all you charcters by 4 health points. 
+Last we have the healing scroll which can heal all you charcters by four health points. 
 
 Like always hit the end turn when you're done. #speaker:DEV 1 #portrait:DEV_Portrait_MC #layout:tutorial_right
