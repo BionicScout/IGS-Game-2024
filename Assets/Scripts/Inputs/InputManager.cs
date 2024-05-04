@@ -562,7 +562,8 @@ public class InputManager : MonoBehaviour {
         }
     }
     public void Interact() {
-        if(turnManager.getActionUse(playerCoord)) 
+        //Debug.Log(turnManager.getActionUse(playerCoord));
+        if(!turnManager.getActionUse(playerCoord)) 
         {
             Debug.Log("INTERACT");
 
