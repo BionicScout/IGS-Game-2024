@@ -239,88 +239,69 @@ public class InputManager : MonoBehaviour {
         Actions
     *********************************/
     public void Shoot(Vector3Int hexCoordOfEnemy , float damage) {
-        if(!turnManager.getActionUse(playerCoord)) 
-        {
-            Debug.Log("Shoot Function has started");
-            ClearIndicators();
-            int ogDodge = GlobalVars.players[playerCoord].dodge;
+        //Check if condtions are met
+        if(turnManager.getActionUse(playerCoord)) { Debug.Log("No More Action Points"); return; }
+        if(!GlobalVars.enemies.ContainsKey(clickedCoord)) { Debug.Log("No Enemy on Click"); return; }
+        if(Pathfinding.PathBetweenPoints(clickedCoord, playerCoord, false).Count > playerAttRange + 1) { Debug.Log("Target Not in Range"); return; }
 
-            if(GlobalVars.enemies.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord , playerCoord) <= playerAttRange + 1) {
-                Debug.Log("checked if enemy was in range");
-                //Get Player and current + future hex objs
-                Stats enemyStats = GlobalVars.enemies[clickedCoord];
-                GameObject enemyTileObj = GlobalVars.hexagonTile[clickedCoord];
+        ClearIndicators();
+        AttackIndicators(false);
 
-                if(InSmoke()) {
-                    Debug.Log("Checked if player is in smoke");
-                    GlobalVars.players[clickedCoord].dodge = smokeDodge;
-                    if(RollDodge() > GlobalVars.players[clickedCoord].dodge) {
-                        Debug.Log("Rolled and checked to see in the enemy dodged");
-                        //deals damage
-                        enemyStats.Damage(playerPower);
-                        Enemy_UpdateHealth(clickedCoord);
-                        Debug.Log("Damage was delt");
-                        Debug.Log("enemy health: " + enemyStats.curHealth);
-                        //attack audio
-                        AudioManager.instance.Play("Player Attack");
-                        //hit particles
-                        Instantiate(hitParticles , worldSpacePos , Quaternion.identity);
-                        GameObject newTileObj = GlobalVars.hexagonTile[clickedCoord];
-                        newTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = enemyStats.curHealth / enemyStats.maxHealth;
+        //Get player's and enemy's Stats
+        Stats playerStats = GlobalVars.players[playerCoord];
 
-                        //enemy death
-                        if(enemyStats.curHealth <= 0) {
-                            RemoveEnmey(hexCoordOfEnemy);
-                            enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
-                            //RollItems();
-                            //death audio
-                            newTileObj.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
-                            //AudioManager.instance.Play("Death-Sound");
-                        }
-                    }
-                    GlobalVars.players[clickedCoord].dodge = ogDodge;
-                }
-                else if(RollDodge() > GlobalVars.players[playerCoord].dodge) {
-                    Debug.Log("Rolled and checked to see in the enemy dodged");
-                    //deals damage
-                    Debug.Log("Damage was delt");
-                    enemyStats.Damage(playerPower);
-                    //attack audio
-                    AudioManager.instance.Play("Player Attack");
-                    //hit particles
-                    Instantiate(hitParticles , worldSpacePos , Quaternion.identity);
-                    //AudioManager.instance.Play("Enemy-Hurt");
+        Stats enemyStats = GlobalVars.enemies[clickedCoord];
+        GameObject enemyTileObj = GlobalVars.hexagonTile[clickedCoord];
 
+        int dodgeChange = enemyStats.dodge;
+        if(InSmoke())
+            dodgeChange = smokeDodge;
 
-                    GameObject newTileObj = GlobalVars.hexagonTile[clickedCoord];
-                    newTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = enemyStats.curHealth / enemyStats.maxHealth;
+        //Check if enemy Dodges
+        if(RollDodge() > dodgeChange) {
+            //Damage Enemy
+            enemyStats.Damage(playerPower);
+            Enemy_UpdateHealth(clickedCoord);
 
-                    //enemy death
-                    if(enemyStats.curHealth <= 0) {
-                        RemoveEnmey(hexCoordOfEnemy);
-                        enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
-                        //RollItems();
-                        //death audio
-                        newTileObj.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
-                        //AudioManager.instance.Play("Death-Sound");
-                    }
-                }
-                AttackIndicators(false);
+            //attack audio
+            AudioManager.instance.Play("Player Attack");
+            //hit particles
+            Instantiate(hitParticles , worldSpacePos , Quaternion.identity);
 
-                Pathfinding.AllPossibleTiles(clickedCoord , playerAttRange , false);
+            GameObject newTileObj = GlobalVars.hexagonTile[clickedCoord];
+            newTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = enemyStats.curHealth / enemyStats.maxHealth;
 
-                turnManager.Player_HardAction(playerCoord);
-
-                //Update player coord
-                GlobalVars.players.Remove(clickedCoord);
-
+            //enemy death
+            if(enemyStats.curHealth <= 0) {
+                RemoveEnmey(hexCoordOfEnemy);
+                enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
+                //RollItems();
+                //death audio
+                newTileObj.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
+                //AudioManager.instance.Play("Death-Sound");
             }
-            //resets a players power and defense incase they used an item
-            GlobalVars.players[playerCoord].power = playerPower;
-            GlobalVars.players[playerCoord].defense = playerDefense;
         }
-        
+        else
+            Debug.Log("Player Dodged");
+
+        //Update Unit Info
+        turnManager.Player_HardAction(playerCoord);
+        GlobalVars.players.Remove(clickedCoord);
+
+        //resets a players power and defense incase they used an item
+        clearItemEffects();
     }
+
+    public void clearItemEffects() {
+        GlobalVars.players[playerCoord].power = playerPower;
+        GlobalVars.players[playerCoord].defense = playerDefense;
+    }
+
+
+
+
+
+
     public void Wack(Vector3Int hexCoordOfEnemy , float damage) {
         Debug.Log("Wack Function has started");
         ClearIndicators();
@@ -662,7 +643,7 @@ public class InputManager : MonoBehaviour {
     {
         if(!turnManager.getActionUse(playerCoord)) 
         {
-            foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , playerAttRange , false)) {
+            foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , playerAttRange - 1 , false)) {
                 Vector3Int t = temp.Item1;
                 GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(onOff);
             }
