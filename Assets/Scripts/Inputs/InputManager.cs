@@ -144,13 +144,13 @@ public class InputManager : MonoBehaviour {
                 if (GlobalVars.players[playerCoord].charType == "Swordsman" || GlobalVars.players[playerCoord].charType == "Spearman" || GlobalVars.players[playerCoord].charType == "Paladin")
                 {
                     Debug.Log("Wack function was called");
-                    Wack(clickedCoord, 2);
+                    Shoot(clickedCoord);
                     inputMode = modes.normal;
                 }
                 else if (GlobalVars.players[playerCoord].charType == "Archer" || GlobalVars.players[playerCoord].charType == "Crossbowman")
                 {
                     Debug.Log("Shoot function was called");
-                    Shoot(clickedCoord, 2);
+                    Shoot(clickedCoord);
                     inputMode = modes.normal;
                 }
                 else if(GlobalVars.players[playerCoord].charType == "Alchemist")
@@ -238,7 +238,7 @@ public class InputManager : MonoBehaviour {
     /*********************************
         Actions
     *********************************/
-    public void Shoot(Vector3Int hexCoordOfEnemy , float damage) {
+    public void Shoot(Vector3Int hexCoordOfEnemy) {
         //Check if condtions are met
         if(turnManager.getActionUse(playerCoord)) { Debug.Log("No More Action Points"); return; }
         if(!GlobalVars.enemies.ContainsKey(clickedCoord)) { Debug.Log("No Enemy on Click"); return; }
@@ -299,95 +299,6 @@ public class InputManager : MonoBehaviour {
 
 
 
-
-
-
-    public void Wack(Vector3Int hexCoordOfEnemy , float damage) {
-        Debug.Log("Wack Function has started");
-        ClearIndicators();
-        int ogDodge = GlobalVars.players[playerCoord].dodge;
-
-        Pathfinding.AllPossibleTiles(clickedCoord , 1 , false);
-
-        if(GlobalVars.enemies.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord , playerCoord) <= playerAttRange + 1) {
-            Debug.Log("checked if enemy was in range");
-            //Get Player and current + future hex objs
-            Stats enemyStats = GlobalVars.enemies[clickedCoord];
-            GameObject enemyTileObj = GlobalVars.hexagonTile[clickedCoord];
-            //checks if player is in smoke and sets the illusionists power as the characters dodge
-            if (InSmoke())
-            {
-                Debug.Log("Checked if player is in smoke");
-                GlobalVars.players[clickedCoord].dodge = smokeDodge;
-                //sees if the player misses the attack
-                if (RollDodge() > GlobalVars.players[clickedCoord].dodge)
-                {
-                    Debug.Log("Rolled and checked to see in the enemy dodged");
-                    //deals damage
-                    Debug.Log("Damage was delt");
-                    enemyStats.Damage(playerPower);
-                    Enemy_UpdateHealth(clickedCoord);
-                    //attack audio
-                    AudioManager.instance.Play("Player Attack");
-                    //hit particles
-                    Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
-
-                    GameObject newTileObj = GlobalVars.hexagonTile[clickedCoord];
-                    newTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = enemyStats.curHealth / enemyStats.maxHealth;
-
-                    //enemy death
-                    if (enemyStats.curHealth <= 0) {
-                        enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
-                        //RollItems();
-                        RemoveEnmey(hexCoordOfEnemy);
-                        //death audio
-                        newTileObj.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
-                        //AudioManager.instance.Play("Death-Sound");
-                    }
-                }
-                //resets the players dodge
-                GlobalVars.players[clickedCoord].dodge = ogDodge;
-            }
-            //sees if the player misses the attack
-            else if (RollDodge() > GlobalVars.players[playerCoord].dodge)
-            {
-                Debug.Log("Rolled and checked to see in the enemy dodged");
-                //deals damage
-                Debug.Log("Damage was delt");
-                enemyStats.Damage(playerPower);
-                //attack audio
-                AudioManager.instance.Play("Player Attack");
-                //hit particles
-                Instantiate(hitParticles, worldSpacePos, Quaternion.identity);
-
-                GameObject newTileObj = GlobalVars.hexagonTile[clickedCoord];
-                newTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = enemyStats.curHealth / enemyStats.maxHealth;
-
-                //enemy death
-                if (enemyStats.curHealth <= 0)
-                {
-                    Debug.Log("Enemy was killed");
-                    enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = null;
-                    //RollItems();
-                    RemoveEnmey(hexCoordOfEnemy);
-                    //death audio
-                    newTileObj.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
-                    //AudioManager.instance.Play("Death-Sound");
-                    
-                }
-            }
-            //enemyTileObj.transform.GetChild(2).GetComponent<SpriteRenderer>().color = Color.white;
-            AttackIndicators(false);
-
-            turnManager.Player_HardAction(playerCoord);
-
-            //Update player coord
-            GlobalVars.players.Remove(clickedCoord);
-        }
-        //resets a players power and defense incase they used an item
-        GlobalVars.players[playerCoord].power = playerPower;
-        GlobalVars.players[playerCoord].defense = playerDefense;
-    }
     public void Poison() 
     {
         ClearIndicators();
@@ -928,14 +839,6 @@ public class InputManager : MonoBehaviour {
 
         currentTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = enemyStats.curHealth / enemyStats.maxHealth;
     }
-
-
-
-
-
-
-
-
 
 
     public void moveRadioWheel() {
