@@ -57,6 +57,7 @@ public class InputManager : MonoBehaviour {
     public Camera cam;
 
     TurnManager turnManager;
+    TileIndicators tileIndicators;
 
     /*********************************
         Start and Update
@@ -67,6 +68,7 @@ public class InputManager : MonoBehaviour {
         statsMenu.SetActive(false);
         itemMenu.SetActive(false);
         turnManager = FindAnyObjectByType<TurnManager>();
+        tileIndicators = FindAnyObjectByType<TileIndicators>();
         Debug.Log("Hello World");
 
         selectPlayer(0);
@@ -106,7 +108,7 @@ public class InputManager : MonoBehaviour {
                 Vector3Int t = temp.Item1;
                 GlobalVars.hexagonTile[t].transform.GetChild(5).gameObject.SetActive(false);
             }
-            ClearIndicators();
+            tileIndicators.ClearIndicators(playerCoord);
             GlobalVars.hexagonTile[clickedCoord].transform.GetChild(5).gameObject.SetActive(true);
 
             worldSpacePos = mousePos;
@@ -135,7 +137,7 @@ public class InputManager : MonoBehaviour {
                     }
 
                     //sets all indicators false when players are clicked
-                    ClearIndicators();
+                    tileIndicators.ClearIndicators(playerCoord);
 
                 }
             }
@@ -203,8 +205,8 @@ public class InputManager : MonoBehaviour {
         Update Input Mode
     *********************************/
     public void SetAttack() {
-        ClearIndicators();
-        AttackIndicators(true);
+        tileIndicators.ClearIndicators(playerCoord);
+        tileIndicators.AttackIndicators(true, playerCoord, playerAttRange);
         inputMode = modes.attack;
         clickedUI = true;
     }
@@ -213,25 +215,25 @@ public class InputManager : MonoBehaviour {
             return;
         }
 
-        ClearIndicators();
-        MoveIndicators(true);
+        tileIndicators.ClearIndicators(playerCoord);
+        tileIndicators.MoveIndicators(true, playerCoord);
         inputMode = modes.move;
         clickedUI = true;
     }
     public void SetSmoke() {
-        ClearIndicators();
+        tileIndicators.ClearIndicators(playerCoord);
         inputMode = modes.AOE;
         clickedUI = true;
     }
     public void SetHeal() {
-        ClearIndicators();
+        tileIndicators.ClearIndicators(playerCoord);
         inputMode = modes.heal;
         clickedUI = true;
     }
     public void SetInteract()
     {
-        ClearIndicators();
-        InteractIndicators();
+        tileIndicators.ClearIndicators(playerCoord);
+        tileIndicators.InteractIndicators(playerCoord);
         inputMode = modes.interact;
     }
 
@@ -244,8 +246,8 @@ public class InputManager : MonoBehaviour {
         if(!GlobalVars.enemies.ContainsKey(clickedCoord)) { Debug.Log("No Enemy on Click"); return; }
         if(Pathfinding.PathBetweenPoints(clickedCoord, playerCoord, false).Count > playerAttRange + 1) { Debug.Log("Target Not in Range"); return; }
 
-        ClearIndicators();
-        AttackIndicators(false);
+        tileIndicators.ClearIndicators(playerCoord);
+        tileIndicators.AttackIndicators(false, playerCoord, playerAttRange);
 
         //Get player's and enemy's Stats
         Stats playerStats = GlobalVars.players[playerCoord];
@@ -298,17 +300,16 @@ public class InputManager : MonoBehaviour {
     }
 
 
-
     public void Poison() 
     {
-        ClearIndicators();
+        tileIndicators.ClearIndicators(playerCoord);
         turnManager.Player_HardAction(playerCoord);
 
         if (GlobalVars.players[playerCoord].charLevel <= 2)
         {
             if (Vector3Int.Distance(clickedCoord, playerCoord) <= playerAttRange + 1)
             {
-                AttackIndicators(false);
+                tileIndicators.AttackIndicators(false, playerCoord, playerAttRange);
                 //adds selected tile to a dictionary and sets an indicaotor active
                 GlobalVars.poisonTiles.Add(clickedCoord, 2);
                 GlobalVars.hexagonTile[clickedCoord].transform.GetChild(4).gameObject.SetActive(true);
@@ -345,12 +346,12 @@ public class InputManager : MonoBehaviour {
     }
     public void SmokeBomb()
     {
-        ClearIndicators();
+        tileIndicators.ClearIndicators(playerCoord);
         turnManager.Player_HardAction(playerCoord);
 
         if (Vector3Int.Distance(clickedCoord, playerCoord) <= playerAttRange + 1)
         {
-            AttackIndicators(false);
+            tileIndicators.AttackIndicators(false, playerCoord, playerAttRange);
 
             foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(clickedCoord, 1, false))
             {
@@ -370,7 +371,7 @@ public class InputManager : MonoBehaviour {
         GlobalVars.players[playerCoord].defense = playerDefense;
     }
     public void Heal(int healthBack) {
-        ClearIndicators();
+        tileIndicators.ClearIndicators(playerCoord);
         if(turnManager.getActionUse(playerCoord)) 
         {
             if(GlobalVars.players[clickedCoord].charLevel == 1) {
@@ -385,7 +386,7 @@ public class InputManager : MonoBehaviour {
                     Debug.Log("Player Healed!!");
 
                     //turns off indicator
-                    HealIndicators(false);
+                    tileIndicators.HealIndicators(false, playerCoord);
 
                     turnManager.Player_HardAction(playerCoord);
 
@@ -405,7 +406,7 @@ public class InputManager : MonoBehaviour {
                 }
 
                 //turns off indicator
-                HealIndicators(false);
+                tileIndicators.HealIndicators(false, playerCoord);
 
                 turnManager.Player_HardAction(playerCoord);
 
@@ -418,7 +419,7 @@ public class InputManager : MonoBehaviour {
         }
     }
     public void Move() {
-        ClearIndicators();
+        tileIndicators.ClearIndicators(playerCoord);
 
         Debug.Log(Pathfinding.PathBetweenPoints(clickedCoord , playerCoord , false).Count);
 
@@ -442,7 +443,7 @@ public class InputManager : MonoBehaviour {
                 Debug.Log("Hi");
                 Movement.movePlayer(playerCoord , clickedCoord);
                 //moveRadioWheel();
-                MoveIndicators(false);
+                tileIndicators.MoveIndicators(false, playerCoord);
                 TakePoison();
 
                 AudioManager.instance.Play("Move");
@@ -531,69 +532,7 @@ public class InputManager : MonoBehaviour {
     /*********************************
         Tile Indicators
     *********************************/
-    public void MoveIndicators(bool onOff) 
-    {
-        int moveRange = turnManager.getMovementLeft(playerCoord);
-        if(moveRange >= 0)
-        {
-            foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , moveRange - 1 , true)) {
-                Vector3Int t = temp.Item1;
-                GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(onOff);
-            }
-        }
-        else if(moveRange == 0)
-        {
-            foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, 1 , true))
-            {
-                Vector3Int t = temp.Item1;
-                GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(onOff);
-            }
-        }
-    }
-    public void AttackIndicators(bool onOff) 
-    {
-        if(!turnManager.getActionUse(playerCoord)) 
-        {
-            foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , playerAttRange - 1 , false)) {
-                Vector3Int t = temp.Item1;
-                GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(onOff);
-            }
-        }
-    }
-    public void HealIndicators(bool onOff) 
-    {
-        if(!turnManager.getActionUse(playerCoord)) 
-        {
-            foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , 1 , false)) {
-                Vector3Int t = temp.Item1;
-                GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(onOff);
-            }
-        }
-    }
-    public void InteractIndicators()
-    {
-        if(turnManager.getActionUse(playerCoord)) 
-        {
-            foreach(KeyValuePair<Vector3Int , TileScriptableObjects> temp in GlobalVars.hexagonTileRefrence) {
-                Vector3Int t = temp.Key;
-                foreach(Tuple<Vector3Int , int> temp2 in Pathfinding.AllPossibleTiles(playerCoord , 1 , true)) {
-                    if(temp.Value.interactable) {
-                        Vector3Int t2 = temp2.Item1;
-                        GlobalVars.hexagonTile[t2].transform.GetChild(5).gameObject.SetActive(true);
-                    }
-                }
-            }
-        }
-    }
-    public void ClearIndicators()
-    {
-        foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, 50, false))
-        {
-            Vector3Int t = temp.Item1;
-            GlobalVars.hexagonTile[t].transform.GetChild(3).gameObject.SetActive(false);
-            GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(false);
-        }
-    }
+
 
     /*********************************
         UI
@@ -878,7 +817,7 @@ public class InputManager : MonoBehaviour {
                 }
 
                 //sets all indicators false when players are clicked
-                ClearIndicators();
+                tileIndicators.ClearIndicators(playerCoord);
             }
         }
     }
