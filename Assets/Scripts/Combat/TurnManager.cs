@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class TurnManager : MonoBehaviour {
     List<Vector3Int> playerCoords;
@@ -30,6 +31,8 @@ public class TurnManager : MonoBehaviour {
     public string nextLevel;
     bool endState = false;
 
+    UnitUtilites unitUtilites;
+
     private void Start() {
         playerCoords = new List<Vector3Int>();
         playerMovement = new List<int>(); //Movement speed left
@@ -39,6 +42,8 @@ public class TurnManager : MonoBehaviour {
         worldSpacePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         allPlayerTurnsUsed = false;
+
+        unitUtilites = FindAnyObjectByType<UnitUtilites>();
 
         foreach(KeyValuePair<Vector3Int, Stats> playerInfo in GlobalVars.players) {
             playerCoords.Add(playerInfo.Key);
@@ -225,10 +230,10 @@ public class TurnManager : MonoBehaviour {
 
             //Debug.Log("PLayer Health After: " + GlobalVars.players[command.attackTile].curHealth);
 
-            if (InputManager.InSmoke())
+            if (unitUtilites.InSmoke())
             {
                 enemystats.dodge = InputManager.smokeDodge;
-                if(InputManager.RollDodge() > enemystats.dodge)
+                if(Random.Range(1 , 100) > enemystats.dodge)
                 {
                     Stats stats = GlobalVars.players[command.attackTile];
                     stats.curHealth -= stats.Damage(enemystats.power);
@@ -267,7 +272,7 @@ public class TurnManager : MonoBehaviour {
                 }
                 enemystats.dodge = ogDodge;
             }
-            else if(InputManager.RollDodge() > enemystats.dodge)
+            else if(Random.Range(1 , 100) > enemystats.dodge)
             {
                 Stats stats = GlobalVars.players[command.attackTile];
                 stats.curHealth -= stats.Damage(enemystats.power);
