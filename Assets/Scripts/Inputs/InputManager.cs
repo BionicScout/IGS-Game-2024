@@ -159,7 +159,7 @@ public class InputManager : MonoBehaviour {
                 }
                 else if(GlobalVars.players[playerCoord].charType == "Alchemist")
                 {
-                    Poison();
+                    playerActions.Poison(clickedCoord, playerCoord);
                     inputMode = modes.normal;
                 }
                 else if (GlobalVars.players[clickedCoord].charType == "Cleric")
