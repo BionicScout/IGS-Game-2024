@@ -243,50 +243,6 @@ public class InputManager : MonoBehaviour {
         Actions
     *********************************/
    
-    public void Poison() 
-    {
-        tileIndicators.ClearIndicators(playerCoord);
-        turnManager.Player_HardAction(playerCoord);
-
-        if (GlobalVars.players[playerCoord].charLevel <= 2)
-        {
-            if (Vector3Int.Distance(clickedCoord, playerCoord) <= playerAttRange + 1)
-            {
-                tileIndicators.AttackIndicators(false, playerCoord, playerAttRange);
-                //adds selected tile to a dictionary and sets an indicaotor active
-                GlobalVars.poisonTiles.Add(clickedCoord, 2);
-                GlobalVars.hexagonTile[clickedCoord].transform.GetChild(4).gameObject.SetActive(true);
-
-                Pathfinding.AllPossibleTiles(clickedCoord, playerAttRange , false);
-
-                //Update player coord
-                GlobalVars.players.Remove(clickedCoord);
-            }
-        }
-        else if (GlobalVars.players[playerCoord].charLevel == 3)
-        {
-            foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(playerCoord, 1, false))
-            {
-                //adds selected tiles to a dictionary and sets an indicaotors active
-                Vector3Int t = temp.Item1;
-                GlobalVars.poisonTiles.Add(t, 2);
-                foreach (Tuple<Vector3Int, int> coord in Pathfinding.AllPossibleTiles(clickedCoord, 1, false))
-                {
-                    Vector3Int c = coord.Item1;
-                    GlobalVars.poisonTiles.Add(t, 2);
-                    GlobalVars.hexagonTile[c].transform.GetChild(4).gameObject.SetActive(true);
-                }
-            }
-
-            Pathfinding.AllPossibleTiles(clickedCoord, playerAttRange, false);
-
-            //Update player coord
-            GlobalVars.players.Remove(clickedCoord);
-        }
-        //resets a players power and defense incase they used an item
-        GlobalVars.players[playerCoord].power = playerPower;
-        GlobalVars.players[playerCoord].defense = playerDefense;
-    }
     public void SmokeBomb()
     {
         tileIndicators.ClearIndicators(playerCoord);
