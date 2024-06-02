@@ -8,7 +8,8 @@ using Image = UnityEngine.UI.Image;
 
 
 public class InputManager : MonoBehaviour {
-    enum modes {
+    public enum modes {
+        undefined = -1,
         normal = 0,
         attack = 1,
         move = 2,
@@ -17,7 +18,10 @@ public class InputManager : MonoBehaviour {
         interact = 5
     }
 
-    modes inputMode;
+    [HideInInspector]
+    public modes inputMode;
+
+
     public bool clickedUI = false;
     public Items items;
 
@@ -42,22 +46,44 @@ public class InputManager : MonoBehaviour {
     public GameObject itemMenu;
     public GameObject radioMenu;
 
-    [Header("Text")]
-    public TextMeshProUGUI moveTxt;
-    public TextMeshProUGUI powerTxt;
-    public TextMeshProUGUI defenseTxt;
-    public TextMeshProUGUI healthTxt;
-    public TextMeshProUGUI powerRangeTxt;
-    public TextMeshProUGUI charTypeTxt;
 
 
     //HexObjInfo hexObjInfo;
-
+    [Header("Other")]
     public Camera cam;
 
     TurnManager turnManager;
     TileIndicators tileIndicators;
     PlayerAction playerActions;
+    CombatUI combatUI;
+
+
+
+
+
+
+
+
+
+    public Vector3Int getClickedCoord() {
+        return clickedCoord;
+    }
+
+    public Vector3Int getPlayerCoord() {
+        return playerCoord;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     /*********************************
         Start and Update
@@ -71,6 +97,7 @@ public class InputManager : MonoBehaviour {
         turnManager = FindAnyObjectByType<TurnManager>();
         tileIndicators = FindAnyObjectByType<TileIndicators>();
         playerActions = FindAnyObjectByType<PlayerAction>();
+        combatUI = FindAnyObjectByType<CombatUI>();
         Debug.Log("Hello World");
 
         selectPlayer(0);
@@ -91,6 +118,7 @@ public class InputManager : MonoBehaviour {
             image.sprite = player.Value.squareSprite;
             i++;
         }
+
     }
 
     void Update() {
@@ -119,7 +147,7 @@ public class InputManager : MonoBehaviour {
             if(hit.collider != null) {
                 if (GlobalVars.players.ContainsKey(clickedCoord)) {
                     playerCoord = clickedCoord;
-                    UpdatePlayerMenu();
+                    combatUI.UpdatePlayerMenu();
 
                     //gets players stats annd stores them
                     playerMove = GlobalVars.players[clickedCoord].move;
@@ -164,430 +192,50 @@ public class InputManager : MonoBehaviour {
                 }
                 else if (GlobalVars.players[clickedCoord].charType == "Cleric")
                 {
-                    Heal(GlobalVars.players[clickedCoord].power);
+                    playerActions.Heal(GlobalVars.players[clickedCoord].power, clickedCoord , playerCoord);
                     inputMode = modes.normal;
                 }
                 else if (GlobalVars.players[playerCoord].charType == "Illusionist")
                 {
-                    SmokeBomb();
+                    playerActions.SmokeBomb(clickedCoord , playerCoord);
                     inputMode = modes.normal;
                 }
             }
             else if(inputMode == modes.move) {
-                Move();
+                playerActions.Move(clickedCoord , playerCoord);
                 inputMode = modes.normal;
             }
             else if (inputMode == modes.AOE)
             {
-                SmokeBomb();
+                playerActions.SmokeBomb(clickedCoord , playerCoord);
                 inputMode = modes.normal;
             }
             else if (inputMode == modes.heal)
             {
-                Heal(playerPower);
+                playerActions.Heal(playerPower, clickedCoord , playerCoord);
                 inputMode = modes.normal;
             }
             else if(inputMode == modes.interact)
             {
-                Interact();
+                playerActions.Interact(clickedCoord , playerCoord);
                 inputMode = modes.normal;
             }
         }
 
         //Debug stuff
         if(Input.GetKeyDown(KeyCode.G)) {
-            UpdateHealth(-1);
+            combatUI.UpdateHealth(-1);
         }
         if(Input.GetKeyDown(KeyCode.H)) {
-            UpdateHealth(1);
+            combatUI.UpdateHealth(1);
         }
     }
 
-    /*********************************
-        Update Input Mode
-    *********************************/
-    public void SetAttack() {
-        tileIndicators.ClearIndicators(playerCoord);
-        tileIndicators.AttackIndicators(true, playerCoord, playerAttRange);
-        inputMode = modes.attack;
-        clickedUI = true;
-    }
-    public void SetMove() {
-        if(turnManager.getMovementLeft(playerCoord) <= 0) {
-            return;
-        }
-
-        tileIndicators.ClearIndicators(playerCoord);
-        tileIndicators.MoveIndicators(true, playerCoord);
-        inputMode = modes.move;
-        clickedUI = true;
-    }
-    public void SetSmoke() {
-        tileIndicators.ClearIndicators(playerCoord);
-        inputMode = modes.AOE;
-        clickedUI = true;
-    }
-    public void SetHeal() {
-        tileIndicators.ClearIndicators(playerCoord);
-        inputMode = modes.heal;
-        clickedUI = true;
-    }
-    public void SetInteract()
-    {
-        tileIndicators.ClearIndicators(playerCoord);
-        tileIndicators.InteractIndicators(playerCoord);
-        inputMode = modes.interact;
-    }
-
-    /*********************************
-        Actions
-    *********************************/
-   
-    public void SmokeBomb()
-    {
-        tileIndicators.ClearIndicators(playerCoord);
-        turnManager.Player_HardAction(playerCoord);
-
-        if (Vector3Int.Distance(clickedCoord, playerCoord) <= playerAttRange + 1)
-        {
-            tileIndicators.AttackIndicators(false, playerCoord, playerAttRange);
-
-            foreach (Tuple<Vector3Int, int> temp in Pathfinding.AllPossibleTiles(clickedCoord, 1, false))
-            {
-                //adds selected tiles to a dictionary and sets an indicaotors active
-                Vector3Int t = temp.Item1;
-                GlobalVars.smokeTiles.Add(t, 2);
-                GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(true);
-            }
-            Pathfinding.AllPossibleTiles(clickedCoord, playerAttRange, false);
-
-            //Update player coord
-            GlobalVars.players.Remove(clickedCoord);
-            AudioManager.instance.Play("Potion");
-        }
-        //resets a players power and defense incase they used an item
-        GlobalVars.players[playerCoord].power = playerPower;
-        GlobalVars.players[playerCoord].defense = playerDefense;
-    }
-    public void Heal(int healthBack) {
-        tileIndicators.ClearIndicators(playerCoord);
-        if(turnManager.getActionUse(playerCoord)) 
-        {
-            if(GlobalVars.players[clickedCoord].charLevel == 1) {
-                if(GlobalVars.players.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord , playerCoord) <= 2) {
-                    //Get Player and current + future hex objs
-                    Stats playerStats = GlobalVars.players[clickedCoord];
-                    GameObject playerTileObj = GlobalVars.hexagonTile[clickedCoord];
-
-                    //heal player
-                    playerStats.Heal(healthBack);
-                    Player_UpdateHealth(clickedCoord);
-                    Debug.Log("Player Healed!!");
-
-                    //turns off indicator
-                    tileIndicators.HealIndicators(false, playerCoord);
-
-                    turnManager.Player_HardAction(playerCoord);
-
-                    //Update player coord
-                    GlobalVars.players.Remove(clickedCoord);
-
-                    GameObject newTileObj = GlobalVars.hexagonTile[clickedCoord];
-                    newTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = playerStats.curHealth / playerStats.maxHealth;
-                }
-            }
-            else if(GlobalVars.players[clickedCoord].charLevel == 2) {
-                foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , 1 , false)) {
-                    //heals all players in a 1 tile range
-                    Vector3Int t = temp.Item1;
-                    GlobalVars.players[t].Heal(healthBack);
-                    Debug.Log("All players in 1 range are healed");
-                }
-
-                //turns off indicator
-                tileIndicators.HealIndicators(false, playerCoord);
-
-                turnManager.Player_HardAction(playerCoord);
-
-                //Update player coord
-                GlobalVars.players.Remove(clickedCoord);
-            }
-            //resets a players power and defense incase they used an item
-            GlobalVars.players[playerCoord].power = playerPower;
-            GlobalVars.players[playerCoord].defense = playerDefense;
-        }
-    }
-    public void Move() {
-        tileIndicators.ClearIndicators(playerCoord);
-
-        Debug.Log(Pathfinding.PathBetweenPoints(clickedCoord , playerCoord , false).Count);
-
-        int moveRange = turnManager.getMovementLeft(playerCoord);
-        List<Tuple<Vector3Int , int>> possibles = Pathfinding.AllPossibleTiles(clickedCoord , moveRange,  true);
-
-
-        foreach(Tuple<Vector3Int , int> temp in possibles) {
-            Debug.Log("--------------------");
-            int dist = Pathfinding.PathBetweenPoints(temp.Item1 , playerCoord , false).Count - 1;
-
-            foreach(Vector3Int pos in Pathfinding.PathBetweenPoints(temp.Item1 , playerCoord , true)) {
-                Debug.Log(pos);
-            }
-
-            Debug.Log(dist);
-            //Debug.Log();
-
-            if(temp.Item1 == clickedCoord && dist <= moveRange + 1) 
-            {
-                Debug.Log("Hi");
-                Movement.movePlayer(playerCoord , clickedCoord);
-                //moveRadioWheel();
-                tileIndicators.MoveIndicators(false, playerCoord);
-                TakePoison();
-
-                AudioManager.instance.Play("Move");
-
-                turnManager.Player_Move(playerCoord , dist, clickedCoord);
-                playerCoord = clickedCoord;
-                break;
-            }
-        }
-    }
-    public void Interact() {
-        //Debug.Log(turnManager.getActionUse(playerCoord));
-        if(!turnManager.getActionUse(playerCoord)) 
-        {
-            Debug.Log("INTERACT");
-
-            if(GlobalVars.L2_trees.Contains(clickedCoord)) {
-                //Convert Tree to Laying Down, changing specific tiles sprites
-                TileScriptableObjects mainTileInfo = GlobalVars.hexagonTileRefrence[clickedCoord];
-
-                foreach(Vector3Int offset in GlobalVars.hexagonTileRefrence[clickedCoord].tileChanges) {
-                    Vector3Int newCoord = clickedCoord + offset;
-
-                    GameObject tileObj = GlobalVars.hexagonTile[newCoord];
-                    tileObj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = mainTileInfo.objToChange.sprite;
-                    GlobalVars.hexagonTileRefrence[newCoord] = mainTileInfo.objToChange;
-                }
-
-                GlobalVars.L2_trees.Remove(clickedCoord);
-
-                //Turn all enemies to generic ai
-                foreach(KeyValuePair<Vector3Int , Stats> enemy in GlobalVars.enemies) {
-                    enemy.Value.charType = "General";
-                }
-            }
-
-            if(GlobalVars.L3_trees.Contains(clickedCoord)) {
-                //Convert Tree to Laying Down, changing specific tiles sprites
-                TileScriptableObjects mainTileInfo = GlobalVars.hexagonTileRefrence[clickedCoord];
-
-                foreach(Vector3Int offset in GlobalVars.hexagonTileRefrence[clickedCoord].tileChanges) {
-                    Vector3Int newCoord = clickedCoord + offset;
-
-                    GameObject tileObj = GlobalVars.hexagonTile[newCoord];
-                    tileObj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = mainTileInfo.objToChange.sprite;
-                    GlobalVars.hexagonTileRefrence[newCoord] = mainTileInfo.objToChange;
-                }
-
-                GlobalVars.L3_trees.Remove(clickedCoord);
-
-                //Turn all enemies to generic ai
-                foreach(KeyValuePair<Vector3Int , Stats> enemy in GlobalVars.enemies) {
-                    enemy.Value.charType = "General";
-                }
-            }
-
-            if(GlobalVars.L4_Buttons.Contains(clickedCoord)) {
-                //Changes buttons tile to button pressed
-                TileScriptableObjects mainTileInfo = GlobalVars.hexagonTileRefrence[clickedCoord];
-
-                foreach(Vector3Int offset in GlobalVars.hexagonTileRefrence[clickedCoord].tileChanges) {
-                    Vector3Int newCoord = clickedCoord + offset;
-
-                    GameObject tileObj = GlobalVars.hexagonTile[newCoord];
-                    tileObj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = mainTileInfo.objToChange.sprite;
-                    GlobalVars.hexagonTileRefrence[newCoord] = mainTileInfo.objToChange;
-                }
-
-                GlobalVars.L4_Buttons.Remove(clickedCoord);
-
-                if(GlobalVars.L4_Buttons.Count == 0) {
-                    foreach(KeyValuePair<Vector3Int , TileScriptableObjects> tile in GlobalVars.hexagonTileRefrence) {
-                        if(tile.Value.sprite.name == "Cliff_Low_comp") {
-                            GameObject tileObj = GlobalVars.hexagonTile[tile.Key];
-                            tileObj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = tile.Value.objToChange.sprite;
-                            GlobalVars.hexagonTileRefrence[tile.Key] = tile.Value.objToChange;
-                        }
-                    }
-                }
-            }
-
-            turnManager.Player_HardAction(playerCoord);
-        }
-    }
-
-    /*********************************
-        UI
-    *********************************/
-    void UpdatePlayerMenu() {
-        statsMenu.SetActive(false);
-
-        Stats stats = GlobalVars.players[playerCoord];
-        //updates sprites and health
-        selectedPlayerMenu.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = stats.squareSprite;
-        //selectedPlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
-    }
-    //sets a menu active and changes all the information
-    public void StatsMenu() {
-        statsMenu.SetActive(!statsMenu.activeSelf);
-
-        Stats stats = GlobalVars.players[playerCoord];
-        charTypeTxt.text = stats.charType.ToString();
-        moveTxt.text = stats.move.ToString();
-        powerTxt.text =  stats.power.ToString();
-        defenseTxt.text = stats.defense.ToString();
-        healthTxt.text = stats.maxHealth.ToString();
-        powerRangeTxt.text = stats.attackRange.ToString();
-    }
-    //sets a menu active and changes all the information
-    public void ItemMenu()
-    {
-        itemMenu.SetActive(!itemMenu.activeSelf);
-
-        items.singleHealTxt.text = "x" + items.singleHealAMT.ToString();
-        items.powerBuffTxt.text = "x" + items.powerBuffAMT.ToString();
-        items.defenseBuffTxt.text = "x" + items.defenseBuffAMT.ToString();
-        items.healScrollTxt.text = "x" + items.healScrollAMT.ToString();
-    }
-    public void UpdateHealth(float healthOffset) {
-        Stats stats = GlobalVars.players[playerCoord];
-        stats.curHealth += healthOffset;
-        GlobalVars.players[playerCoord] = stats;
-        Player_UpdateHealth(playerCoord);
-
-        selectedPlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
-    }
-
-    /*********************************
-            Item Functions
-    *********************************/
-    public void SingleHeal()
-    {
-        //heals the character
-        if(items.singleHealAMT != 0)
-        {
-            Debug.Log("Player was Healed and item was used");
-            if (GlobalVars.players[playerCoord].curHealth + 7 >= GlobalVars.players[playerCoord].maxHealth)
-            {
-                GlobalVars.players[playerCoord].curHealth = GlobalVars.players[playerCoord].maxHealth;
-                UpdateHealth(GlobalVars.players[playerCoord].curHealth);
-            }
-            GlobalVars.players[playerCoord].curHealth += 7;
-            UpdateHealth(GlobalVars.players[playerCoord].curHealth);
-            AudioManager.instance.Play("Potion");
-            Player_UpdateHealth(playerCoord);
-            items.singleHealAMT--;
-            turnManager.Player_PotionAction(playerCoord);
-        }
-
-        ItemMenu();
-    }
-    //adds one to the characters power 
-    public void PowerBuff()
-    {
-        items.powerBuffUsed = true;
-        if(items.powerBuffAMT != 0)
-        {
-            GlobalVars.players[playerCoord].power++;
-            //end it after a turn?
-            AudioManager.instance.Play("Potion");
-            items.powerBuffAMT--;
-            turnManager.Player_PotionAction(playerCoord);
-        }
-
-        ItemMenu();
-    }
-    //adds one to te character defense
-    public void DefenseBuff()
-    {
-        items.defenseBuffUsed = true;
-        if (items.defenseBuffAMT != 0)
-        {
-            GlobalVars.players[playerCoord].defense++;
-            AudioManager.instance.Play("Potion");
-            items.defenseBuffAMT--;
-            turnManager.Player_PotionAction(playerCoord);
-        }
-
-        ItemMenu();
-    }
-    //heals all characters
-    public void HealScroll()
-    {
-        if(items.healScrollAMT != 0)
-        {
-            foreach(var health in GlobalVars.players.Values)
-            {
-                //Debug.Log("all Player was healed");
-                if (GlobalVars.players[playerCoord].curHealth + 4 >= GlobalVars.players[playerCoord].maxHealth)
-                {
-                    GlobalVars.players[playerCoord].curHealth = GlobalVars.players[playerCoord].maxHealth;
-                    UpdateHealth(GlobalVars.players[playerCoord].curHealth);
-                }
-                GlobalVars.players[playerCoord].curHealth += 4;
-                UpdateHealth(GlobalVars.players[playerCoord].curHealth);
-                AudioManager.instance.Play("Potion");
-                Player_UpdateHealth(playerCoord);
-            }
-
-            turnManager.Player_PotionAction(playerCoord);
-            items.healScrollAMT--;
-        }
-
-        ItemMenu();
-    }
 
     /*********************************
         Other
     *********************************/
 
-    public float RollItems()
-    {
-        float itemChance = Random.Range(1, 100);
-        if(itemChance >= 50)
-        {
-            Debug.Log("Item was dropped");
-            float whatItem = Random.Range(1, 100);
-            if(itemChance > 0 && itemChance <= GlobalVars.enemies[clickedCoord].singleHealDrop) 
-            {
-                //drops single heal
-                Debug.Log("Single heal was dropped");
-            }
-            else if (itemChance > 51 && itemChance <= GlobalVars.enemies[clickedCoord].powerBuffDrop)
-            {
-                //drops power buff
-                Debug.Log("Power buff was dropped");
-            }
-            else if (itemChance > 66 && itemChance <= GlobalVars.enemies[clickedCoord].defBuffDrop)
-            {
-                //drops defense buff
-                Debug.Log("defense buff was dropped");
-            }
-            else if (itemChance > 81 && itemChance <= GlobalVars.enemies[clickedCoord].reviveDrop)
-            {
-                //drops revive
-                Debug.Log("revive was dropped");
-            }
-            else if (itemChance > 91 && itemChance <= GlobalVars.enemies[clickedCoord].healScrollDrop)
-            {
-                //drops healing scroll
-                Debug.Log("healing scroll was dropped");
-            }
-        }
-        return 0;
-    }
     //Checks how many turns are left for a tile effected by poison, removes it from the dictonary if equals 0
     public void TakePoison()
     {
@@ -599,7 +247,7 @@ public class InputManager : MonoBehaviour {
             }
             if (GlobalVars.poisonTiles[coord.Key] != 0) {
                 GlobalVars.players[coord.Key].Damage(poisonDmg);
-                Player_UpdateHealth(coord.Key);
+                combatUI.Player_UpdateHealth(coord.Key);
                 GlobalVars.poisonTiles[coord.Key]--;
             }
             if (GlobalVars.poisonTiles[coord.Key] == 0)
@@ -630,22 +278,9 @@ public class InputManager : MonoBehaviour {
         slider.value = curValue / maxValue;
     }
 
-    public void Player_UpdateHealth(Vector3Int playerCoord) {
-        Stats playerStats = GlobalVars.enemies[playerCoord];
-        GameObject currentTileObj = GlobalVars.hexagonTile[playerCoord];
-
-        currentTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = playerStats.curHealth / playerStats.maxHealth;
-    }
 
 
-    public void moveRadioWheel() {
-        Vector3 screenPosition = cam.WorldToScreenPoint(GlobalVars.hexagonTile[playerCoord].transform.position);
-        radioMenu.transform.position = screenPosition;
-    }
 
-    public void toggleRadioMenu() {
-        radioMenu.SetActive(radioMenu.activeSelf);
-    }
 
     public void selectPlayer(int index) {
         string charName = GlobalVars.choosenPlayers[index].charName;
@@ -657,7 +292,7 @@ public class InputManager : MonoBehaviour {
                 playerCoord = player.Key;
                 clickedCoord = player.Key;
 
-                UpdatePlayerMenu();
+                combatUI.UpdatePlayerMenu();
 
                 //gets players stats annd stores them
                 playerMove = GlobalVars.players[clickedCoord].move;

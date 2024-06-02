@@ -7,10 +7,11 @@ using Random = UnityEngine.Random;
 
 public class PlayerAction : MonoBehaviour {
 
-    CombatUI CombatUI;
+    CombatUI combatUI;
     TurnManager turnManager;
     TileIndicators tileIndicators;
     UnitUtilites unitUtilites;
+    InputManager inputManager;
 
     [SerializeField]
     GameObject hitParticles;
@@ -19,10 +20,11 @@ public class PlayerAction : MonoBehaviour {
     int poisonDamage = 0, smokeDodge = 0;
 
     private void Start() {
-        CombatUI = FindAnyObjectByType<CombatUI>();
+        combatUI = FindAnyObjectByType<CombatUI>();
         turnManager = FindAnyObjectByType<TurnManager>();
         tileIndicators = FindAnyObjectByType<TileIndicators>();
         unitUtilites = FindAnyObjectByType<UnitUtilites>();
+        inputManager = GetComponent<InputManager>();
 
 
         //Get Smoke Dodge and Posion Damage
@@ -61,8 +63,8 @@ public class PlayerAction : MonoBehaviour {
         if(Random.Range(1 , 100) > dodgeChange) {
             //Damage Enemy
             enemyStats.Damage(playerStats.power);
-            Debug.Log(CombatUI);
-            CombatUI.Enemy_UpdateHealth(enemyCoord);
+            Debug.Log(combatUI);
+            combatUI.Enemy_UpdateHealth(enemyCoord);
 
             //attack audio
             AudioManager.instance.Play("Player Attack");
@@ -144,4 +146,190 @@ public class PlayerAction : MonoBehaviour {
         GlobalVars.players[playerCoord].power = playerStats.power;
         GlobalVars.players[playerCoord].defense = playerStats.defense;
     }
+
+    public void SmokeBomb(Vector3Int clickedCoord , Vector3Int playerCoord) {
+        tileIndicators.ClearIndicators(playerCoord);
+        turnManager.Player_HardAction(playerCoord);
+
+        Stats playerStats = GlobalVars.enemies[playerCoord];
+
+        if(Vector3Int.Distance(clickedCoord , playerCoord) <= playerStats.attackRange + 1) {
+            tileIndicators.AttackIndicators(false , playerCoord , playerStats.attackRange);
+
+            foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(clickedCoord , 1 , false)) {
+                //adds selected tiles to a dictionary and sets an indicaotors active
+                Vector3Int t = temp.Item1;
+                GlobalVars.smokeTiles.Add(t , 2);
+                GlobalVars.hexagonTile[t].transform.GetChild(4).gameObject.SetActive(true);
+            }
+            Pathfinding.AllPossibleTiles(clickedCoord , playerStats.attackRange , false);
+
+            //Update player coord
+            GlobalVars.players.Remove(clickedCoord);
+            AudioManager.instance.Play("Potion");
+        }
+        //resets a players power and defense incase they used an item
+        GlobalVars.players[playerCoord].power = playerStats.power;
+        GlobalVars.players[playerCoord].defense = playerStats.defense;
+    }
+
+    public void Heal(int healthBack, Vector3Int clickedCoord , Vector3Int playerCoord) {
+        tileIndicators.ClearIndicators(playerCoord);
+        if(turnManager.getActionUse(playerCoord)) {
+            if(GlobalVars.players[clickedCoord].charLevel == 1) {
+                if(GlobalVars.players.ContainsKey(clickedCoord) && Vector3Int.Distance(clickedCoord , playerCoord) <= 2) {
+                    //Get Player and current + future hex objs
+                    Stats playerStats = GlobalVars.players[clickedCoord];
+                    GameObject playerTileObj = GlobalVars.hexagonTile[clickedCoord];
+
+                    //heal player
+                    playerStats.Heal(healthBack);
+                    combatUI.Player_UpdateHealth(clickedCoord);
+                    Debug.Log("Player Healed!!");
+
+                    //turns off indicator
+                    tileIndicators.HealIndicators(false , playerCoord);
+
+                    turnManager.Player_HardAction(playerCoord);
+
+                    //Update player coord
+                    GlobalVars.players.Remove(clickedCoord);
+
+                    GameObject newTileObj = GlobalVars.hexagonTile[clickedCoord];
+                    newTileObj.transform.GetChild(1).GetChild(1).GetComponent<Slider>().value = playerStats.curHealth / playerStats.maxHealth;
+                }
+            }
+            else if(GlobalVars.players[clickedCoord].charLevel == 2) {
+                foreach(Tuple<Vector3Int , int> temp in Pathfinding.AllPossibleTiles(playerCoord , 1 , false)) {
+                    //heals all players in a 1 tile range
+                    Vector3Int t = temp.Item1;
+                    GlobalVars.players[t].Heal(healthBack);
+                    Debug.Log("All players in 1 range are healed");
+                }
+
+                //turns off indicator
+                tileIndicators.HealIndicators(false , playerCoord);
+
+                turnManager.Player_HardAction(playerCoord);
+
+                //Update player coord
+                GlobalVars.players.Remove(clickedCoord);
+            }
+            //resets a players power and defense incase they used an item
+
+            Stats playerStats2 = GlobalVars.enemies[playerCoord];
+            GlobalVars.players[playerCoord].power = playerStats2.power;
+            GlobalVars.players[playerCoord].defense = playerStats2.defense;
+        }
+    }
+
+    public void Move(Vector3Int clickedCoord , Vector3Int playerCoord) {
+        tileIndicators.ClearIndicators(playerCoord);
+
+        Debug.Log(Pathfinding.PathBetweenPoints(clickedCoord , playerCoord , false).Count);
+
+        int moveRange = turnManager.getMovementLeft(playerCoord);
+        List<Tuple<Vector3Int , int>> possibles = Pathfinding.AllPossibleTiles(clickedCoord , moveRange , true);
+
+
+        foreach(Tuple<Vector3Int , int> temp in possibles) {
+            Debug.Log("--------------------");
+            int dist = Pathfinding.PathBetweenPoints(temp.Item1 , playerCoord , false).Count - 1;
+
+            foreach(Vector3Int pos in Pathfinding.PathBetweenPoints(temp.Item1 , playerCoord , true)) {
+                Debug.Log(pos);
+            }
+
+            Debug.Log(dist);
+            //Debug.Log();
+
+            if(temp.Item1 == clickedCoord && dist <= moveRange + 1) {
+                Debug.Log("Hi");
+                Movement.movePlayer(playerCoord , clickedCoord);
+                //moveRadioWheel();
+                tileIndicators.MoveIndicators(false , playerCoord);
+                inputManager.TakePoison();
+
+                AudioManager.instance.Play("Move");
+
+                turnManager.Player_Move(playerCoord , dist , clickedCoord);
+                playerCoord = clickedCoord;
+                break;
+            }
+        }
+    }
+    public void Interact(Vector3Int clickedCoord , Vector3Int playerCoord) {
+        //Debug.Log(turnManager.getActionUse(playerCoord));
+        if(!turnManager.getActionUse(playerCoord)) {
+            Debug.Log("INTERACT");
+
+            if(GlobalVars.L2_trees.Contains(clickedCoord)) {
+                //Convert Tree to Laying Down, changing specific tiles sprites
+                TileScriptableObjects mainTileInfo = GlobalVars.hexagonTileRefrence[clickedCoord];
+
+                foreach(Vector3Int offset in GlobalVars.hexagonTileRefrence[clickedCoord].tileChanges) {
+                    Vector3Int newCoord = clickedCoord + offset;
+
+                    GameObject tileObj = GlobalVars.hexagonTile[newCoord];
+                    tileObj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = mainTileInfo.objToChange.sprite;
+                    GlobalVars.hexagonTileRefrence[newCoord] = mainTileInfo.objToChange;
+                }
+
+                GlobalVars.L2_trees.Remove(clickedCoord);
+
+                //Turn all enemies to generic ai
+                foreach(KeyValuePair<Vector3Int , Stats> enemy in GlobalVars.enemies) {
+                    enemy.Value.charType = "General";
+                }
+            }
+
+            if(GlobalVars.L3_trees.Contains(clickedCoord)) {
+                //Convert Tree to Laying Down, changing specific tiles sprites
+                TileScriptableObjects mainTileInfo = GlobalVars.hexagonTileRefrence[clickedCoord];
+
+                foreach(Vector3Int offset in GlobalVars.hexagonTileRefrence[clickedCoord].tileChanges) {
+                    Vector3Int newCoord = clickedCoord + offset;
+
+                    GameObject tileObj = GlobalVars.hexagonTile[newCoord];
+                    tileObj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = mainTileInfo.objToChange.sprite;
+                    GlobalVars.hexagonTileRefrence[newCoord] = mainTileInfo.objToChange;
+                }
+
+                GlobalVars.L3_trees.Remove(clickedCoord);
+
+                //Turn all enemies to generic ai
+                foreach(KeyValuePair<Vector3Int , Stats> enemy in GlobalVars.enemies) {
+                    enemy.Value.charType = "General";
+                }
+            }
+
+            if(GlobalVars.L4_Buttons.Contains(clickedCoord)) {
+                //Changes buttons tile to button pressed
+                TileScriptableObjects mainTileInfo = GlobalVars.hexagonTileRefrence[clickedCoord];
+
+                foreach(Vector3Int offset in GlobalVars.hexagonTileRefrence[clickedCoord].tileChanges) {
+                    Vector3Int newCoord = clickedCoord + offset;
+
+                    GameObject tileObj = GlobalVars.hexagonTile[newCoord];
+                    tileObj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = mainTileInfo.objToChange.sprite;
+                    GlobalVars.hexagonTileRefrence[newCoord] = mainTileInfo.objToChange;
+                }
+
+                GlobalVars.L4_Buttons.Remove(clickedCoord);
+
+                if(GlobalVars.L4_Buttons.Count == 0) {
+                    foreach(KeyValuePair<Vector3Int , TileScriptableObjects> tile in GlobalVars.hexagonTileRefrence) {
+                        if(tile.Value.sprite.name == "Cliff_Low_comp") {
+                            GameObject tileObj = GlobalVars.hexagonTile[tile.Key];
+                            tileObj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = tile.Value.objToChange.sprite;
+                            GlobalVars.hexagonTileRefrence[tile.Key] = tile.Value.objToChange;
+                        }
+                    }
+                }
+            }
+
+            turnManager.Player_HardAction(playerCoord);
+        }
+    }
+
 }
