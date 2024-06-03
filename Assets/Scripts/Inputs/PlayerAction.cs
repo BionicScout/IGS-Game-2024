@@ -24,7 +24,7 @@ public class PlayerAction : MonoBehaviour {
         turnManager = FindAnyObjectByType<TurnManager>();
         tileIndicators = FindAnyObjectByType<TileIndicators>();
         unitUtilites = FindAnyObjectByType<UnitUtilites>();
-        inputManager = GetComponent<InputManager>();
+        inputManager = FindAnyObjectByType<InputManager>();
 
 
         //Get Smoke Dodge and Posion Damage

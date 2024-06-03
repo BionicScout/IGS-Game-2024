@@ -52,15 +52,9 @@ public class InputManager : MonoBehaviour {
     [Header("Other")]
     public Camera cam;
 
-    TurnManager turnManager;
     TileIndicators tileIndicators;
     PlayerAction playerActions;
     CombatUI combatUI;
-
-
-
-
-
 
 
 
@@ -74,17 +68,6 @@ public class InputManager : MonoBehaviour {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
     /*********************************
         Start and Update
     *********************************/
@@ -94,7 +77,6 @@ public class InputManager : MonoBehaviour {
         statsMenu.SetActive(false);
         itemMenu.SetActive(false);
 
-        turnManager = FindAnyObjectByType<TurnManager>();
         tileIndicators = FindAnyObjectByType<TileIndicators>();
         playerActions = FindAnyObjectByType<PlayerAction>();
         combatUI = FindAnyObjectByType<CombatUI>();

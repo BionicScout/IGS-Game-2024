@@ -1,15 +1,18 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class CombatUI : MonoBehaviour {
+    [Header("Menus")]
     public GameObject selectedPlayerMenu;
     public GameObject radioMenu;
     public GameObject statsMenu;
     public GameObject itemMenu;
 
     public Items items;
+
+    [Header("Debug")]
+    public bool buttonDebug = false;
 
     TileIndicators tileIndicators;
     TurnManager turnManager;
@@ -46,6 +49,8 @@ public class CombatUI : MonoBehaviour {
         tileIndicators.AttackIndicators(true , playerCoord, playerStats.attackRange);
         inputManager.inputMode = InputManager.modes.attack;
         inputManager.clickedUI = true;
+
+        if(buttonDebug) { Debug.Log("CombatUI - Attack Button Pressed"); }
     }
     public void SetMove() {
         Vector3Int playerCoord = inputManager.getPlayerCoord();
@@ -58,6 +63,8 @@ public class CombatUI : MonoBehaviour {
         tileIndicators.MoveIndicators(true , playerCoord);
         inputManager.inputMode = InputManager.modes.move;
         inputManager.clickedUI = true;
+
+        if(buttonDebug) { Debug.Log("CombatUI - Move Button Pressed"); }
     }
     public void SetSmoke() {
         Vector3Int playerCoord = inputManager.getPlayerCoord();
@@ -65,6 +72,8 @@ public class CombatUI : MonoBehaviour {
         tileIndicators.ClearIndicators(playerCoord);
         inputManager.inputMode = InputManager.modes.AOE;
         inputManager.clickedUI = true;
+
+        if(buttonDebug) { Debug.Log("CombatUI - Smoke Button Pressed"); }
     }
     public void SetHeal() {
         Vector3Int playerCoord = inputManager.getPlayerCoord();
@@ -72,6 +81,8 @@ public class CombatUI : MonoBehaviour {
         tileIndicators.ClearIndicators(playerCoord);
         inputManager.inputMode = InputManager.modes.heal;
         inputManager.clickedUI = true;
+
+        if(buttonDebug) { Debug.Log("CombatUI - Heal Button Pressed"); }
     }
     public void SetInteract() {
         Vector3Int playerCoord = inputManager.getPlayerCoord();
@@ -79,6 +90,8 @@ public class CombatUI : MonoBehaviour {
         tileIndicators.ClearIndicators(playerCoord);
         tileIndicators.InteractIndicators(playerCoord);
         inputManager.inputMode = InputManager.modes.interact;
+
+        if(buttonDebug) { Debug.Log("CombatUI - Interact Button Pressed"); }
     }
 
 
@@ -123,6 +136,8 @@ public class CombatUI : MonoBehaviour {
         baseObj.GetChild(6).GetChild(3).GetComponent<TMP_Text>().text = stats.defense.ToString();
         baseObj.GetChild(6).GetChild(4).GetComponent<TMP_Text>().text = stats.maxHealth.ToString();
         baseObj.GetChild(6).GetChild(2).GetComponent<TMP_Text>().text = stats.attackRange.ToString();
+
+        if(buttonDebug) { Debug.Log("CombatUI - Stats Menu set to " + statsMenu.activeSelf); }
     }
     //sets a menu active and changes all the information
     public void ItemMenu() {
@@ -132,6 +147,8 @@ public class CombatUI : MonoBehaviour {
         items.powerBuffTxt.text = "x" + items.powerBuffAMT.ToString();
         items.defenseBuffTxt.text = "x" + items.defenseBuffAMT.ToString();
         items.healScrollTxt.text = "x" + items.healScrollAMT.ToString();
+
+        if(buttonDebug) { Debug.Log("CombatUI - Item Menu set to " + itemMenu.activeSelf); }
     }
     public void UpdateHealth(float healthOffset) {
         Vector3Int playerCoord = inputManager.getPlayerCoord();
@@ -143,4 +160,9 @@ public class CombatUI : MonoBehaviour {
 
         selectedPlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
     }
+
+    /*********************************
+        Banner
+    *********************************/
+
 }
