@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 96bd0597b062cf94b85ded16bf380201
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - hexTilePrefab: {fileID: 4611815849578655042, guid: a84ee1a34a64c7b4a9d535edeabb73f5, type: 3}
+  - tileBaseSprite: {instanceID: 0}
+  - backgroundDecorationSprite: {instanceID: 0}
+  - objectSprite: {instanceID: 0}
+  - foregroundDecorationSprite: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

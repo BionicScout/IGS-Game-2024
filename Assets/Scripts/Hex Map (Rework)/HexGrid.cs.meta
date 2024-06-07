@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 93b7d9975af0e9043b1d54d75d477a34
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - hexTilePrefab: {fileID: 7003360315278755312, guid: a84ee1a34a64c7b4a9d535edeabb73f5, type: 3}
+  - exampleSpriteSize: {fileID: 21300000, guid: 823e3f74394a0ce4295ae3358dfe6a5d, type: 3}
+  executionOrder: 1000
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
