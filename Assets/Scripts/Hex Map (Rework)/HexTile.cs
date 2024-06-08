@@ -48,9 +48,9 @@ public class HexTile : MonoBehaviour {
         this.gameObject.name = "(" + q + ", " + r + ", " + s + ")";
     }
 
-    /*********************************
+    /******************************************************************
         SpriteRender and Sprite Layers
-    *********************************/
+    ******************************************************************/
 
     public void InitializeSpriteLayers(int layerCount) {
         spriteLayers = new SpriteRenderer[layerCount];
