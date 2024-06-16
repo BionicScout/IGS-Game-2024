@@ -1,8 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.UIElements;
-using static UnityEngine.Rendering.DebugUI.Table;
-using System.Drawing;
 
 public class HexGrid : MonoBehaviour {
     public GameObject hexTilePrefab;
@@ -63,7 +60,7 @@ public class HexGrid : MonoBehaviour {
         RemoveHexTile(OffsetToCubic(offsetCoord));
     }
 
-    private void RemoveHexTile(Vector3Int cubicCoord) {
+    public void RemoveHexTile(Vector3Int cubicCoord) {
         GameObject hexObj = hexTiles[cubicCoord].gameObject;
         hexTiles.Remove(cubicCoord);
         Destroy(hexObj);
@@ -237,17 +234,17 @@ public class HexGrid : MonoBehaviour {
     ******************************************************************/
 
     void Update() {
-        if(Input.GetMouseButtonDown(0)) {
-            Vector3 mousePoint = Input.mousePosition;
-            mousePoint.z = -Camera.main.transform.position.z;
-            Vector3 worldPoint = Camera.main.ScreenToWorldPoint(mousePoint);
-            Vector2 gridPoint = new Vector2(worldPoint.x , worldPoint.y);
-            Vector3Int hexCoords = WorldToCubic(gridPoint);
-            if(hexTiles.ContainsKey(hexCoords)) {
-                RemoveHexTile(hexCoords);
-            }
+        //if(Input.GetMouseButtonDown(0)) {
+        //    Vector3 mousePoint = Input.mousePosition;
+        //    mousePoint.z = -Camera.main.transform.position.z;
+        //    Vector3 worldPoint = Camera.main.ScreenToWorldPoint(mousePoint);
+        //    Vector2 gridPoint = new Vector2(worldPoint.x , worldPoint.y);
+        //    Vector3Int hexCoords = WorldToCubic(gridPoint);
+        //    if(hexTiles.ContainsKey(hexCoords)) {
+        //        RemoveHexTile(hexCoords);
+        //    }
 
-        }
+        //}
 
         if(Input.GetKeyDown(KeyCode.Equals)) {
             AddRow();
