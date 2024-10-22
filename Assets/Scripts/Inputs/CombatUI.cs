@@ -24,6 +24,7 @@ public class CombatUI : MonoBehaviour {
         turnManager = FindAnyObjectByType<TurnManager>();
     }
 
+
     public void Player_UpdateHealth(Vector3Int playerCoord) {
         Stats playerStats = GlobalVars.enemies[playerCoord];
         GameObject currentTileObj = GlobalVars.hexagonTile[playerCoord];
@@ -113,29 +114,13 @@ public class CombatUI : MonoBehaviour {
         UI
     *********************************/
     public void UpdatePlayerMenu() {
-        statsMenu.SetActive(false);
-
-        Vector3Int playerCoord = inputManager.getPlayerCoord();
-        Stats stats = GlobalVars.players[playerCoord];
-        //updates sprites and health
-        selectedPlayerMenu.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = stats.squareSprite;
-        //selectedPlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
+        Debug.Log("ERROR: UpdatePlayerMenu is still being called!!!!!!!! PLease replace with \"CombatUIEvents.current.updateSelectedCharacter();\"");
     }
+
     //sets a menu active and changes all the information
-    public void StatsMenu() {
-        Vector3Int playerCoord = inputManager.getPlayerCoord();
-
-        statsMenu.SetActive(!statsMenu.activeSelf);
-
-        Transform baseObj = statsMenu.transform.GetChild(0);
-
-        Stats stats = GlobalVars.players[playerCoord];
-        baseObj.GetChild(3).GetComponent<TMP_Text>().text = stats.charType.ToString();
-        baseObj.GetChild(6).GetChild(1).GetComponent<TMP_Text>().text = stats.move.ToString();
-        baseObj.GetChild(6).GetChild(0).GetComponent<TMP_Text>().text = stats.power.ToString();
-        baseObj.GetChild(6).GetChild(3).GetComponent<TMP_Text>().text = stats.defense.ToString();
-        baseObj.GetChild(6).GetChild(4).GetComponent<TMP_Text>().text = stats.maxHealth.ToString();
-        baseObj.GetChild(6).GetChild(2).GetComponent<TMP_Text>().text = stats.attackRange.ToString();
+    public void StatsMenu(bool turnOn) {
+        CombatUIEvents.current.toggleStatsMenu(turnOn);
+        CombatUIEvents.current.updateStatsMenu(inputManager);              
 
         if(buttonDebug) { Debug.Log("CombatUI - Stats Menu set to " + statsMenu.activeSelf); }
     }

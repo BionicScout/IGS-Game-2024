@@ -1,7 +1,6 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
-using TMPro;
 using Random = UnityEngine.Random;
 using Slider = UnityEngine.UI.Slider;
 using Image = UnityEngine.UI.Image;
@@ -67,6 +66,9 @@ public class InputManager : MonoBehaviour {
         return playerCoord;
     }
 
+    public void setPlayerCoord(Vector3Int coord) {
+        playerCoord = coord;
+    }
 
     /*********************************
         Start and Update
@@ -129,7 +131,8 @@ public class InputManager : MonoBehaviour {
             if(hit.collider != null) {
                 if (GlobalVars.players.ContainsKey(clickedCoord)) {
                     playerCoord = clickedCoord;
-                    combatUI.UpdatePlayerMenu();
+                    
+                    CombatUIEvents.current.updateSelectedCharacter(FindAnyObjectByType<InputManager>() , FindAnyObjectByType<TurnManager>());
 
                     //gets players stats annd stores them
                     playerMove = GlobalVars.players[clickedCoord].move;
@@ -202,6 +205,8 @@ public class InputManager : MonoBehaviour {
                 playerActions.Interact(clickedCoord , playerCoord);
                 inputMode = modes.normal;
             }
+
+            CombatUIEvents.current.updateTracker(FindAnyObjectByType<TurnManager>() , FindAnyObjectByType<InputManager>().getPlayerCoord());
         }
 
         //Debug stuff
@@ -274,7 +279,8 @@ public class InputManager : MonoBehaviour {
                 playerCoord = player.Key;
                 clickedCoord = player.Key;
 
-                combatUI.UpdatePlayerMenu();
+                
+                CombatUIEvents.current.updateSelectedCharacter(FindAnyObjectByType<InputManager>(), FindAnyObjectByType<TurnManager>());
 
                 //gets players stats annd stores them
                 playerMove = GlobalVars.players[clickedCoord].move;

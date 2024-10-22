@@ -244,7 +244,6 @@ public class PlayerAction : MonoBehaviour {
             //Debug.Log();
 
             if(temp.Item1 == clickedCoord && dist <= moveRange + 1) {
-                Debug.Log("Hi");
                 Movement.movePlayer(playerCoord , clickedCoord);
                 //moveRadioWheel();
                 tileIndicators.MoveIndicators(false , playerCoord);
@@ -253,7 +252,8 @@ public class PlayerAction : MonoBehaviour {
                 AudioManager.instance.Play("Move");
 
                 turnManager.Player_Move(playerCoord , dist , clickedCoord);
-                playerCoord = clickedCoord;
+                inputManager.setPlayerCoord(clickedCoord);
+                Debug.Log("I am being called from PlayerAction.Move.if");
                 break;
             }
         }
