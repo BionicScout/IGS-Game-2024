@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEditor;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class ToggleableUI : MonoBehaviour {
     GameObject statsMenu, itemMenu, endTurnBanner;
