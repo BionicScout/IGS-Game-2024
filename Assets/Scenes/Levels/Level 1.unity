@@ -1788,27 +1788,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8163407071556912603, guid: 985286f4a7d620e409f0053eeb50e2da, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8163407071556912603, guid: 985286f4a7d620e409f0053eeb50e2da, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 182730969}
+      objectReference: {fileID: 1974157234}
     - target: {fileID: 8163407071556912603, guid: 985286f4a7d620e409f0053eeb50e2da, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8163407071556912603, guid: 985286f4a7d620e409f0053eeb50e2da, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ItemMenu
+      value: ItemMenuButtonPress
       objectReference: {fileID: 0}
     - target: {fileID: 8163407071556912603, guid: 985286f4a7d620e409f0053eeb50e2da, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: InputManager, Assembly-CSharp
+      value: CombatUI_Rework, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8163407071556912603, guid: 985286f4a7d620e409f0053eeb50e2da, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1725276005}
+    - target: {fileID: 8163407071556912603, guid: 985286f4a7d620e409f0053eeb50e2da, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
+      value: Items, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -22,8 +22,6 @@ public class CharacterPortrait : MonoBehaviour {
     }
 
     private void UpdatePortrait(Stats PlayerStats) {
-        Debug.Log("Portrait Updadted");
-
         selectedUnitImage.sprite = PlayerStats.squareSprite;
         CombatUIEvents.current.toggleStatsMenu(false);
     }

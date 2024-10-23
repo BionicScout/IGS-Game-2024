@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class ToggleableUI : MonoBehaviour {
     GameObject statsMenu, itemMenu, endTurnBanner;
@@ -15,6 +16,8 @@ public class ToggleableUI : MonoBehaviour {
         CombatUIEvents.current.onFlipToggleStatsMenu += flipToggleStatsMenu;
 
         CombatUIEvents.current.onToggleItemMenu += ToggleItemMenu;
+        CombatUIEvents.current.onUpdateItemMenu += updateItemMenu;
+        CombatUIEvents.current.onFlipToggleItemMenu += flipToggleItemMenu;
 
         CombatUIEvents.current.onToggleEndTurnBanner += ToggleEndTurnBanner;
     }
@@ -25,6 +28,8 @@ public class ToggleableUI : MonoBehaviour {
         CombatUIEvents.current.onFlipToggleStatsMenu -= flipToggleStatsMenu;
 
         CombatUIEvents.current.onToggleItemMenu -= ToggleItemMenu;
+        CombatUIEvents.current.onUpdateItemMenu -= updateItemMenu;
+        CombatUIEvents.current.onFlipToggleItemMenu -= flipToggleItemMenu;
 
         CombatUIEvents.current.onToggleEndTurnBanner -= ToggleEndTurnBanner;
     }
@@ -70,6 +75,19 @@ public class ToggleableUI : MonoBehaviour {
     *********************************/
     private void ToggleItemMenu(bool turnOn) {
         itemMenu.SetActive(turnOn);
+    }
+
+    private void flipToggleItemMenu() {
+        itemMenu.SetActive(!itemMenu.activeSelf);
+    }
+
+    private void updateItemMenu(Items items) {
+        items.singleHealTxt.text = "x" + items.singleHealAMT.ToString();
+        items.powerBuffTxt.text = "x" + items.powerBuffAMT.ToString();
+        items.defenseBuffTxt.text = "x" + items.defenseBuffAMT.ToString();
+        items.healScrollTxt.text = "x" + items.healScrollAMT.ToString();
+
+        Debug.Log("ERROR[ToggleableUI]: Need implimentation for \"updateItemMenu()\"");
     }
 
 }

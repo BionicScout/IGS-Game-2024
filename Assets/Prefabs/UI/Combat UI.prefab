@@ -3110,7 +3110,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Player 1 did damage 6 damage to crossbow man
+  m_text: ...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f7ae91a79887aaa4f96c225e09de4e7f, type: 2}
   m_sharedMaterial: {fileID: -6979287568641916994, guid: f7ae91a79887aaa4f96c225e09de4e7f, type: 2}
@@ -5696,7 +5696,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Swordsman did 20 damage to player 3
+  m_text: ...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f7ae91a79887aaa4f96c225e09de4e7f, type: 2}
   m_sharedMaterial: {fileID: -6979287568641916994, guid: f7ae91a79887aaa4f96c225e09de4e7f, type: 2}
@@ -6156,7 +6156,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Crossbow man dis 9 damage to player 4
+  m_text: ...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f7ae91a79887aaa4f96c225e09de4e7f, type: 2}
   m_sharedMaterial: {fileID: -6979287568641916994, guid: f7ae91a79887aaa4f96c225e09de4e7f, type: 2}
@@ -7763,7 +7763,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1042920620940332161
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8086,6 +8086,7 @@ GameObject:
   - component: {fileID: 3052173705719748033}
   - component: {fileID: 6951640818438578573}
   - component: {fileID: 4969578180742049988}
+  - component: {fileID: 8210200468535992998}
   m_Layer: 5
   m_Name: Combat Log
   m_TagString: Untagged
@@ -8153,6 +8154,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8210200468535992998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9092079420324733678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06a94bff3c772f54e906625805d6079c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9211262327900819372
 GameObject:
   m_ObjectHideFlags: 0

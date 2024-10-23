@@ -77,4 +77,43 @@ public class CombatUIEvents : MonoBehaviour {
             onToggleItemMenu(turnOn);
         }
     }
+
+    public event Action onFlipToggleItemMenu;
+    public void flipToggleItemMenu() {
+        if(onToggleItemMenu != null) {
+            onFlipToggleItemMenu();
+        }
+    }
+
+    public event Action<Items> onUpdateItemMenu;
+    public void updateItemMenu(Items items) {
+        if(onUpdateItemMenu != null) {
+            onUpdateItemMenu(items);
+        }
+    }
+
+    /*********************************
+        Combat Log
+    *********************************/
+    public event Action<string> onAddCombatLog;
+    public void addCombatLog(string message) {
+        if(onAddCombatLog != null) {
+            onAddCombatLog(message);
+        }
+    }
+
+    public event Action onCombatLogUp;
+    public void CombatLogUp() {
+        if(onCombatLogUp != null) {
+            onCombatLogUp();
+        }
+    }
+
+    public event Action onCombatLogDown;
+    public void CombatLogDown() {
+        if(onCombatLogDown != null) {
+            onCombatLogDown();
+        }
+    }
+
 }

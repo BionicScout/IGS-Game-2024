@@ -114,7 +114,7 @@ public class CombatUI : MonoBehaviour {
         UI
     *********************************/
     public void UpdatePlayerMenu() {
-        Debug.Log("ERROR: UpdatePlayerMenu is still being called!!!!!!!! PLease replace with \"CombatUIEvents.current.updateSelectedCharacter();\"");
+        Debug.Log("ERROR[CombatUI]: UpdatePlayerMenu is still being called!!!!!!!! PLease replace with \"CombatUIEvents.current.updateSelectedCharacter();\"");
     }
 
     //sets a menu active and changes all the information
@@ -126,12 +126,8 @@ public class CombatUI : MonoBehaviour {
     }
     //sets a menu active and changes all the information
     public void ItemMenu() {
-        itemMenu.SetActive(!itemMenu.activeSelf);
-
-        items.singleHealTxt.text = "x" + items.singleHealAMT.ToString();
-        items.powerBuffTxt.text = "x" + items.powerBuffAMT.ToString();
-        items.defenseBuffTxt.text = "x" + items.defenseBuffAMT.ToString();
-        items.healScrollTxt.text = "x" + items.healScrollAMT.ToString();
+        CombatUIEvents.current.toggleItemMenu(true);
+        CombatUIEvents.current.updateItemMenu(items);
 
         if(buttonDebug) { Debug.Log("CombatUI - Item Menu set to " + itemMenu.activeSelf); }
     }
@@ -145,9 +141,4 @@ public class CombatUI : MonoBehaviour {
 
         selectedPlayerMenu.transform.GetChild(1).GetComponent<Slider>().value = (float)stats.curHealth / stats.maxHealth;
     }
-
-    /*********************************
-        Banner
-    *********************************/
-
 }

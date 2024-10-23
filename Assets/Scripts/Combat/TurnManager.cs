@@ -42,6 +42,7 @@ public class TurnManager : MonoBehaviour {
         worldSpacePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         allPlayerTurnsUsed = false;
+        CombatUIEvents.current.toggleEndTurnBanner(allPlayerTurnsUsed);
 
         unitUtilites = FindAnyObjectByType<UnitUtilites>();
 
@@ -151,6 +152,7 @@ public class TurnManager : MonoBehaviour {
         }
 
         allPlayerTurnsUsed = true;
+        CombatUIEvents.current.toggleEndTurnBanner(allPlayerTurnsUsed);
         //Debug.Log("PLAYER TURN HAS BEEN COMPLETED");
         ResetVals();
     }
