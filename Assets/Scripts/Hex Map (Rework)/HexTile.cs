@@ -45,7 +45,7 @@ public class HexTile : MonoBehaviour {
     public void Initialize() {
         InitializeSpriteLayers(5);
         SetSpriteLayer(0 , defaultHexSprite);
-        this.gameObject.name = "(" + q + ", " + r + ", " + s + ")";
+        gameObject.name = "(" + q + ", " + r + ", " + s + ")";
     }
 
     /******************************************************************

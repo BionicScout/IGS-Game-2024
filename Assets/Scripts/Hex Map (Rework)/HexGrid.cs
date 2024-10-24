@@ -37,7 +37,7 @@ public class HexGrid : MonoBehaviour {
 
 
     /******************************************************************
-        Creaating and Removing Tiles
+        Creating and Removing Tiles
     ******************************************************************/
     private void CreateHexTile(Vector2Int offsetCoord) {
         Vector3Int cubicCoords = OffsetToCubic(offsetCoord);
